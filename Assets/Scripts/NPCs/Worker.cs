@@ -9,6 +9,9 @@ public class Worker : MonoBehaviour
     public Animation anim;
 
     public int workerLevel; 
+    public float levelUpCost; 
+    public float levelCost; 
+    public float workingDuration; 
 
     public bool isWorking; 
 
@@ -41,6 +44,13 @@ public class Worker : MonoBehaviour
         else
         {
             anim.Stop(animation);
+        }
+    }
+
+    public void LevelUp()
+    {
+        if(GameManager.instance.totalBalance>= levelUpCost)
+        { 
         }
     }
 }

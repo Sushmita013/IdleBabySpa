@@ -6,10 +6,10 @@ public class PanZoom : MonoBehaviour
 {
     Vector3 touchStart;
     public float zoomOutMin;
-    public float zoomOutMax;
+    public float zoomOutMax; 
     //public Rect panBounds; // Define the bounding box for panning
 
-    // Update is called once per frame
+     
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -42,8 +42,8 @@ public class PanZoom : MonoBehaviour
 
             Camera.main.transform.position = newPosition;
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x, -60, 60),
-                50,
+                Mathf.Clamp(transform.position.x, -80, 80),
+                60,
                 Mathf.Clamp(transform.position.z, -40, 120)) ; 
 
         }

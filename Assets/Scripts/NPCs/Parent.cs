@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Parent : MonoBehaviour
 {
     public Animation anim;
@@ -11,12 +11,14 @@ public class Parent : MonoBehaviour
     public float serviceDuration;
     private Animator animator;
 
+    public List<Transform> movepoints;
+
     void Start()
     {
         
-    }
-     
-    void Update()
+    } 
+
+    public void Movement()
     {
         
     }
