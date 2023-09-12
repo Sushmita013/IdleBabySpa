@@ -3,11 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Furniture
+public enum Rooms
 {
-    Sofa,
-    Tv,
-    Plants
+    Reception,
+    WaterTaining,
+    Massage,
+    Haircut,
+    Pamper,
+    Playroom,
+    PhotoRoom,
+    Cafeteria,
+    Cleaning,
+    Bathroom
 }
 public class Room : MonoBehaviour
 {
@@ -18,6 +25,10 @@ public class Room : MonoBehaviour
     public Button hireButton;
     //public List<GameObject> decor;
     public List<ServiceHire> hires_worker;
+
+    public float hireCost;
+
+    public Rooms roomName;
 
     //public int decorUpgrades;
 
@@ -37,49 +48,77 @@ public class Room : MonoBehaviour
         hireButton.onClick.AddListener(OnNewHire);
     }
 
-    public void Upgrade(Furniture furniture)
+    public void UpdateValues(Rooms room)
     {
-        switch (furniture)
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        switch (room)
         {
-            case Furniture.Sofa:  
+            case Rooms.Reception:
+                PlayerPrefs.SetInt("Receptionist", totalHires); 
                 break;
-            case Furniture.Tv: 
+            case Rooms.WaterTaining:
+                PlayerPrefs.SetInt("Trainer", totalHires); 
                 break;
-            case Furniture.Plants: 
+            case Rooms.Massage:
+                PlayerPrefs.SetInt("Masseuse", totalHires);
+
+                break;
+            case Rooms.Haircut:
+                PlayerPrefs.SetInt("Dresser", totalHires);
+
+                break;
+            case Rooms.Pamper:
+                PlayerPrefs.SetInt("Nurse", totalHires);
+
+                break;
+            case Rooms.Playroom:
+                PlayerPrefs.SetInt("Nanny", totalHires);
+
+                break;
+            case Rooms.PhotoRoom:
+                PlayerPrefs.SetInt("Photographer", totalHires);
+
+                break;
+            case Rooms.Cafeteria:
+                PlayerPrefs.SetInt("Waiters", totalHires);
+
                 break;
         }
     }
+     
 
-    public void OnNewHire()
+        public void OnNewHire()
     {
         if(totalHires == 0)
-        { 
-        //hires_worker[0].gameObject.SetActive(true);
-            StartCoroutine(hires_worker[0].PlayEffects());
+        {  
+            if(GameManager.instance.totalBalance >= hireCost)
+            {
+                GameManager.instance.totalBalance -= hireCost;
+            StartCoroutine(hires_worker[totalHires].PlayEffects());
             totalHires++;
+            UpdateValues(roomName);
+            }
         } else if (totalHires == 1)
         {
-            StartCoroutine(hires_worker[1].PlayEffects());
-            totalHires++;
+            if (GameManager.instance.totalBalance >= hireCost)
+            {
+                GameManager.instance.totalBalance -= hireCost; 
+                StartCoroutine(hires_worker[totalHires].PlayEffects());
+                totalHires++;
+                UpdateValues(roomName);
+            }
         }
         else
         {
-            StartCoroutine(hires_worker[2].PlayEffects());
-            totalHires++;
-            hireButton.interactable=false;
-        }
-        //if(totalHires == 1)
-        //{ 
-        ////hires_worker[1].gameObject.SetActive(true);
-        //    StartCoroutine(hires_worker[1].PlayEffects());
-        //    totalHires++;
-        //}
-        //if(totalHires == 2)
-        //{ 
-        //hires_worker[2].gameObject.SetActive(true);
-        //    totalHires++;
-        //    hires_worker[2].PlayEffects();
-        //}
+            if (GameManager.instance.totalBalance >= hireCost)
+            {
+                GameManager.instance.totalBalance -= hireCost; 
+                StartCoroutine(hires_worker[totalHires].PlayEffects());
+                totalHires++;
+                UpdateValues(roomName);
+                hireButton.interactable = false;
+            }
+        } 
     }
      
 }

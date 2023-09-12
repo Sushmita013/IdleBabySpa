@@ -42,9 +42,9 @@ public class PanZoom : MonoBehaviour
 
             Camera.main.transform.position = newPosition;
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x, -80, 80),
+                Mathf.Clamp(transform.position.x, -140,100),
                 60,
-                Mathf.Clamp(transform.position.z, -40, 120)) ; 
+                Mathf.Clamp(transform.position.z, -80, 140)) ; 
 
         }
         zoom(Input.GetAxis("Mouse ScrollWheel")*20);
