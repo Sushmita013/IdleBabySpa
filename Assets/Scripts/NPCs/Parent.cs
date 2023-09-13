@@ -8,7 +8,12 @@ public class Parent : MonoBehaviour
 
     public bool isEngaged;
 
+    public bool isWaiting;
+
+    public bool isWalking; 
+
     public float serviceDuration;
+
     private Animator animator;
 
     public List<Transform> movepoints;

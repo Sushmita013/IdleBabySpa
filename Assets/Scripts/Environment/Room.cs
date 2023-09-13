@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum Rooms
+public enum Departments
 {
     Reception,
     WaterTaining,
@@ -28,7 +28,7 @@ public class Room : MonoBehaviour
 
     public float hireCost;
 
-    public Rooms roomName;
+    public Departments roomName;
 
     //public int decorUpgrades;
 
@@ -48,38 +48,38 @@ public class Room : MonoBehaviour
         hireButton.onClick.AddListener(OnNewHire);
     }
 
-    public void UpdateValues(Rooms room)
+    public void UpdateValues(Departments room)
     {
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
         switch (room)
         {
-            case Rooms.Reception:
+            case Departments.Reception:
                 PlayerPrefs.SetInt("Receptionist", totalHires); 
                 break;
-            case Rooms.WaterTaining:
+            case Departments.WaterTaining:
                 PlayerPrefs.SetInt("Trainer", totalHires); 
                 break;
-            case Rooms.Massage:
+            case Departments.Massage:
                 PlayerPrefs.SetInt("Masseuse", totalHires);
 
                 break;
-            case Rooms.Haircut:
+            case Departments.Haircut:
                 PlayerPrefs.SetInt("Dresser", totalHires);
 
                 break;
-            case Rooms.Pamper:
+            case Departments.Pamper:
                 PlayerPrefs.SetInt("Nurse", totalHires);
 
                 break;
-            case Rooms.Playroom:
+            case Departments.Playroom:
                 PlayerPrefs.SetInt("Nanny", totalHires);
 
                 break;
-            case Rooms.PhotoRoom:
+            case Departments.PhotoRoom:
                 PlayerPrefs.SetInt("Photographer", totalHires);
 
                 break;
-            case Rooms.Cafeteria:
+            case Departments.Cafeteria:
                 PlayerPrefs.SetInt("Waiters", totalHires);
 
                 break;

@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class ServiceHire : MonoBehaviour
 {
+    public bool isOccupied;
     public List<ParticleSystem> effects;
 
     public int childrenDestroyed;

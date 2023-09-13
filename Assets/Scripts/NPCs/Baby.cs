@@ -1,18 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum Departments
-{
-    Massage,
-    Water,
-    Haircut,
-    Pamper,
-    Playroom,
-    PhotoRoom,
-    Cafeteria,
-    Bathroom,  
-}
+  
 
 public class Baby : MonoBehaviour
 {
