@@ -25,6 +25,14 @@ public class Parent : MonoBehaviour
 
     public void Movement()
     {
-        
+        //if-----
+        PlayAnimation("ANim1");
+        //else
+        PlayAnimation("Anim2");
+    }
+
+    public void PlayAnimation(string anim)
+    {
+        animator.Play(anim);
     }
 }

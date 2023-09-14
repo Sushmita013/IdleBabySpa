@@ -22,35 +22,26 @@ public class Room : MonoBehaviour
     public int totalUpgrades;
     public int totalHires; 
 
-    public Button hireButton;
-    //public List<GameObject> decor;
+    public Button hireButton; 
     public List<ServiceHire> hires_worker;
 
     public float hireCost;
 
+    public GameObject UpgradePanel;
+
     public Departments roomName;
 
-    //public int decorUpgrades;
-
-    //public Furniture furnitureType;
-
-    //public float sofaCost;
-    //public float tvCost;
-    //public float plantsCost;
-
-    //public int sofaLevel;
-    //public int tvLevel;
-    //public int plantsLevel;
-     
     void Start()
     {
-        instance = this;
+        instance = this; 
+         
         hireButton.onClick.AddListener(OnNewHire);
     }
 
     public void UpdateValues(Departments room)
     {
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        CanvasManager.instance.totalHires.text = totalHires.ToString();
         switch (room)
         {
             case Departments.Reception:
@@ -120,5 +111,17 @@ public class Room : MonoBehaviour
             }
         } 
     }
-     
+
+    //public void UpgradeClick()
+    //{
+    //    startLevel++;
+    //    costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+    //    incomePerLevel += income_Increase;
+    //    //incomePerLevel += incomePerLevel * (income_Increase / 100);
+    //    costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+    //    incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
+    //    Debug.Log("Cost " + startLevel + ": " + costPerLevel);
+    //    Debug.Log("Income " + startLevel + ": " + incomePerLevel);
+    //}
+
 }

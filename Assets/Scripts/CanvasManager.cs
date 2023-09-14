@@ -8,6 +8,9 @@ public class CanvasManager : MonoBehaviour
 {
     public static CanvasManager instance;
     public TMP_Text totalBalance_text;
+    public TMP_Text totalHires;
+
+
     void Start()
     {
         instance = this;

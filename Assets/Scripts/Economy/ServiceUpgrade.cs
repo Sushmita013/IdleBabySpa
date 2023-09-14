@@ -5,13 +5,20 @@ using UnityEngine.UI;
 
 public class ServiceUpgrade : MonoBehaviour
 {
+    public Departments roomName; 
     public int startLevel;
     public float startCost;
     public float startIncome;
     public int endLevel;
+     
+    public Button upgradeLevel;
 
+    public List<ButtonTabsChange> tabs;
+    public List<GameObject> panels;
+    public List<Button> buttons;
+    
     public float cost_percentageIncrease;
-    public float income_percentageIncrease;
+    public float income_Increase;
 
     public float costPerLevel;
     public float incomePerLevel;
@@ -25,26 +32,61 @@ public class ServiceUpgrade : MonoBehaviour
         startIncome = 2;
 
         cost_percentageIncrease = 6;
-        income_percentageIncrease = 10;
-
-        // Initialize cost and income for the first level
+        income_Increase = 0.2f;
+         
         costPerLevel = startCost;
         incomePerLevel = startIncome;
 
-        // Loop through levels and calculate cost and income per level
-        for (int level = startLevel + 1; level <= endLevel; level++)
+        upgradeLevel.onClick.AddListener(UpgradeClick);
+
+        for (int i = 0; i < 3; i++)
         {
-            costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-            incomePerLevel += incomePerLevel * (income_percentageIncrease / 100);
-            costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-            incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
-            Debug.Log("Cost " + level + ": " + costPerLevel);
-            Debug.Log("Income " + level + ": " + incomePerLevel);
+            int buttonIndex = i;
+            buttons[i].onClick.AddListener(() => ButtonClick(buttonIndex));
         }
+
+
     }
 
     public void UpgradeClick()
     {
-        // Add upgrade logic here
+        startLevel++;
+            costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+            incomePerLevel += income_Increase;
+            //incomePerLevel += incomePerLevel * (income_Increase / 100);
+            costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+            incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
+            Debug.Log("Cost " + startLevel + ": " + costPerLevel);
+            Debug.Log("Income " + startLevel + ": " + incomePerLevel); 
     }
+
+    public void HandleButtonStateChange(ButtonTabsChange button)
+    { 
+        ResetPanels();
+         
+        int buttonIndex = tabs.IndexOf(button);
+
+        if (buttonIndex != -1 && buttonIndex < panels.Count)
+        { 
+            panels[buttonIndex].SetActive(true);
+        }
+    }
+      
+    public void ButtonClick(int buttonIndex)
+    {
+        if (buttonIndex >= 0 && buttonIndex < tabs.Count)
+        {
+            tabs[buttonIndex].ChangeState(ButtonStates.selected);
+        }
+    } 
+
+    public void ResetPanels()
+    {
+        foreach (GameObject item in panels)
+        {
+            item.SetActive(false);
+        }
+    }
+ 
+     
 }
