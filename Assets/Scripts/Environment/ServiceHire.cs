@@ -12,6 +12,8 @@ public class ServiceHire : MonoBehaviour
     public int childrenDestroyed;
 
     public GameObject service;
+
+    public int scale;
     void Start()
     {
         foreach (ParticleSystem item in effects)
@@ -27,7 +29,7 @@ public class ServiceHire : MonoBehaviour
         effects[1].Play();
         yield return new WaitForSeconds(0.10f);
         service.SetActive(true);
-        service.transform.DOScale(new Vector3(1, 1, 1), 0.75f); 
+        service.transform.DOScale(new Vector3(scale, scale, scale), 0.75f); 
         yield return new WaitForSeconds(0.75f);
         foreach (Transform child in transform)
         {

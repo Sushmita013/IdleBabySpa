@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public float totalBalance;
+    public float totalBalance_hard;
     public int totalUpgrades;
 
     public int totalDecor;
@@ -23,7 +24,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        totalBalance = 1000;
+        totalBalance = 500;
+        totalBalance_hard = 50; 
         reception_hires = PlayerPrefs.GetInt("Receptionist");
         water_hires = PlayerPrefs.GetInt("Trainer");
         massage_hires = PlayerPrefs.GetInt("Masseuse");
