@@ -32,9 +32,7 @@ public class CamSwitch : MonoBehaviour
             {
                 case Departments.Reception:
                     Room1.instance.UpgradeUIpanels[0].transform.DOLocalMoveY(0, 1f);
-                    Room1.instance.closeButton.interactable = true;
-
-            //Room1.instance.hasUI = true;
+                    Room1.instance.closeButton.interactable = true; 
                     break;
                 case Departments.WaterTaining:
                     break;
@@ -58,8 +56,15 @@ public class CamSwitch : MonoBehaviour
 
                     break;
             }
-        }
-
-
+        }  
     }
+
+    public void CamZoom()
+    {
+        if (Camera.main.transform.position != camPos.localPosition)
+        {
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 1f);
+        }
+    } 
 }

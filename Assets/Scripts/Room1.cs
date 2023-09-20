@@ -154,6 +154,14 @@ public class Room1 : MonoBehaviour
                 break;
         }
     }
+    public void CamZoom()
+    {
+        if (Camera.main.transform.position != camPos.localPosition)
+        {
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 1f);
+        }
+    }
 
     public void UpdateHard()
     {
