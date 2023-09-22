@@ -20,30 +20,25 @@ public enum Departments
 
 public class Room1 : MonoBehaviour
 {
-    public static Room1 instance;
-    public int totalUpgrades;
+    public static Room1 instance; 
     public int totalHires;
 
     public Button hireButton;
     public Button buyChair;
-    public Button buyTv;
-    public List<ServiceHire> hires_worker;
+    public Button buyTv; 
 
     public float hireCost;
     public TMP_Text hireText; 
 
     public Departments roomName;
 
-    public List<GameObject> UpgradeUIpanels;
-
+    public List<GameObject> UpgradeUIpanels; 
 
     public Transform camPos;
     public float moveSpeed = 2.0f;
     public int zoomSize;
 
-    public bool hasUI;
-
-    //public List<bool> hasUI;
+    public bool hasUI; 
 
     public Button closeButton;
 
@@ -57,7 +52,7 @@ public class Room1 : MonoBehaviour
     {
         instance = this; 
         hireText.text = hireCost.ToString();
-        hireButton.onClick.AddListener(OnNewHire);
+        //hireButton.onClick.AddListener(OnNewHire);
         closeButton.interactable = false;
         closeButton.onClick.AddListener(CloseButtonClick);
         buyChair.onClick.AddListener(Chair);
@@ -146,8 +141,8 @@ public class Room1 : MonoBehaviour
     {
         if (Camera.main.transform.position != camPos.localPosition)
         {
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 1f);
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.75f);
         }
     }
 
@@ -156,40 +151,40 @@ public class Room1 : MonoBehaviour
         CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalBalance_hard.ToString(); 
     }
 
-    public void OnNewHire()
-    {
-        if (totalHires == 0)
-        {
-            if (GameManager.instance.totalBalance >= hireCost)
-            {
-                GameManager.instance.totalBalance -= hireCost;
-                StartCoroutine(hires_worker[totalHires].PlayEffects());
-                totalHires++;
-                UpdateValues(roomName); 
-            }
-        }
-        else if (totalHires == 1)
-        {
-            if (GameManager.instance.totalBalance >= hireCost)
-            {
-                GameManager.instance.totalBalance -= hireCost;
-                StartCoroutine(hires_worker[totalHires].PlayEffects());
-                totalHires++;
-                UpdateValues(roomName);
-            }
-        }
-        else
-        {
-            if (GameManager.instance.totalBalance >= hireCost)
-            {
-                GameManager.instance.totalBalance -= hireCost;
-                StartCoroutine(hires_worker[totalHires].PlayEffects());
-                totalHires++;
-                UpdateValues(roomName);
-                hireButton.interactable = false;
-            }
-        }
-    }
+    //public void OnNewHire()
+    //{
+    //    if (totalHires == 0)
+    //    {
+    //        if (GameManager.instance.totalBalance >= hireCost)
+    //        {
+    //            GameManager.instance.totalBalance -= hireCost;
+    //            StartCoroutine(hires_worker[totalHires].PlayEffects());
+    //            totalHires++;
+    //            UpdateValues(roomName); 
+    //        }
+    //    }
+    //    else if (totalHires == 1)
+    //    {
+    //        if (GameManager.instance.totalBalance >= hireCost)
+    //        {
+    //            GameManager.instance.totalBalance -= hireCost;
+    //            StartCoroutine(hires_worker[totalHires].PlayEffects());
+    //            totalHires++;
+    //            UpdateValues(roomName);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (GameManager.instance.totalBalance >= hireCost)
+    //        {
+    //            GameManager.instance.totalBalance -= hireCost;
+    //            StartCoroutine(hires_worker[totalHires].PlayEffects());
+    //            totalHires++;
+    //            UpdateValues(roomName);
+    //            hireButton.interactable = false;
+    //        }
+    //    }
+    //}
 
     //public void UpgradeClick()
     //{

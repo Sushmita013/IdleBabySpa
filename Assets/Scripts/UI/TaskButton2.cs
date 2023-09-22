@@ -30,7 +30,6 @@ public class TaskButton2 : MonoBehaviour
     {
         if (!taskComplete)
         { 
-            room.CamZoom();
             HidePopup();
             yield return new WaitForSeconds(0.5f);
             CanvasManager.instance.taskNumber += 1; 
@@ -38,13 +37,13 @@ public class TaskButton2 : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-90, 0.5f);
             explosionFx.Play();
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.5f);
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true);
-            Destroy(addUI);
-            Destroy(explosionFx);
-            Destroy(effectUI);
+            Destroy(addUI.gameObject);
+            Destroy(explosionFx.gameObject);
+            Destroy(effectUI.gameObject);
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
@@ -66,21 +65,13 @@ public class TaskButton2 : MonoBehaviour
 
     public void ShowPopup(string errorMessage)
     {
+            room.CamZoom();
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel();
         errorPopup.SetErrorMessage(errorMessage);
-        errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
-        if (CanvasManager.instance.taskNumber == 2)
-        {
-            objectToEnable.SetActive(true);
-            objectToEnable.transform.DOScale(new Vector3(.5f, .5f, .5f), 0.05f);
-        }
-        if (CanvasManager.instance.taskNumber == 3)
-        {
-            objectToEnable.SetActive(true);
-            objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
-        }
+        errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete())); 
+        objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
     }
 
     public void ShowReward(string message)

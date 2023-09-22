@@ -29,12 +29,16 @@ public class Cashier : MonoBehaviour
     public GameObject unlocked;
     public GameObject locked;
     public GameObject service;
+    public GameObject service1;
 
-    public List<ParticleSystem> effects;
-
+    public List<ParticleSystem> effects; 
 
     void Start()
-    {
+    { 
+        foreach (ParticleSystem item in effects)
+        {
+            item.Stop();
+        }
         hireButton.onClick.AddListener(() => StartCoroutine(HireCashier()));
         upgradeButton.onClick.AddListener(UpgradeClick);
     }
@@ -53,28 +57,20 @@ public class Cashier : MonoBehaviour
             {
                 StartCoroutine(Reception.instance.taskList[0].TaskComplete());
             }
-            service.transform.DOScale(new Vector3(0, 0, 0), 0.05f);
+            service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
+            service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
+
             effects[0].Play();
             effects[1].Play();
             yield return new WaitForSeconds(0.10f);
             service.SetActive(true);
             service.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
-            //yield return new WaitForSeconds(0.75f);
-            //foreach (Transform child in transform)
-            //{
-            //    // Check if we have destroyed the first two children.
-            //    if (childrenDestroyed < 2)
-            //    {
-            //        // Destroy the child.
-            //        Destroy(child.gameObject);
-            //        childrenDestroyed++;
-            //    }
-            //    else
-            //    {
-            //        // If we have already destroyed the first two children, break out of the loop.
-            //        break;
-            //    }
-            //}
+            service1.SetActive(true);
+            service1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f);
+
+            yield return new WaitForSeconds(0.5f);
+            Destroy(effects[0].gameObject);
+            Destroy(effects[1].gameObject); 
         }
     }
 
@@ -87,6 +83,7 @@ public class Cashier : MonoBehaviour
 
     public void UpgradeClick()
     {
+        effects[2].Play();
         if(GameManager.instance.totalBalance >= costPerLevel)
         {
             GameManager.instance.totalBalance -= costPerLevel;

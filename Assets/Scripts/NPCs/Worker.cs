@@ -1,35 +1,132 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
+using TMPro;
 
 public class Worker : MonoBehaviour
 {
-    public string workerType;
+    public string workerType;   
 
-    public Animation anim;
+    public bool isUnlocked;
+    public bool isWorking;
 
-    public int workerLevel; 
-    public float levelUpCost; 
-    public float levelCost; 
-    public float workingDuration; 
+    public int workerLevel;
 
-    public bool isWorking; 
+    public float workerSpeed;
+    public float costPerLevel;
 
-    public List<GameObject> workerUpgrades;
-     
+    private int childrenDestroyed;
+    public float hireCost;
+    public float cost_percentageIncrease;
+    public float speed_percentageIncrease;
 
-    private Animator animator;
-    public float animationDuration = 5.0f;
+    public Button upgradeButton;
+    public Button upgradeSpeedButton;
+    public Button hireButton;
 
+    public TMP_Text speedText;
+    public TMP_Text levelText;
+    public TMP_Text upgradeCostText;
+
+    public GameObject unlocked;
+    public GameObject locked;
+    public GameObject service;
+    public GameObject service1;
+
+    public List<ParticleSystem> effects;
+
+    public Animator animator;  
+    public string animIdle;
+    public string animWork;
+
+    public List<ButtonTabsChange> tabs;
+    public List<GameObject> panels;
+    public List<Button> buttons;
 
     void Start()
     {
-    animator = GetComponent<Animator>(); 
+        for (int i = 0; i < 3; i++)
+        {
+            int buttonIndex = i;
+            buttons[i].onClick.AddListener(() => ButtonClick(buttonIndex));
+        }
+        animator = GetComponent<Animator>(); 
+        foreach (ParticleSystem item in effects)
+        {
+            item.Stop();
+        }
+        hireButton.onClick.AddListener(() => StartCoroutine(HireWorker()));
+        upgradeButton.onClick.AddListener(UpgradeService);
     }
+
+    public IEnumerator HireWorker()
+    {
+        if (GameManager.instance.totalBalance >= hireCost && !isUnlocked)
+        {
+            isUnlocked = true;
+            locked.SetActive(false);
+            unlocked.SetActive(true);
+            GameManager.instance.totalBalance -= hireCost;
+            Reception.instance.totalCashiers++;
+            UpdateValues();
+            if (Reception.instance.totalCashiers == 1)
+            {
+                StartCoroutine(Reception.instance.taskList[0].TaskComplete());
+            }
+            service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
+            service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
+
+            effects[0].Play();
+            effects[1].Play();
+            yield return new WaitForSeconds(0.10f);
+            service.SetActive(true);
+            service.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
+            service1.SetActive(true);
+            service1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f);
+
+            yield return new WaitForSeconds(0.5f);
+            Destroy(effects[0].gameObject);
+            Destroy(effects[1].gameObject);
+        }
+    }
+
+    public void UpdateValues()
+    {
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        Reception.instance.totalHires_text.text = Reception.instance.totalCashiers.ToString();
+        PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
+    }
+
+    public void UpgradeSpeed()
+    {
+        effects[2].Play();
+        if (GameManager.instance.totalBalance >= costPerLevel)
+        {
+            GameManager.instance.totalBalance -= costPerLevel;
+            UpdateValues();
+            workerLevel++;
+            costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+            workerSpeed += workerSpeed * (speed_percentageIncrease / 100);
+            costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+            workerSpeed = Mathf.Round(workerSpeed * 100) / 100; // Round to 2 decimal place
+
+            levelText.text = workerLevel.ToString();
+            upgradeCostText.text = costPerLevel.ToString();
+            speedText.text = workerSpeed.ToString();
+        }
+        if (workerLevel == 5)
+        {
+            StartCoroutine(Reception.instance.taskList[1].TaskComplete());
+        }
+    }
+     
     public IEnumerator Movement()
     {
+        PlayAnimation(animIdle);
         yield return new WaitForSeconds(1);
-        PlayAnimation("Massage");
+        PlayAnimation(animWork);
     }
 
     public void PlayAnimation(string animation)
@@ -53,10 +150,49 @@ public class Worker : MonoBehaviour
         //}
     }
 
-    public void LevelUp()
+    public void HandleButtonStateChange(ButtonTabsChange button)
     {
-        if(GameManager.instance.totalBalance>= levelUpCost)
-        { 
+        ResetPanels();
+
+        int buttonIndex = tabs.IndexOf(button);
+
+        if (buttonIndex != -1 && buttonIndex < panels.Count)
+        {
+            panels[buttonIndex].SetActive(true);
         }
     }
+
+    public void ButtonClick(int buttonIndex)
+    {
+        if (buttonIndex >= 0 && buttonIndex < tabs.Count)
+        {
+            tabs[buttonIndex].ChangeState(ButtonStates.selected);
+        }
+    }
+
+    public void ResetPanels()
+    {
+        foreach (GameObject item in panels)
+        {
+            item.SetActive(false);
+        }
+    }
+
+    public void UpgradeService()
+    {
+        //startLevel++;
+        //costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+        //incomePerLevel += income_Increase;
+        ////incomePerLevel += incomePerLevel * (income_Increase / 100);
+        //costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+        //incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
+
+        //cost_per_Level.text = costPerLevel.ToString();
+        //income_per_Level.text = incomePerLevel.ToString();
+        //current_Level.text = startLevel.ToString();
+
+        //Debug.Log("Cost " + startLevel + ": " + costPerLevel);
+        //Debug.Log("Income " + startLevel + ": " + incomePerLevel);
+    }
+
 }

@@ -15,9 +15,7 @@ public class ServiceUpgrade : MonoBehaviour
      
     public Button upgradeLevel; 
 
-    public List<ButtonTabsChange> tabs;
-    public List<GameObject> panels;
-    public List<Button> buttons;
+    
     
     public float cost_percentageIncrease;
     public float income_Increase;
@@ -33,73 +31,24 @@ public class ServiceUpgrade : MonoBehaviour
 
     void Start()
     {
-        startLevel = 1;
-        endLevel = 25;
+        //startLevel = 1;
+        //endLevel = 25;
 
-        startCost = 2;
-        startIncome = 2;
+        //startCost = 2;
+        //startIncome = 2;
 
-        cost_percentageIncrease = 6;
-        income_Increase = 0.2f;
+        //cost_percentageIncrease = 6;
+        //income_Increase = 0.2f;
          
-        costPerLevel = startCost;
-        incomePerLevel = startIncome;
-
-        upgradeLevel.onClick.AddListener(UpgradeClick);
-
-        for (int i = 0; i < 3; i++)
-        {
-            int buttonIndex = i;
-            buttons[i].onClick.AddListener(() => ButtonClick(buttonIndex));
-        } 
+        //costPerLevel = startCost;
+        //incomePerLevel = startIncome; 
 
 
     }
 
-    public void UpgradeClick()
-    {
-        startLevel++;
-            costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-            incomePerLevel += income_Increase;
-            //incomePerLevel += incomePerLevel * (income_Increase / 100);
-            costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-            incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
+    
 
-            cost_per_Level.text = costPerLevel.ToString();
-            income_per_Level.text = incomePerLevel.ToString();
-        current_Level.text = startLevel.ToString();
-
-            Debug.Log("Cost " + startLevel + ": " + costPerLevel);
-            Debug.Log("Income " + startLevel + ": " + incomePerLevel); 
-    }
-
-    public void HandleButtonStateChange(ButtonTabsChange button)
-    { 
-        ResetPanels();
-         
-        int buttonIndex = tabs.IndexOf(button);
-
-        if (buttonIndex != -1 && buttonIndex < panels.Count)
-        { 
-            panels[buttonIndex].SetActive(true);
-        }
-    }
-      
-    public void ButtonClick(int buttonIndex)
-    {
-        if (buttonIndex >= 0 && buttonIndex < tabs.Count)
-        {
-            tabs[buttonIndex].ChangeState(ButtonStates.selected);
-        }
-    } 
-
-    public void ResetPanels()
-    {
-        foreach (GameObject item in panels)
-        {
-            item.SetActive(false);
-        }
-    }
+    
 
      
 

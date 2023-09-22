@@ -20,6 +20,10 @@ public class TaskButton : MonoBehaviour
 
     public Room1 room;
 
+    public Transform effectObjects;
+    public int childrenDestroyed;
+
+
     void Start()
     {
         explosionFx.Stop();
@@ -30,14 +34,10 @@ public class TaskButton : MonoBehaviour
     {
         if (!taskComplete)
         {
-            if (CanvasManager.instance.taskNumber == 1)
-            { 
-            room.CamZoom();
-            }
-            Destroy(addUI); 
-            Destroy(effectUI);
+            Destroy(addUI.gameObject); 
+            Destroy(effectUI.gameObject);
             HidePopup();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.25f);
             CanvasManager.instance.taskNumber += 1;
             if (CanvasManager.instance.taskNumber == 2)
             { 
@@ -45,9 +45,7 @@ public class TaskButton : MonoBehaviour
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
             if (CanvasManager.instance.taskNumber == 3)
-            { 
-            Reception.instance.CamZoom();
-                yield return new WaitForSeconds(0.5f); 
+            {  
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
             } 
@@ -55,8 +53,8 @@ public class TaskButton : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-90, 0.5f);
             explosionFx.Play();
-            yield return new WaitForSeconds(0.75f);
-            Destroy(explosionFx);
+            yield return new WaitForSeconds(0.75f); 
+            Destroy(explosionFx.gameObject); 
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
@@ -78,7 +76,7 @@ public class TaskButton : MonoBehaviour
     }
 
     public void ShowPopup(string errorMessage)
-    {
+    { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel(); 
@@ -86,14 +84,14 @@ public class TaskButton : MonoBehaviour
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
         if (CanvasManager.instance.taskNumber == 2)
         {
-            objectToEnable.SetActive(true);
-            objectToEnable.transform.DOScale(new Vector3(.5f, .5f, .5f), 0.05f);
-        }
-        if (CanvasManager.instance.taskNumber == 3)
-        {
-            objectToEnable.SetActive(true);
+            Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
         }
+        if (CanvasManager.instance.taskNumber == 1)
+        { 
+            room.CamZoom();
+            objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
+        } 
     }
 
     public void ShowReward(string message)

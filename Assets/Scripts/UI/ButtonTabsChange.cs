@@ -39,7 +39,7 @@ public class ButtonTabsChange : MonoBehaviour
     {
         currentState = newState;
          
-        ServiceUpgrade panelManager = FindObjectOfType<ServiceUpgrade>();
+        Worker panelManager = FindObjectOfType<Worker>();
         if (panelManager != null)
         {
             panelManager.HandleButtonStateChange(this);
