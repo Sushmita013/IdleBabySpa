@@ -30,16 +30,15 @@ public class TaskButton : MonoBehaviour
     {
         if (!taskComplete)
         {
+            if (CanvasManager.instance.taskNumber == 1)
+            { 
             room.CamZoom();
+            }
+            Destroy(addUI); 
+            Destroy(effectUI);
             HidePopup();
             yield return new WaitForSeconds(0.5f);
             CanvasManager.instance.taskNumber += 1;
-            taskComplete = true;  
-            gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOLocalMoveY(-90, 0.5f);
-            explosionFx.Play();
-            yield return new WaitForSeconds(0.75f);
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
             if (CanvasManager.instance.taskNumber == 2)
             { 
             objectToEnable.SetActive(true);
@@ -47,11 +46,18 @@ public class TaskButton : MonoBehaviour
             }
             if (CanvasManager.instance.taskNumber == 3)
             { 
-            objectToEnable.SetActive(true);
+            Reception.instance.CamZoom();
+                yield return new WaitForSeconds(0.5f); 
+                objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
             } 
-            Destroy(addUI); 
+            taskComplete = true;  
+            gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            gameObject.transform.DOLocalMoveY(-90, 0.5f);
+            explosionFx.Play();
+            yield return new WaitForSeconds(0.75f);
             Destroy(explosionFx);
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));

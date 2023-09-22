@@ -46,7 +46,6 @@ public class RewardPanel : MonoBehaviour
         popupWindow.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f).OnComplete(() =>
         {
             popupWindow.SetActive(false); 
-        });
-         
+        }); 
     }
 }

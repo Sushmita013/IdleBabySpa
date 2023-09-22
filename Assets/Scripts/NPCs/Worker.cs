@@ -25,26 +25,32 @@ public class Worker : MonoBehaviour
     void Start()
     {
     animator = GetComponent<Animator>(); 
-    } 
+    }
+    public IEnumerator Movement()
+    {
+        yield return new WaitForSeconds(1);
+        PlayAnimation("Massage");
+    }
 
     public void PlayAnimation(string animation)
     {
-        if (isWorking)
-        {
-            anim.Play(animation);
-            animationDuration -= Time.deltaTime;
+        animator.Play(animation);
+        //if (isWorking)
+        //{
+        //    anim.Play(animation);
+        //    animationDuration -= Time.deltaTime;
 
-            // If the duration is less than or equal to 0, stop the animation
-            if (animationDuration <= 0)
-            {
-                animator.speed = 0; // Pause the animation
-                                    // You can also add any other logic you want to perform when stopping the animation here
-            }
-        }
-        else
-        {
-            anim.Stop(animation);
-        }
+        //    // If the duration is less than or equal to 0, stop the animation
+        //    if (animationDuration <= 0)
+        //    {
+        //        animator.speed = 0; // Pause the animation
+        //                            // You can also add any other logic you want to perform when stopping the animation here
+        //    }
+        //}
+        //else
+        //{
+        //    anim.Stop(animation);
+        //}
     }
 
     public void LevelUp()

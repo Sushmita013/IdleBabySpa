@@ -29,11 +29,7 @@ public class CamSwitch : MonoBehaviour
             Camera.main.DOOrthoSize(zoomSize, 1f);
             yield return 1f;
             switch (Room1.instance.roomName)
-            {
-                case Departments.Reception:
-                    Room1.instance.UpgradeUIpanels[0].transform.DOLocalMoveY(0, 1f);
-                    Room1.instance.closeButton.interactable = true; 
-                    break;
+            { 
                 case Departments.WaterTaining:
                     break;
                 case Departments.Massage:

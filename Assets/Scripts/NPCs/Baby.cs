@@ -22,16 +22,28 @@ public class Baby : MonoBehaviour
 
     public IEnumerator Service()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         //gameObject.transform.DOScale(new Vector3(1, 1, 1), 0.15f);
         //gameObject.transform.position = new Vector3(-33.3f, -6.2f, 12.5f);
         gameObject.transform.DOMove(new Vector3(-33.3f, -6.2f, 12.5f), 0.05f).SetEase(Ease.Linear).OnComplete(() =>
         {
             //gameObject.transform.DORotate(new Vector3(0, 90, -90), 0.05f);
-        gameObject.transform.rotation = Quaternion.Euler(0, 90, -90);
+            gameObject.transform.rotation = Quaternion.Euler(0, 90, -90);
             PlayAnimation("baby on table");
         });
     }
+    //public IEnumerator Service()
+    //{
+    //        PlayAnimation("father putting baby on table");
+    //    yield return new WaitForSeconds(3f);
+    //    PlayAnimation("baby on table");
+
+    //    //gameObject.transform.DOMove(new Vector3(-33.3f, -6.2f, 12.5f), 0.05f).SetEase(Ease.Linear).OnComplete(() =>
+    //    //{
+    //    //    //gameObject.transform.DORotate(new Vector3(0, 90, -90), 0.05f);
+    //    //gameObject.transform.rotation = Quaternion.Euler(0, 90, -90);
+    //    //});
+    //}
 
     public void PlayAnimation(string animation)
     {
