@@ -19,11 +19,12 @@ public class TaskButton2 : MonoBehaviour
     public ParticleSystem explosionFx;
 
     public Parking room;
-
+    public Button parkingButton;
     void Start()
     {
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
+        parkingButton.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
     }
 
     public IEnumerator TaskComplete()

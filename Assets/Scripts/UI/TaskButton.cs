@@ -23,17 +23,22 @@ public class TaskButton : MonoBehaviour
     public Transform effectObjects;
     public int childrenDestroyed;
 
+    public Button roomButton;
+    public GameObject carManager;
+
 
     void Start()
     {
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
+        roomButton.onClick.AddListener(() => ShowPopup(messageText)); 
     }
 
     public IEnumerator TaskComplete()
     {
         if (!taskComplete)
         {
+            carManager.SetActive(true);
             Destroy(addUI.gameObject); 
             Destroy(effectUI.gameObject);
             HidePopup();

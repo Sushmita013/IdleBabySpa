@@ -26,6 +26,18 @@ public class Father : MonoBehaviour
         yield return new WaitForSeconds(1); 
         PlayAnimation("Father holding baby walk");
         Baby.instance.PlayAnimation("Father holding baby idle");
+        gameObject.transform.DOMove(movepoints[8].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
+        });
+        yield return new WaitForSeconds(1.01f);
+
+        gameObject.transform.DOMove(movepoints[9].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
+        });
+        yield return new WaitForSeconds(1.01f);
+
         gameObject.transform.DOMove(movepoints[1].position, 8f).SetEase(Ease.Linear).OnComplete(() =>
         {
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
@@ -103,6 +115,9 @@ public class Father : MonoBehaviour
             Baby.instance.PlayAnimation("Father holding baby idle");
             gameObject.transform.DOMove(movepoints[7].position, 4f).SetEase(Ease.Linear);
         });
+        yield return new WaitForSeconds(4.1f); 
+        PlayAnimation("Father and baby idle");
+        Baby.instance.PlayAnimation("baby standing idle with father");
     }
 
     public void PlayAnimation(string anim)
