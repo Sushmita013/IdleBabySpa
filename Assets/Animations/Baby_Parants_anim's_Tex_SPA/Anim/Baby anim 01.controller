@@ -27,6 +27,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-5506207525172788591
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: mom collecting baby from table
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -4683532024134128860, guid: 7231df878de6dc6469c1e0629d46aa78,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-4981187373373900158
 AnimatorState:
   serializedVersion: 6
@@ -135,6 +162,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-1142024827458550361
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mom putting baby on table
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 6777671721094247296, guid: 7231df878de6dc6469c1e0629d46aa78,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -184,6 +238,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &4121938697429463085
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: with mom
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -269118001133955053, guid: ec6ce54aa19cbcf4eb72408ff94fe540,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1107 &5500049529420170706
 AnimatorStateMachine:
   serializedVersion: 6
@@ -195,22 +276,31 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6704668836328555064}
-    m_Position: {x: 360, y: 230, z: 0}
+    m_Position: {x: 10, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3885578852590912865}
-    m_Position: {x: 230, y: 310, z: 0}
+    m_Position: {x: 10, y: 380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4762847255202521308}
-    m_Position: {x: 210, y: 170, z: 0}
+    m_Position: {x: 20, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 363836598901160052}
-    m_Position: {x: -10, y: 210, z: 0}
+    m_Position: {x: 10, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2779864729769381677}
-    m_Position: {x: 0, y: 290, z: 0}
+    m_Position: {x: 10, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4981187373373900158}
-    m_Position: {x: 150, y: 370, z: 0}
+    m_Position: {x: 10, y: 430, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -1142024827458550361}
+    m_Position: {x: 360, y: 170, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -5506207525172788591}
+    m_Position: {x: 360, y: 220, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 4121938697429463085}
+    m_Position: {x: 360, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

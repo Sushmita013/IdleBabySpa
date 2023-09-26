@@ -47,6 +47,23 @@ public class Baby : MonoBehaviour
         //    { 
         //    });
 
+    }   
+
+    public IEnumerator Service1()
+    {
+        PlayAnimation("father putting baby on table");
+        yield return new WaitForSeconds(2.5f);
+        gameObject.transform.position = new Vector3(-31.591f, -8.248f, 9.341f);
+        //gameObject.transform.position = new Vector3(-30.594f, -8.353f, 11.01548f);
+        gameObject.transform.rotation = Quaternion.Euler(0, -90, 0); 
+        PlayAnimation("Take 001");
+        yield return new WaitForSeconds(2.5f);
+
+
+        //gameObject.transform.DOMove(new Vector3(-30.594f, -8.353f, 11.01548f), 0.05f).SetEase(Ease.Linear).OnComplete(() =>
+        //    { 
+        //    });
+
     } 
     
     public IEnumerator Pickup()
@@ -56,6 +73,15 @@ public class Baby : MonoBehaviour
         gameObject.transform.position = new Vector3(-30.546f, -8.248f, 11.069f);
         gameObject.transform.rotation = Quaternion.Euler(0, -82, 0);
         PlayAnimation("father collecting baby from table");
+
+    } 
+    public IEnumerator Pickup1()
+    { 
+        yield return new WaitForSeconds(1.5f);
+
+        gameObject.transform.position = new Vector3(-30.546f, -8.248f, 11.069f);
+        gameObject.transform.rotation = Quaternion.Euler(0, -172, 0);
+        PlayAnimation("mom collecting baby from table");
 
     } 
 

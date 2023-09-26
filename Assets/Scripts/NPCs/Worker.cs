@@ -13,14 +13,14 @@ public class Worker : MonoBehaviour
     public bool isWorking;
 
     public int workerLevel;
+    public int startLevel;
 
-    public float workerSpeed;
-    public float costPerLevel;
+    public float workerSpeed; 
 
     private int childrenDestroyed;
     public float hireCost;
     public float cost_percentageIncrease;
-    public float speed_percentageIncrease;
+    public float speed_percentageIncrease; 
 
     public Button upgradeButton;
     public Button upgradeSpeedButton;
@@ -29,6 +29,9 @@ public class Worker : MonoBehaviour
     public TMP_Text speedText;
     public TMP_Text levelText;
     public TMP_Text upgradeCostText;
+    public TMP_Text cost_per_Level;
+    public TMP_Text income_per_Level;
+    public TMP_Text current_Level;
 
     public GameObject unlocked;
     public GameObject locked;
@@ -58,7 +61,7 @@ public class Worker : MonoBehaviour
             item.Stop();
         }
         hireButton.onClick.AddListener(() => StartCoroutine(HireWorker()));
-        upgradeButton.onClick.AddListener(UpgradeService);
+        //upgradeButton.onClick.AddListener(UpgradeService);
     }
 
     public IEnumerator HireWorker()
@@ -99,28 +102,28 @@ public class Worker : MonoBehaviour
         PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
     }
 
-    public void UpgradeSpeed()
-    {
-        effects[2].Play();
-        if (GameManager.instance.totalBalance >= costPerLevel)
-        {
-            GameManager.instance.totalBalance -= costPerLevel;
-            UpdateValues();
-            workerLevel++;
-            costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-            workerSpeed += workerSpeed * (speed_percentageIncrease / 100);
-            costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-            workerSpeed = Mathf.Round(workerSpeed * 100) / 100; // Round to 2 decimal place
+    //public void UpgradeSpeed()
+    //{
+    //    effects[2].Play();
+    //    if (GameManager.instance.totalBalance >= costPerLevel)
+    //    {
+    //        GameManager.instance.totalBalance -= costPerLevel;
+    //        UpdateValues();
+    //        workerLevel++;
+    //        costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+    //        workerSpeed += workerSpeed * (speed_percentageIncrease / 100);
+    //        costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+    //        workerSpeed = Mathf.Round(workerSpeed * 100) / 100; // Round to 2 decimal place
 
-            levelText.text = workerLevel.ToString();
-            upgradeCostText.text = costPerLevel.ToString();
-            speedText.text = workerSpeed.ToString();
-        }
-        if (workerLevel == 5)
-        {
-            StartCoroutine(Reception.instance.taskList[1].TaskComplete());
-        }
-    }
+    //        levelText.text = workerLevel.ToString();
+    //        upgradeCostText.text = costPerLevel.ToString();
+    //        speedText.text = workerSpeed.ToString();
+    //    }
+    //    if (workerLevel == 5)
+    //    {
+    //        StartCoroutine(Reception.instance.taskList[1].TaskComplete());
+    //    }
+    //}
      
     public IEnumerator Movement()
     {
@@ -178,21 +181,6 @@ public class Worker : MonoBehaviour
         }
     }
 
-    public void UpgradeService()
-    {
-        //startLevel++;
-        //costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-        //incomePerLevel += income_Increase;
-        ////incomePerLevel += incomePerLevel * (income_Increase / 100);
-        //costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-        //incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
-
-        //cost_per_Level.text = costPerLevel.ToString();
-        //income_per_Level.text = incomePerLevel.ToString();
-        //current_Level.text = startLevel.ToString();
-
-        //Debug.Log("Cost " + startLevel + ": " + costPerLevel);
-        //Debug.Log("Income " + startLevel + ": " + incomePerLevel);
-    }
+    
 
 }

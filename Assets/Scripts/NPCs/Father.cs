@@ -23,9 +23,21 @@ public class Father : MonoBehaviour
 
     public IEnumerator Movement()
     {
-        yield return new WaitForSeconds(1); 
+        
+        yield return new WaitForSeconds(1);
         PlayAnimation("Father holding baby walk");
         Baby.instance.PlayAnimation("Father holding baby idle");
+        //gameObject.transform.DOMove(movepoints[10].position,3f).SetEase(Ease.Linear).OnComplete(() =>
+        //{
+        //    gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
+        //});
+        //yield return new WaitForSeconds(2.1f);
+        //gameObject.transform.DOMove(movepoints[0].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
+        //{
+        //    gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
+        //});
+        //yield return new WaitForSeconds(1.1f);
+
         gameObject.transform.DOMove(movepoints[8].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
         {
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
@@ -55,7 +67,7 @@ public class Father : MonoBehaviour
             RemoveChild();
         });
         yield return new WaitForSeconds(6);
-        StartCoroutine(Masseuse.instance.Action());
+        //StartCoroutine(Masseuse.instance.Action());
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("father walk");

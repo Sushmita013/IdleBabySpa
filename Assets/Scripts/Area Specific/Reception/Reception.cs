@@ -45,7 +45,7 @@ public class Reception : MonoBehaviour
         Camera.main.DOOrthoSize(zoomSize, 0.75f);
         yield return 1f;
         closeButton.interactable = true;
-        Room1.instance.UpgradeUIpanels[0].transform.DOMoveY(0, 1f); 
+        UpgradeUIpanels[0].transform.DOMoveY(0, 1f); 
         hasUI = true;  
     } 
     public void CamZoom()
@@ -61,9 +61,9 @@ public class Reception : MonoBehaviour
     {
         Debug.Log("Close click"); 
         Debug.Log("move down");
-        Room1.instance.closeButton.interactable = false;
+        closeButton.interactable = false;
 
-        Room1.instance.hasUI = false;
+        hasUI = false;
         ResetPanels(); 
 
     }
@@ -72,7 +72,7 @@ public class Reception : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-            Room1.instance.UpgradeUIpanels[0].transform.DOLocalMoveY(-1422, 1f);
+            UpgradeUIpanels[0].transform.DOLocalMoveY(-1422, 1f);
         }
     } 
 }

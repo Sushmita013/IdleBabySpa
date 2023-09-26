@@ -4,19 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-
-public enum Departments
-{ 
-    WaterTaining,
-    Massage,
-    Haircut,
-    Pamper,
-    Playroom,
-    PhotoRoom,
-    Cafeteria,
-    Cleaning,
-    Bathroom
-}
+ 
 
 public class Room1 : MonoBehaviour
 {
@@ -30,7 +18,6 @@ public class Room1 : MonoBehaviour
     public float hireCost;
     public TMP_Text hireText; 
 
-    public Departments roomName;
 
     public List<GameObject> UpgradeUIpanels; 
 
@@ -61,47 +48,47 @@ public class Room1 : MonoBehaviour
 
     public void OnMouseDown()
     {
-        StartCoroutine(CameraZoomIn());
+        //StartCoroutine(CameraZoomIn());
     }
 
-    public IEnumerator CameraZoomIn()
-    {
-        Debug.Log(roomName);
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 1f);
-            yield return 1f;
-            closeButton.interactable = true;
-            switch (roomName)
-            { 
-                case Departments.WaterTaining:
-                    break;
-                case Departments.Massage:
-                    Room1.instance.UpgradeUIpanels[1].transform.DOLocalMoveY(UpgradeUIpanels[1].transform.localPosition.y + 600, 1f);
-                    hasUI = true;
-                    break;
-                case Departments.Haircut:
+    //public IEnumerator CameraZoomIn()
+    //{
+    //    Debug.Log(roomName);
+    //        Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
+    //        Camera.main.DOOrthoSize(zoomSize, 1f);
+    //        yield return 1f;
+    //        closeButton.interactable = true;
+    //        switch (roomName)
+    //        { 
+    //            case Departments.WaterTaining:
+    //                break;
+    //            case Departments.Massage:
+    //                Room1.instance.UpgradeUIpanels[1].transform.DOLocalMoveY(UpgradeUIpanels[1].transform.localPosition.y + 600, 1f);
+    //                hasUI = true;
+    //                break;
+    //            case Departments.Haircut:
 
-                    break;
-                case Departments.Pamper:
+    //                break;
+    //            case Departments.Pamper:
 
-                    break;
-                case Departments.Playroom:
+    //                break;
+    //            case Departments.Playroom:
 
-                    break;
-                case Departments.PhotoRoom:
+    //                break;
+    //            case Departments.PhotoRoom:
 
-                    break;
-                case Departments.Cafeteria:
+    //                break;
+    //            case Departments.Cafeteria:
 
-                    break;
-        //if (Camera.main.transform.position != camPos.localPosition)
-        //{
-        //    //hasUI = true;
-        //    }
-        }
+    //                break;
+    //    //if (Camera.main.transform.position != camPos.localPosition)
+    //    //{
+    //    //    //hasUI = true;
+    //    //    }
+    //    }
 
 
-    }
+    //}
     public void UpdateValues(Departments room)
     {
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();

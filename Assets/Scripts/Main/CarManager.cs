@@ -34,16 +34,20 @@ public class CarManager : MonoBehaviour
             navMeshAgent = car.GetComponent<NavMeshAgent>();
             instantiatedCars.Add(car);
 
-            MoveCar(car, carData, navMeshAgent);
+            StartCoroutine(MoveCar(car, carData, navMeshAgent));
             //StartCoroutine(RotateWheels(car, carData));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(7f);
         }
     }
 
-    private void MoveCar(GameObject car, Cars carData, NavMeshAgent agent)
+    private IEnumerator MoveCar(GameObject car, Cars carData, NavMeshAgent agent)
     {
+
+        agent.SetDestination(carData.movePoints[1].position);
+        yield return new WaitForSeconds(7);
         agent.SetDestination(carData.movePoints[2].position);
-        carData.parent.SetActive(true);
+        yield return new WaitForSeconds(3);
+        //carData.parent.SetActive(true); 
         //int currentWaypointIndex = 1;
 
         //car.transform.DOMove(carData.movePoints[currentWaypointIndex].position, 5f).SetEase(Ease.Linear).OnComplete(() =>
