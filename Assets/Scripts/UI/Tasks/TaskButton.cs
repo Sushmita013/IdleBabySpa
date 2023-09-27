@@ -43,12 +43,14 @@ public class TaskButton : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
             CanvasManager.instance.taskNumber += 1;
             if (CanvasManager.instance.taskNumber == 2)
-            { 
+            {
+                Debug.Log("task2");
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
-            if (CanvasManager.instance.taskNumber == 3)
-            {  
+            if (CanvasManager.instance.taskNumber == 4)
+            {
+                Debug.Log("task5"); 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
             } 

@@ -58,9 +58,7 @@ public class Reception : MonoBehaviour
     }  
 
     public void CloseButtonClick()
-    {
-        Debug.Log("Close click"); 
-        Debug.Log("move down");
+    { 
         closeButton.interactable = false;
 
         hasUI = false;

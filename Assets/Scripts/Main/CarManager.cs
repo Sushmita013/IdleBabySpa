@@ -6,14 +6,19 @@ using DG.Tweening;
 
 public class CarManager : MonoBehaviour
 {
+    public static CarManager instance;
     public List<Cars> carPrefabs;
 
     private List<GameObject> instantiatedCars = new List<GameObject>();
 
     public NavMeshAgent navMeshAgent;
 
+    public GameObject father;
+    public GameObject mother;
+
     private void Start()
     {
+        instance = this;
         StartCoroutine(InstantiateRandomCars());
     }
 
@@ -36,7 +41,7 @@ public class CarManager : MonoBehaviour
 
             StartCoroutine(MoveCar(car, carData, navMeshAgent));
             //StartCoroutine(RotateWheels(car, carData));
-            yield return new WaitForSeconds(7f);
+            yield return new WaitForSeconds(10f);
         }
     }
 
@@ -46,7 +51,11 @@ public class CarManager : MonoBehaviour
         agent.SetDestination(carData.movePoints[1].position);
         yield return new WaitForSeconds(7);
         agent.SetDestination(carData.movePoints[2].position);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(4);
+        father.SetActive(true);
+        yield return new WaitForSeconds(69.5f);
+        father.SetActive(false); 
+        StartCoroutine(ExitCar(car, carData, navMeshAgent)); 
         //carData.parent.SetActive(true); 
         //int currentWaypointIndex = 1;
 
@@ -60,7 +69,29 @@ public class CarManager : MonoBehaviour
         //{
         //    currentWaypointIndex++;
         //});
-    } 
+    }
+    private IEnumerator ExitCar(GameObject car, Cars carData, NavMeshAgent agent)
+    {
+        Debug.Log("exit");
+        agent.SetDestination(carData.movePoints[3].position);
+        yield return null;
+
+        //carData.parent.SetActive(true); 
+        //int currentWaypointIndex = 1;
+
+        //car.transform.DOMove(carData.movePoints[currentWaypointIndex].position, 5f).SetEase(Ease.Linear).OnComplete(() =>
+        //{
+        //    currentWaypointIndex++;
+        //    car.transform.DORotate(new Vector3(0, 90, 0), 0.4f).SetEase(Ease.Linear);
+        //});
+        //yield return new WaitForSeconds(5.5f);
+        //car.transform.DOMove(carData.movePoints[currentWaypointIndex].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
+        //{
+        //    currentWaypointIndex++;
+        //});
+    }
+
+
 
     //private IEnumerator MoveCar(GameObject car, Cars carData, NavMeshAgent agent)
     //{

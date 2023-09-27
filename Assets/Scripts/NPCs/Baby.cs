@@ -52,14 +52,17 @@ public class Baby : MonoBehaviour
     public IEnumerator Service1()
     {
         PlayAnimation("father putting baby on table");
-        yield return new WaitForSeconds(2.5f);
+        gameObject.transform.DOMove(new Vector3(-30.594f, -8.35348f, 11.01548f), 0.5f).SetEase(Ease.Linear); 
+        //gameObject.transform.position = new Vector3(-30.594f, -8.35348f, 11.01548f);
+        gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+
+        //gameObject.transform.DORotate(new Vector3(0, 0, 0), 1f);
+        //gameObject.transform.rotation = Quaternion.Euler(0, -90, 0); 
+        yield return new WaitForSeconds(2f);
         gameObject.transform.position = new Vector3(-31.591f, -8.248f, 9.341f);
         //gameObject.transform.position = new Vector3(-30.594f, -8.353f, 11.01548f);
-        gameObject.transform.rotation = Quaternion.Euler(0, -90, 0); 
-        PlayAnimation("Take 001");
-        yield return new WaitForSeconds(2.5f);
-
-
+        gameObject.transform.rotation = Quaternion.Euler(0, 0, 0); 
+        PlayAnimation("Take 001");  
         //gameObject.transform.DOMove(new Vector3(-30.594f, -8.353f, 11.01548f), 0.05f).SetEase(Ease.Linear).OnComplete(() =>
         //    { 
         //    });
@@ -76,11 +79,11 @@ public class Baby : MonoBehaviour
 
     } 
     public IEnumerator Pickup1()
-    { 
-        yield return new WaitForSeconds(1.5f);
+    {
+        yield return null;
 
-        gameObject.transform.position = new Vector3(-30.546f, -8.248f, 11.069f);
-        gameObject.transform.rotation = Quaternion.Euler(0, -172, 0);
+        gameObject.transform.position = new Vector3(-32.98f, -8.248f, 10.27f);
+        gameObject.transform.rotation = Quaternion.Euler(0, 82, 0);
         PlayAnimation("mom collecting baby from table");
 
     } 

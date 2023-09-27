@@ -26,6 +26,8 @@ public class Department : MonoBehaviour
 
     public Button upgradeButton;
 
+    public List<GameObject> panels;
+
     void Start()
     {
         //hireText.text = hireCost.ToString(); 
@@ -44,19 +46,93 @@ public class Department : MonoBehaviour
                 RoomManager.instance.serviceLevel++;
                 if (RoomManager.instance.serviceLevel == 25)
                 {
+                    //multiplier = 2;
+                    //incomePerLevel *= multiplier;
+                    //income_Increase = 0.4f;
+
                     StartCoroutine(RoomManager.instance.taskList[0].TaskComplete());
+                    foreach (GameObject item in panels)
+                    {
+                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    }
+                    //RoomManager.instance.level[0].text = RoomManager.instance.serviceLevel.ToString();
+                    //levelSlider[0].value = RoomManager.instance.serviceLevel;
+                    UpdateCost();
                 }
+                else
+                { 
+                    //RoomManager.instance.serviceLevel--;
                 RoomManager.instance.level[0].text = RoomManager.instance.serviceLevel.ToString();
                 levelSlider[0].value = RoomManager.instance.serviceLevel;
                 UpdateCost(); 
+                }
             }
-            if (RoomManager.instance.serviceLevel>25)
+            if (RoomManager.instance.serviceLevel>25 && RoomManager.instance.serviceLevel <= 50)
             {
-                multiplier = 2;
+                if (RoomManager.instance.serviceLevel == 26)
+                {
+                    multiplier = 2;
                     incomePerLevel *= multiplier;
+                    income_Increase = 0.4f; 
+                    RoomManager.instance.level[0].text = RoomManager.instance.serviceLevel.ToString();
+                    levelSlider[0].value = RoomManager.instance.serviceLevel;
+                    UpdateCost();
+                } 
+                multiplier = 1;
+                incomePerLevel *= multiplier;
                 income_Increase = 0.4f;
-            RoomManager.instance.serviceLevel++;
-                UpdateCost();
+                RoomManager.instance.serviceLevel++; 
+                if (RoomManager.instance.serviceLevel == 50)
+                {
+                    StartCoroutine(RoomManager.instance.taskList[1].TaskComplete()); 
+                    multiplier = 3;
+                    incomePerLevel *= multiplier;
+                    income_Increase = 1.2f;
+                    RoomManager.instance.serviceLevel++;
+                    //StartCoroutine(RoomManager.instance.taskList[0].TaskComplete());
+                    foreach (GameObject item in panels)
+                    {
+                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    }
+                    RoomManager.instance.level[1].text = RoomManager.instance.serviceLevel.ToString();
+                    levelSlider[1].value = RoomManager.instance.serviceLevel;
+                    UpdateCost();
+                }
+                else
+                { 
+                    //RoomManager.instance.serviceLevel--; 
+                    RoomManager.instance.level[1].text = RoomManager.instance.serviceLevel.ToString();
+                levelSlider[1].value = RoomManager.instance.serviceLevel;
+                UpdateCost(); 
+                }
+            }
+            if (RoomManager.instance.serviceLevel>50 && RoomManager.instance.serviceLevel <= 75)
+            {
+                multiplier = 1;
+                incomePerLevel *= multiplier;
+                income_Increase = 1.2f;
+                RoomManager.instance.serviceLevel++; 
+                if (RoomManager.instance.serviceLevel == 75)
+                {
+                    multiplier = 4;
+                    incomePerLevel *= multiplier;
+                    income_Increase = 4.5f;
+                    RoomManager.instance.serviceLevel++;
+                    //StartCoroutine(RoomManager.instance.taskList[0].TaskComplete());
+                    foreach (GameObject item in panels)
+                    {
+                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    }
+                    RoomManager.instance.level[2].text = RoomManager.instance.serviceLevel.ToString();
+                    levelSlider[2].value = RoomManager.instance.serviceLevel;
+                    UpdateCost();
+                }
+                else
+                { 
+                    RoomManager.instance.level[2].text = RoomManager.instance.serviceLevel.ToString();
+                levelSlider[2].value = RoomManager.instance.serviceLevel;
+                UpdateCost(); 
+                }
             }
         }
     }

@@ -57,6 +57,10 @@ public class Cashier : MonoBehaviour
             {
                 StartCoroutine(Reception.instance.taskList[0].TaskComplete());
             }
+            if (Reception.instance.totalCashiers == 2)
+            {
+                StartCoroutine(Reception.instance.taskList[2].TaskComplete());
+            }
             service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
             service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
 
@@ -101,6 +105,10 @@ public class Cashier : MonoBehaviour
         if(cashierLevel == 5)
         {
             StartCoroutine(Reception.instance.taskList[1].TaskComplete()); 
+        } 
+        if(cashierLevel == 5)
+        {
+            StartCoroutine(Reception.instance.taskList[3].TaskComplete()); 
         }  
     }
 

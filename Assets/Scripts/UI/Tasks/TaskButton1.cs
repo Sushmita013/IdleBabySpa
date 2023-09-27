@@ -11,6 +11,8 @@ public class TaskButton1 : MonoBehaviour
     public string messageText;
 
     public int rewardValue;
+
+    public GameObject cashier2;
      
 
     void Start()
@@ -21,14 +23,15 @@ public class TaskButton1 : MonoBehaviour
     public IEnumerator TaskComplete()
     {
         if (!taskCompleted)
-        { 
+        {
+            cashier2.SetActive(true);
             yield return new WaitForSeconds(0.5f);
             CanvasManager.instance.taskNumber += 1;
             taskCompleted = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-90, 0.5f); 
-            yield return new WaitForSeconds(0.75f);
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true); 
+            yield return new WaitForSeconds(0.75f); 
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));

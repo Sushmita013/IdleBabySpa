@@ -33,7 +33,7 @@ public class RoomManager : MonoBehaviour
 
     public List<GameObject> UpgradeUIpanels;
 
-    public List<TaskButton3> taskList;
+    public List<TaskButton3> taskList; 
      
     void Start()
     {

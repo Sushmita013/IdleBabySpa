@@ -44,7 +44,7 @@ public class TaskButton2 : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true);
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
             Destroy(addUI.gameObject);
             Destroy(explosionFx.gameObject);
             Destroy(effectUI.gameObject);
