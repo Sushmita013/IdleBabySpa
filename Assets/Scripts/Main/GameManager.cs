@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public int photo_hires;
     public int cafe_hires;
 
-
+    public bool massageUnlocked;
+    public bool haircutUnlocked;
     private void Awake()
     {
         instance = this;

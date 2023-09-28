@@ -28,6 +28,7 @@ public class TaskButton : MonoBehaviour
 
     void Start()
     {
+        effectUI.Play();
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
         roomButton.onClick.AddListener(() => ShowPopup(messageText)); 
@@ -37,30 +38,36 @@ public class TaskButton : MonoBehaviour
     {
         if (!taskComplete)
         {
+            GameManager.instance.massageUnlocked = true;
             Destroy(addUI.gameObject); 
             Destroy(effectUI.gameObject);
             HidePopup();
             yield return new WaitForSeconds(0.25f);
             CanvasManager.instance.taskNumber += 1;
             if (CanvasManager.instance.taskNumber == 2)
-            {
-                Debug.Log("task2");
+            { 
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
-            if (CanvasManager.instance.taskNumber == 4)
-            {
-                Debug.Log("task5"); 
+            if (CanvasManager.instance.taskNumber == 3)
+            { 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
+            }if (CanvasManager.instance.taskNumber == 8)
+            {
+                Debug.Log("haircut");
+                GameManager.instance.haircutUnlocked = true;
+                objectToEnable.SetActive(true);
+            objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             } 
             taskComplete = true;  
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-90, 0.5f);
             explosionFx.Play();
             yield return new WaitForSeconds(0.75f); 
-            Destroy(explosionFx.gameObject); 
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
+            Destroy(explosionFx.gameObject);
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
+            //CanvasManager.instance.tasksGO[0].SetActive(true); 
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
@@ -78,6 +85,7 @@ public class TaskButton : MonoBehaviour
         GameManager.instance.totalBalance += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
         Destroy(gameObject);
+        //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]); 
     }
 
     public void ShowPopup(string errorMessage)
@@ -96,7 +104,12 @@ public class TaskButton : MonoBehaviour
         { 
             room.CamZoom();
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
-        } 
+        }
+        if (CanvasManager.instance.taskNumber == 7)
+        { 
+            room.CamZoom();  
+            objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
+        }
     }
 
     public void ShowReward(string message)

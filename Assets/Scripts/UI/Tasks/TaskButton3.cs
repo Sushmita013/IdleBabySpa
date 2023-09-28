@@ -29,7 +29,9 @@ public class TaskButton3 : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-90, 0.5f); 
             yield return new WaitForSeconds(0.5f); 
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true); 
+
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
+            //CanvasManager.instance.tasksGO[0].SetActive(true); 
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
@@ -47,6 +49,7 @@ public class TaskButton3 : MonoBehaviour
         GameManager.instance.totalBalance += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
         Destroy(gameObject);
+        //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]);
     }
 
     public void ShowPopup()

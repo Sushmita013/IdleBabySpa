@@ -24,6 +24,7 @@ public class TaskButton2 : MonoBehaviour
 
     void Start()
     {
+        effectUI.Play();
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
         parkingButton.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
@@ -45,6 +46,7 @@ public class TaskButton2 : MonoBehaviour
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
+            //CanvasManager.instance.tasksGO[0].SetActive(true); 
             Destroy(addUI.gameObject);
             Destroy(explosionFx.gameObject);
             Destroy(effectUI.gameObject);
@@ -65,6 +67,7 @@ public class TaskButton2 : MonoBehaviour
         GameManager.instance.totalBalance += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
         Destroy(gameObject);
+        //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]); 
     }
 
     public void ShowPopup(string errorMessage)

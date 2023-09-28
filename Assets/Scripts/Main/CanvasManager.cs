@@ -28,7 +28,8 @@ public class CanvasManager : MonoBehaviour
     { 
         instance = this;
         taskNumber = 1;
-        totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        float totalBalance_soft = Mathf.Round(GameManager.instance.totalBalance * 10) / 10; // Round to 1 decimal place 
+        totalBalance_text.text = totalBalance_soft.ToString();
         totalBalanceHard_text.text = GameManager.instance.totalBalance_hard.ToString(); 
     }
 

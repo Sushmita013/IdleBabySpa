@@ -104,12 +104,13 @@ public class Cashier : MonoBehaviour
         } 
         if(cashierLevel == 5)
         {
-            StartCoroutine(Reception.instance.taskList[1].TaskComplete()); 
+            StartCoroutine(Reception.instance.taskList[1].TaskComplete());
+            //CanvasManager.instance.taskNumber -= 1;
         } 
-        if(cashierLevel == 5)
+        if(cashierLevel == 10)
         {
             StartCoroutine(Reception.instance.taskList[3].TaskComplete()); 
-        }  
+        }
     }
 
 }

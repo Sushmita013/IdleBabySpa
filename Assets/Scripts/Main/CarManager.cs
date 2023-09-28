@@ -53,7 +53,7 @@ public class CarManager : MonoBehaviour
         agent.SetDestination(carData.movePoints[2].position);
         yield return new WaitForSeconds(4);
         father.SetActive(true);
-        yield return new WaitForSeconds(69.5f);
+        yield return new WaitForSeconds(95f);
         father.SetActive(false); 
         StartCoroutine(ExitCar(car, carData, navMeshAgent)); 
         //carData.parent.SetActive(true); 
@@ -74,6 +74,8 @@ public class CarManager : MonoBehaviour
     {
         Debug.Log("exit");
         agent.SetDestination(carData.movePoints[3].position);
+        yield return new WaitForSeconds(6);
+        agent.SetDestination(carData.movePoints[4].position);  
         yield return null;
 
         //carData.parent.SetActive(true); 

@@ -47,7 +47,29 @@ public class Baby : MonoBehaviour
         //    { 
         //    });
 
-    }   
+    }  
+    
+    public IEnumerator Haircut()
+    { 
+        PlayAnimation("Keeping baby on chair");
+        yield return new WaitForSeconds(2);
+        gameObject.transform.position = new Vector3(-25.774f, -7.796f, 40.797f);
+        //gameObject.transform.position = new Vector3(-30.594f, -8.353f, 11.01548f);
+        gameObject.transform.rotation = Quaternion.Euler(0, -82, 0);
+
+    }
+    public IEnumerator HairDone()
+    {
+        yield return new WaitForSeconds(0);
+        PlayAnimation("Lifting baby from chair");
+        yield return new WaitForSeconds(3);
+        gameObject.transform.localPosition = new Vector3(0.115f, -0.458f, -0.076f);
+        gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+
+
+    }
+
+
 
     public IEnumerator Service1()
     {

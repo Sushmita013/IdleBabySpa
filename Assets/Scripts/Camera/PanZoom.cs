@@ -55,9 +55,9 @@ public class PanZoom : MonoBehaviour
                 // Perform camera panning only if the swipe is outside the UI area
                 Camera.main.transform.position = newPosition;
                 transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, -140, 100),
+                    Mathf.Clamp(transform.position.x, -140, -40),
                     60,
-                    Mathf.Clamp(transform.position.z, -80, 140));
+                    Mathf.Clamp(transform.position.z, -80, 15));
             }
         }
         zoom(Input.GetAxis("Mouse ScrollWheel") * 20);

@@ -33,8 +33,12 @@ public class RoomManager : MonoBehaviour
 
     public List<GameObject> UpgradeUIpanels;
 
-    public List<TaskButton3> taskList; 
-     
+    public List<TaskButton3> taskList;
+
+    public TaskButton task;
+
+    public GameObject room;
+
     void Start()
     {
         serviceLevel = 1;
@@ -63,7 +67,7 @@ public class RoomManager : MonoBehaviour
                 hasUI = true;
                 break;
             case Departments.Haircut:
-
+                UpgradeUIpanels[2].transform.DOMoveY(0, 1f); 
                 break;
             case Departments.Pamper:
 
@@ -121,6 +125,11 @@ public class RoomManager : MonoBehaviour
             Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
             Camera.main.DOOrthoSize(zoomSize, 0.75f);
         }
+    }
+
+    public void RoomUnlock()
+    {
+        
     }
 
     public void CloseButtonClick()

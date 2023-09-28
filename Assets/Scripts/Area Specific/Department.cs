@@ -50,6 +50,8 @@ public class Department : MonoBehaviour
                     //incomePerLevel *= multiplier;
                     //income_Increase = 0.4f;
 
+                    if (roomName == Departments.Massage)
+                    { 
                     StartCoroutine(RoomManager.instance.taskList[0].TaskComplete());
                     foreach (GameObject item in panels)
                     {
@@ -58,6 +60,19 @@ public class Department : MonoBehaviour
                     //RoomManager.instance.level[0].text = RoomManager.instance.serviceLevel.ToString();
                     //levelSlider[0].value = RoomManager.instance.serviceLevel;
                     UpdateCost();
+                    } 
+                    if (roomName == Departments.Haircut)
+                    { 
+                    StartCoroutine(RoomManager.instance.taskList[10].TaskComplete());
+                    foreach (GameObject item in panels)
+                    {
+                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    }
+                    //RoomManager.instance.level[0].text = RoomManager.instance.serviceLevel.ToString();
+                    //levelSlider[0].value = RoomManager.instance.serviceLevel;
+                    UpdateCost();
+                    }
+
                 }
                 else
                 { 
