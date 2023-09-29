@@ -89,7 +89,10 @@ public class TaskButton : MonoBehaviour
     }
 
     public void ShowPopup(string errorMessage)
-    { 
+    {
+        RoomManager.instance.ResetPanels();
+        if (CanvasManager.instance.popupObject == null)
+        { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel(); 
@@ -110,16 +113,21 @@ public class TaskButton : MonoBehaviour
             room.CamZoom();  
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
         }
+        }
     }
 
     public void ShowReward(string message)
     {
+        RoomManager.instance.ResetPanels();
+        if (CanvasManager.instance.popupObject1 == null)
+        { 
         CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
         errorPopup.EnablePanel();
         //errorPopup.SetErrorMessage(message);
         errorPopup.SetRewardMessage(rewardValue.ToString());
         errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+        }
     }
 
     public void HidePopup()

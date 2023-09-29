@@ -155,7 +155,8 @@ public class Department : MonoBehaviour
     public void UpdateCost()
     {
         GameManager.instance.totalBalance -= costPerLevel;
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        CanvasManager.instance.UpdateSoftCurrency();
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
         incomePerLevel += income_Increase; 
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places

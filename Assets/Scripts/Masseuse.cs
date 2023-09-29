@@ -45,6 +45,7 @@ public class Masseuse : MonoBehaviour
         duration1.SetActive(false);
         fillbar1.DOFillAmount(1, 0.1f);
         effect.Play(); 
+        //CanvasManager
     }
 
 

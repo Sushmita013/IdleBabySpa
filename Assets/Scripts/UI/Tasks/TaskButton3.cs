@@ -54,18 +54,23 @@ public class TaskButton3 : MonoBehaviour
 
     public void ShowPopup()
     {
+        RoomManager.instance.ResetPanels();
         Debug.Log("clicked task0");
         StartCoroutine(room.CameraZoomIn()); 
     }
 
     public void ShowReward(string message)
     {
+        RoomManager.instance.ResetPanels();
+        if (CanvasManager.instance.popupObject1 == null)
+        { 
         CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
         errorPopup.EnablePanel();
         //errorPopup.SetErrorMessage(message);
         errorPopup.SetRewardMessage(rewardValue.ToString());
         errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+        }
     } 
     public void HideReward()
     {

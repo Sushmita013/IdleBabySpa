@@ -75,6 +75,7 @@ public class Father : MonoBehaviour
             RemoveChild();
         });
         yield return new WaitForSeconds(6);
+        //GameManager.instance.totalBalance += 632; 
         StartCoroutine(Masseuse.instance.Action());
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);

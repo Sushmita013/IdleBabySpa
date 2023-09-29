@@ -72,23 +72,33 @@ public class TaskButton2 : MonoBehaviour
 
     public void ShowPopup(string errorMessage)
     {
-            room.CamZoom();
+        RoomManager.instance.ResetPanels();
+
+        room.CamZoom();
+        if (CanvasManager.instance.popupObject == null)
+        { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel();
         errorPopup.SetErrorMessage(errorMessage);
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete())); 
         objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
+        }
     }
 
     public void ShowReward(string message)
     {
+        RoomManager.instance.ResetPanels();
+
+        if (CanvasManager.instance.popupObject1==null)
+        { 
         CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
         errorPopup.EnablePanel();
         //errorPopup.SetErrorMessage(message);
         errorPopup.SetRewardMessage(rewardValue.ToString());
         errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+        }
     }
 
     public void HidePopup()
