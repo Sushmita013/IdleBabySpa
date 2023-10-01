@@ -66,12 +66,12 @@ public class Worker : MonoBehaviour
 
     public IEnumerator HireWorker()
     {
-        if (GameManager.instance.totalBalance >= hireCost && !isUnlocked)
+        if (GameManager.instance.totalSoftCurrency >= hireCost && !isUnlocked)
         {
             isUnlocked = true;
             locked.SetActive(false);
             unlocked.SetActive(true);
-            GameManager.instance.totalBalance -= hireCost;
+            GameManager.instance.totalSoftCurrency -= hireCost;
             Reception.instance.totalCashiers++;
             UpdateValues();
             if (Reception.instance.totalCashiers == 1)
@@ -97,7 +97,7 @@ public class Worker : MonoBehaviour
 
     public void UpdateValues()
     {
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Reception.instance.totalHires_text.text = Reception.instance.totalCashiers.ToString();
         PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
     }

@@ -55,8 +55,8 @@ public class TaskButton1 : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         HideReward();
-        GameManager.instance.totalBalance += rewardValue;
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        GameManager.instance.totalSoftCurrency += rewardValue;
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Destroy(gameObject);
         //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]); 
     }

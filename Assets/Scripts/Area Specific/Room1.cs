@@ -91,7 +91,7 @@ public class Room1 : MonoBehaviour
     //}
     public void UpdateValues(Departments room)
     {
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         totalHires_text.text = totalHires.ToString();
         switch (room)
         { 
@@ -135,7 +135,7 @@ public class Room1 : MonoBehaviour
 
     public void UpdateHard()
     {
-        CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalBalance_hard.ToString(); 
+        CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString(); 
     }
 
     //public void OnNewHire()

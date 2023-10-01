@@ -36,7 +36,7 @@ public class Department : MonoBehaviour
 
     public void UpgradeClick()
     {
-        if (GameManager.instance.totalBalance >= costPerLevel)
+        if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
             if(RoomManager.instance.serviceLevel <= 25)
             {
@@ -154,7 +154,7 @@ public class Department : MonoBehaviour
 
     public void UpdateCost()
     {
-        GameManager.instance.totalBalance -= costPerLevel;
+        GameManager.instance.totalSoftCurrency -= costPerLevel;
         //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
         CanvasManager.instance.UpdateSoftCurrency();
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
@@ -202,7 +202,7 @@ public class Department : MonoBehaviour
 
     public void UpdateHard()
     {
-        CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalBalance_hard.ToString();
+        CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
     }
 
     //public void OnNewHire()

@@ -45,12 +45,12 @@ public class Cashier : MonoBehaviour
 
     public IEnumerator HireCashier()
     {
-        if (GameManager.instance.totalBalance >= hireCost && !isUnlocked)
+        if (GameManager.instance.totalSoftCurrency >= hireCost && !isUnlocked)
         {
             isUnlocked = true;
             locked.SetActive(false);
             unlocked.SetActive(true);
-            GameManager.instance.totalBalance -= hireCost;
+            GameManager.instance.totalSoftCurrency -= hireCost;
             Reception.instance.totalCashiers++; 
             UpdateValues();
             if (Reception.instance.totalCashiers == 1)
@@ -80,7 +80,7 @@ public class Cashier : MonoBehaviour
 
     public void UpdateValues()
     {
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Reception.instance.totalHires_text.text = Reception.instance.totalCashiers.ToString();
         PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
     }
@@ -88,9 +88,9 @@ public class Cashier : MonoBehaviour
     public void UpgradeClick()
     {
         effects[2].Play();
-        if(GameManager.instance.totalBalance >= costPerLevel)
+        if(GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
-            GameManager.instance.totalBalance -= costPerLevel;
+            GameManager.instance.totalSoftCurrency -= costPerLevel;
             UpdateValues();
             cashierLevel++;
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);

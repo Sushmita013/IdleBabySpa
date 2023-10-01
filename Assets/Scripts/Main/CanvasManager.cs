@@ -28,15 +28,19 @@ public class CanvasManager : MonoBehaviour
     { 
         instance = this;
         taskNumber = 1;
-        GameManager.instance.totalBalance = Mathf.Round(GameManager.instance.totalBalance * 10) / 10; // Round to 1 decimal place 
-        totalBalance_text.text = GameManager.instance.totalBalance.ToString();
-        totalBalanceHard_text.text = GameManager.instance.totalBalance_hard.ToString(); 
+        GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
+        totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+        totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString(); 
     }
 
     public void UpdateSoftCurrency()
     {
-        GameManager.instance.totalBalance = Mathf.Round(GameManager.instance.totalBalance * 10) / 10; // Round to 1 decimal place 
-        totalBalance_text.text = GameManager.instance.totalBalance.ToString();
+        GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
+        totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+    }
+    public void UpdateHardCurrency()
+    {
+        totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
     }
 
 }
