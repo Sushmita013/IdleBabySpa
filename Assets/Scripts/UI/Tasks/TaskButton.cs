@@ -90,7 +90,7 @@ public class TaskButton : MonoBehaviour
 
     public void ShowPopup(string errorMessage)
     {
-        RoomManager.instance.ResetPanels();
+        //RoomManager.instance.ResetPanels();
         if (CanvasManager.instance.popupObject == null)
         { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);

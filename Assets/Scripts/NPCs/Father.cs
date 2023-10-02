@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 public class Father : MonoBehaviour
-{  
+{
     public bool isEngaged;
 
     public bool isWaiting;
 
-    public bool isWalking; 
+    public bool isWalking;
 
     public float serviceDuration;
 
@@ -16,20 +16,18 @@ public class Father : MonoBehaviour
 
     public List<Transform> movepoints; 
 
-
-    
     void Start()
     {
         StartCoroutine(Movement());
-    } 
+    }
 
     public IEnumerator Movement()
-    { 
-        yield return new WaitForSeconds(1);   
+    {
+        yield return new WaitForSeconds(1);
         PlayAnimation("Father holding baby walk");
         Baby.instance.PlayAnimation("Father holding baby idle");
-        gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear); 
-        yield return new WaitForSeconds(0.1f); 
+        gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(0.1f);
         gameObject.transform.DOMove(movepoints[11].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
          {
              gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
@@ -39,7 +37,7 @@ public class Father : MonoBehaviour
          {
              gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
          });
-        yield return new WaitForSeconds(3.1f);  
+        yield return new WaitForSeconds(3.1f);
         gameObject.transform.DOMove(movepoints[0].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
         {
             gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
@@ -62,12 +60,12 @@ public class Father : MonoBehaviour
         {
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
         });
-        yield return new WaitForSeconds(8.05f); 
+        yield return new WaitForSeconds(8.05f);
         gameObject.transform.DOMove(movepoints[2].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
         {
             gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         });
-        yield return new WaitForSeconds(1.05f); 
+        yield return new WaitForSeconds(1.05f);
         gameObject.transform.DOMove(movepoints[3].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
         {
             PlayAnimation("Keeping baby on table");
@@ -77,33 +75,33 @@ public class Father : MonoBehaviour
         yield return new WaitForSeconds(6);
         //GameManager.instance.totalBalance += 632; 
         StartCoroutine(Masseuse.instance.Action());
-            gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
+        gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("father walk");
         gameObject.transform.DOMove(movepoints[4].position, 3f).SetEase(Ease.Linear).OnComplete(() =>
-        { 
+        {
             gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
         });
-        yield return new WaitForSeconds(3.05f); 
+        yield return new WaitForSeconds(3.05f);
         PlayAnimation("Father stand to sit");
-        yield return new WaitForSeconds(3); 
+        yield return new WaitForSeconds(3);
         PlayAnimation("Father sitting idle");
         yield return new WaitForSeconds(2);
-        PlayAnimation("Take 001");
+        PlayAnimation("Father sit to stand");
         yield return new WaitForSeconds(3);
         gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("father walk");
         gameObject.transform.DOMove(movepoints[3].position, 2f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(2); 
+        yield return new WaitForSeconds(2);
         gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(0.1f); 
-        PlayAnimation("Take 001 0");
+        yield return new WaitForSeconds(0.1f);
+        PlayAnimation("Father picking baby from table");
         StartCoroutine(Baby.instance.Pickup());
-        yield return new WaitForSeconds(3); 
+        yield return new WaitForSeconds(3);
         AddChild();
         gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.25f).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(0.25f); 
+        yield return new WaitForSeconds(0.25f);
         PlayAnimation("Father holding baby walk");
         Baby.instance.PlayAnimation("Father holding baby idle");
         gameObject.transform.DOMove(movepoints[2].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
@@ -129,7 +127,7 @@ public class Father : MonoBehaviour
                 RemoveChild();
             });
             yield return new WaitForSeconds(4f);
-            PlayAnimation("father walk"); 
+            PlayAnimation("father walk");
             gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 gameObject.transform.DOMove(movepoints[16].position, 1f).SetEase(Ease.Linear);
@@ -142,8 +140,8 @@ public class Father : MonoBehaviour
             });
             yield return new WaitForSeconds(1.1f);
             gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-            { 
-            PlayAnimation("Father stand to sit");
+            {
+                PlayAnimation("Father stand to sit");
             });
             yield return new WaitForSeconds(3.01f);
             PlayAnimation("Father sitting idle");
@@ -163,10 +161,10 @@ public class Father : MonoBehaviour
             {
                 gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear);
             });
-            yield return new WaitForSeconds(1.1f); 
+            yield return new WaitForSeconds(1.1f);
             PlayAnimation("Father lifting baby from chair");
             AddChild();
-            StartCoroutine(Baby.instance.HairDone()); 
+            StartCoroutine(Baby.instance.HairDone());
             yield return new WaitForSeconds(3);
             gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
             yield return new WaitForSeconds(0.1f);
@@ -226,60 +224,60 @@ public class Father : MonoBehaviour
             });
             yield return new WaitForSeconds(1.1f);
             PlayAnimation("Father and baby idle");
-            Baby.instance.PlayAnimation("baby standing idle with father");  
+            Baby.instance.PlayAnimation("baby standing idle with father");
         }
         else
-        { 
-        gameObject.transform.DOMove(movepoints[1].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(1.1f);
-        gameObject.transform.DOMove(movepoints[5].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(2.1f);
-        gameObject.transform.DOMove(movepoints[6].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(1.1f);
-        PlayAnimation("Father and baby idle");
-        Baby.instance.PlayAnimation("baby standing idle with father");
-        StartCoroutine(Masseuse.instance.Action1()); 
-        yield return new WaitForSeconds(9);
-        gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            PlayAnimation("Father holding baby walk");
-            Baby.instance.PlayAnimation("Father holding baby idle");
-            gameObject.transform.DOMove(movepoints[7].position, 4f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(4.1f);
-        gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-        { 
-            gameObject.transform.DOMove(movepoints[10].position, 2f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(2.1f);
-        gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-        { 
-            gameObject.transform.DOMove(movepoints[11].position, 3f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(3.1f);
-        gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            gameObject.transform.DOMove(movepoints[12].position, 1f).SetEase(Ease.Linear);
-        });
-        yield return new WaitForSeconds(1.1f); 
-        PlayAnimation("Father and baby idle");
-        Baby.instance.PlayAnimation("baby standing idle with father");
+            gameObject.transform.DOMove(movepoints[1].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(1.1f);
+            gameObject.transform.DOMove(movepoints[5].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(2.1f);
+            gameObject.transform.DOMove(movepoints[6].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(1.1f);
+            PlayAnimation("Father and baby idle");
+            Baby.instance.PlayAnimation("baby standing idle with father");
+            StartCoroutine(Masseuse.instance.Action1());
+            yield return new WaitForSeconds(9);
+            gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                PlayAnimation("Father holding baby walk");
+                Baby.instance.PlayAnimation("Father holding baby idle");
+                gameObject.transform.DOMove(movepoints[7].position, 4f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(4.1f);
+            gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DOMove(movepoints[10].position, 2f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(2.1f);
+            gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DOMove(movepoints[11].position, 3f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(3.1f);
+            gameObject.transform.DORotate(new Vector3(0, 0, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
+            {
+                gameObject.transform.DOMove(movepoints[12].position, 1f).SetEase(Ease.Linear);
+            });
+            yield return new WaitForSeconds(1.1f);
+            PlayAnimation("Father and baby idle");
+            Baby.instance.PlayAnimation("baby standing idle with father");
         }
     }
 
     public void PlayAnimation(string anim)
     {
         animator.Play(anim);
-    } 
+    }
 
     public void RemoveChild()
     {
@@ -306,21 +304,6 @@ public class Father : MonoBehaviour
         else
         {
             Debug.LogError("Child object or new parent object not found!");
-        }
-    }
-
-
-    public void MakeChild()
-    {
-        Transform childTransform = transform.Find("Baby"); // Replace "ChildObjectName" with the actual name of your child object
-         
-        if (childTransform != null && gameObject.transform != null)
-        { 
-            childTransform.parent = gameObject.transform;
-        }
-        else
-        {
-            Debug.LogError("Child object or new parent not found!");
         }
     }
 }

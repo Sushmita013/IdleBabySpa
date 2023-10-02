@@ -52,9 +52,9 @@ public class CarManager : MonoBehaviour
         yield return new WaitForSeconds(7);
         agent.SetDestination(carData.movePoints[2].position);
         yield return new WaitForSeconds(4);
-        father.SetActive(true);
-        yield return new WaitForSeconds(95f);
-        father.SetActive(false); 
+        //father.SetActive(true);
+        yield return new WaitForSeconds(110f);
+        //father.SetActive(false); 
         StartCoroutine(ExitCar(car, carData, navMeshAgent)); 
         //carData.parent.SetActive(true); 
         //int currentWaypointIndex = 1;

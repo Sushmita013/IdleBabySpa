@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f793bbad09f98e645b76741df3d046ac, type: 3}
+  m_Name: Car1 5
+  m_EditorClassIdentifier: 
+  carPrefabs:
+  - {fileID: 8087737570305912066, guid: 2188725281e55004a99fb3b833d4740a, type: 3}
+  movePoints:
+  - {fileID: 2749203678485363706, guid: ce52769c5cfb0b24085439f99817e875, type: 3}
+  - {fileID: 8424837197162704057, guid: 6d18e0abfef8148489c2b4daca3186e8, type: 3}
+  - {fileID: 7360995293202014072, guid: 91c4b251b14c5e04bb6e956fc7659ab1, type: 3}
+  - {fileID: 7645450866809567247, guid: a779595dc59ca164b86041886909f039, type: 3}
+  - {fileID: 7617967898014874205, guid: 906797abf1b06b944b0a002e36b1fee9, type: 3}
+  wheels:
+  - {fileID: 3884514637512373313, guid: aae74bf7c81caa941a588462aaef0a00, type: 3}
+  - {fileID: 2870083629829515913, guid: aae74bf7c81caa941a588462aaef0a00, type: 3}
+  - {fileID: 9114236529118642115, guid: aae74bf7c81caa941a588462aaef0a00, type: 3}
+  - {fileID: 4459214279886744499, guid: aae74bf7c81caa941a588462aaef0a00, type: 3}
+  - {fileID: 5966687080933169272, guid: aae74bf7c81caa941a588462aaef0a00, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  moveSpeed: 10
+  wheelRotationSpeed: 100
+  parent: {fileID: 0}
