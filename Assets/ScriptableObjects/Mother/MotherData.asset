@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5713087d09ebf340bcb5149a78f40a0, type: 3}
+  m_Name: MotherData
+  m_EditorClassIdentifier: 
+  motherNpc: {fileID: 6239565724585831963, guid: 5de9687bfea14634e8c6ebaee8fa6097,
+    type: 3}
+  movepoints:
+  - {fileID: 7623611253931610669, guid: 59f479ea4d69b024bb7b455c89fb614f, type: 3}
+  - {fileID: 2158835494473832460, guid: a478458ef5261af4c80f0448e861914c, type: 3}
+  - {fileID: 5588715263487818772, guid: 2fc8cc419cb0a97489950fc4c841a968, type: 3}
+  - {fileID: 7148076323094273145, guid: d620b91246d28d24288f46a1556cb4c5, type: 3}
+  - {fileID: 4213701664419689911, guid: 7e60f45367fb0c64d9da8d1eba4218c8, type: 3}
+  - {fileID: 863933608258158388, guid: 40ac7069443030e49bf5a27716a25897, type: 3}
+  moveSpeed: 5
+  animator: {fileID: 0}
+  anim:
+  - mom walking with baby
+  - mom putting baby on table
+  - Walking
+  - stand to sit
+  - sitting idle
+  - Standing
+  - mom collecting baby from table
+  - baby holding idle
+  - mom keeping baby on chair
+  - mom taking baby  from baby on chair

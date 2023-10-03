@@ -148,7 +148,7 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-             UpgradeUIpanels[i].transform.DOLocalMoveY(-1422, 1f);
+             UpgradeUIpanels[i].transform.DOLocalMoveY(-1500, 1f);
         }
     }
 }

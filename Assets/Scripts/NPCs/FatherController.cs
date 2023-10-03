@@ -90,7 +90,7 @@ public class FatherController : MonoBehaviour
     public IEnumerator HaircutMovement(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
     { 
         agent.SetDestination(fatherData.movepoints[4].position);
-        yield return new WaitForSeconds(11f);
+        yield return new WaitForSeconds(11.5f);
         PlayAnimation(fatherData.anim[8]);
         StartCoroutine(Baby.instance.Haircut());
         RemoveChild(parent);

@@ -56,10 +56,14 @@ public class Cashier : MonoBehaviour
             if (Reception.instance.totalCashiers == 1)
             {
                 StartCoroutine(Reception.instance.taskList[0].TaskComplete());
+                Reception.instance.taskList[0].progressionSlider.value = 1;
+                Reception.instance.taskList[0].progressText.text = Reception.instance.taskList[0].progressionSlider.value.ToString();
             }
             if (Reception.instance.totalCashiers == 2)
             {
                 StartCoroutine(Reception.instance.taskList[2].TaskComplete());
+                Reception.instance.taskList[2].progressionSlider.value = 1;
+                Reception.instance.taskList[2].progressText.text = Reception.instance.taskList[2].progressionSlider.value.ToString();
             }
             service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
             service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
@@ -101,6 +105,11 @@ public class Cashier : MonoBehaviour
         levelText.text = cashierLevel.ToString();
         upgradeCostText.text = costPerLevel.ToString();
         speedText.text = cashierSpeed.ToString();
+            if(cashierLevel <= 5)
+            {
+                Reception.instance.taskList[1].progressText.text = cashierLevel.ToString();
+                Reception.instance.taskList[1].progressionSlider.value = cashierLevel;
+            }
         } 
         if(cashierLevel == 5)
         {

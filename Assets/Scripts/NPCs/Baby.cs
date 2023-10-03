@@ -50,7 +50,17 @@ public class Baby : MonoBehaviour
     }  
     
     public IEnumerator Haircut()
-    { 
+    {  
+        PlayAnimation("Keeping baby on chair");
+        yield return new WaitForSeconds(2);
+        gameObject.transform.position = new Vector3(-25.774f, -7.796f, 40.797f);
+        //gameObject.transform.position = new Vector3(-30.594f, -8.353f, 11.01548f);
+        gameObject.transform.rotation = Quaternion.Euler(0, -82, 0);
+
+    }
+    public IEnumerator Haircut1()
+    {
+        gameObject.transform.position = new Vector3(-26.687f, -8.095f, 41.311f); 
         PlayAnimation("Keeping baby on chair");
         yield return new WaitForSeconds(2);
         gameObject.transform.position = new Vector3(-25.774f, -7.796f, 40.797f);
@@ -64,19 +74,27 @@ public class Baby : MonoBehaviour
         PlayAnimation("Lifting baby from chair");
         yield return new WaitForSeconds(3);
         gameObject.transform.localPosition = new Vector3(0.115f, -0.458f, -0.076f);
-        gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
-
-
+        gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0); 
+    }
+    public IEnumerator HairDone1()
+    {
+        yield return new WaitForSeconds(0);
+        PlayAnimation("Lifting baby from chair");
+        yield return new WaitForSeconds(3);
+        gameObject.transform.localPosition = new Vector3(0.578f, -0.458f, -0.076f);
+        gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0); 
     }
 
 
 
     public IEnumerator Service1()
-    {
-        PlayAnimation("father putting baby on table");
-        gameObject.transform.DOMove(new Vector3(-30.594f, -8.35348f, 11.01548f), 0.25f).SetEase(Ease.Linear); 
-        //gameObject.transform.position = new Vector3(-30.594f, -8.35348f, 11.01548f);
+    { 
+        gameObject.transform.DOMove(new Vector3(-30.758f, -8.279f, 11.39f), 0.25f).SetEase(Ease.Linear); 
         gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
+        yield return new WaitForSeconds(0.75f); 
+        PlayAnimation("father putting baby on table");
+        //gameObject.transform.DOMove(new Vector3(-30.594f, -8.35348f, 11.01548f), 0.25f).SetEase(Ease.Linear); 
+        //gameObject.transform.position = new Vector3(-30.594f, -8.35348f, 11.01548f);
 
         //gameObject.transform.DORotate(new Vector3(0, 0, 0), 1f);
         //gameObject.transform.rotation = Quaternion.Euler(0, -90, 0); 
@@ -105,8 +123,11 @@ public class Baby : MonoBehaviour
         yield return null;
 
         gameObject.transform.position = new Vector3(-32.98f, -8.248f, 10.27f);
-        gameObject.transform.localRotation = Quaternion.Euler(0, 82, 0);
+        gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0); 
         PlayAnimation("mom collecting baby from table");
+        yield return new WaitForSeconds(3f); 
+        gameObject.transform.localPosition = new Vector3(0.162f, -0.458f, 0.73f);
+        gameObject.transform.localRotation = Quaternion.Euler(0, -82, 0);
 
     } 
 

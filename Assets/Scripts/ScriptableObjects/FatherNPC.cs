@@ -9,8 +9,6 @@ public class FatherNPC : ScriptableObject
     public List<Transform> movepoints;
     public float moveSpeed = 5f;
     public Animator animator;
-    public List<string> anim;
-    //public string babyName;
-    //public Transform babyPos;
+    public List<string> anim; 
 }
      

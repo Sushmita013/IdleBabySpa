@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
+
 
 public class TaskButton1 : MonoBehaviour
 {
@@ -13,10 +15,18 @@ public class TaskButton1 : MonoBehaviour
     public int rewardValue;
 
     public GameObject cashier2;
-     
+
+    public GameObject incompleteTask;
+    public GameObject completeTask;
+
+    public Slider progressionSlider;
+    public TMP_Text progressText;
+
 
     void Start()
     {
+        incompleteTask.SetActive(true);
+        completeTask.SetActive(false);
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup()); 
     }
 
@@ -24,13 +34,15 @@ public class TaskButton1 : MonoBehaviour
     {
         if (!taskCompleted)
         {
-            cashier2.SetActive(true);
+            cashier2.SetActive(true); 
             yield return new WaitForSeconds(0.5f);
             CanvasManager.instance.taskNumber += 1;
             taskCompleted = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOLocalMoveY(-90, 0.5f); 
+            gameObject.transform.DOLocalMoveY(-120, 0.5f); 
             yield return new WaitForSeconds(0.75f);
+            incompleteTask.SetActive(false);
+            completeTask.SetActive(true);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
             //CanvasManager.instance.tasksGO[0].SetActive(true); 
             Button button = gameObject.GetComponent<Button>();

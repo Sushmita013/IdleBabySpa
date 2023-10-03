@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class TaskButton3 : MonoBehaviour
 {
@@ -12,9 +13,17 @@ public class TaskButton3 : MonoBehaviour
 
     public int rewardValue; 
 
-    public RoomManager room; 
+    public RoomManager room;
+
+    public GameObject incompleteTask;
+    public GameObject completeTask;
+
+    public Slider progressionSlider;
+    public TMP_Text progressText;
     void Start()
-    { 
+    {
+        incompleteTask.SetActive(true);
+        completeTask.SetActive(false);
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup()); 
     }
 

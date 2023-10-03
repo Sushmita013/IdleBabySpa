@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MotherNPC : MonoBehaviour
+[CreateAssetMenu(fileName = "MotherData", menuName = "ScriptableObjects/MotherInfo", order = 1)]
+public class MotherNPC : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject motherNpc;
+    public List<Transform> movepoints;
+    public float moveSpeed = 5f;
+    public Animator animator;
+    public List<string> anim;
 }

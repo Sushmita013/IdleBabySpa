@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class TaskButton : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class TaskButton : MonoBehaviour
     public int rewardValue;
 
     public GameObject objectToEnable;
+
+    public GameObject incompleteTask;
+    public GameObject completeTask;
+
+    public Slider progressionSlider;
+    public TMP_Text progressText;
 
     public GameObject addUI; 
     public ParticleSystem effectUI; 
@@ -26,8 +33,11 @@ public class TaskButton : MonoBehaviour
     public Button roomButton;
 
 
+
     void Start()
     {
+        incompleteTask.SetActive(true);
+        completeTask.SetActive(false);
         effectUI.Play();
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
@@ -41,7 +51,9 @@ public class TaskButton : MonoBehaviour
             GameManager.instance.massageUnlocked = true;
             Destroy(addUI.gameObject); 
             Destroy(effectUI.gameObject);
-            HidePopup();
+            HidePopup(); 
+            progressionSlider.value = 1;
+            progressText.text = progressionSlider.value.ToString();
             yield return new WaitForSeconds(0.25f);
             CanvasManager.instance.taskNumber += 1;
             if (CanvasManager.instance.taskNumber == 2)
@@ -62,7 +74,11 @@ public class TaskButton : MonoBehaviour
             } 
             taskComplete = true;  
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOLocalMoveY(-90, 0.5f);
+            gameObject.transform.DOLocalMoveY(-120, 0.5f).OnComplete(() =>
+            { 
+                incompleteTask.SetActive(false);
+                completeTask.SetActive(true);
+            });
             explosionFx.Play();
             yield return new WaitForSeconds(0.75f); 
             Destroy(explosionFx.gameObject);

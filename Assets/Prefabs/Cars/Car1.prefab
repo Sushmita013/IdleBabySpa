@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 6575909718875798613}
   - component: {fileID: 6094064677787997885}
   - component: {fileID: 774429419151878695}
+  - component: {fileID: 235788964617972009}
   m_Layer: 0
   m_Name: Car1
   m_TagString: Car
@@ -194,7 +195,7 @@ Transform:
   m_GameObject: {fileID: 6385370947721915517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -80.03181, y: -5.8513193, z: -5.8225513}
-  m_LocalScale: {x: 250, y: 250, z: 250}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1649143113418184823}
@@ -263,7 +264,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6385370947721915517}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.016327612
+  m_Radius: 0.01
   m_Speed: 10
   m_Acceleration: 11.3
   avoidancePriority: 50
@@ -276,6 +277,19 @@ NavMeshAgent:
   m_BaseOffset: 0.005810766
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &235788964617972009
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6385370947721915517}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.018581241, y: 0.011665019, z: 0.03259726}
+  m_Center: {x: 0, y: -0.000021743588, z: 0.00002898369}
 --- !u!1 &6858444885750931524
 GameObject:
   m_ObjectHideFlags: 0

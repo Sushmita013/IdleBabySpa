@@ -70,7 +70,7 @@ public class Reception : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-            UpgradeUIpanels[0].transform.DOLocalMoveY(-1422, 1f);
+            UpgradeUIpanels[0].transform.DOLocalMoveY(-1500, 1f);
         }
     } 
 }
