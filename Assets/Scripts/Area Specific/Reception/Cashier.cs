@@ -110,6 +110,11 @@ public class Cashier : MonoBehaviour
                 Reception.instance.taskList[1].progressText.text = cashierLevel.ToString();
                 Reception.instance.taskList[1].progressionSlider.value = cashierLevel;
             }
+            if(cashierLevel > 5 && cashierLevel <= 10)
+            {
+                Reception.instance.taskList[3].progressText.text = cashierLevel.ToString();
+                Reception.instance.taskList[3].progressionSlider.value = cashierLevel;
+            }
         } 
         if(cashierLevel == 5)
         {

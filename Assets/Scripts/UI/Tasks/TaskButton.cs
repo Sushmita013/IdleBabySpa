@@ -61,7 +61,7 @@ public class TaskButton : MonoBehaviour
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
-            if (CanvasManager.instance.taskNumber == 3)
+            if (CanvasManager.instance.taskNumber == 5)
             { 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
@@ -106,7 +106,7 @@ public class TaskButton : MonoBehaviour
 
     public void ShowPopup(string errorMessage)
     {
-        //RoomManager.instance.ResetPanels();
+        room.ResetPanels();
         if (CanvasManager.instance.popupObject == null)
         { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
@@ -114,7 +114,7 @@ public class TaskButton : MonoBehaviour
         errorPopup.EnablePanel(); 
         errorPopup.SetErrorMessage(errorMessage);
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
-        if (CanvasManager.instance.taskNumber == 2)
+        if (CanvasManager.instance.taskNumber == 4)
         {
             Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);

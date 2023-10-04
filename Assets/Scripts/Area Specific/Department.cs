@@ -42,8 +42,13 @@ public class Department : MonoBehaviour
             {
                 multiplier = 1;
                 incomePerLevel *= multiplier;
-                income_Increase = 0.2f;
+                income_Increase = 0.2f; 
                 RoomManager.instance.serviceLevel++;
+                if (roomName == Departments.Massage)
+                { 
+                    RoomManager.instance.taskList[0].progressText.text = RoomManager.instance.serviceLevel.ToString();
+                RoomManager.instance.taskList[0].progressionSlider.value = RoomManager.instance.serviceLevel; 
+                }
                 if (RoomManager.instance.serviceLevel == 25)
                 {
                     //multiplier = 2;
@@ -84,6 +89,11 @@ public class Department : MonoBehaviour
             }
             if (RoomManager.instance.serviceLevel>25 && RoomManager.instance.serviceLevel <= 50)
             {
+                if (roomName == Departments.Massage)
+                {
+                    RoomManager.instance.taskList[1].progressText.text = RoomManager.instance.serviceLevel.ToString();
+                    RoomManager.instance.taskList[1].progressionSlider.value = RoomManager.instance.serviceLevel;
+                }
                 if (RoomManager.instance.serviceLevel == 26)
                 {
                     multiplier = 2;
@@ -123,6 +133,11 @@ public class Department : MonoBehaviour
             }
             if (RoomManager.instance.serviceLevel>50 && RoomManager.instance.serviceLevel <= 75)
             {
+                if (roomName == Departments.Massage)
+                {
+                    RoomManager.instance.taskList[2].progressText.text = RoomManager.instance.serviceLevel.ToString();
+                    RoomManager.instance.taskList[2].progressionSlider.value = RoomManager.instance.serviceLevel;
+                }
                 multiplier = 1;
                 incomePerLevel *= multiplier;
                 income_Increase = 1.2f;
@@ -161,6 +176,7 @@ public class Department : MonoBehaviour
         incomePerLevel += income_Increase; 
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
         incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
+        RoomManager.instance.serviceCost = costPerLevel;
         service_cost.text = costPerLevel.ToString();
         upgrade_cost.text = incomePerLevel.ToString();
     }

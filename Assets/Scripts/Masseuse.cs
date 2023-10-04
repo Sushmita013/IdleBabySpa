@@ -25,27 +25,34 @@ public class Masseuse : MonoBehaviour
     }
 
     public IEnumerator Action()
-    {
-        yield return new WaitForSeconds(0);
+    { 
         duration.SetActive(true);
-        fillbar.DOFillAmount(1, 12); 
+        fillbar.DOFillAmount(1, 9); 
         PlayAnimation("Massage");
-        yield return new WaitForSeconds(12);
+        yield return new WaitForSeconds(9);
         duration.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
         PlayAnimation("Idle");
 
     }
     public IEnumerator Action1()
-    {
-        yield return new WaitForSeconds(0);
+    { 
         duration1.SetActive(true);
         fillbar1.DOFillAmount(1, 9);
         yield return new WaitForSeconds(9);
         duration1.SetActive(false);
         fillbar1.DOFillAmount(1, 0.1f);
-        effect.Play(); 
-        //CanvasManager
+        effect.Play();
+        if (GameManager.instance.massageUnlocked)
+        { 
+        GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
+        CanvasManager.instance.UpdateSoftCurrency();
+        }
+        if (GameManager.instance.haircutUnlocked)
+        { 
+        GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
+        CanvasManager.instance.UpdateSoftCurrency();
+        }
     }
 
 

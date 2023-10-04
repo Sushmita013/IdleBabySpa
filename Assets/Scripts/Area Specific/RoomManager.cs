@@ -23,6 +23,7 @@ public class RoomManager : MonoBehaviour
     public Departments roomName;
 
     public int serviceLevel;
+    public float serviceCost =2;
     public Transform camPos;
     public float moveSpeed = 2.0f;
     public int zoomSize;

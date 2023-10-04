@@ -36,9 +36,10 @@ public class TaskButton3 : MonoBehaviour
             CanvasManager.instance.taskNumber += 1;
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOLocalMoveY(-90, 0.5f); 
-            yield return new WaitForSeconds(0.5f); 
-
+            gameObject.transform.DOLocalMoveY(-120, 0.5f); 
+            yield return new WaitForSeconds(0.5f);
+            incompleteTask.SetActive(false);
+            completeTask.SetActive(true);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
             //CanvasManager.instance.tasksGO[0].SetActive(true); 
             Button button = gameObject.GetComponent<Button>();
