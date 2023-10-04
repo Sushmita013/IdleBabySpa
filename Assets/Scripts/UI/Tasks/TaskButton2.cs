@@ -21,12 +21,13 @@ public class TaskButton2 : MonoBehaviour
 
     public Parking room;
     public Button parkingButton;
-    public GameObject carManager;
     public GameObject incompleteTask;
     public GameObject completeTask;
 
     public Slider progressionSlider;
     public TMP_Text progressText;
+    public ParticleSystem reward;
+
 
     void Start()
     {
@@ -42,11 +43,13 @@ public class TaskButton2 : MonoBehaviour
     {
         if (!taskComplete)
         {
-            carManager.SetActive(true); 
             HidePopup();
             progressionSlider.value = 1;
             progressText.text = progressionSlider.value.ToString();
             yield return new WaitForSeconds(0.5f);
+            Button button = gameObject.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             CanvasManager.instance.taskNumber += 1; 
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
@@ -62,9 +65,6 @@ public class TaskButton2 : MonoBehaviour
             Destroy(addUI.gameObject);
             Destroy(explosionFx.gameObject);
             Destroy(effectUI.gameObject);
-            Button button = gameObject.GetComponent<Button>();
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
         }
         else
         {
@@ -76,6 +76,7 @@ public class TaskButton2 : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         HideReward();
+        reward.Play(); 
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Destroy(gameObject);

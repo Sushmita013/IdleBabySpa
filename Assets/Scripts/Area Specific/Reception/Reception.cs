@@ -43,10 +43,11 @@ public class Reception : MonoBehaviour
     { 
         Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
         Camera.main.DOOrthoSize(zoomSize, 0.75f);
-        yield return 1f;
-        closeButton.interactable = true;
+        //yield return new WaitForSeconds(1f); 
         UpgradeUIpanels[0].transform.DOMoveY(0, 1f); 
-        hasUI = true;  
+        hasUI = true;
+        yield return new WaitForSeconds(0.75f); 
+        closeButton.interactable = true;
     } 
     public void CamZoom()
     {

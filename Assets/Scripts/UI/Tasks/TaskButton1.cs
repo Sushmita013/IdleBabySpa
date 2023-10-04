@@ -21,6 +21,7 @@ public class TaskButton1 : MonoBehaviour
 
     public Slider progressionSlider;
     public TMP_Text progressText;
+    public ParticleSystem reward;
 
 
     void Start()
@@ -67,6 +68,7 @@ public class TaskButton1 : MonoBehaviour
     {
         yield return new WaitForSeconds(0.05f);
         HideReward();
+        reward.Play(); 
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Destroy(gameObject);

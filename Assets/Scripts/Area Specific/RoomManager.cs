@@ -57,8 +57,7 @@ public class RoomManager : MonoBehaviour
         Debug.Log(roomName);
         Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
         Camera.main.DOOrthoSize(zoomSize, 1f);
-        yield return 1f;
-        closeButton.interactable = true;
+        //yield return new WaitForSeconds(1f); 
         switch (roomName)
         {
             case Departments.WaterTaining:
@@ -66,9 +65,13 @@ public class RoomManager : MonoBehaviour
             case Departments.Massage:
                 UpgradeUIpanels[1].transform.DOMoveY(0, 1f);
                 hasUI = true;
+                yield return new WaitForSeconds(0.75f);  
+                closeButton.interactable = true;
                 break;
             case Departments.Haircut:
                 UpgradeUIpanels[2].transform.DOMoveY(0, 1f); 
+                yield return new WaitForSeconds(0.75f); 
+                closeButton.interactable = true;
                 break;
             case Departments.Pamper:
 
@@ -135,9 +138,7 @@ public class RoomManager : MonoBehaviour
 
     public void CloseButtonClick()
     {
-        Debug.Log("Close click");
-        //if (Room1.instance.hasUI == true)
-        //{
+        Debug.Log("Close click"); 
         Debug.Log("move down");
         closeButton.interactable = false;
 

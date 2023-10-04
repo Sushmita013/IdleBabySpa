@@ -20,8 +20,10 @@ public class TaskButton3 : MonoBehaviour
 
     public Slider progressionSlider;
     public TMP_Text progressText;
+
+    public ParticleSystem reward;
     void Start()
-    {
+    { 
         incompleteTask.SetActive(true);
         completeTask.SetActive(false);
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup()); 
@@ -37,14 +39,14 @@ public class TaskButton3 : MonoBehaviour
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOLocalMoveY(-120, 0.5f); 
+            Button button = gameObject.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             yield return new WaitForSeconds(0.5f);
             incompleteTask.SetActive(false);
             completeTask.SetActive(true);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
             //CanvasManager.instance.tasksGO[0].SetActive(true); 
-            Button button = gameObject.GetComponent<Button>();
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
         }
         else
         {
@@ -55,6 +57,7 @@ public class TaskButton3 : MonoBehaviour
     public IEnumerator OnCollectReward()
     {
         yield return new WaitForSeconds(0.05f);
+        reward.Play();
         HideReward();
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();

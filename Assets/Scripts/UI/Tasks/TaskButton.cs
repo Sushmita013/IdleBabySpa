@@ -32,6 +32,8 @@ public class TaskButton : MonoBehaviour
 
     public Button roomButton;
 
+    public GameObject carManager;
+    public ParticleSystem reward;
 
 
     void Start()
@@ -55,6 +57,9 @@ public class TaskButton : MonoBehaviour
             progressionSlider.value = 1;
             progressText.text = progressionSlider.value.ToString();
             yield return new WaitForSeconds(0.25f);
+            Button button = gameObject.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             CanvasManager.instance.taskNumber += 1;
             if (CanvasManager.instance.taskNumber == 2)
             { 
@@ -65,7 +70,9 @@ public class TaskButton : MonoBehaviour
             { 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
-            }if (CanvasManager.instance.taskNumber == 8)
+                carManager.SetActive(true); 
+            }
+            if (CanvasManager.instance.taskNumber == 8)
             {
                 Debug.Log("haircut");
                 GameManager.instance.haircutUnlocked = true;
@@ -84,9 +91,6 @@ public class TaskButton : MonoBehaviour
             Destroy(explosionFx.gameObject);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
             //CanvasManager.instance.tasksGO[0].SetActive(true); 
-            Button button = gameObject.GetComponent<Button>();
-            button.onClick.RemoveAllListeners();
-            button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
         }
         else
         { 
@@ -98,6 +102,8 @@ public class TaskButton : MonoBehaviour
     {  
             yield return new WaitForSeconds(0.05f);
             HideReward();
+        reward.Play();
+
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         Destroy(gameObject);

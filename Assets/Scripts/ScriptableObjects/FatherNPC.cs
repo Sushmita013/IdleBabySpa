@@ -7,8 +7,8 @@ public class FatherNPC : ScriptableObject
 {
     public GameObject fatherNpc;
     public List<Transform> movepoints;
-    public float moveSpeed = 5f;
-    public Animator animator;
-    public List<string> anim; 
+    public float moveSpeed = 5f; 
+    public List<string> anim;
+    //public GameObject babyNPC;
 }
      

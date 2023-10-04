@@ -9,22 +9,39 @@ public class FatherController : MonoBehaviour
 {
     public FatherNPC father;
     public Transform spawnParent;
-    public NavMeshAgent navMeshAgent;
+    private NavMeshAgent navMeshAgent;
     private List<GameObject> instantiatedFathers = new List<GameObject>();
-
-
+    private GameObject baby;
+    public Transform spawnPoint;
+    private Animator animator;
+    private Baby babyController;
+    public float time;
+     
     void Start()
     {
-        InstantiateParent(); 
+        //InstantiateParent();  
+        //father.babyNPC = father.fatherNpc.transform.Find("Baby_with_father_Anim").gameObject;
     }
 
-    private void InstantiateParent()
+    private void Update()
+    {
+        time += Time.deltaTime;
+    }
+
+    public IEnumerator InstantiateParent(Transform spawn)
     {  
-        GameObject parent = Instantiate(father.fatherNpc, father.movepoints[0].localPosition, Quaternion.identity, spawnParent);
+        GameObject parent = Instantiate(father.fatherNpc, spawn.position, Quaternion.identity, spawnParent); 
         parent.SetActive(true);
-        father.animator = parent.GetComponent<Animator>();
+        baby= parent.transform.Find("Baby_with_father_Anim").gameObject;
+        babyController = baby.GetComponent<Baby>();
+        animator = parent.GetComponent<Animator>();
+        //father.animator = parent.GetComponent<Animator>();
         navMeshAgent = parent.GetComponent<NavMeshAgent>();
         instantiatedFathers.Add(parent);
+        PlayAnimation(father.anim[0]);
+        //Baby.instance.PlayAnimation("Father holding baby idle");
+        navMeshAgent.SetDestination(father.movepoints[6].position);
+        yield return new WaitForSeconds(7f); 
         StartCoroutine(Move(parent,father,navMeshAgent)); 
     }
 
@@ -32,12 +49,17 @@ public class FatherController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         PlayAnimation(fatherData.anim[0]);
-        Baby.instance.PlayAnimation("Father holding baby idle");
-        agent.SetDestination(fatherData.movepoints[1].position);
-        yield return new WaitForSeconds(24f);
+        babyController.PlayAnimation("Father holding baby idle");
+        agent.SetDestination(fatherData.movepoints[1].position); 
+        yield return new WaitForSeconds(23f); 
+        //if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        //{
+        //    Debug.Log("agent at position");
+        //    canDropBaby = true;
+        //}
         PlayAnimation(fatherData.anim[1]);
-        StartCoroutine(Baby.instance.Service());
-        RemoveChild(parent);
+        StartCoroutine(babyController.Service()); 
+        RemoveChild(instantiatedFathers[0]); 
         yield return new WaitForSeconds(4);
         StartCoroutine(Masseuse.instance.Action());
         agent.SetDestination(fatherData.movepoints[2].position);
@@ -57,11 +79,11 @@ public class FatherController : MonoBehaviour
         parent.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(fatherData.anim[6]);
-        StartCoroutine(Baby.instance.Pickup());
+        StartCoroutine(babyController.Pickup());
         yield return new WaitForSeconds(3);
-        AddChild(parent);
+        AddChild(instantiatedFathers[0]);
         PlayAnimation(fatherData.anim[0]);
-        Baby.instance.PlayAnimation("Father holding baby idle");
+        babyController.PlayAnimation("Father holding baby idle");
         if (GameManager.instance.haircutUnlocked)
         {
             StartCoroutine(HaircutMovement(parent, fatherData, agent));
@@ -72,14 +94,14 @@ public class FatherController : MonoBehaviour
             yield return new WaitForSeconds(10.5f);
             parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
             PlayAnimation(fatherData.anim[7]);
-            Baby.instance.PlayAnimation("baby standing idle with father");
+            babyController.PlayAnimation("baby standing idle with father");
             StartCoroutine(Masseuse.instance.Action1());
             yield return new WaitForSeconds(9);
             PlayAnimation(fatherData.anim[0]);
-            Baby.instance.PlayAnimation("Father holding baby idle");
-            agent.SetDestination(fatherData.movepoints[0].position);
-            yield return new WaitForSeconds(14);
-            Destroy(parent);
+            babyController.PlayAnimation("Father holding baby idle");
+            agent.SetDestination(spawnPoint.position);
+            yield return new WaitForSeconds(18);
+            Destroy(parent); 
         }
     }
     //public IEnumerator Move(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
@@ -138,7 +160,7 @@ public class FatherController : MonoBehaviour
     //}
     public void PlayAnimation(string anim)
     {
-        father.animator.Play(anim);
+        animator.Play(anim);
     }
 
     public IEnumerator HaircutMovement(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
@@ -146,7 +168,7 @@ public class FatherController : MonoBehaviour
         agent.SetDestination(fatherData.movepoints[4].position);
         yield return new WaitForSeconds(11.5f);
         PlayAnimation(fatherData.anim[8]);
-        StartCoroutine(Baby.instance.Haircut());
+        StartCoroutine(babyController.Haircut());
         RemoveChild(parent);
         yield return new WaitForSeconds(3f);
         PlayAnimation(fatherData.anim[2]);
@@ -167,20 +189,20 @@ public class FatherController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(fatherData.anim[9]);
         AddChild(parent);
-        StartCoroutine(Baby.instance.HairDone());
+        StartCoroutine(babyController.HairDone());
         yield return new WaitForSeconds(3);
         PlayAnimation(fatherData.anim[0]);
         agent.SetDestination(fatherData.movepoints[3].position);
         yield return new WaitForSeconds(9.5f);
         parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
         PlayAnimation(fatherData.anim[7]);
-        Baby.instance.PlayAnimation("baby standing idle with father");
+        babyController.PlayAnimation("baby standing idle with father");
         StartCoroutine(Masseuse.instance.Action1());
         yield return new WaitForSeconds(9);
         PlayAnimation(fatherData.anim[0]);
-        Baby.instance.PlayAnimation("Father holding baby idle");
-        agent.SetDestination(fatherData.movepoints[0].position);
-        yield return new WaitForSeconds(14);
+        babyController.PlayAnimation("Father holding baby idle");
+        agent.SetDestination(spawnPoint.position);
+        yield return new WaitForSeconds(18);
         Destroy(parent);
     }
     //public IEnumerator HaircutMovement(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
@@ -228,30 +250,18 @@ public class FatherController : MonoBehaviour
 
     public void RemoveChild(GameObject prefab)
     {
-        Transform childTransform = prefab.transform.Find("Baby_with_father_Anim"); // Replace "ChildObjectName" with the actual name of your child object
-
-        if (childTransform != null)
+        if (baby != null)
         {
-            childTransform.parent = null;
-        }
-        else
-        {
-            Debug.LogError("Child object not found!");
+            baby.transform.parent = null;
         }
     }
 
     public void AddChild(GameObject prefab)
     {
-        Transform childTransform = GameObject.Find("Baby_with_father_Anim").transform; // Replace "ChildObjectName" with the actual name of your child object
-                                                                                       // Replace "ChildObjectName" with the actual name of your child object
-
-        if (childTransform != null)
+        if (baby != null)
         {
-            childTransform.parent = prefab.transform;
-        }
-        else
-        {
-            Debug.LogError("Child object or new parent object not found!");
+            baby.transform.parent = prefab.transform;
         }
     }
+
 }

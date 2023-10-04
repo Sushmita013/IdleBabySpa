@@ -22,7 +22,9 @@ public class CanvasManager : MonoBehaviour
 
     public int taskNumber; 
 
-    public Sprite completedTask;  
+    public Sprite completedTask;
+
+    public int tipsCollected;
      
     void Start()
     { 

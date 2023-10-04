@@ -91,6 +91,8 @@ public class CarManager : MonoBehaviour
     public List<GameObject> instantiatedCars = new List<GameObject>();
     public int totalCarSpaces;
     public List<bool> parkingSlotAvailability = new List<bool>();
+    public List<GameObject> parkingSlots;
+    public int availableParkingSlots;
 
     private void Start()
     {
@@ -100,42 +102,61 @@ public class CarManager : MonoBehaviour
         {
             parkingSlotAvailability.Add(true); // Initially, all slots are available
         }
+        availableParkingSlots = 6;  
         StartCoroutine(InstantiateRandomCars());
     }  
 
     private IEnumerator InstantiateRandomCars()
-    {
+    { 
         foreach (Cars carData in carPrefabs)
         {
-            GameObject carPrefab = carData.carPrefabs[Random.Range(0, carData.carPrefabs.Count)];
+            GameObject carPrefab = carData.carPrefabs[Random.Range(0, carData.carPrefabs.Count)]; 
             GameObject car = Instantiate(carPrefab, carData.movePoints[0].position, Quaternion.identity);
-            //GameObject childTransform = car.transform.Find("Father_NPC").gameObject;
-            //carData.parent = childTransform;
+                availableParkingSlots -= 1;
+            GameObject childTransform = car.transform.Find("SpawnPoint").gameObject;
+            carData.spawnPoint = childTransform;
             NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
             instantiatedCars.Add(car);
             agent.SetDestination(carData.movePoints[1].position);
             yield return new WaitForSeconds(8f);
             StartCoroutine(MoveCar(carData,agent));
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(20f);
             StartCoroutine(InstantiateRandomCars()); 
-        }
-    }
+        } 
 
+    } 
     public IEnumerator MoveCar(Cars carData, NavMeshAgent agent)
     {
         int parkingSlotIndex = FindNextAvailableParkingSlot();
+        
         if (parkingSlotIndex != -1)
         {
+            //if (parkingSlotIndex == 5)
+            //{
+            //    parkingSlotIndex--;
+            //}
             carData.destinationIndex = parkingSlotIndex;
             agent.SetDestination(carData.movePoints[parkingSlotIndex + 2].position);
+            parkingSlots[parkingSlotIndex].GetComponent<Collider>().enabled = true;
             parkingSlotAvailability[parkingSlotIndex] = false; // Mark the parking slot as occupied
         }
         else
         {
             Debug.LogError("No available parking slots!");
+            agent.SetDestination(carData.movePoints[8].position);
+            yield return new WaitForSeconds(15);
+            Destroy(agent.gameObject);
         }
-        yield return new WaitForSeconds(20f);
-        //StartCoroutine(ExitCar(carData, agent));
+        if(GameManager.instance.massageUnlocked && !GameManager.instance.haircutUnlocked)
+        { 
+        yield return new WaitForSeconds(95f);
+        StartCoroutine(ExitCar(carData, agent));
+        }
+        if(GameManager.instance.massageUnlocked && GameManager.instance.haircutUnlocked)
+        { 
+        yield return new WaitForSeconds(120f);
+        StartCoroutine(ExitCar(carData, agent));
+        }
     }
 
     private int FindNextAvailableParkingSlot()
@@ -144,6 +165,7 @@ public class CarManager : MonoBehaviour
         {
             if (parkingSlotAvailability[i])
             {
+                Debug.Log(i);
                 return i; // Return the index of the first available parking slot
             }
         }
@@ -153,12 +175,15 @@ public class CarManager : MonoBehaviour
     public IEnumerator ExitCar( Cars carData, NavMeshAgent agent)
     {
         Debug.Log("exit");
+        availableParkingSlots += 1;
+        //parkingSlotAvailability[carData.destinationIndex] = true; // Mark the parking slot as available 
         agent.SetDestination(carData.exitPoints[0].position);
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(5);
         agent.SetDestination(carData.exitPoints[1].position);
+        yield return new WaitForSeconds(20);
+        Destroy(agent.gameObject);
         yield return null; 
-        parkingSlotAvailability[carData.destinationIndex] = true; // Mark the parking slot as available
     }
-     
+
 }
 
