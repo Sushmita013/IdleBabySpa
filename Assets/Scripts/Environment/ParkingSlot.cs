@@ -15,6 +15,13 @@ public class ParkingSlot : MonoBehaviour
     public FatherController father;
     public MotherController mother;
 
+    public List<Transform> exitPoints;
+    public GameObject destroyPoint;
+
+    public GameObject car;
+
+    public int parkingIndex;
+
 
     void Start()
     {
@@ -26,6 +33,7 @@ public class ParkingSlot : MonoBehaviour
     {
         if (other.tag == "Car")
         {
+            car = other.gameObject;
             StartCoroutine(RotateCar(other.gameObject));
         }
     }
@@ -35,14 +43,48 @@ public class ParkingSlot : MonoBehaviour
         yield return new WaitForSeconds(1);
         car.transform.DORotate(new Vector3(0, 90, 0), 0.25f);
         StartCoroutine(SpawnParent(spawnPoint));
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(2); 
         GetComponent<Collider>().enabled = false;
-    } 
+        yield return new WaitForSeconds(80f); 
+        destroyPoint.GetComponent<Collider>().enabled = true;  
+        //GetComponent<Collider>().enabled = true; 
+    }
+
+    public void ExitCar(GameObject car)
+    { 
+        Debug.Log("Exut cat");
+        NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
+        agent.angularSpeed = 0;
+        agent.SetDestination(exitPoints[0].position);
+        if (parkingIndex == 5)
+        {
+            for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
+            {
+                //CarManager.instance.parkingSlotAvailability[i] = true;
+                CarManager.instance.ExitCar(i);
+            }
+        }
+        StartCoroutine(CarExit(car));
+    }
+
+    public IEnumerator CarExit(GameObject car)
+    {
+        NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
+        yield return new WaitForSeconds(3);
+        agent.angularSpeed = 120; 
+        agent.SetDestination(exitPoints[1].position);
+        yield return new WaitForSeconds(5);
+        agent.SetDestination(exitPoints[2].position);
+        yield return new WaitForSeconds(20);
+        Destroy(agent.gameObject);
+    }
+
+
 
     public IEnumerator SpawnParent(Transform spawn)
     {
         GameObject parentPrefab = parentController[Random.Range(0, parentController.Count)];
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.75f);
         GameObject parent = Instantiate(parentPrefab, controllerPoint.position, Quaternion.identity);
 
         // Check if the spawned parent GameObject has a FatherController component

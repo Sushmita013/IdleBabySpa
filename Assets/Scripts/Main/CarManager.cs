@@ -1,83 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
-//using UnityEngine.AI;
-//using DG.Tweening;
-
-//public class CarManager : MonoBehaviour
-//{
-//    public static CarManager instance;
-//    public List<Cars> carPrefabs;
-
-//    private List<GameObject> instantiatedCars = new List<GameObject>();
-
-//    public NavMeshAgent navMeshAgent;
-
-//    public GameObject father;
-//    public GameObject mother; 
-
-//    private void Start()
-//    {
-//        instance = this;
-//        StartCoroutine(InstantiateRandomCars());
-//    }
-
-//    private IEnumerator InstantiateRandomCars()
-//    {
-//        foreach (Cars carData in carPrefabs)
-//        {
-//            // Randomly select a prefab from the list
-//            GameObject carPrefab = carData.carPrefabs[Random.Range(0, carData.carPrefabs.Count)];
-
-//            GameObject car = Instantiate(carPrefab, carData.movePoints[0].position, Quaternion.identity);
-//            GameObject childTransform = car.transform.Find("Father_NPC").gameObject;
-//            carData.parent = childTransform;
-//            //foreach (Transform child in car.transform)
-//            //{
-//            //    carData.wheels.Add(child);
-//            //}
-//            navMeshAgent = car.GetComponent<NavMeshAgent>();
-//            instantiatedCars.Add(car);
-
-//            StartCoroutine(MoveCar(car, carData, navMeshAgent));
-//            //StartCoroutine(RotateWheels(car, carData));
-//            yield return new WaitForSeconds(10f); 
-//        }
-//    } 
-
-//    private IEnumerator MoveCar(GameObject car, Cars carData, NavMeshAgent agent)
-//    {
-
-//        agent.SetDestination(carData.movePoints[1].position);
-//        yield return new WaitForSeconds(7);
-//        agent.SetDestination(carData.movePoints[2].position);
-//        yield return new WaitForSeconds(4);
-//        //father.SetActive(true);
-//        yield return new WaitForSeconds(110f);
-//        //father.SetActive(false); 
-//        StartCoroutine(ExitCar(car, carData, navMeshAgent));  
-//    }
-//    private IEnumerator ExitCar(GameObject car, Cars carData, NavMeshAgent agent)
-//    {
-//        Debug.Log("exit");
-//        agent.SetDestination(carData.movePoints[3].position);
-//        yield return new WaitForSeconds(6);
-//        agent.SetDestination(carData.movePoints[4].position);  
-//        yield return null;  
-//    }  
-//    private IEnumerator RotateWheels(GameObject car, Cars carData)
-//    {
-//        while (true)
-//        {
-//            foreach (Transform wheel in carData.wheels)
-//            {
-//                wheel.Rotate(Vector3.forward * carData.wheelRotationSpeed * Time.deltaTime);
-//            }
-//            yield return null;
-//        }
-//    }
-//}
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -146,17 +66,7 @@ public class CarManager : MonoBehaviour
             agent.SetDestination(carData.movePoints[8].position);
             yield return new WaitForSeconds(15);
             Destroy(agent.gameObject);
-        }
-        if(GameManager.instance.massageUnlocked && !GameManager.instance.haircutUnlocked)
-        { 
-        yield return new WaitForSeconds(95f);
-        StartCoroutine(ExitCar(carData, agent));
-        }
-        if(GameManager.instance.massageUnlocked && GameManager.instance.haircutUnlocked)
-        { 
-        yield return new WaitForSeconds(120f);
-        StartCoroutine(ExitCar(carData, agent));
-        }
+        } 
     }
 
     private int FindNextAvailableParkingSlot()
@@ -164,25 +74,18 @@ public class CarManager : MonoBehaviour
         for (int i = 0; i < parkingSlotAvailability.Count; i++)
         {
             if (parkingSlotAvailability[i])
-            {
-                Debug.Log(i);
+            { 
                 return i; // Return the index of the first available parking slot
             }
         }
         return -1; // No available parking slots
     }
 
-    public IEnumerator ExitCar( Cars carData, NavMeshAgent agent)
-    {
-        Debug.Log("exit");
+    public void ExitCar(int index)
+    {  
         availableParkingSlots += 1;
-        //parkingSlotAvailability[carData.destinationIndex] = true; // Mark the parking slot as available 
-        agent.SetDestination(carData.exitPoints[0].position);
-        yield return new WaitForSeconds(5);
-        agent.SetDestination(carData.exitPoints[1].position);
-        yield return new WaitForSeconds(20);
-        Destroy(agent.gameObject);
-        yield return null; 
+        parkingSlotAvailability[index] = true; // Mark the parking slot as available 
+        
     }
 
 }

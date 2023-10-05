@@ -58,8 +58,7 @@ public class TaskButton1 : MonoBehaviour
 
     public void ShowPopup()
     {
-        RoomManager.instance.ResetPanels(); 
-        Debug.Log("popup");
+        RoomManager.instance.ResetPanels();  
         StartCoroutine(Reception.instance.CameraZoomIn());
         //Reception.instance.hireButton.onClick.AddListener(() => StartCoroutine(TaskComplete()));
     }

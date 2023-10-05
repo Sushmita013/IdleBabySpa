@@ -27,7 +27,9 @@ public class CanvasManager : MonoBehaviour
     public int tipsCollected;
      
     void Start()
-    { 
+    {
+        Camera.main.transform.position = new Vector3(-123.5f, 60, -78);
+        Camera.main.orthographicSize = 21;
         instance = this;
         taskNumber = 1;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 

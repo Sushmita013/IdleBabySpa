@@ -97,7 +97,7 @@ public class MotherController : MonoBehaviour
             babyController.PlayAnimation("Father holding baby idle");
             agent.SetDestination(spawnPoint.position);
             yield return new WaitForSeconds(18);
-            Destroy(parent);
+            //Destroy(parent);
         }
     }
     public void PlayAnimation(string anim)
@@ -145,7 +145,7 @@ public class MotherController : MonoBehaviour
         babyController.PlayAnimation("Father holding baby idle");
         agent.SetDestination(spawnPoint.position);
         yield return new WaitForSeconds(18);
-        Destroy(parent);
+        //Destroy(parent);
     }
 
     //public void RemoveChild(GameObject prefab)

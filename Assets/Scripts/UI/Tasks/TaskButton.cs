@@ -65,12 +65,21 @@ public class TaskButton : MonoBehaviour
             { 
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
+                Tutorial.instance.MassageComplete();
+            }
+            if (CanvasManager.instance.taskNumber == 3)
+            {
+                Tutorial.instance.ReceptionDone();
+            objectToEnable.SetActive(true);
+            objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
             if (CanvasManager.instance.taskNumber == 5)
             { 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
-                carManager.SetActive(true); 
+                carManager.SetActive(true);
+                Tutorial.instance.ResetHands();
+                Camera.main.GetComponent<PanZoom>().enabled = true; 
             }
             if (CanvasManager.instance.taskNumber == 8)
             {
@@ -99,8 +108,12 @@ public class TaskButton : MonoBehaviour
     }
 
     public IEnumerator OnCollectReward()
-    {  
-            yield return new WaitForSeconds(0.05f);
+    {
+        if (CanvasManager.instance.taskNumber == 2)
+        {
+            Tutorial.instance.CollectedReward();
+        }
+        yield return new WaitForSeconds(0.05f);
             HideReward();
         reward.Play();
 
@@ -122,13 +135,21 @@ public class TaskButton : MonoBehaviour
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
         if (CanvasManager.instance.taskNumber == 4)
         {
+                Tutorial.instance.ParkingBuild();
             Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
-        }
-        if (CanvasManager.instance.taskNumber == 1)
+            }
+            if (CanvasManager.instance.taskNumber == 1)
         { 
+                Tutorial.instance.MassageBuilt();
             room.CamZoom();
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
+        }
+        if (CanvasManager.instance.taskNumber == 2)
+        {
+                Tutorial.instance.ReceptionBuild();
+                //Reception.instance.CamZoom(); 
+                objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
         }
         if (CanvasManager.instance.taskNumber == 7)
         { 
@@ -140,6 +161,10 @@ public class TaskButton : MonoBehaviour
 
     public void ShowReward(string message)
     {
+        if (CanvasManager.instance.taskNumber == 2)
+        {
+            Tutorial.instance.GetReward();
+        }
         RoomManager.instance.ResetPanels();
         if (CanvasManager.instance.popupObject1 == null)
         { 

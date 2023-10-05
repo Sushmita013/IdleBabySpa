@@ -56,6 +56,7 @@ public class TaskButton2 : MonoBehaviour
             gameObject.transform.DOLocalMoveY(-120, 0.5f);
             explosionFx.Play();
             yield return new WaitForSeconds(0.5f);
+            Tutorial.instance.BillboardBuild();
             incompleteTask.SetActive(false);
             completeTask.SetActive(true);
             objectToEnable.SetActive(true);
@@ -86,7 +87,7 @@ public class TaskButton2 : MonoBehaviour
     public void ShowPopup(string errorMessage)
     {
         RoomManager.instance.ResetPanels();
-
+        Tutorial.instance.ParkingBuild();
         room.CamZoom();
         if (CanvasManager.instance.popupObject == null)
         { 

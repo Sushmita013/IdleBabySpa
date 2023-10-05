@@ -55,11 +55,11 @@ public class Cashier : MonoBehaviour
             UpdateValues();
             if (Reception.instance.totalCashiers == 1)
             {
-                StartCoroutine(Reception.instance.taskList[0].TaskComplete());
+                //StartCoroutine(Reception.instance.taskList[0].TaskComplete());
                 Reception.instance.taskList[0].progressionSlider.value = 1;
                 Reception.instance.taskList[0].progressText.text = Reception.instance.taskList[0].progressionSlider.value.ToString();
             }
-            if (Reception.instance.totalCashiers == 2)
+            if (Reception.instance.totalCashiers == 1)
             {
                 StartCoroutine(Reception.instance.taskList[2].TaskComplete());
                 Reception.instance.taskList[2].progressionSlider.value = 1;
@@ -77,8 +77,10 @@ public class Cashier : MonoBehaviour
             service1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f);
 
             yield return new WaitForSeconds(0.5f);
-            Destroy(effects[0].gameObject);
-            Destroy(effects[1].gameObject); 
+            effects[0].Stop();
+            effects[1].Stop();
+            //Destroy(effects[0].gameObject);
+            //Destroy(effects[1].gameObject); 
         }
     }
 

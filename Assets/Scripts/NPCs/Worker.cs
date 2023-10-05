@@ -44,9 +44,10 @@ public class Worker : MonoBehaviour
     public string animIdle;
     public string animWork;
 
-    public List<ButtonTabsChange> tabs;
-    public List<GameObject> panels;
+    public List<ButtonTabsChange> tabs; // Reference to the ButtonTabsChange scripts attached to buttons
+    public List<GameObject> panels; // Reference to the panels corresponding to the buttons
     public List<Button> buttons;
+
 
     void Start()
     {

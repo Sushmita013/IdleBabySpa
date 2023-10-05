@@ -101,63 +101,9 @@ public class FatherController : MonoBehaviour
             babyController.PlayAnimation("Father holding baby idle");
             agent.SetDestination(spawnPoint.position);
             yield return new WaitForSeconds(18);
-            Destroy(parent); 
+            //Destroy(parent); 
         }
-    }
-    //public IEnumerator Move(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
-    //{
-    //    yield return new WaitForSeconds(1);  
-    //    PlayAnimation(fatherData.anim[0]);
-    //    Baby.instance.PlayAnimation("Father holding baby idle"); 
-    //    agent.SetDestination(fatherData.movepoints[1].position);
-    //    yield return new WaitForSeconds(12f); 
-    //    PlayAnimation(fatherData.anim[1]);
-    //    StartCoroutine(Baby.instance.Service());
-    //    RemoveChild(parent);
-    //    yield return new WaitForSeconds(4);
-    //    StartCoroutine(Masseuse.instance.Action()); 
-    //    agent.SetDestination(fatherData.movepoints[2].position);
-    //    PlayAnimation(fatherData.anim[2]);
-    //    yield return new WaitForSeconds(0.875f); 
-    //    parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
-    //    yield return new WaitForSeconds(0.1f); 
-    //    PlayAnimation(fatherData.anim[3]);
-    //    yield return new WaitForSeconds(3);
-    //    PlayAnimation(fatherData.anim[4]);
-    //    yield return new WaitForSeconds(2);
-    //    PlayAnimation(fatherData.anim[5]);
-    //    yield return new WaitForSeconds(2.75f); 
-    //    agent.SetDestination(fatherData.movepoints[1].position);
-    //    PlayAnimation(fatherData.anim[2]);
-    //    yield return new WaitForSeconds(0.875f);
-    //    parent.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
-    //    yield return new WaitForSeconds(0.1f);
-    //    PlayAnimation(fatherData.anim[6]); 
-    //    StartCoroutine(Baby.instance.Pickup());
-    //    yield return new WaitForSeconds(3);
-    //    AddChild(parent);
-    //    PlayAnimation(fatherData.anim[0]);
-    //    Baby.instance.PlayAnimation("Father holding baby idle");
-    //    if (GameManager.instance.haircutUnlocked)
-    //    { 
-    //        StartCoroutine(HaircutMovement(parent,fatherData,agent));
-    //    }
-    //    else
-    //    { 
-    //    agent.SetDestination(fatherData.movepoints[3].position);
-    //    yield return new WaitForSeconds(5.25f);
-    //    parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear); 
-    //    PlayAnimation(fatherData.anim[7]);
-    //    Baby.instance.PlayAnimation("baby standing idle with father");
-    //    StartCoroutine(Masseuse.instance.Action1());
-    //    yield return new WaitForSeconds(9);
-    //    PlayAnimation(fatherData.anim[0]);
-    //    Baby.instance.PlayAnimation("Father holding baby idle");
-    //    agent.SetDestination(fatherData.movepoints[0].position);
-    //    yield return new WaitForSeconds(7); 
-    //    Destroy(parent); 
-    //    }
-    //}
+    } 
     public void PlayAnimation(string anim)
     {
         animator.Play(anim);
@@ -203,7 +149,7 @@ public class FatherController : MonoBehaviour
         babyController.PlayAnimation("Father holding baby idle");
         agent.SetDestination(spawnPoint.position);
         yield return new WaitForSeconds(18);
-        Destroy(parent);
+        //Destroy(parent);
     }
     //public IEnumerator HaircutMovement(GameObject parent, FatherNPC fatherData, NavMeshAgent agent)
     //{ 
