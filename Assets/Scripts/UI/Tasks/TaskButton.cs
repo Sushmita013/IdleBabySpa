@@ -10,6 +10,7 @@ public class TaskButton : MonoBehaviour
     public bool taskComplete;
 
     public string messageText;
+    public string descriptionText;
 
     public int rewardValue;
 
@@ -78,7 +79,7 @@ public class TaskButton : MonoBehaviour
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
                 carManager.SetActive(true);
-                Tutorial.instance.ResetHands();
+                Tutorial.instance.DestroyHands();
                 Camera.main.GetComponent<PanZoom>().enabled = true; 
             }
             if (CanvasManager.instance.taskNumber == 8)
@@ -98,8 +99,7 @@ public class TaskButton : MonoBehaviour
             explosionFx.Play();
             yield return new WaitForSeconds(0.75f); 
             Destroy(explosionFx.gameObject);
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
-            //CanvasManager.instance.tasksGO[0].SetActive(true); 
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);  
         }
         else
         { 
@@ -119,8 +119,7 @@ public class TaskButton : MonoBehaviour
 
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
-        Destroy(gameObject);
-        //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]); 
+        Destroy(gameObject); 
     }
 
     public void ShowPopup(string errorMessage)
@@ -132,16 +131,17 @@ public class TaskButton : MonoBehaviour
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel(); 
         errorPopup.SetErrorMessage(errorMessage);
+        errorPopup.SetDescription(descriptionText);
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
         if (CanvasManager.instance.taskNumber == 4)
         {
-                Tutorial.instance.ParkingBuild();
+                Tutorial.instance.ParkingBuild(); 
             Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
             }
             if (CanvasManager.instance.taskNumber == 1)
         { 
-                Tutorial.instance.MassageBuilt();
+                Tutorial.instance.BuildClick();
             room.CamZoom();
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
         }

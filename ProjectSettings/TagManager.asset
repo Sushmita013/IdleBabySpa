@@ -9,6 +9,8 @@ TagManager:
   - NPC
   - SpawnPoint
   - DestroyPoint
+  - Missile
+  - MassageTable
   layers:
   - Default
   - TransparentFX

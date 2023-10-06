@@ -18,53 +18,66 @@ public class Tutorial : MonoBehaviour
         Camera.main.GetComponent<PanZoom>().enabled = false;
     }  
 
-    public void MassageBuilt()
-    { 
+    public void BuildClick()
+    {
+        hands[0].SetActive(false);
+        hands.Remove(hands[0]);
         ResetHands();
-        hands[1].SetActive(true);
+        hands[0].SetActive(true);
     }
 
     public void MassageComplete()
     {
-        ResetHands();
-        hands[2].SetActive(true);
+        //hands[1].SetActive(false);
+        //hands.Remove(hands[1]); 
+        hands[0].SetActive(false);
+        //ResetHands();
+        hands[1].SetActive(true);
     }
 
     public void GetReward()
     {
-        ResetHands();
-        hands[3].SetActive(true);
+        //ResetHands();
+        hands[1].SetActive(false);
+        hands.Remove(hands[1]);
+        hands[1].SetActive(true);
     }
     public void CollectedReward()
-    {
-        ResetHands();
-        hands[0].SetActive(true);
+    { 
+        hands[1].SetActive(false);
+        Destroy(hands[1]);
+        hands.Remove(hands[1]);
+        hands[1].SetActive(true);
     }
 
     public void ReceptionBuild()
     {
-        ResetHands();
-           hands[1].SetActive(true);
+        //BuildClick();
+        hands[1].SetActive(false);
+        hands.Remove(hands[1]);
+        hands[0].SetActive(true); 
         Camera.main.transform.DOLocalMove(new Vector3(-140,60,-55), 0.75f).SetEase(Ease.Linear);
         Camera.main.DOOrthoSize(20, 0.75f);
     }
+     
 
     public void ParkingBuild()
     {
-        ResetHands(); 
-        hands[1].SetActive(true);
+        hands[1].SetActive(false);
+        hands.Remove(hands[1]); 
+        hands[0].SetActive(true);
     }
 
     public void BillboardBuild()
     {
-        ResetHands();
-        hands[0].SetActive(true);
+        hands[1].SetActive(true);
+        hands[0].SetActive(false);
     } 
 
     public void ReceptionDone()
     {
-        hands[1].SetActive(false);
-        hands[0].SetActive(true);
+        hands[0].SetActive(false);
+        hands[1].SetActive(true); 
     }
 
     public void ResetHands()
@@ -72,6 +85,14 @@ public class Tutorial : MonoBehaviour
         foreach (GameObject item in hands)
         {
             item.SetActive(false);
+        }
+    }
+
+    public void DestroyHands()
+    {
+        foreach (GameObject item in hands)
+        {
+            Destroy(item.gameObject);
         }
     }
 }

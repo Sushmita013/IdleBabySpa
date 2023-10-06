@@ -9,6 +9,7 @@ public class BuildPopup : MonoBehaviour
 {
     public GameObject popupWindow;
     public TMP_Text messageText;
+    public TMP_Text descriptionText;
     public Button button;
 
     private string button_Text;
@@ -17,6 +18,10 @@ public class BuildPopup : MonoBehaviour
     public void SetErrorMessage(string message)
     {
         messageText.text = message;
+    }
+    public void SetDescription(string message)
+    {
+        descriptionText.text = message;
     }
 
     public void SetButton(string buttonText, System.Action action)

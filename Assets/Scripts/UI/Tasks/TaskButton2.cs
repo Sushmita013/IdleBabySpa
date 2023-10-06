@@ -10,6 +10,7 @@ public class TaskButton2 : MonoBehaviour
     public bool taskComplete;
 
     public string messageText;
+    public string descriptionText;
 
     public int rewardValue;
 
@@ -95,6 +96,7 @@ public class TaskButton2 : MonoBehaviour
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.EnablePanel();
         errorPopup.SetErrorMessage(errorMessage);
+        errorPopup.SetDescription(descriptionText);
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete())); 
         objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
         }

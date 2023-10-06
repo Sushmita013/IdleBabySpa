@@ -50,11 +50,7 @@ public class CarManager : MonoBehaviour
         int parkingSlotIndex = FindNextAvailableParkingSlot();
         
         if (parkingSlotIndex != -1)
-        {
-            //if (parkingSlotIndex == 5)
-            //{
-            //    parkingSlotIndex--;
-            //}
+        { 
             carData.destinationIndex = parkingSlotIndex;
             agent.SetDestination(carData.movePoints[parkingSlotIndex + 2].position);
             parkingSlots[parkingSlotIndex].GetComponent<Collider>().enabled = true;
