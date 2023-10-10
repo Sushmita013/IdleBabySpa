@@ -33,8 +33,7 @@ public class Tabs : MonoBehaviour
     }
 
     public void ButtonClick(int buttonIndex)
-    {
-        Debug.Log("ButtonClick");
+    { 
         if (buttonIndex >= 0 && buttonIndex < tabs.Count)
         {
             tabs[buttonIndex].ChangeState(ButtonStates.selected);

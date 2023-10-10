@@ -15,7 +15,9 @@ using DG.Tweening;
         PhotoRoom,
         Cafeteria,
         Cleaning,
-        Bathroom
+        Bathroom,
+        Parking,
+        Advertisement
     }
 public class RoomManager : MonoBehaviour
 {

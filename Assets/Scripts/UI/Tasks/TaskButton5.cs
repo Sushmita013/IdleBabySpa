@@ -81,6 +81,7 @@ public class TaskButton5 : MonoBehaviour
             }
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
             gameObject.transform.DOLocalMoveY(-120, 0.5f).OnComplete(() =>
             {
                 incompleteTask.SetActive(false);

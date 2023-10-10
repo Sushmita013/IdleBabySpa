@@ -72,7 +72,7 @@ public class Mother : MonoBehaviour
         yield return new WaitForSeconds(2); 
         PlayAnimation("mom putting baby on table");
         yield return new WaitForSeconds(0.25f); 
-        StartCoroutine(Baby.instance.Service1());
+        //StartCoroutine(Baby.instance.Service1());
             RemoveChild(); 
         gameObject.transform.DOLocalMove(new Vector3(22.5f, 0.015f, -9.86f), 0.25f); 
         yield return new WaitForSeconds(0.75f);
@@ -100,7 +100,7 @@ public class Mother : MonoBehaviour
         gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("mom collecting baby from table");
-        StartCoroutine(Baby.instance.Pickup1());
+        //StartCoroutine(Baby.instance.Pickup1());
         yield return new WaitForSeconds(3);
         AddChild();
         gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.25f).SetEase(Ease.Linear);

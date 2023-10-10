@@ -52,7 +52,7 @@ public class MotherController : MonoBehaviour
         babyController.PlayAnimation("Father holding baby idle");
         agent.SetDestination(motherData.movepoints[1].position);
         yield return new WaitForSeconds(22.5f);
-        StartCoroutine(babyController.Service1());
+        //StartCoroutine(babyController.Service1());
         RemoveChild(instantiatedMothers[0]);
         yield return new WaitForSeconds(1); 
         PlayAnimation(motherData.anim[1]);
@@ -75,7 +75,7 @@ public class MotherController : MonoBehaviour
         parent.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(motherData.anim[6]);
-        StartCoroutine(babyController.Pickup1());
+        //StartCoroutine(babyController.Pickup1());
         yield return new WaitForSeconds(3);               
         AddChild(instantiatedMothers[0]);
         PlayAnimation(motherData.anim[0]);
@@ -110,7 +110,7 @@ public class MotherController : MonoBehaviour
         agent.SetDestination(motherData.movepoints[4].position);
         yield return new WaitForSeconds(11.5f);
         PlayAnimation(motherData.anim[8]);
-        StartCoroutine(babyController.Haircut1()); 
+        //StartCoroutine(babyController.Haircut1()); 
         RemoveChild(parent);
         yield return new WaitForSeconds(3f);
         PlayAnimation(motherData.anim[2]);
@@ -131,7 +131,7 @@ public class MotherController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(motherData.anim[9]);
         AddChild(parent);
-        StartCoroutine(babyController.HairDone1());
+        //StartCoroutine(babyController.HairDone1());
         yield return new WaitForSeconds(3);
         PlayAnimation(motherData.anim[0]);
         agent.SetDestination(motherData.movepoints[3].position);

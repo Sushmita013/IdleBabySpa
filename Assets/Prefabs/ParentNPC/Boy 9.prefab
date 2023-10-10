@@ -1614,7 +1614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4649538553629049666}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.10099988, y: -0.15, z: 0.37199974}
+  m_LocalPosition: {x: 0.10099988, y: -0.3, z: 0.37199974}
   m_LocalScale: {x: 0.3000002, y: 0.3, z: 0.3000002}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3294,8 +3294,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
-  spawnParent: {fileID: 0}
-  spawnPoint: {fileID: 0}
   time: 0
 --- !u!65 &5496383309463422178
 BoxCollider:
@@ -3319,8 +3317,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 5496383309463422188}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 7
+  m_Radius: 0.25
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -3330,7 +3328,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 13
   m_ObstacleAvoidanceType: 4
 --- !u!1 &6035475168674720203
 GameObject:

@@ -58,7 +58,7 @@ public class FatherController : MonoBehaviour
         //    canDropBaby = true;
         //}
         PlayAnimation(fatherData.anim[1]);
-        StartCoroutine(babyController.Service()); 
+        StartCoroutine(babyController.Massage()); 
         RemoveChild(instantiatedFathers[0]); 
         yield return new WaitForSeconds(4);
         StartCoroutine(Masseuse.instance.Action());
@@ -79,7 +79,7 @@ public class FatherController : MonoBehaviour
         parent.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(fatherData.anim[6]);
-        StartCoroutine(babyController.Pickup());
+        StartCoroutine(babyController.MassageComplete());
         yield return new WaitForSeconds(3);
         AddChild(instantiatedFathers[0]);
         PlayAnimation(fatherData.anim[0]);
@@ -135,7 +135,7 @@ public class FatherController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         PlayAnimation(fatherData.anim[9]);
         AddChild(parent);
-        StartCoroutine(babyController.HairDone());
+        //StartCoroutine(babyController.HairDone());
         yield return new WaitForSeconds(3);
         PlayAnimation(fatherData.anim[0]);
         agent.SetDestination(fatherData.movepoints[3].position);

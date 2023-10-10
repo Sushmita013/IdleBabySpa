@@ -38,6 +38,7 @@ public class TaskButton3 : MonoBehaviour
             CanvasManager.instance.taskNumber += 1;
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
             gameObject.transform.DOLocalMoveY(-120, 0.5f); 
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();

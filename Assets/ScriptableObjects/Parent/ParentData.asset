@@ -43,6 +43,17 @@ MonoBehaviour:
   - {fileID: 5273349359194895364, guid: 1014254dfcfae9449b82392f0e7e73da, type: 3}
   - {fileID: 6414325878594673265, guid: e655de46e10b8264b857202388abca9f, type: 3}
   - {fileID: 5362399639303237508, guid: b679b3fe56c6b8a49a697890936e0d71, type: 3}
-  movepoints: []
+  movepoints:
+  - {fileID: 3231640672505188630, guid: aa2ce10642743b04296c1f58965edd7f, type: 3}
+  - {fileID: 2158835494473832460, guid: a478458ef5261af4c80f0448e861914c, type: 3}
+  - {fileID: 7148076323094273145, guid: d620b91246d28d24288f46a1556cb4c5, type: 3}
+  - {fileID: 4213701664419689911, guid: 7e60f45367fb0c64d9da8d1eba4218c8, type: 3}
   moveSpeed: 10
-  anim: []
+  anim:
+  - Holding baby and walking
+  - Keeping baby on table
+  - Standing idle without baby
+  - Picking baby up from table
+  - Keeping baby on chair
+  - Picking baby up from chair
+  - Holding baby and standing idle

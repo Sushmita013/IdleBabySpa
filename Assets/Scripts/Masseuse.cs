@@ -10,17 +10,24 @@ public class Masseuse : MonoBehaviour
 
     public GameObject duration;
     public GameObject duration1;
+    public GameObject duration2;
 
     public Animator massage;
+    public Animator cashier;
 
     public Image fillbar;
     public Image fillbar1;
+    public Image fillbar2;
 
     public ParticleSystem effect;
+    public ParticleSystem effect1;
+    public ParticleSystem effect2;
 
     void Start()
     {
         effect.Stop();
+        effect1.Stop();
+        effect2.Stop();
         instance = this;
     }
 
@@ -28,30 +35,35 @@ public class Masseuse : MonoBehaviour
     { 
         duration.SetActive(true);
         fillbar.DOFillAmount(1, 9); 
-        PlayAnimation("Massage");
+        PlayAnimationMassage("Massage");
         yield return new WaitForSeconds(9);
+        effect1.Play();
         duration.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
-        PlayAnimation("Idle"); 
+        PlayAnimationMassage("Idle"); 
     }
     public IEnumerator Action3()
     { 
         duration.SetActive(true);
         fillbar.DOFillAmount(1, 9); 
-        PlayAnimation("Massage");
+        //PlayAnimation("Massage");
         yield return new WaitForSeconds(9);
+        effect2.Play(); 
         duration.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
-        PlayAnimation("Idle"); 
+        //PlayAnimationMassage("Idle"); 
     }
     public IEnumerator Action1()
     { 
         duration1.SetActive(true);
         fillbar1.DOFillAmount(1, 9);
+        PlayAnimationCashier("Payment");
         yield return new WaitForSeconds(9);
         duration1.SetActive(false); 
         fillbar1.DOFillAmount(0, 0.1f);
         effect.Play();
+        PlayAnimationCashier("Idle");
+
         if (GameManager.instance.massageUnlocked && !GameManager.instance.haircutUnlocked)
         { 
         GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
@@ -73,8 +85,12 @@ public class Masseuse : MonoBehaviour
 
 
 
-    public void PlayAnimation(string animation)
+    public void PlayAnimationMassage(string animation)
     {
         massage.Play(animation); 
+    }
+    public void PlayAnimationCashier(string animation)
+    {
+        cashier.Play(animation); 
     }
 }

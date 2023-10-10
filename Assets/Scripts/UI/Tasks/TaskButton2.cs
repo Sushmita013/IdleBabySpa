@@ -54,6 +54,7 @@ public class TaskButton2 : MonoBehaviour
             CanvasManager.instance.taskNumber += 1; 
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
             gameObject.transform.DOLocalMoveY(-120, 0.5f);
             explosionFx.Play();
             yield return new WaitForSeconds(0.5f);

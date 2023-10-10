@@ -650,7 +650,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
   spawnParent: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  instantiatedParent: {fileID: 0}
+  baby: {fileID: 0}
   spawnPoint: {fileID: 0}
+  animator: {fileID: 0}
+  babyController: {fileID: 0}
   time: 0
 --- !u!65 &3506999040365038937
 BoxCollider:
@@ -674,8 +679,8 @@ NavMeshAgent:
   m_GameObject: {fileID: 3506999040365038939}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 7
+  m_Radius: 0.25
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -685,7 +690,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 13
   m_ObstacleAvoidanceType: 4
 --- !u!1 &4228922701217035805
 GameObject:

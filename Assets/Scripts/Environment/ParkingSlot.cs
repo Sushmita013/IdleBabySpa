@@ -15,6 +15,8 @@ public class ParkingSlot : MonoBehaviour
     public FatherController father;
     public MotherController mother;
 
+    public ParentNPC parent;
+
     public List<Transform> exitPoints;
     public GameObject destroyPoint;
 
@@ -42,21 +44,20 @@ public class ParkingSlot : MonoBehaviour
     { 
         yield return new WaitForSeconds(1);
         car.transform.DORotate(new Vector3(0, 90, 0), 0.25f);
-        StartCoroutine(SpawnParent(spawnPoint));
+        StartCoroutine(ParentSpawn());
         yield return new WaitForSeconds(2); 
         GetComponent<Collider>().enabled = false;
-        yield return new WaitForSeconds(80f); 
+        yield return new WaitForSeconds(60f); 
         destroyPoint.GetComponent<Collider>().enabled = true;  
         //GetComponent<Collider>().enabled = true; 
     }
 
     public void ExitCar(GameObject car)
-    { 
-        Debug.Log("Exut cat");
+    {  
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         agent.angularSpeed = 0;
         agent.SetDestination(exitPoints[0].position);
-        if (parkingIndex == 5)
+        if (parkingIndex == 3)
         {
             for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
             {
@@ -78,10 +79,9 @@ public class ParkingSlot : MonoBehaviour
         yield return new WaitForSeconds(20);
         Destroy(agent.gameObject);
     }
+     
 
-
-
-    public IEnumerator SpawnParent(Transform spawn)
+    public IEnumerator SpawnParent()
     {
         GameObject parentPrefab = parentController[Random.Range(0, parentController.Count)];
         yield return new WaitForSeconds(0.75f);
@@ -110,6 +110,35 @@ public class ParkingSlot : MonoBehaviour
             // The spawned parent GameObject does not have either component
             Debug.Log("Spawned parent is not a FatherController or a MotherController");
         }
+    } 
+    public IEnumerator ParentSpawn()
+    { 
+        yield return new WaitForSeconds(0.75f);
+        GameObject parentPrefab = parent.parentNpc[Random.Range(0, parent.parentNpc.Count)];
+        GameObject parentGO = Instantiate(parentPrefab, spawnPoint.position, Quaternion.identity);
+        ParentController parentController = parentGO.GetComponent<ParentController>(); 
+        parentGO.SetActive(true);
+
+        parentController.instantiatedParent = parentGO;
+        parentController.baby = parentGO.transform.Find("Baby").gameObject;
+        parentController.babyController = parentController.baby.GetComponent<Baby>();
+        parentController.animator = parentGO.GetComponent<Animator>();
+        parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
+        parentController.spawnPoint = spawnPoint;
+        parentController.parking = this;
+
+        //GameObject baby = parentController.GetBaby(); 
+        //baby = parentGO.transform.Find("Baby").gameObject;
+        //GameObject instantiatedParent = parentController.GetInstantiatedParent();
+        // instantiatedParent = parentGO;
+        //Animator animator = parentController.GetAnimator();
+        // animator = parentGO.GetComponent<Animator>();
+        //Baby babyController = parentController.GetBabyController();
+        // babyController =  baby.GetComponent<Baby>();
+        //NavMeshAgent navMeshAgent = parentController.GetNavMeshAgent();
+        // navMeshAgent = parentGO.GetComponent<NavMeshAgent>(); 
+
+        parentController.MoveToWalkway();
     }
 
 }

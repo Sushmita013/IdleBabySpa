@@ -39,6 +39,7 @@ public class TaskButton4 : MonoBehaviour
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
+            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
             gameObject.transform.DOLocalMoveY(-120, 0.5f);
             yield return new WaitForSeconds(0.5f);
             incompleteTask.SetActive(false);
