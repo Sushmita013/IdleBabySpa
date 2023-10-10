@@ -14,7 +14,7 @@ public class Reception : MonoBehaviour
     public List<Cashier> cashierList;
 
     public List<TaskButton1> taskList;
-
+    public TaskButton buildTask;
     public Transform camPos;
     public float moveSpeed = 2.0f;
     public int zoomSize;

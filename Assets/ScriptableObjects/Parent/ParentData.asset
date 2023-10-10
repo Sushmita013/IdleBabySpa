@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3aa6a9c47e1d744b9ddff7e61a743d, type: 3}
+  m_Name: ParentData
+  m_EditorClassIdentifier: 
+  parentNpc:
+  - {fileID: 6722655031426597697, guid: 86a7776af06a1e24aa8203e4ab4e9d48, type: 3}
+  - {fileID: 5164013202493175902, guid: 2871949eaa8bb604b80875c06523457a, type: 3}
+  - {fileID: 6810281047292403512, guid: 81b550fece4bb644598ae08f6852d8f0, type: 3}
+  - {fileID: 7942152058651369325, guid: 4fefdc340300265469f0215abb4b33e9, type: 3}
+  - {fileID: 227588757225481237, guid: 5501b51a28030234b85f501ce0d3916d, type: 3}
+  - {fileID: 4040361050131490273, guid: 01f7bf81651c2594ca301c0181123a8e, type: 3}
+  - {fileID: 1405621617599510743, guid: d2575fcf5cb6e2942a922382f7132e1b, type: 3}
+  - {fileID: 8957678675905755235, guid: a7dd09a710c5b0a458af44ba9850bb23, type: 3}
+  - {fileID: 5496383309463422188, guid: 82a5aa794bf8e604785a9e063aea9b24, type: 3}
+  - {fileID: 4831934370603200483, guid: fc55dd3baa7801e43b94c17ba1f0f461, type: 3}
+  - {fileID: 2972759998570048954, guid: cf2a94442962bdc4a99d37d1726d15b6, type: 3}
+  - {fileID: 4204043363132914206, guid: 1b039badd84ef8444aa92b4ffbd051d5, type: 3}
+  - {fileID: 2773527325273036535, guid: e6d9655aa6d3a2648b4d5eaac6afc359, type: 3}
+  - {fileID: 641522164643320357, guid: b87658c8b514ff64f84b7f099d94db0f, type: 3}
+  - {fileID: 6800971247286642608, guid: 65f86288fb097974cbc3572f15ca7678, type: 3}
+  - {fileID: 4061127026317627156, guid: f8d5b8dcc04b9104fb50aec15ac93d9e, type: 3}
+  - {fileID: 5273591984074865930, guid: b097745e77d67df4fb2ffe70a7dfcf25, type: 3}
+  - {fileID: 5884281190208104890, guid: 43f71ba712614a3458880b62059dcd0b, type: 3}
+  - {fileID: 3506999040365038939, guid: cb3e9b789e9efae4b9b3b317e237e299, type: 3}
+  - {fileID: 4350862881970149141, guid: f82aa98d0ba94c64d833264c3b2f0c50, type: 3}
+  - {fileID: 835519540751938679, guid: d843f43c8edb9ee4c8c8862af846d0ef, type: 3}
+  - {fileID: 9119232600426564356, guid: 6a755a2a673c1a4428d33dfeb2e4a17a, type: 3}
+  - {fileID: 5493509358093646728, guid: 3b22bd85a5f7f5545877f260208b56e3, type: 3}
+  - {fileID: 4928138607186512063, guid: 14ef6584309857c47acd1fbe07f8f262, type: 3}
+  - {fileID: 3057038872696090475, guid: 6f302ae021412694f8e681db1380996a, type: 3}
+  - {fileID: 3094555596856666512, guid: 81c609f107c3a4745b2456b3e4a2c94c, type: 3}
+  - {fileID: 5119367044984562105, guid: 16987466363b47343a144c6eeac87d45, type: 3}
+  - {fileID: 5273349359194895364, guid: 1014254dfcfae9449b82392f0e7e73da, type: 3}
+  - {fileID: 6414325878594673265, guid: e655de46e10b8264b857202388abca9f, type: 3}
+  - {fileID: 5362399639303237508, guid: b679b3fe56c6b8a49a697890936e0d71, type: 3}
+  movepoints: []
+  moveSpeed: 10
+  anim: []

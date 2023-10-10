@@ -56,14 +56,14 @@ public class Cashier : MonoBehaviour
             if (Reception.instance.totalCashiers == 1)
             {
                 //StartCoroutine(Reception.instance.taskList[0].TaskComplete());
-                Reception.instance.taskList[0].progressionSlider.value = 1;
-                Reception.instance.taskList[0].progressText.text = Reception.instance.taskList[0].progressionSlider.value.ToString();
+                //Reception.instance.buildTask.progressionSlider.value = 1;
+                //Reception.instance.buildTask.progressText.text = Reception.instance.buildTask.progressionSlider.value.ToString();
             }
             if (Reception.instance.totalCashiers == 1)
             {
-                StartCoroutine(Reception.instance.taskList[2].TaskComplete());
-                Reception.instance.taskList[2].progressionSlider.value = 1;
-                Reception.instance.taskList[2].progressText.text = Reception.instance.taskList[2].progressionSlider.value.ToString();
+                StartCoroutine(Reception.instance.taskList[1].TaskComplete());
+                Reception.instance.taskList[1].progressionSlider.value = 1;
+                Reception.instance.taskList[1].progressText.text = Reception.instance.taskList[1].progressionSlider.value.ToString();
             }
             service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
             service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
@@ -109,23 +109,23 @@ public class Cashier : MonoBehaviour
         speedText.text = cashierSpeed.ToString();
             if(cashierLevel <= 5)
             {
-                Reception.instance.taskList[1].progressText.text = cashierLevel.ToString();
-                Reception.instance.taskList[1].progressionSlider.value = cashierLevel;
+                Reception.instance.taskList[0].progressText.text = cashierLevel.ToString();
+                Reception.instance.taskList[0].progressionSlider.value = cashierLevel;
             }
             if(cashierLevel > 5 && cashierLevel <= 10)
             {
-                Reception.instance.taskList[3].progressText.text = cashierLevel.ToString();
-                Reception.instance.taskList[3].progressionSlider.value = cashierLevel;
+                Reception.instance.taskList[2].progressText.text = cashierLevel.ToString();
+                Reception.instance.taskList[2].progressionSlider.value = cashierLevel;
             }
         } 
         if(cashierLevel == 5)
         {
-            StartCoroutine(Reception.instance.taskList[1].TaskComplete());
+            StartCoroutine(Reception.instance.taskList[0].TaskComplete());
             //CanvasManager.instance.taskNumber -= 1;
         } 
         if(cashierLevel == 10)
         {
-            StartCoroutine(Reception.instance.taskList[3].TaskComplete()); 
+            StartCoroutine(Reception.instance.taskList[2].TaskComplete()); 
         }
     }
 

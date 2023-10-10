@@ -11,6 +11,9 @@ TagManager:
   - DestroyPoint
   - Missile
   - MassageTable
+  - ParkingWalkway
+  - HaircutChair
+  - Cashier
   layers:
   - Default
   - TransparentFX
