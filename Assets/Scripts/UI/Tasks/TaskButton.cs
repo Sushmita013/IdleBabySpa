@@ -79,8 +79,12 @@ public class TaskButton : MonoBehaviour
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
                 carManager.SetActive(true);
-                Tutorial.instance.DestroyHands();
-                Camera.main.GetComponent<PanZoom>().enabled = true; 
+                explosionFx.Play();
+                yield return new WaitForSeconds(0.75f); 
+                Camera.main.transform.DOLocalMove(new Vector3(-123.5f, 60, -78), 0.75f).SetEase(Ease.Linear);
+                Camera.main.DOOrthoSize(21, 0.75f);
+                Tutorial.instance.UpgradeMassage();
+                //Tutorial.instance.DestroyHands();
             }
             if (CanvasManager.instance.taskNumber == 8)
             {
@@ -89,6 +93,7 @@ public class TaskButton : MonoBehaviour
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             } 
+            explosionFx.Play();
             taskComplete = true;  
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
@@ -97,8 +102,7 @@ public class TaskButton : MonoBehaviour
                 incompleteTask.SetActive(false);
                 completeTask.SetActive(true);
             });
-            explosionFx.Play();
-            yield return new WaitForSeconds(0.75f); 
+            yield return new WaitForSeconds(0.5f); 
             Destroy(explosionFx.gameObject);
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);  
         }

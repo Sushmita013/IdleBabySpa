@@ -70,7 +70,7 @@ public class TaskButton3 : MonoBehaviour
     {
         RoomManager.instance.ResetPanels();
         Debug.Log("clicked task0");
-        StartCoroutine(room.CameraZoomIn()); 
+        StartCoroutine(room.CameraZoomIn());  
     }
 
     public void ShowReward(string message)

@@ -48,6 +48,11 @@ public class Department : MonoBehaviour
                 { 
                     RoomManager.instance.taskList[0].progressText.text = RoomManager.instance.serviceLevel.ToString();
                 RoomManager.instance.taskList[0].progressionSlider.value = RoomManager.instance.serviceLevel; 
+                    if(RoomManager.instance.serviceLevel == 2)
+                    {
+                        Tutorial.instance.ResetHands();
+                        Camera.main.GetComponent<PanZoom>().enabled = true;  
+                    }
                 }
                 if (RoomManager.instance.serviceLevel == 25)
                 {

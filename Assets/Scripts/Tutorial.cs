@@ -11,7 +11,7 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
-        ResetHands();
+        //ResetHands();
         hands[0].SetActive(true);
         instance = this;
         //hand.transform.position= new Vector3(15,800,0);
@@ -78,6 +78,19 @@ public class Tutorial : MonoBehaviour
     {
         hands[0].SetActive(false);
         hands[1].SetActive(true); 
+    }
+
+    public void UpgradeMassage()
+    {
+        hands[0].SetActive(false); 
+        hands.Remove(hands[0]); 
+        hands[0].SetActive(true);
+        hands[1].SetActive(false);
+    }
+    public void MassageClick()
+    {
+        hands[1].SetActive(true);
+        hands[0].SetActive(false);
     }
 
     public void ResetHands()

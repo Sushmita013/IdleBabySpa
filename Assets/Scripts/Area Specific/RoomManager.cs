@@ -52,6 +52,7 @@ public class RoomManager : MonoBehaviour
     public void OnMouseDown()
     {
         StartCoroutine(CameraZoomIn());
+        Tutorial.instance.MassageClick(); 
     }
 
     public IEnumerator CameraZoomIn()

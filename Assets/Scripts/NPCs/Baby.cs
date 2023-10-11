@@ -36,8 +36,8 @@ public class Baby : MonoBehaviour
     {
         //PlayAnimation("father putting baby on table");
         yield return new WaitForSeconds(0.5f);
-        this.gameObject.transform.position = new Vector3(-31.591f, -8.248f, 9.341f); 
-        this.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0); 
+        this.gameObject.transform.localPosition = new Vector3(-0.64f, -0.1513195f, 0.58f); 
+        this.gameObject.transform.localRotation = Quaternion.Euler(0, 97, 0); 
         PlayAnimation("Take 001"); 
     }  
     
