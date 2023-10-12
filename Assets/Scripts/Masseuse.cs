@@ -14,6 +14,7 @@ public class Masseuse : MonoBehaviour
 
     public Animator massage;
     public Animator cashier;
+    public Animator barber;
 
     public Image fillbar;
     public Image fillbar1;
@@ -44,14 +45,14 @@ public class Masseuse : MonoBehaviour
     }
     public IEnumerator Action3()
     { 
-        duration.SetActive(true);
+        duration2.SetActive(true);
         fillbar.DOFillAmount(1, 9); 
-        //PlayAnimation("Massage");
+        PlayAnimationBarber("Haircut");
         yield return new WaitForSeconds(9);
         effect2.Play(); 
         duration.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
-        //PlayAnimationMassage("Idle"); 
+        PlayAnimationBarber("Idle"); 
     }
     public IEnumerator Action1()
     { 
@@ -92,5 +93,9 @@ public class Masseuse : MonoBehaviour
     public void PlayAnimationCashier(string animation)
     {
         cashier.Play(animation); 
+    }
+    public void PlayAnimationBarber(string animation)
+    {
+        barber.Play(animation); 
     }
 }
