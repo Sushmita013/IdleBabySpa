@@ -34,7 +34,7 @@ public class Advertisement  : MonoBehaviour
     {
         Reception.instance.CamZoom();
         RoomManager.instance.ResetPanels();
-        uiPanel.transform.DOMoveY(0, 1f);
+        //uiPanel.transform.DOMoveY(0, 1f);
     }
 
     public void UpgradeClick()

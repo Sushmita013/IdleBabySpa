@@ -38,9 +38,7 @@ public class RoomManager : MonoBehaviour
 
     public List<TaskButton3> taskList;
 
-    public TaskButton task;
-
-    public GameObject room;
+    public TaskButton task; 
 
     void Start()
     {

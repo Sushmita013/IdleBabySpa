@@ -45,17 +45,32 @@ public class Baby : MonoBehaviour
     {  
         //PlayAnimation("Keeping baby on chair");
         yield return new WaitForSeconds(0.5f);
-        gameObject.transform.localPosition = new Vector3(-0.777f, 0.484f, 1.285f);
+        gameObject.transform.localPosition = new Vector3(0.114f, -0.102f, 0.581f);
+        //gameObject.transform.localPosition = new Vector3(-0.777f, 0.484f, 1.285f);
         //gameObject.transform.position = new Vector3(-30.594f, -8.353f, 11.01548f);
-        gameObject.transform.localRotation = Quaternion.Euler(-82, -30, -20);
+        gameObject.transform.localRotation = Quaternion.Euler(0, 20, 0);
 
     } 
     
     public IEnumerator MassageComplete()
-    { 
-        yield return new WaitForSeconds(0.5f);
+    {
+        PlayAnimation("Father holding baby idle");
+        gameObject.transform.localPosition = new Vector3(-1.935508f, 1.535099f, 0.925171f);
+        gameObject.transform.localRotation = Quaternion.Euler(0, 180, 90);
+        yield return new WaitForSeconds(0.5f); 
+        //yield return null;
+        gameObject.transform.localPosition = new Vector3(0.115f, -0.236f, 0.348f);
+        gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 
-        //PlayAnimation("father collecting baby from table");
+    } 
+    
+    public IEnumerator HaircutComplete()
+    {
+        PlayAnimation("Father holding baby idle");
+        //gameObject.transform.localPosition = new Vector3(-1.935508f, 1.535099f, 0.925171f);
+        //gameObject.transform.localRotation = Quaternion.Euler(0, 180, 90);
+        yield return new WaitForSeconds(0.5f); 
+        //yield return null;
         gameObject.transform.localPosition = new Vector3(0.115f, -0.236f, 0.348f);
         gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 

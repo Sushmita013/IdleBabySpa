@@ -28,8 +28,8 @@ public class CanvasManager : MonoBehaviour
      
     void Start()
     {
-        Camera.main.transform.position = new Vector3(-123.5f, 60, -78);
-        Camera.main.orthographicSize = 21;
+        Camera.main.transform.position = new Vector3(-125f, 60, -70);
+        Camera.main.orthographicSize = 20;
         instance = this;
         taskNumber = 1;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 

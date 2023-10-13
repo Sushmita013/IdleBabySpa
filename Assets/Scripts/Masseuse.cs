@@ -46,12 +46,12 @@ public class Masseuse : MonoBehaviour
     public IEnumerator Action3()
     { 
         duration2.SetActive(true);
-        fillbar.DOFillAmount(1, 9); 
+        fillbar2.DOFillAmount(1, 9); 
         PlayAnimationBarber("Haircut");
         yield return new WaitForSeconds(9);
         effect2.Play(); 
-        duration.SetActive(false);
-        fillbar.DOFillAmount(0, 0.1f);
+        duration2.SetActive(false);
+        fillbar2.DOFillAmount(0, 0.1f);
         PlayAnimationBarber("Idle"); 
     }
     public IEnumerator Action1()

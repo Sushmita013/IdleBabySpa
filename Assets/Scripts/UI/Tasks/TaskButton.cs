@@ -81,8 +81,8 @@ public class TaskButton : MonoBehaviour
                 carManager.SetActive(true);
                 explosionFx.Play();
                 yield return new WaitForSeconds(0.75f); 
-                Camera.main.transform.DOLocalMove(new Vector3(-123.5f, 60, -78), 0.75f).SetEase(Ease.Linear);
-                Camera.main.DOOrthoSize(21, 0.75f);
+                Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -70), 0.75f).SetEase(Ease.Linear);
+                Camera.main.DOOrthoSize(20, 0.75f);
                 Tutorial.instance.UpgradeMassage();
                 //Tutorial.instance.DestroyHands();
             }
@@ -153,7 +153,7 @@ public class TaskButton : MonoBehaviour
         if (CanvasManager.instance.taskNumber == 2)
         {
                 Tutorial.instance.ReceptionBuild();
-                //Reception.instance.CamZoom(); 
+                Reception.instance.CamZoom(); 
                 objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
         }
         if (CanvasManager.instance.taskNumber == 7)

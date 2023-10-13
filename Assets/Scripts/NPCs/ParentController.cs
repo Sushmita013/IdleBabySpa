@@ -82,9 +82,9 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(2);
         StartCoroutine(Masseuse.instance.Action());
         PlayAnimation(parentData.anim[2]); 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(9);
         PlayAnimation(parentData.anim[3]);
-        StartCoroutine(babyController.MassageComplete());
+        StartCoroutine(babyController.MassageComplete()); 
         if (GameManager.instance.haircutUnlocked)
         {
             StartCoroutine(MoveToHaircut(parent, navMeshAgent));
@@ -103,19 +103,18 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(2);
         StartCoroutine(Masseuse.instance.Action3()); 
         PlayAnimation(parentData.anim[2]); 
-        yield return new WaitForSeconds(15);
+        yield return new WaitForSeconds(10);
         PlayAnimation(parentData.anim[5]);
-        StartCoroutine(babyController.MassageComplete());
+        StartCoroutine(babyController.HaircutComplete());
 
-        StartCoroutine(MoveToCashier( parent, navMeshAgent));
-
+        StartCoroutine(MoveToCashier( parent, navMeshAgent)); 
     }
 
     public IEnumerator MoveToCashier(ParentNPC parentData, NavMeshAgent agent)
     {
         Debug.Log("MoveToCashier");
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f); 
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("Father holding baby idle"); 
         agent.SetDestination(parentData.movepoints[2].position); 

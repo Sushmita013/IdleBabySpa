@@ -56,7 +56,7 @@ public class Tutorial : MonoBehaviour
         hands[1].SetActive(false);
         hands.Remove(hands[1]);
         hands[0].SetActive(true); 
-        Camera.main.transform.DOLocalMove(new Vector3(-140,60,-55), 0.75f).SetEase(Ease.Linear);
+        Camera.main.transform.DOLocalMove(new Vector3(-140,60,-45), 0.75f).SetEase(Ease.Linear);
         Camera.main.DOOrthoSize(20, 0.75f);
     }
      
