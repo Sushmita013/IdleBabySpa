@@ -5,35 +5,43 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class Advertisement  : MonoBehaviour
+public class Advertisement : MonoBehaviour
 {
     public float costPerLevel;
     public float incomePerLevel; 
-    public int serviceLevel;
-     
+
     public TMP_Text service_cost;
     public TMP_Text level;
     public TMP_Text upgrade_cost;
 
     public Departments roomName;
-     
+
+    public RoomManager room;
+
+    public int multiplier;
 
     public List<Slider> levelSlider;
 
+    public List<TaskButton3> taskList;
+
+    public List<TMP_Text> levelText;
+
     public Button upgradeButton;
 
-    public List<GameObject> panels; 
+    public List<GameObject> panels;
+
+    public ParticleSystem upgradeEffect;
 
 
     void Start()
-    { 
-        upgradeButton.onClick.AddListener(UpgradeClick); 
+    {
+        upgradeButton.onClick.AddListener(UpgradeClick);
     }
 
     private void OnMouseDown()
     {
         Reception.instance.CamZoom();
-        RoomManager.instance.ResetPanels();
+        room.ResetPanels();
         //uiPanel.transform.DOMoveY(0, 1f);
     }
 
@@ -41,7 +49,11 @@ public class Advertisement  : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
-            serviceLevel++;
+            if (room.serviceLevel == 3)
+            {
+
+            }
+            room.serviceLevel++;
             UpdateCost();
         }
     }
@@ -51,21 +63,18 @@ public class Advertisement  : MonoBehaviour
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
             GameManager.instance.totalSoftCurrency -= costPerLevel;
-            //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
             CanvasManager.instance.UpdateSoftCurrency();
             costPerLevel *= 2;
             incomePerLevel += 1;
-            //costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-            //incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
-            RoomManager.instance.serviceCost = costPerLevel;
+            room.serviceCost = costPerLevel;
             service_cost.text = costPerLevel.ToString();
             upgrade_cost.text = incomePerLevel.ToString();
-            level.text = serviceLevel.ToString();
-                }
-    } 
+            level.text = room.serviceLevel.ToString();
+        }
+    }
 
     public void UpdateHard()
     {
         CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
-    } 
+    }
 }

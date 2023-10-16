@@ -8,9 +8,7 @@ using DG.Tweening;
 public class ParkingSlot : MonoBehaviour
 {
     public Transform spawnPoint;
-    public Transform controllerPoint;
-
-    public List<GameObject> parentController;
+    public Transform controllerPoint; 
 
     public FatherController father;
     public MotherController mother;
@@ -26,9 +24,7 @@ public class ParkingSlot : MonoBehaviour
 
 
     void Start()
-    {
-        parentController.Add(father.gameObject);
-        parentController.Add(mother.gameObject);
+    { 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,36 +77,6 @@ public class ParkingSlot : MonoBehaviour
     }
      
 
-    public IEnumerator SpawnParent()
-    {
-        GameObject parentPrefab = parentController[Random.Range(0, parentController.Count)];
-        yield return new WaitForSeconds(0.75f);
-        GameObject parent = Instantiate(parentPrefab, controllerPoint.position, Quaternion.identity);
-
-        // Check if the spawned parent GameObject has a FatherController component
-        FatherController fatherComponent = parent.GetComponent<FatherController>();
-
-        // Check if the spawned parent GameObject has a MotherController component
-        MotherController motherComponent = parent.GetComponent<MotherController>();
-
-        if (fatherComponent != null)
-        {
-            StartCoroutine(fatherComponent.InstantiateParent(spawnPoint));
-            fatherComponent.spawnPoint = spawnPoint; 
-            // The spawned parent GameObject is a FatherController 
-        }
-        else if (motherComponent != null)
-        {
-            StartCoroutine(motherComponent.InstantiateParent(spawnPoint));
-            // The spawned parent GameObject is a MotherController 
-            motherComponent.spawnPoint = spawnPoint;
-        }
-        else
-        {
-            // The spawned parent GameObject does not have either component
-            Debug.Log("Spawned parent is not a FatherController or a MotherController");
-        }
-    } 
     public IEnumerator ParentSpawn()
     { 
         yield return new WaitForSeconds(0.75f);
@@ -125,20 +91,38 @@ public class ParkingSlot : MonoBehaviour
         parentController.animator = parentGO.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
         parentController.spawnPoint = spawnPoint;
-        parentController.parking = this;
-
-        //GameObject baby = parentController.GetBaby(); 
-        //baby = parentGO.transform.Find("Baby").gameObject;
-        //GameObject instantiatedParent = parentController.GetInstantiatedParent();
-        // instantiatedParent = parentGO;
-        //Animator animator = parentController.GetAnimator();
-        // animator = parentGO.GetComponent<Animator>();
-        //Baby babyController = parentController.GetBabyController();
-        // babyController =  baby.GetComponent<Baby>();
-        //NavMeshAgent navMeshAgent = parentController.GetNavMeshAgent();
-        // navMeshAgent = parentGO.GetComponent<NavMeshAgent>(); 
-
+        parentController.parking = this;   
         parentController.MoveToWalkway();
     }
 
+    //public IEnumerator SpawnParent()
+    //{
+    //    GameObject parentPrefab = parentController[Random.Range(0, parentController.Count)];
+    //    yield return new WaitForSeconds(0.75f);
+    //    GameObject parent = Instantiate(parentPrefab, controllerPoint.position, Quaternion.identity);
+
+    //    // Check if the spawned parent GameObject has a FatherController component
+    //    FatherController fatherComponent = parent.GetComponent<FatherController>();
+
+    //    // Check if the spawned parent GameObject has a MotherController component
+    //    MotherController motherComponent = parent.GetComponent<MotherController>();
+
+    //    if (fatherComponent != null)
+    //    {
+    //        StartCoroutine(fatherComponent.InstantiateParent(spawnPoint));
+    //        fatherComponent.spawnPoint = spawnPoint; 
+    //        // The spawned parent GameObject is a FatherController 
+    //    }
+    //    else if (motherComponent != null)
+    //    {
+    //        StartCoroutine(motherComponent.InstantiateParent(spawnPoint));
+    //        // The spawned parent GameObject is a MotherController 
+    //        motherComponent.spawnPoint = spawnPoint;
+    //    }
+    //    else
+    //    {
+    //        // The spawned parent GameObject does not have either component
+    //        Debug.Log("Spawned parent is not a FatherController or a MotherController");
+    //    }
+    //} 
 }

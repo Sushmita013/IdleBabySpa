@@ -27,22 +27,17 @@ public class RoomManager : MonoBehaviour
     public int serviceLevel;
     public float serviceCost =2;
     public Transform camPos;
-    public float moveSpeed = 2.0f;
+    private float moveSpeed = 2.0f;
     public int zoomSize;
-    public bool hasUI;
-    public Button closeButton;
-
-    public List<TMP_Text> level;
-
-    public List<GameObject> UpgradeUIpanels;
-
-    public List<TaskButton3> taskList;
+    private bool hasUI;
+    public Button closeButton; 
+    public List<GameObject> UpgradeUIpanels; 
 
     public TaskButton task; 
 
     void Start()
     {
-        serviceLevel = 1;
+        serviceLevel = 0;
         instance = this;
         closeButton.onClick.AddListener(CloseButtonClick);
     }
@@ -65,13 +60,14 @@ public class RoomManager : MonoBehaviour
                 break;
             case Departments.Massage:
                 UpgradeUIpanels[1].transform.DOMoveY(0, 1f);
+                yield return new WaitForSeconds(1);
                 hasUI = true;
-                yield return new WaitForSeconds(0.75f);  
                 closeButton.interactable = true;
                 break;
             case Departments.Haircut:
                 UpgradeUIpanels[2].transform.DOMoveY(0, 1f); 
-                yield return new WaitForSeconds(0.75f); 
+                yield return new WaitForSeconds(1);
+                hasUI = true; 
                 closeButton.interactable = true;
                 break;
             case Departments.Pamper:
@@ -85,6 +81,18 @@ public class RoomManager : MonoBehaviour
                 break;
             case Departments.Cafeteria:
 
+                break; 
+            case Departments.Parking:
+                UpgradeUIpanels[3].transform.DOMoveY(0, 1f);
+                yield return new WaitForSeconds(1);
+                hasUI = true;
+                closeButton.interactable = true;
+                break; 
+            case Departments.Advertisement:
+                UpgradeUIpanels[3].transform.DOMoveY(0, 1f);
+                yield return new WaitForSeconds(1);
+                hasUI = true;
+                closeButton.interactable = true;
                 break; 
         } 
     }
