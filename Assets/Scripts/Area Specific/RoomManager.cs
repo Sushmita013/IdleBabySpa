@@ -33,19 +33,41 @@ public class RoomManager : MonoBehaviour
     public Button closeButton; 
     public List<GameObject> UpgradeUIpanels; 
 
-    public TaskButton task; 
+    public TaskButton task;
 
+    public string playerPrefTag;
+
+    public bool isUnlocked;
+
+    public int customersServed;
+
+    public CollectTip tip;
+
+    //public List<WorkerNPC> worker;
+     
     void Start()
     {
-        serviceLevel = 0;
+        serviceLevel = 1;
         instance = this;
         closeButton.onClick.AddListener(CloseButtonClick);
+        LoadData();
     }
 
     public void OnMouseDown()
     {
         StartCoroutine(CameraZoomIn());
         Tutorial.instance.MassageClick(); 
+    }
+    private void Update()
+    {
+        if (customersServed == 5)
+        {
+            tip.OnEnable();
+        } 
+        if (customersServed == 10)
+        {
+            tip.OnEnable();
+        } 
     }
 
     public IEnumerator CameraZoomIn()
@@ -83,13 +105,13 @@ public class RoomManager : MonoBehaviour
 
                 break; 
             case Departments.Parking:
-                UpgradeUIpanels[3].transform.DOMoveY(0, 1f);
+                UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
                 yield return new WaitForSeconds(1);
                 hasUI = true;
                 closeButton.interactable = true;
                 break; 
             case Departments.Advertisement:
-                UpgradeUIpanels[3].transform.DOMoveY(0, 1f);
+                UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
                 yield return new WaitForSeconds(1);
                 hasUI = true;
                 closeButton.interactable = true;
@@ -138,12 +160,7 @@ public class RoomManager : MonoBehaviour
             Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
             Camera.main.DOOrthoSize(zoomSize, 0.75f);
         }
-    }
-
-    public void RoomUnlock()
-    {
-       
-    }
+    } 
 
     public void CloseButtonClick()
     {
@@ -160,6 +177,26 @@ public class RoomManager : MonoBehaviour
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
              UpgradeUIpanels[i].transform.DOLocalMoveY(-1500, 1f);
+        }
+    }
+
+    public void LoadData()
+    {
+        if (PlayerPrefs.GetInt(playerPrefTag + "_unlocked")==0) 
+        {
+            isUnlocked = false;
+        }
+        else
+        {
+            isUnlocked = true;
+        }
+    }
+
+    public void LoadSave()
+    {
+        if (isUnlocked)
+        {
+
         }
     }
 }

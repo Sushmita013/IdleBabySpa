@@ -242,7 +242,7 @@ GameObject:
   - component: {fileID: 6963494318403279828}
   m_Layer: 0
   m_Name: Boy 7
-  m_TagString: Untagged
+  m_TagString: ParentNPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -300,6 +300,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
   time: 0
+  massageRoom: {fileID: 0}
+  haircutRoom: {fileID: 0}
 --- !u!65 &1405621617599510741
 BoxCollider:
   m_ObjectHideFlags: 0

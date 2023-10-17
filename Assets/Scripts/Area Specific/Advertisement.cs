@@ -49,12 +49,22 @@ public class Advertisement : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
-            if (room.serviceLevel == 3)
+            if(room.serviceLevel < 9)
             {
-
-            }
             room.serviceLevel++;
-            UpdateCost();
+                levelText[0].text = room.serviceLevel.ToString();
+                levelSlider[0].value = room.serviceLevel;
+                UpdateCost();
+                if (room.serviceLevel <=3)
+                {
+                    taskList[0].progressText.text = room.serviceLevel.ToString();
+                    taskList[0].progressionSlider.value = room.serviceLevel;
+                    if (room.serviceLevel == 3)
+                    {
+                        StartCoroutine(taskList[0].TaskComplete()); 
+                    }
+                }
+            }
         }
     }
 
@@ -66,7 +76,7 @@ public class Advertisement : MonoBehaviour
             CanvasManager.instance.UpdateSoftCurrency();
             costPerLevel *= 2;
             incomePerLevel += 1;
-            room.serviceCost = costPerLevel;
+            //room.serviceCost = costPerLevel;
             service_cost.text = costPerLevel.ToString();
             upgrade_cost.text = incomePerLevel.ToString();
             level.text = room.serviceLevel.ToString();

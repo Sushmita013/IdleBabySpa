@@ -8,7 +8,7 @@ using TMPro;
 public class RewardPanel : MonoBehaviour
 {
     public GameObject popupWindow;
-    //public TMP_Text messageText;
+    public TMP_Text messageText;
     public TMP_Text rewardText;
     public Button button;
 
@@ -17,6 +17,10 @@ public class RewardPanel : MonoBehaviour
     public void SetRewardMessage(string message)
     {
         rewardText.text = message;
+    }
+    public void SetRewardText(string message)
+    {
+        messageText.text = message;
     }
 
     public void SetButton(string buttonText, System.Action action)
@@ -38,7 +42,7 @@ public class RewardPanel : MonoBehaviour
     public void EnablePanel()
     {  
         popupWindow.SetActive(true);
-        popupWindow.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
+        popupWindow.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.5f);
     }
 
     public void DisablePanel()

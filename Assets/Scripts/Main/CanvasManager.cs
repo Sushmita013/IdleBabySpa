@@ -24,7 +24,7 @@ public class CanvasManager : MonoBehaviour
 
     public Sprite completedTask;
 
-    public int tipsCollected;
+    //public int tipsCollected;
      
     void Start()
     {

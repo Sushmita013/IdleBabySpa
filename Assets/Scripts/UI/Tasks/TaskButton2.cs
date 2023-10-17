@@ -114,7 +114,8 @@ public class TaskButton2 : MonoBehaviour
         errorPopup.EnablePanel();
         //errorPopup.SetErrorMessage(message);
         errorPopup.SetRewardMessage(rewardValue.ToString());
-        errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+            errorPopup.SetRewardText(message); 
+            errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
         }
     }
 

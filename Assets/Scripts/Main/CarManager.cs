@@ -8,14 +8,17 @@ public class CarManager : MonoBehaviour
 {
     public static CarManager instance;
     public List<Cars> carPrefabs;
-    public List<GameObject> instantiatedCars = new List<GameObject>();
+    //public List<GameObject> instantiatedCars = new List<GameObject>();
     public int totalCarSpaces;
     public List<bool> parkingSlotAvailability = new List<bool>();
     public List<GameObject> parkingSlots;
     public int availableParkingSlots;
 
+    public float carSpawnDuration;
+
     private void Start()
     {
+        carSpawnDuration = 10;
         instance = this;
         // Initialize parking slot availability list
         for (int i = 0; i < totalCarSpaces; i++)
@@ -36,11 +39,11 @@ public class CarManager : MonoBehaviour
             GameObject childTransform = car.transform.Find("SpawnPoint").gameObject;
             carData.spawnPoint = childTransform;
             NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
-            instantiatedCars.Add(car);
+            //instantiatedCars.Add(car);
             agent.SetDestination(carData.movePoints[1].position);
             yield return new WaitForSeconds(8f);
             StartCoroutine(MoveCar(carData,agent));
-            yield return new WaitForSeconds(20f);
+            yield return new WaitForSeconds(carSpawnDuration);
             StartCoroutine(InstantiateRandomCars()); 
         } 
 

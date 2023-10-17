@@ -80,6 +80,7 @@ public class TaskButton4 : MonoBehaviour
             errorPopup.EnablePanel();
             //errorPopup.SetErrorMessage(message);
             errorPopup.SetRewardMessage(rewardValue.ToString());
+            errorPopup.SetRewardText(message); 
             errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
         }
     }

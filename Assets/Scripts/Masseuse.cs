@@ -63,25 +63,7 @@ public class Masseuse : MonoBehaviour
         duration1.SetActive(false); 
         fillbar1.DOFillAmount(0, 0.1f);
         effect.Play();
-        PlayAnimationCashier("Idle");
-
-        if (GameManager.instance.massageUnlocked && !GameManager.instance.haircutUnlocked)
-        { 
-        GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
-        CanvasManager.instance.UpdateSoftCurrency();
-        }
-        if (GameManager.instance.massageUnlocked && GameManager.instance.haircutUnlocked)
-        {
-            if (RoomManager.instance.roomName == Departments.Massage) 
-            {
-                GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
-            }
-            if (RoomManager.instance.roomName == Departments.Haircut) 
-            {
-                GameManager.instance.totalSoftCurrency += RoomManager.instance.serviceCost;
-            } 
-        CanvasManager.instance.UpdateSoftCurrency();
-        }
+        PlayAnimationCashier("Idle"); 
     }
 
 

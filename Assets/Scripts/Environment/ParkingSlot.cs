@@ -43,8 +43,8 @@ public class ParkingSlot : MonoBehaviour
         StartCoroutine(ParentSpawn());
         yield return new WaitForSeconds(2); 
         GetComponent<Collider>().enabled = false;
-        yield return new WaitForSeconds(60f); 
-        destroyPoint.GetComponent<Collider>().enabled = true;  
+        //yield return new WaitForSeconds(50f); 
+        //destroyPoint.GetComponent<Collider>().enabled = true;  
         //GetComponent<Collider>().enabled = true; 
     }
 
@@ -53,7 +53,7 @@ public class ParkingSlot : MonoBehaviour
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         agent.angularSpeed = 0;
         agent.SetDestination(exitPoints[0].position);
-        if (parkingIndex == 3)
+        if (parkingIndex == 2)
         {
             for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
             {
@@ -70,7 +70,7 @@ public class ParkingSlot : MonoBehaviour
         yield return new WaitForSeconds(3);
         agent.angularSpeed = 120; 
         agent.SetDestination(exitPoints[1].position);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(4);
         agent.SetDestination(exitPoints[2].position);
         yield return new WaitForSeconds(20);
         Destroy(agent.gameObject);
@@ -90,7 +90,7 @@ public class ParkingSlot : MonoBehaviour
         parentController.babyController = parentController.baby.GetComponent<Baby>();
         parentController.animator = parentGO.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
-        parentController.spawnPoint = spawnPoint;
+        parentController.spawnPoint = destroyPoint.transform;
         parentController.parking = this;   
         parentController.MoveToWalkway();
     }

@@ -87,7 +87,7 @@ public class MassageTab : MonoBehaviour
                 incomePerLevel *= multiplier;
                 income_Increase = 0.4f;
                 if (room.serviceLevel == 50)
-                {
+                { 
                     StartCoroutine(taskList[1].TaskComplete());
                     multiplier = 3;
                     incomePerLevel *= multiplier;
@@ -152,7 +152,7 @@ public class MassageTab : MonoBehaviour
         incomePerLevel += income_Increase;
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
         incomePerLevel = Mathf.Round(incomePerLevel * 10) / 10; // Round to 1 decimal place
-        room.serviceCost = costPerLevel;
+        room.serviceCost = incomePerLevel;
         cost_upgrade.text = costPerLevel.ToString();
         income_value.text = incomePerLevel.ToString();
     }

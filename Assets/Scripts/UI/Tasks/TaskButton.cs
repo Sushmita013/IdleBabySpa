@@ -128,8 +128,8 @@ public class TaskButton : MonoBehaviour
     }
 
     public void ShowPopup(string errorMessage)
-    {
-        room.ResetPanels();
+    { 
+        //room.ResetPanels();
         if (CanvasManager.instance.popupObject == null)
         { 
         CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
@@ -178,6 +178,7 @@ public class TaskButton : MonoBehaviour
         errorPopup.EnablePanel();
         //errorPopup.SetErrorMessage(message);
         errorPopup.SetRewardMessage(rewardValue.ToString());
+        errorPopup.SetRewardText(message);
         errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
         }
     }
