@@ -19,19 +19,18 @@ public class Reception : MonoBehaviour
     public float moveSpeed = 2.0f;
     public int zoomSize;
 
-    public bool hasUI; 
+    public bool hasUI;
 
-    public Button closeButton;
+    public GameObject closeButton; 
 
-    public TMP_Text totalHires_text;
-     
-
+    public TMP_Text totalHires_text; 
 
     void Start()
     {
-        instance = this;         
-        closeButton.interactable = false;
-        closeButton.onClick.AddListener(CloseButtonClick); 
+        instance = this;
+        closeButton.SetActive(false); 
+        closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick);
+
     }
 
     public void OnMouseDown()
@@ -44,11 +43,13 @@ public class Reception : MonoBehaviour
         Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
         Camera.main.DOOrthoSize(zoomSize, 0.75f);
         //yield return new WaitForSeconds(1f); 
-        UpgradeUIpanels[0].transform.DOMoveY(0, 1f); 
+        UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
+        GetComponent<Collider>().enabled = false; 
+        yield return new WaitForSeconds(0.75f);
         hasUI = true;
-        yield return new WaitForSeconds(0.75f); 
-        closeButton.interactable = true;
-    } 
+        closeButton.SetActive(true);
+
+    }
     public void CamZoom()
     {
         if (Camera.main.transform.position != camPos.localPosition)
@@ -59,12 +60,11 @@ public class Reception : MonoBehaviour
     }  
 
     public void CloseButtonClick()
-    { 
-        closeButton.interactable = false;
-
+    {
+        closeButton.SetActive(false);
+        GetComponent<Collider>().enabled = true; 
         hasUI = false;
-        ResetPanels(); 
-
+        ResetPanels();  
     }
 
     public void ResetPanels()

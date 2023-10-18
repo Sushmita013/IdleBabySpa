@@ -34,10 +34,9 @@ public class TaskButton5 : MonoBehaviour
     public IEnumerator TaskComplete()
     {
         if (!taskComplete)
-        { 
-            HidePopup();
-            progressionSlider.value = 1;
-            progressText.text = progressionSlider.value.ToString();
+        {  
+            //progressionSlider.value = 1;
+            //progressText.text = progressionSlider.value.ToString();
             yield return new WaitForSeconds(0.25f);
             Button button = gameObject.GetComponent<Button>();
             button.onClick.RemoveAllListeners();
@@ -91,14 +90,7 @@ public class TaskButton5 : MonoBehaviour
             errorPopup.SetRewardText(message); 
             errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
         }
-    }
-
-    public void HidePopup()
-    {
-        BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
-        errorPopup.DisablePanel();
-        Destroy(CanvasManager.instance.popupObject);
-    }
+    } 
     public void HideReward()
     {
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();

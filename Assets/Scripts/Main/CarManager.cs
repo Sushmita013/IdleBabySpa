@@ -14,11 +14,13 @@ public class CarManager : MonoBehaviour
     public List<GameObject> parkingSlots;
     public int availableParkingSlots;
 
+    public Advertisement billboard;
     public float carSpawnDuration;
 
     private void Start()
     {
-        carSpawnDuration = 10;
+        //carSpawnDuration = 10;
+        GetDuration();
         instance = this;
         // Initialize parking slot availability list
         for (int i = 0; i < totalCarSpaces; i++)
@@ -43,7 +45,7 @@ public class CarManager : MonoBehaviour
             agent.SetDestination(carData.movePoints[1].position);
             yield return new WaitForSeconds(8f);
             StartCoroutine(MoveCar(carData,agent));
-            yield return new WaitForSeconds(carSpawnDuration);
+            yield return new WaitForSeconds(GetDuration());
             StartCoroutine(InstantiateRandomCars()); 
         } 
 
@@ -83,8 +85,14 @@ public class CarManager : MonoBehaviour
     public void ExitCar(int index)
     {  
         availableParkingSlots += 1;
-        parkingSlotAvailability[index] = true; // Mark the parking slot as available 
-        
+        parkingSlotAvailability[index] = true; // Mark the parking slot as available  
+    }
+
+    public float GetDuration()
+    {
+        carSpawnDuration = 60 / billboard.personPerMin;
+        return carSpawnDuration;
+
     }
 
 }

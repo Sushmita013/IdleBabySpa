@@ -8,9 +8,9 @@ using DG.Tweening;
 public class Advertisement : MonoBehaviour
 {
     public float costPerLevel;
-    public float incomePerLevel; 
+    public float personPerMin; 
 
-    public TMP_Text service_cost;
+    public TMP_Text personInfo;
     public TMP_Text level;
     public TMP_Text upgrade_cost;
 
@@ -75,10 +75,10 @@ public class Advertisement : MonoBehaviour
             GameManager.instance.totalSoftCurrency -= costPerLevel;
             CanvasManager.instance.UpdateSoftCurrency();
             costPerLevel *= 2;
-            incomePerLevel += 1;
+            personPerMin += 1;
             //room.serviceCost = costPerLevel;
-            service_cost.text = costPerLevel.ToString();
-            upgrade_cost.text = incomePerLevel.ToString();
+            personInfo.text = costPerLevel.ToString();
+            upgrade_cost.text = personPerMin.ToString();
             level.text = room.serviceLevel.ToString();
         }
     }

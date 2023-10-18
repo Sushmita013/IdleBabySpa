@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
 
     public GameObject buildPopup;
     public GameObject rewardPopup;
+    public GameObject rewardPopup1;
     public GameObject popupObject;
     public GameObject popupObject1;
      
@@ -24,17 +25,24 @@ public class CanvasManager : MonoBehaviour
 
     public Sprite completedTask;
 
+    public Button levelButton;
+    public Button levelCloseButton;
+    public GameObject levelPanel;
+
+
     //public int tipsCollected;
-     
+
     void Start()
     {
-        Camera.main.transform.position = new Vector3(-125f, 60, -70);
+        Camera.main.transform.position = new Vector3(-125f, 60, -72.5f);
         Camera.main.orthographicSize = 20;
         instance = this;
         taskNumber = 1;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
         totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
-        totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString(); 
+        totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
+        levelButton.onClick.AddListener(() => OnLevelClick(true));
+        levelCloseButton.onClick.AddListener(() => OnLevelClick(false)); 
     }
 
     public void UpdateSoftCurrency()
@@ -45,6 +53,11 @@ public class CanvasManager : MonoBehaviour
     public void UpdateHardCurrency()
     {
         totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
+    }
+
+    public void OnLevelClick(bool enable)
+    {
+        levelPanel.SetActive(enable);
     }
 
 }

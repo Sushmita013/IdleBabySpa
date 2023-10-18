@@ -14,7 +14,9 @@ public class TipManager : MonoBehaviour
     }
      
     void Update()
-    { 
+    {
+        if (CanvasManager.instance.taskNumber == 9)
+        { 
         if (collectedTips <= 3)
         {
             TaskManager.instance.taskList[0].progressionSlider.value = collectedTips;
@@ -24,6 +26,7 @@ public class TipManager : MonoBehaviour
             StartCoroutine(TaskManager.instance.taskList[0].TaskComplete());
             collectedTips = 0;
             }
+        }
         }
     }
 }

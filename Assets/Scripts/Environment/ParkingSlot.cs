@@ -53,7 +53,7 @@ public class ParkingSlot : MonoBehaviour
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         agent.angularSpeed = 0;
         agent.SetDestination(exitPoints[0].position);
-        if (parkingIndex == 2)
+        if (parkingIndex == 1)
         {
             for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
             {
@@ -70,7 +70,7 @@ public class ParkingSlot : MonoBehaviour
         yield return new WaitForSeconds(3);
         agent.angularSpeed = 120; 
         agent.SetDestination(exitPoints[1].position);
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3.5f);
         agent.SetDestination(exitPoints[2].position);
         yield return new WaitForSeconds(20);
         Destroy(agent.gameObject);

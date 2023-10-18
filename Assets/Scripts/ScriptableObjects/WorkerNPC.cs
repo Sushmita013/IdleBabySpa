@@ -6,6 +6,10 @@ using DG.Tweening;
 
 public class WorkerNPC : MonoBehaviour
 {
+    public int workerIndex;
+
+    public Departments roomName;
+
     public static WorkerNPC instance;
 
     public RoomManager room;

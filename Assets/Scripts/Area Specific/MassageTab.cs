@@ -35,7 +35,7 @@ public class MassageTab : MonoBehaviour
 
     void Start()
     {
-        upgradeButton.onClick.AddListener(UpgradeClick);
+        upgradeButton.onClick.AddListener(UpgradeClick);  
         upgradeEffect.Stop();
     }
 
@@ -55,6 +55,7 @@ public class MassageTab : MonoBehaviour
                 if (room.serviceLevel == 2)
                 {
                     Tutorial.instance.ResetHands();
+                    Tutorial.instance.MassageUpgradeDone();
                     Camera.main.GetComponent<PanZoom>().enabled = true;
                 }
                 if (room.serviceLevel == 25)
@@ -102,26 +103,23 @@ public class MassageTab : MonoBehaviour
                     UpdateCost();
                 }
                 else
-                {
-                    //RoomManager.instance.serviceLevel--; 
+                { 
                     level[1].text = room.serviceLevel.ToString();
                     levelSlider[1].value = room.serviceLevel;
                     UpdateCost();
                 }
             }
             if (room.serviceLevel > 50 && room.serviceLevel <= 75)
-            {
-                if (roomName == Departments.Massage)
-                {
+            { 
+                room.serviceLevel++;
                     taskList[2].progressText.text = room.serviceLevel.ToString();
-                    taskList[2].progressionSlider.value = room.serviceLevel;
-                }
+                    taskList[2].progressionSlider.value = room.serviceLevel; 
                 multiplier = 1;
                 incomePerLevel *= multiplier;
                 income_Increase = 1.2f;
-                room.serviceLevel++;
                 if (room.serviceLevel == 75)
-                {
+                { 
+                    StartCoroutine(taskList[2].TaskComplete());
                     multiplier = 4;
                     incomePerLevel *= multiplier;
                     income_Increase = 4.5f;
@@ -135,12 +133,12 @@ public class MassageTab : MonoBehaviour
                     UpdateCost();
                 }
                 else
-                {
+                { 
                     level[2].text = room.serviceLevel.ToString();
                     levelSlider[2].value = room.serviceLevel;
                     UpdateCost();
                 }
-            }
+            } 
         }
     }
 

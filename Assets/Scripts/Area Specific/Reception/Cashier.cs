@@ -29,7 +29,7 @@ public class Cashier : MonoBehaviour
     public GameObject unlocked;
     public GameObject locked;
     public GameObject service;
-    public GameObject service1;
+    public GameObject service1; 
 
     public List<ParticleSystem> effects; 
 
@@ -93,9 +93,9 @@ public class Cashier : MonoBehaviour
 
     public void UpgradeClick()
     {
-        effects[2].Play();
         if(GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
+        effects[2].Play(); 
             GameManager.instance.totalSoftCurrency -= costPerLevel;
             UpdateValues();
             cashierLevel++;

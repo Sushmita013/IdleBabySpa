@@ -144,7 +144,7 @@ public class TaskButton : MonoBehaviour
             Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
             }
-            if (CanvasManager.instance.taskNumber == 1)
+         if (CanvasManager.instance.taskNumber == 1)
         { 
                 Tutorial.instance.BuildClick();
             room.CamZoom();
@@ -170,7 +170,7 @@ public class TaskButton : MonoBehaviour
         {
             Tutorial.instance.GetReward();
         }
-        RoomManager.instance.ResetPanels();
+        room.ResetPanels();
         if (CanvasManager.instance.popupObject1 == null)
         { 
         CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);

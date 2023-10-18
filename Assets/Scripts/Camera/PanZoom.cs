@@ -1,35 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine; 
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PanZoom : MonoBehaviour
 {
     Vector3 touchStart;
     public float zoomOutMin;
     public float zoomOutMax;
-
-    public Rect uiSwipeArea; // Define the UI swipe area
+     
 
     // Add a flag to indicate if UI should handle the input
     private bool uiShouldHandleInput = false;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
         {
             touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-            // Check if the click is inside the UI area
-            if (uiSwipeArea.Contains(Input.mousePosition))
-            {
-                uiShouldHandleInput = true;
-            }
-            else
-            {
-                uiShouldHandleInput = false;
-            }
+             
         }
-        if (Input.touchCount == 2)
+        if (Input.touchCount == 2 && !IsPointerOverUIObject())
         {
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
@@ -44,23 +35,27 @@ public class PanZoom : MonoBehaviour
 
             zoom(difference * 0.05f);
         }
-        else if (Input.GetMouseButton(0) && !uiShouldHandleInput)
+        else if (Input.GetMouseButton(0) && !uiShouldHandleInput && !IsPointerOverUIObject())
         {
             Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 newPosition = Camera.main.transform.position + direction;
 
-            // Check if the swipe is outside the UI area
-            if (!uiSwipeArea.Contains(Input.mousePosition))
-            {
-                // Perform camera panning only if the swipe is outside the UI area
                 Camera.main.transform.position = newPosition;
                 transform.position = new Vector3(
                     Mathf.Clamp(transform.position.x, -140, -40),
                     60,
-                    Mathf.Clamp(transform.position.z, -80, 15));
-            }
+                    Mathf.Clamp(transform.position.z, -80, 15)); 
         }
         zoom(Input.GetAxis("Mouse ScrollWheel") * 20);
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
     //void zoom(float increment)

@@ -18,11 +18,13 @@ public class ParentController : MonoBehaviour
     internal Transform spawnPoint;
 
     private float duration;
+    private float duration1;
 
     public float totalBill;
 
     void Start()
-    { 
+    {
+        
     }
 
     private void Update()
@@ -53,16 +55,18 @@ public class ParentController : MonoBehaviour
         }
         if(other.tag=="Cashier")
         {
+            duration1 = other.GetComponent<Billing>().duration;
             StartCoroutine(MakePaymentToCashier(instantiatedParent,parent,navMeshAgent)); 
         }
         if (other.tag == "DestroyPoint")
         {
             parking = other.GetComponentInParent<ParkingSlot>();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
+            //gameObject.SetActive(false);
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         parking.ExitCar(parking.car);
         //parking.destroyPoint.GetComponent<Collider>().enabled = false;
@@ -70,17 +74,19 @@ public class ParentController : MonoBehaviour
 
     public IEnumerator MoveToMassage(ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("MoveToMassage");
+        //Debug.Log("MoveToMassage");
         //animator = instantiatedParents[0].GetComponent<Animator>();
         yield return null;
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("Father holding baby idle");
         agent.SetDestination(parentData.movepoints[1].position);
+        yield return new WaitForSeconds(16.5f);
+        agent.SetDestination(parentData.movepoints[2].position); 
     }
-    
+
     public IEnumerator GetMassage(ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("GetMassage");
+        //Debug.Log("GetMassage");
         yield return new WaitForSeconds(0.5f); 
         PlayAnimation(parentData.anim[1]);
         StartCoroutine(babyController.Massage()); 
@@ -101,7 +107,7 @@ public class ParentController : MonoBehaviour
     }
     public IEnumerator GetHaircut(ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("GetHaircut");
+        //Debug.Log("GetHaircut");
 
         PlayAnimation(parentData.anim[4]);
         StartCoroutine(babyController.Haircut());
@@ -117,24 +123,24 @@ public class ParentController : MonoBehaviour
 
     public IEnumerator MoveToCashier(ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("MoveToCashier");
+        //Debug.Log("MoveToCashier");
 
         yield return new WaitForSeconds(0.5f); 
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("Father holding baby idle"); 
-        agent.SetDestination(parentData.movepoints[2].position); 
+        agent.SetDestination(parentData.movepoints[3].position); 
 
     }
     public IEnumerator MakePaymentToCashier(GameObject parent,ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("MakePaymentToCashier");
+        //Debug.Log("MakePaymentToCashier");
         yield return new WaitForSeconds(0.5f);
 
         parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
         PlayAnimation(parentData.anim[6]);
         babyController.PlayAnimation("baby standing idle with father");
-        StartCoroutine(Masseuse.instance.Action1());
-        yield return new WaitForSeconds(9);
+        //StartCoroutine(Masseuse.instance.Action1());
+        yield return new WaitForSeconds(duration1+1);
         GameManager.instance.totalSoftCurrency += totalBill;
         CanvasManager.instance.UpdateSoftCurrency();
         PlayAnimation(parentData.anim[0]);
@@ -143,12 +149,12 @@ public class ParentController : MonoBehaviour
     } 
     public IEnumerator MoveToHaircut(ParentNPC parentData, NavMeshAgent agent)
     {
-        Debug.Log("MoveToHaircut");
+        //Debug.Log("MoveToHaircut");
 
         yield return new WaitForSeconds(1);
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("Father holding baby idle"); 
-        agent.SetDestination(parentData.movepoints[3].position); 
+        agent.SetDestination(parentData.movepoints[4].position); 
     } 
      
     public void PlayAnimation(string anim)

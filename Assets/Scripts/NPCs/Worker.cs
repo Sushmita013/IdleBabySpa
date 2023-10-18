@@ -7,62 +7,42 @@ using TMPro;
 
 public class Worker : MonoBehaviour
 {
-    public string workerType;   
-
-    public bool isUnlocked;
-    public bool isWorking;
+    public RoomManager room;
+    public bool isUnlocked; 
 
     public int workerLevel;
     public int startLevel;
 
     public float workerSpeed; 
+    public float costPerLevel; 
 
     private int childrenDestroyed;
     public float hireCost;
     public float cost_percentageIncrease;
     public float speed_percentageIncrease; 
-
-    public Button upgradeButton;
+     
     public Button upgradeSpeedButton;
     public Button hireButton;
 
-    public TMP_Text speedText;
-    public TMP_Text levelText;
-    public TMP_Text upgradeCostText;
-    public TMP_Text cost_per_Level;
-    public TMP_Text income_per_Level;
-    public TMP_Text current_Level;
+    public TMP_Text speedText; 
+    public TMP_Text upgradeCostText;  
 
     public GameObject unlocked;
     public GameObject locked;
     public GameObject service;
     public GameObject service1;
 
-    public List<ParticleSystem> effects;
-
-    public Animator animator;  
-    public string animIdle;
-    public string animWork;
-
-    public List<ButtonTabsChange> tabs; // Reference to the ButtonTabsChange scripts attached to buttons
-    public List<GameObject> panels; // Reference to the panels corresponding to the buttons
-    public List<Button> buttons;
+    public List<ParticleSystem> effects; 
 
 
     void Start()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            int buttonIndex = i;
-            buttons[i].onClick.AddListener(() => ButtonClick(buttonIndex));
-        }
-        animator = GetComponent<Animator>(); 
+    {  
         foreach (ParticleSystem item in effects)
         {
             item.Stop();
         }
         hireButton.onClick.AddListener(() => StartCoroutine(HireWorker()));
-        //upgradeButton.onClick.AddListener(UpgradeService);
+        upgradeSpeedButton.onClick.AddListener(UpgradeSpeed);
     }
 
     public IEnumerator HireWorker()
@@ -72,8 +52,7 @@ public class Worker : MonoBehaviour
             isUnlocked = true;
             locked.SetActive(false);
             unlocked.SetActive(true);
-            GameManager.instance.totalSoftCurrency -= hireCost;
-            Reception.instance.totalCashiers++;
+            GameManager.instance.totalSoftCurrency -= hireCost; 
             UpdateValues();
             if (Reception.instance.totalCashiers == 1)
             {
@@ -95,6 +74,16 @@ public class Worker : MonoBehaviour
             Destroy(effects[1].gameObject);
         }
     }
+    public void UpgradeSpeed()
+    {  
+        costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+        workerSpeed += workerSpeed * (speed_percentageIncrease / 100); 
+        costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+        workerSpeed = Mathf.Round(workerSpeed * 10) / 10; // Round to 1 decimal place 
+        upgradeCostText.text = costPerLevel.ToString();
+        speedText.text = workerSpeed.ToString();
+
+    }
 
     public void UpdateValues()
     {
@@ -103,85 +92,6 @@ public class Worker : MonoBehaviour
         PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
     }
 
-    //public void UpgradeSpeed()
-    //{
-    //    effects[2].Play();
-    //    if (GameManager.instance.totalBalance >= costPerLevel)
-    //    {
-    //        GameManager.instance.totalBalance -= costPerLevel;
-    //        UpdateValues();
-    //        workerLevel++;
-    //        costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-    //        workerSpeed += workerSpeed * (speed_percentageIncrease / 100);
-    //        costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-    //        workerSpeed = Mathf.Round(workerSpeed * 100) / 100; // Round to 2 decimal place
-
-    //        levelText.text = workerLevel.ToString();
-    //        upgradeCostText.text = costPerLevel.ToString();
-    //        speedText.text = workerSpeed.ToString();
-    //    }
-    //    if (workerLevel == 5)
-    //    {
-    //        StartCoroutine(Reception.instance.taskList[1].TaskComplete());
-    //    }
-    //}
      
-    public IEnumerator Movement()
-    {
-        PlayAnimation(animIdle);
-        yield return new WaitForSeconds(1);
-        PlayAnimation(animWork);
-    }
-
-    public void PlayAnimation(string animation)
-    {
-        animator.Play(animation);
-        //if (isWorking)
-        //{
-        //    anim.Play(animation);
-        //    animationDuration -= Time.deltaTime;
-
-        //    // If the duration is less than or equal to 0, stop the animation
-        //    if (animationDuration <= 0)
-        //    {
-        //        animator.speed = 0; // Pause the animation
-        //                            // You can also add any other logic you want to perform when stopping the animation here
-        //    }
-        //}
-        //else
-        //{
-        //    anim.Stop(animation);
-        //}
-    }
-
-    public void HandleButtonStateChange(ButtonTabsChange button)
-    {
-        ResetPanels();
-
-        int buttonIndex = tabs.IndexOf(button);
-
-        if (buttonIndex != -1 && buttonIndex < panels.Count)
-        {
-            panels[buttonIndex].SetActive(true);
-        }
-    }
-
-    public void ButtonClick(int buttonIndex)
-    {
-        if (buttonIndex >= 0 && buttonIndex < tabs.Count)
-        {
-            tabs[buttonIndex].ChangeState(ButtonStates.selected);
-        }
-    }
-
-    public void ResetPanels()
-    {
-        foreach (GameObject item in panels)
-        {
-            item.SetActive(false);
-        }
-    }
-
-    
 
 }

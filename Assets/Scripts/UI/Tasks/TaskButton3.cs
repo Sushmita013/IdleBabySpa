@@ -60,8 +60,21 @@ public class TaskButton3 : MonoBehaviour
         yield return new WaitForSeconds(0.05f);
         reward.Play();
         HideReward();
+        if(CanvasManager.instance.taskNumber == 11)
+        {
+            GameManager.instance.totalHardCurrency += rewardValue;
+            CanvasManager.instance.UpdateHardCurrency();
+            Tutorial.instance.UpgradeInterior();
+            Camera.main.GetComponent<PanZoom>().enabled = false;
+            Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -72.5f), 1f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(20, 1f);  
+            //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+        }
+        else
+        { 
         GameManager.instance.totalSoftCurrency += rewardValue;
         CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+        }
         Destroy(gameObject);
         //CanvasManager.instance.tasksGO.Remove(CanvasManager.instance.tasksGO[0]);
     }
@@ -77,7 +90,19 @@ public class TaskButton3 : MonoBehaviour
     {
         RoomManager.instance.ResetPanels();
         if (CanvasManager.instance.popupObject1 == null)
-        { 
+        {
+            if (CanvasManager.instance.taskNumber == 11)
+            {
+                CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup1, CanvasManager.instance.prefabParent1);
+                RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
+                errorPopup.EnablePanel();
+                //errorPopup.SetErrorMessage(message);
+                errorPopup.SetRewardMessage(rewardValue.ToString());
+                errorPopup.SetRewardText(message);
+                errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+            }
+            else
+            { 
         CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
         errorPopup.EnablePanel();
@@ -85,6 +110,7 @@ public class TaskButton3 : MonoBehaviour
         errorPopup.SetRewardMessage(rewardValue.ToString());
             errorPopup.SetRewardText(message); 
             errorPopup.SetButton("Collect Reward", () => StartCoroutine(OnCollectReward()));
+            }
         }
     } 
     public void HideReward()
