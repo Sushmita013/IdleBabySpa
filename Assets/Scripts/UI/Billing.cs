@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class Billing : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Billing : MonoBehaviour
     public string animName;
 
     public float duration;
+    public GameObject billUI;
+
+    public TMP_Text billAmount;
+
 
     void Start()
     {
@@ -30,7 +35,8 @@ public class Billing : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ParentNPC")
-        { 
+        {
+            billAmount.text = "+" + other.GetComponent<ParentController>().totalBill.ToString();
             StartCoroutine(Action());
         }
     }
@@ -43,6 +49,11 @@ public class Billing : MonoBehaviour
         yield return new WaitForSeconds(GetDuration());
         effect.Play();
         occupiedUI.SetActive(false);
+        billUI.SetActive(true);
+        billUI.transform.DOLocalMoveZ(-5.5f, 1f);
+        yield return new WaitForSeconds(1);
+        billUI.SetActive(false);
+        billUI.transform.DOLocalMoveZ(-3.3f, 0.1f); 
         fillbar.DOFillAmount(0, 0.1f);
         PlayAnimation("Idle");
     }

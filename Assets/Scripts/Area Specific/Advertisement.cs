@@ -32,10 +32,30 @@ public class Advertisement : MonoBehaviour
 
     public ParticleSystem upgradeEffect;
 
+    public bool isHolding;
+    public bool startTimer;
+
+    public float holdTimer;
+
 
     void Start()
     {
+        upgradeEffect.Stop();
         upgradeButton.onClick.AddListener(UpgradeClick);
+    }
+
+    private void Update()
+    {
+        if (startTimer)
+        {
+            holdTimer += Time.deltaTime;
+            if (holdTimer >= 0.75f)
+            {
+                isHolding = true;
+                StartCoroutine(UpgradeHold());
+            }
+        }
+        EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
     }
 
     private void OnMouseDown()
@@ -48,9 +68,10 @@ public class Advertisement : MonoBehaviour
     public void UpgradeClick()
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
-        {
+        { 
             if(room.serviceLevel < 9)
             {
+                upgradeEffect.Play();
             room.serviceLevel++;
                 levelText[0].text = room.serviceLevel.ToString();
                 levelSlider[0].value = room.serviceLevel;
@@ -66,6 +87,40 @@ public class Advertisement : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void EnableDisableUpgrade(float bal)
+    {
+        if (bal >= costPerLevel && room.serviceLevel<9)
+        {
+            upgradeButton.interactable = true;
+        }
+        else
+        {
+            upgradeButton.interactable = false;
+
+        }
+    }
+
+    public IEnumerator UpgradeHold()
+    {
+        startTimer = false;
+        while (isHolding)
+        {
+            UpgradeClick();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    public void OnUpgradeDown()
+    {
+        startTimer = true;
+    }
+    public void OnUpgradeUp()
+    {
+        startTimer = false;
+        isHolding = false;
+        holdTimer = 0;
     }
 
     public void UpdateCost()

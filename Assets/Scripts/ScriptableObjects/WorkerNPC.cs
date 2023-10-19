@@ -25,9 +25,11 @@ public class WorkerNPC : MonoBehaviour
 
     public float duration;
 
+
     void Start()
     {
-        duration = 4;
+        //duration = 4;
+        GetDuration();
         instance = this; 
         effect.Stop(); 
         animator = GetComponent<Animator>();
@@ -37,7 +39,7 @@ public class WorkerNPC : MonoBehaviour
         if (other.gameObject.tag == "ParentNPC")
         {
             room.customersServed++;
-            other.GetComponent<ParentController>().totalBill += room.serviceCost;
+            other.GetComponent<ParentController>().totalBill += room.serviceCost; 
             StartCoroutine(Action());
         }
     }
@@ -45,10 +47,10 @@ public class WorkerNPC : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f); 
         occupiedUI.SetActive(true);
-        fillbar.DOFillAmount(1, duration);
+        fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
-        yield return new WaitForSeconds(duration);
-        effect.Play();
+        yield return new WaitForSeconds(GetDuration());
+        effect.Play(); 
         occupiedUI.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
         PlayAnimation("Idle");
@@ -56,5 +58,11 @@ public class WorkerNPC : MonoBehaviour
     public void PlayAnimation(string animation)
     {
         animator.Play(animation);
+    }
+
+    public float GetDuration()
+    {
+        duration = 60 / (room.worker.workerSpeed);
+        return duration;
     }
 }

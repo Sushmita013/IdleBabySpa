@@ -32,9 +32,7 @@ public class RoomManager : MonoBehaviour
     public int zoomSize;
     private bool hasUI;
     public GameObject closeButton; 
-    public List<GameObject> UpgradeUIpanels; 
-
-    public TaskButton task;
+    public List<GameObject> UpgradeUIpanels;  
 
     public string playerPrefTag;
 
@@ -43,6 +41,8 @@ public class RoomManager : MonoBehaviour
     public int customersServed;
 
     public CollectTip tip;
+
+    public Worker worker; 
 
     //public List<WorkerNPC> worker;
      
@@ -64,11 +64,7 @@ public class RoomManager : MonoBehaviour
         if (customersServed == 5)
         {
             tip.OnEnable();
-        } 
-        if (customersServed == 10)
-        {
-            tip.OnEnable();
-        } 
+        }  
     }
 
     public IEnumerator CameraZoomIn()

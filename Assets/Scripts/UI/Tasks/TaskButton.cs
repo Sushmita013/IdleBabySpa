@@ -36,6 +36,7 @@ public class TaskButton : MonoBehaviour
     public GameObject carManager;
     public ParticleSystem reward;
 
+    public GameObject nameUI;
 
     void Start()
     {
@@ -45,7 +46,7 @@ public class TaskButton : MonoBehaviour
         explosionFx.Stop();
         gameObject.GetComponent<Button>().onClick.AddListener(() => ShowPopup(messageText));
         roomButton.onClick.AddListener(() => ShowPopup(messageText)); 
-    }
+    } 
 
     public IEnumerator TaskComplete()
     {
@@ -66,6 +67,8 @@ public class TaskButton : MonoBehaviour
             { 
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
+                yield return new WaitForSeconds(0.75f); 
+                nameUI.SetActive(true);
                 Tutorial.instance.MassageComplete();
             }
             if (CanvasManager.instance.taskNumber == 3)
@@ -86,12 +89,14 @@ public class TaskButton : MonoBehaviour
                 Tutorial.instance.UpgradeMassage();
                 //Tutorial.instance.DestroyHands();
             }
-            if (CanvasManager.instance.taskNumber == 8)
+            if (CanvasManager.instance.taskNumber == 13)
             {
                 Debug.Log("haircut");
                 GameManager.instance.haircutUnlocked = true;
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
+                yield return new WaitForSeconds(0.75f); 
+                nameUI.SetActive(true);
             } 
             explosionFx.Play();
             taskComplete = true;  
@@ -110,6 +115,51 @@ public class TaskButton : MonoBehaviour
         { 
             ShowReward(messageText); 
         } 
+    }
+
+    public IEnumerator TaskComplete1()
+    {
+        if (!taskComplete)
+        {
+            if (GameManager.instance.totalSoftCurrency >= 10000)
+            { 
+            GameManager.instance.totalSoftCurrency -= 10000;
+            Destroy(addUI.gameObject);
+            Destroy(effectUI.gameObject);
+            HidePopup();
+            progressionSlider.value = 1;
+            progressText.text = progressionSlider.value.ToString();
+            yield return new WaitForSeconds(0.25f);
+            Button button = gameObject.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => StartCoroutine(TaskComplete1()));
+            CanvasManager.instance.taskNumber += 1;  
+            Debug.Log("haircut");
+            //GameManager.instance.haircutUnlocked = true;
+            objectToEnable.SetActive(true);
+            objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f); 
+            explosionFx.Play();
+            taskComplete = true;
+            gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
+            gameObject.transform.DOLocalMoveY(-120, 0.5f).OnComplete(() =>
+            {
+                incompleteTask.SetActive(false);
+                completeTask.SetActive(true);
+            });
+            yield return new WaitForSeconds(0.5f);
+            Destroy(explosionFx.gameObject);
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true);
+            }
+            else
+            {
+                HidePopup();
+            }
+        }
+        else
+        {
+            ShowReward(messageText);
+        }
     }
 
     public IEnumerator OnCollectReward()
@@ -143,24 +193,32 @@ public class TaskButton : MonoBehaviour
                 Tutorial.instance.ParkingBuild(); 
             Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
+                errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
+
             }
-         if (CanvasManager.instance.taskNumber == 1)
+            if (CanvasManager.instance.taskNumber == 1)
         { 
                 Tutorial.instance.BuildClick();
             room.CamZoom();
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
-        }
-        if (CanvasManager.instance.taskNumber == 2)
+                errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
+
+            }
+            if (CanvasManager.instance.taskNumber == 2)
         {
                 Tutorial.instance.ReceptionBuild();
                 Reception.instance.CamZoom(); 
                 objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
-        }
-        if (CanvasManager.instance.taskNumber == 7)
+                errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
+
+            }
+            if (CanvasManager.instance.taskNumber == 13)
         { 
             room.CamZoom();  
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
-        }
+                errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete1()));
+                errorPopup.SetCostActive();
+            }
         }
     }
 

@@ -13,6 +13,9 @@ public class BuildPopup : MonoBehaviour
     public TMP_Text descriptionText;
     public Button button;
 
+    public GameObject costActive;
+    public GameObject costInactive;
+
     private string button_Text;
     private System.Action buttonAction;
 
@@ -53,5 +56,11 @@ public class BuildPopup : MonoBehaviour
     public void DisablePanel()
     {
         popupWindow.transform.DOLocalMoveY(-1731, 0.5f); 
+    }
+
+    public void SetCostActive()
+    {
+        costActive.SetActive(true);
+        costInactive.SetActive(false);
     }
 }

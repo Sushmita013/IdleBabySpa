@@ -12,6 +12,9 @@ public class Tutorial : MonoBehaviour
 
     public GameObject interiorPanel;
 
+    public GameObject interiorHand;
+    public GameObject interiorHand1;
+
     public Button task2; 
     void Start()
     {
@@ -26,8 +29,10 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        if (CanvasManager.instance.taskNumber == 11)
+        if (CanvasManager.instance.taskNumber == 11 && GameManager.instance.totalHardCurrency==20)
         {
+            interiorHand.SetActive(true);
+            interiorHand1.SetActive(true);
             if (interiorPanel.activeSelf)
             {
                 InteriorBuy();
@@ -36,6 +41,11 @@ public class Tutorial : MonoBehaviour
             {
                 InteriorClick();
             }
+        }
+        else
+        {
+            interiorHand.SetActive(false);
+            interiorHand1.SetActive(false);
         }
     }
 

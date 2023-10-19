@@ -31,6 +31,10 @@ public class Interior : MonoBehaviour
     public Button sofaBuy;
 
     public Button closeButton;
+
+    public TaskButton6 task;
+
+    public GameObject nameUI;
     void Start()
     {
         for (int i = 0; i < plantButton.Count; i++)
@@ -57,12 +61,27 @@ public class Interior : MonoBehaviour
         plantBuy.onClick.AddListener(OnPlantButtonClick);
         sofaBuy.onClick.AddListener(OnSofaButtonClick);
         closeButton.onClick.AddListener(ResetToDefault);
-    } 
+    }
+
+    private void Update()
+    {
+        if (GameManager.instance.totalHardCurrency >= 20)
+        {
+            plantBuy.interactable = true;
+            sofaBuy.interactable = true;
+        }
+        else
+        {
+            plantBuy.interactable = false;
+            sofaBuy.interactable = false;
+        }
+    }
 
     public IEnumerator PlantUpgrade(int i)
     {
         plantsObject[i].transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.1f);
         activePlant.SetActive(false);
+        mainPlant.SetActive(false);
         yield return new WaitForSeconds(0.25f); 
         plantsObject[i].SetActive(true);
         plantsObject[i].transform.DOScale(new Vector3(1, 1, 1), 0.5f);
@@ -73,6 +92,7 @@ public class Interior : MonoBehaviour
     {
         tvObject[i].transform.DOScale(new Vector3(75, 75, 75), 0.1f);
         activeTv.SetActive(false);
+        mainTv.SetActive(false);
         yield return new WaitForSeconds(0.25f);
         tvObject[i].SetActive(true);
         tvObject[i].transform.DOScale(new Vector3(150, 150, 150), 0.5f);
@@ -82,6 +102,7 @@ public class Interior : MonoBehaviour
     {
         chairObject[i].transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.1f);
         activeChair.SetActive(false);
+        mainChair.SetActive(false);
         yield return new WaitForSeconds(0.25f);
         chairObject[i].SetActive(true);
         chairObject[i].transform.DOScale(new Vector3(1, 1, 1), 0.5f);
@@ -89,8 +110,10 @@ public class Interior : MonoBehaviour
     }
     public IEnumerator WallUpgrade(int i)
     {
+        nameUI.SetActive(false);
         wallObject[i].transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.1f);
         activeWall.SetActive(false);
+        mainWall.SetActive(false);
         yield return new WaitForSeconds(0.25f);
         wallObject[i].SetActive(true);
         wallObject[i].transform.DOScale(new Vector3(1, 1, 1), 0.5f);
@@ -115,7 +138,7 @@ public class Interior : MonoBehaviour
         {
             wallObject[i].SetActive(false);
         }
-
+        nameUI.SetActive(true);
         mainChair.SetActive(true);
         mainPlant.SetActive(true);
         mainTv.SetActive(true);
@@ -130,6 +153,8 @@ public class Interior : MonoBehaviour
             CanvasManager.instance.UpdateHardCurrency();
             mainPlant = plantsObject[0];
         plantBuy.gameObject.SetActive(false);
+            StartCoroutine(task.TaskComplete());
+            Camera.main.GetComponent<PanZoom>().enabled = true;
         }
     }
     public void OnSofaButtonClick()

@@ -31,7 +31,11 @@ public class Cashier : MonoBehaviour
     public GameObject service;
     public GameObject service1; 
 
-    public List<ParticleSystem> effects; 
+    public List<ParticleSystem> effects;
+    public bool isHolding;
+    public bool startTimer;
+
+    public float holdTimer;
 
     void Start()
     { 
@@ -41,6 +45,20 @@ public class Cashier : MonoBehaviour
         }
         hireButton.onClick.AddListener(() => StartCoroutine(HireCashier()));
         upgradeButton.onClick.AddListener(UpgradeClick);
+    }
+
+    private void Update()
+    {
+        if (startTimer)
+        {
+            holdTimer += Time.deltaTime;
+            if (holdTimer >= 0.75f)
+            {
+                isHolding = true;
+                StartCoroutine(UpgradeHold());
+            }
+        }
+        EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
     }
 
     public IEnumerator HireCashier()
@@ -82,6 +100,40 @@ public class Cashier : MonoBehaviour
             //Destroy(effects[0].gameObject);
             //Destroy(effects[1].gameObject); 
         }
+    }
+
+    public void EnableDisableUpgrade(float bal)
+    {
+        if (bal >= costPerLevel)
+        {
+            upgradeButton.interactable = true;
+        }
+        else
+        {
+            upgradeButton.interactable = false;
+
+        }
+    }
+
+    public IEnumerator UpgradeHold()
+    {
+        startTimer = false;
+        while (isHolding)
+        {
+            UpgradeClick();
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    public void OnUpgradeDown()
+    {
+        startTimer = true;
+    }
+    public void OnUpgradeUp()
+    {
+        startTimer = false;
+        isHolding = false;
+        holdTimer = 0;
     }
 
     public void UpdateValues()

@@ -33,10 +33,28 @@ public class MassageTab : MonoBehaviour
 
     public ParticleSystem upgradeEffect;
 
+    public bool isHolding;
+    public bool startTimer;
+
+    public float holdTimer;
+
     void Start()
     {
         upgradeButton.onClick.AddListener(UpgradeClick);  
         upgradeEffect.Stop();
+    }
+    private void Update()
+    {
+        if (startTimer)
+        {
+            holdTimer += Time.deltaTime;
+            if (holdTimer >= 0.75f)
+            {
+                isHolding = true;
+                StartCoroutine(UpgradeHold());
+            }
+        } 
+        EnableDisableUpgrade(GameManager.instance.totalSoftCurrency); 
     }
 
     public void UpgradeClick()
@@ -139,9 +157,72 @@ public class MassageTab : MonoBehaviour
                     UpdateCost();
                 }
             } 
+            if (room.serviceLevel > 75 && room.serviceLevel <= 100)
+            { 
+                room.serviceLevel++;
+                    //taskList[2].progressText.text = room.serviceLevel.ToString();
+                    //taskList[2].progressionSlider.value = room.serviceLevel; 
+                multiplier = 1;
+                incomePerLevel *= multiplier;
+                income_Increase = 4.5f;
+                if (room.serviceLevel == 100)
+                { 
+                    //StartCoroutine(taskList[2].TaskComplete());
+                    multiplier = 4;
+                    incomePerLevel *= multiplier;
+                    income_Increase = 4.5f;
+                    room.serviceLevel++;
+                    foreach (GameObject item in panels)
+                    {
+                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    }
+                    level[3].text = room.serviceLevel.ToString();
+                    levelSlider[3].value = room.serviceLevel;
+                    UpdateCost();
+                }
+                else
+                { 
+                    level[3].text = room.serviceLevel.ToString();
+                    levelSlider[3].value = room.serviceLevel;
+                    UpdateCost();
+                }
+            } 
+        } 
+    }
+
+    public void EnableDisableUpgrade(float bal)
+    {
+        if(bal >= costPerLevel && room.serviceLevel<100)
+        {
+            upgradeButton.interactable = true;
+        }
+        else
+        {
+            upgradeButton.interactable = false;
+
         }
     }
 
+    public IEnumerator UpgradeHold()
+    {
+        startTimer = false;
+        while (isHolding)
+        {
+            UpgradeClick();
+            yield return new WaitForSeconds(0.25f);  
+        }
+    }
+
+    public void OnUpgradeDown()
+    {
+        startTimer = true;
+    }
+    public void OnUpgradeUp()
+    {
+        startTimer = false;
+        isHolding = false;
+        holdTimer = 0;
+    }
     public void UpdateCost()
     {
         GameManager.instance.totalSoftCurrency -= costPerLevel;

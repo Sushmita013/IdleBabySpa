@@ -20,7 +20,7 @@ public class ParentController : MonoBehaviour
     private float duration;
     private float duration1;
 
-    public float totalBill;
+    public float totalBill;  
 
     void Start()
     {
@@ -61,7 +61,8 @@ public class ParentController : MonoBehaviour
         if (other.tag == "DestroyPoint")
         {
             parking = other.GetComponentInParent<ParkingSlot>();
-            Destroy(gameObject);
+            parking.ExitCar(parking.car);
+            Destroy(gameObject, 0.1f);
             //gameObject.SetActive(false);
         }
     }
