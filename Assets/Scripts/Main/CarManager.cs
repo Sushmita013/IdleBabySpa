@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using DG.Tweening;
+using TMPro;
 
 public class CarManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class CarManager : MonoBehaviour
 
     public Advertisement billboard;
     public float carSpawnDuration;
+    public TMP_Text spotsText;
 
     private void Start()
     {
@@ -37,14 +39,13 @@ public class CarManager : MonoBehaviour
         {
             GameObject carPrefab = carData.carPrefabs[Random.Range(0, carData.carPrefabs.Count)]; 
             GameObject car = Instantiate(carPrefab, carData.movePoints[0].position, Quaternion.identity);
-                availableParkingSlots -= 1;
             GameObject childTransform = car.transform.Find("SpawnPoint").gameObject;
             carData.spawnPoint = childTransform;
             NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
             //instantiatedCars.Add(car);
             agent.SetDestination(carData.movePoints[1].position);
             yield return new WaitForSeconds(8f);
-            StartCoroutine(MoveCar(carData,agent));
+            StartCoroutine(MoveCar(carData,agent)); 
             yield return new WaitForSeconds(GetDuration());
             StartCoroutine(InstantiateRandomCars()); 
         } 
@@ -55,7 +56,9 @@ public class CarManager : MonoBehaviour
         int parkingSlotIndex = FindNextAvailableParkingSlot();
         
         if (parkingSlotIndex != -1)
-        { 
+        {
+            availableParkingSlots -= 1;
+            UpdateSpots();
             carData.destinationIndex = parkingSlotIndex;
             agent.SetDestination(carData.movePoints[parkingSlotIndex + 2].position);
             parkingSlots[parkingSlotIndex].GetComponent<Collider>().enabled = true;
@@ -84,7 +87,7 @@ public class CarManager : MonoBehaviour
 
     public void ExitCar(int index)
     {  
-        availableParkingSlots += 1;
+        //UpdateSpots(); 
         parkingSlotAvailability[index] = true; // Mark the parking slot as available  
     }
 
@@ -93,6 +96,11 @@ public class CarManager : MonoBehaviour
         carSpawnDuration = 60 / billboard.personPerMin;
         return carSpawnDuration;
 
+    }
+
+    public void UpdateSpots()
+    {
+        spotsText.text = availableParkingSlots.ToString();
     }
 
 }

@@ -38,6 +38,8 @@ public class TaskButton : MonoBehaviour
 
     public GameObject nameUI;
 
+    public GameObject levelButton;
+
     void Start()
     {
         incompleteTask.SetActive(true);
@@ -63,6 +65,7 @@ public class TaskButton : MonoBehaviour
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             CanvasManager.instance.taskNumber += 1;
+            explosionFx.Play();
             if (CanvasManager.instance.taskNumber == 2)
             { 
             objectToEnable.SetActive(true);
@@ -81,15 +84,16 @@ public class TaskButton : MonoBehaviour
             { 
                 objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
+                //explosionFx.Play();
                 carManager.SetActive(true);
-                explosionFx.Play();
                 yield return new WaitForSeconds(0.75f); 
                 Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -70), 0.75f).SetEase(Ease.Linear);
                 Camera.main.DOOrthoSize(20, 0.75f);
                 Tutorial.instance.UpgradeMassage();
+                levelButton.SetActive(true);
                 //Tutorial.instance.DestroyHands();
             }
-            if (CanvasManager.instance.taskNumber == 13)
+            if (CanvasManager.instance.taskNumber == 18)
             {
                 Debug.Log("haircut");
                 GameManager.instance.haircutUnlocked = true;
@@ -98,7 +102,6 @@ public class TaskButton : MonoBehaviour
                 yield return new WaitForSeconds(0.75f); 
                 nameUI.SetActive(true);
             } 
-            explosionFx.Play();
             taskComplete = true;  
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
@@ -212,7 +215,7 @@ public class TaskButton : MonoBehaviour
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
 
             }
-            if (CanvasManager.instance.taskNumber == 13)
+            if (CanvasManager.instance.taskNumber == 14)
         { 
             room.CamZoom();  
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);

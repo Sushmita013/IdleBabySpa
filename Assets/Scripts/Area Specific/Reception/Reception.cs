@@ -39,15 +39,22 @@ public class Reception : MonoBehaviour
     }
 
     public IEnumerator CameraZoomIn()
-    { 
-        Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
-        Camera.main.DOOrthoSize(zoomSize, 0.75f);
-        //yield return new WaitForSeconds(1f); 
-        UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
-        GetComponent<Collider>().enabled = false; 
-        yield return new WaitForSeconds(0.75f);
-        hasUI = true;
-        closeButton.SetActive(true);
+    {
+        if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
+        {
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.75f);
+            //yield return new WaitForSeconds(1f); 
+            UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
+            GetComponent<Collider>().enabled = false;
+            yield return new WaitForSeconds(0.75f);
+            hasUI = true;
+            closeButton.SetActive(true);
+        }
+        else
+        {
+            CamZoom();
+        }
 
     }
     public void CamZoom()
@@ -71,7 +78,7 @@ public class Reception : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-            UpgradeUIpanels[0].transform.DOLocalMoveY(-1500, 1f);
+            UpgradeUIpanels[0].transform.DOLocalMoveY(-1500, 1f); 
         }
     } 
 }

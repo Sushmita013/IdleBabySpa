@@ -44,7 +44,6 @@ public class Tabs : MonoBehaviour
     {
         foreach (GameObject item in panels)
         {
-            Debug.Log(item.name);
             item.SetActive(false);
         }
     }

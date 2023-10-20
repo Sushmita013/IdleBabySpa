@@ -50,7 +50,7 @@ public class TaskButton5 : MonoBehaviour
                 incompleteTask.SetActive(false);
                 completeTask.SetActive(true);
             }); 
-            yield return new WaitForSeconds(0.75f); 
+            yield return new WaitForSeconds(0.25f); 
             CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber - 1].SetActive(true); 
         }
         else

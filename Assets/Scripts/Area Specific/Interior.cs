@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class Interior : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class Interior : MonoBehaviour
     public TaskButton6 task;
 
     public GameObject nameUI;
+
+    public Slider levelSlider;
+    public TMP_Text levelNumber;
+
+    public Button nextButton;
+
     void Start()
     {
         for (int i = 0; i < plantButton.Count; i++)
@@ -145,6 +152,14 @@ public class Interior : MonoBehaviour
         mainWall.SetActive(true); 
     }
 
+    public void ResetChair()
+    {
+        for (int i = 0; i < chairObject.Count; i++)
+        {
+            chairObject[i].SetActive(false);
+        }
+    }
+
     public void OnPlantButtonClick()
     {
         if (GameManager.instance.totalHardCurrency >= 20)
@@ -155,6 +170,9 @@ public class Interior : MonoBehaviour
         plantBuy.gameObject.SetActive(false);
             StartCoroutine(task.TaskComplete());
             Camera.main.GetComponent<PanZoom>().enabled = true;
+            levelNumber.text = "4";
+            levelSlider.value = 4;
+            nextButton.interactable = true;
         }
     }
     public void OnSofaButtonClick()
@@ -164,7 +182,11 @@ public class Interior : MonoBehaviour
             GameManager.instance.totalHardCurrency -= 20;
             CanvasManager.instance.UpdateHardCurrency();
             mainChair = chairObject[0];
+            ResetChair();
+            mainChair.SetActive(true);
             sofaBuy.gameObject.SetActive(false);
+            levelNumber.text = "8";
+            levelSlider.value = 8;
         }
     }
 }

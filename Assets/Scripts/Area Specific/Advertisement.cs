@@ -69,7 +69,7 @@ public class Advertisement : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         { 
-            if(room.serviceLevel < 9)
+            if(room.serviceLevel < 7)
             {
                 upgradeEffect.Play();
             room.serviceLevel++;
@@ -91,7 +91,7 @@ public class Advertisement : MonoBehaviour
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && room.serviceLevel<9)
+        if (bal >= costPerLevel && room.serviceLevel<7)
         {
             upgradeButton.interactable = true;
         }

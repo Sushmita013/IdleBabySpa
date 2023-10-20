@@ -65,13 +65,7 @@ public class ParentController : MonoBehaviour
             Destroy(gameObject, 0.1f);
             //gameObject.SetActive(false);
         }
-    }
-
-    private void OnDestroy()
-    {
-        parking.ExitCar(parking.car);
-        //parking.destroyPoint.GetComponent<Collider>().enabled = false;
-    }
+    } 
 
     public IEnumerator MoveToMassage(ParentNPC parentData, NavMeshAgent agent)
     {
@@ -141,7 +135,7 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[6]);
         babyController.PlayAnimation("baby standing idle with father");
         //StartCoroutine(Masseuse.instance.Action1());
-        yield return new WaitForSeconds(duration1+1);
+        yield return new WaitForSeconds(duration1);
         GameManager.instance.totalSoftCurrency += totalBill;
         CanvasManager.instance.UpdateSoftCurrency();
         PlayAnimation(parentData.anim[0]);

@@ -66,11 +66,13 @@ public class ParkingSlot : MonoBehaviour
 
     public IEnumerator CarExit(GameObject car)
     {
+        CarManager.instance.availableParkingSlots += 1;
+        CarManager.instance.UpdateSpots(); 
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         yield return new WaitForSeconds(3);
         agent.angularSpeed = 120; 
         agent.SetDestination(exitPoints[1].position);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3f);
         agent.SetDestination(exitPoints[2].position);
         yield return new WaitForSeconds(20);
         Destroy(agent.gameObject);

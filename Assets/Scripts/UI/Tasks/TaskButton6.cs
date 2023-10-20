@@ -71,7 +71,7 @@ public class TaskButton6 : MonoBehaviour
     {
         room.ResetPanels();
         StartCoroutine(room.CameraZoomIn());
-        Tutorial.instance.InteriorClick();
+        //Tutorial.instance.InteriorClick();
     }
 
     public void ShowReward(string message)
@@ -94,6 +94,11 @@ public class TaskButton6 : MonoBehaviour
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
         errorPopup.DisablePanel();
         Destroy(CanvasManager.instance.popupObject1);
+    }
+
+    private void OnEnable()
+    {
+        
     }
 
 }

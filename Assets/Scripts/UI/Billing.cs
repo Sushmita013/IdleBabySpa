@@ -49,13 +49,13 @@ public class Billing : MonoBehaviour
         yield return new WaitForSeconds(GetDuration());
         effect.Play();
         occupiedUI.SetActive(false);
+        PlayAnimation("Idle");
         billUI.SetActive(true);
         billUI.transform.DOLocalMoveZ(-5.5f, 1f);
         yield return new WaitForSeconds(1);
         billUI.SetActive(false);
         billUI.transform.DOLocalMoveZ(-3.3f, 0.1f); 
         fillbar.DOFillAmount(0, 0.1f);
-        PlayAnimation("Idle");
     }
     public void PlayAnimation(string animation)
     {

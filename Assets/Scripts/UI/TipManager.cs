@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TipManager : MonoBehaviour
 {
@@ -8,25 +9,19 @@ public class TipManager : MonoBehaviour
 
     public int collectedTips;
 
+    public Button levelButton;
+    public GameObject levelPanel;
+
     void Start()
     {
         instance = this;
+        levelButton.onClick.AddListener(OnLevelButtonClick);
     }
-     
-    void Update()
+      
+
+    public void OnLevelButtonClick()
     {
-        if (CanvasManager.instance.taskNumber == 9)
-        { 
-        if (collectedTips <= 3)
-        {
-            TaskManager.instance.taskList[0].progressionSlider.value = collectedTips;
-            TaskManager.instance.taskList[0].progressText.text = collectedTips.ToString();
-            if (collectedTips == 3)
-            { 
-            StartCoroutine(TaskManager.instance.taskList[0].TaskComplete());
-            collectedTips = 0;
-            }
-        }
-        }
+        levelPanel.SetActive(true);
+        Tutorial.instance.LevelUpgrade(); 
     }
 }

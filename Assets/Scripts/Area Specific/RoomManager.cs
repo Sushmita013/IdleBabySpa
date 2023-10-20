@@ -42,9 +42,12 @@ public class RoomManager : MonoBehaviour
 
     public CollectTip tip;
 
-    public Worker worker; 
+    public Worker worker;
 
     //public List<WorkerNPC> worker;
+    //public Tabs tab;
+    //public Tabs1 tab1;
+    //public Tabs2 tab2;
      
     void Start()
     {
@@ -68,57 +71,64 @@ public class RoomManager : MonoBehaviour
     }
 
     public IEnumerator CameraZoomIn()
-    { 
-        Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-        Camera.main.DOOrthoSize(zoomSize, 1f);
-        //yield return new WaitForSeconds(1f); 
-        switch (roomName)
+    {
+        if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         {
-            case Departments.WaterTaining:
-                break;
-            case Departments.Massage:
-                UpgradeUIpanels[1].transform.DOMoveY(0, 1f);
-                GetComponent<Collider>().enabled = false;
-                yield return new WaitForSeconds(1);
-                hasUI = true;
-                closeButton.SetActive(true); 
-                break;
-            case Departments.Haircut:
-                UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
-                GetComponent<Collider>().enabled = false; 
-                yield return new WaitForSeconds(1);
-                hasUI = true;
-                closeButton.SetActive(true); 
-                break;
-            case Departments.Pamper:
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 1f);
+            //yield return new WaitForSeconds(1f); 
+            switch (roomName)
+            {
+                case Departments.WaterTaining:
+                    break;
+                case Departments.Massage:
+                    UpgradeUIpanels[1].transform.DOMoveY(0, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
+                    closeButton.SetActive(true);
+                    break;
+                case Departments.Haircut:
+                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
+                    closeButton.SetActive(true);
+                    break;
+                case Departments.Pamper:
 
-                break;
-            case Departments.Playroom:
+                    break;
+                case Departments.Playroom:
 
-                break;
-            case Departments.PhotoRoom:
+                    break;
+                case Departments.PhotoRoom:
 
-                break;
-            case Departments.Cafeteria:
+                    break;
+                case Departments.Cafeteria:
 
-                break; 
-            case Departments.Parking:
-                UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
-                GetComponent<Collider>().enabled = false; 
-                yield return new WaitForSeconds(1);
-                hasUI = true;
-                closeButton.SetActive(true);
+                    break;
+                case Departments.Parking:
+                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
+                    closeButton.SetActive(true);
 
-                break; 
-            case Departments.Advertisement:
-                UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
-                GetComponent<Collider>().enabled = false; 
-                yield return new WaitForSeconds(1);
-                hasUI = true;
-                closeButton.SetActive(true);
+                    break;
+                case Departments.Advertisement:
+                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
+                    closeButton.SetActive(true);
 
-                break; 
-        } 
+                    break;
+            }
+        }
+        else
+        {
+            CamZoom();
+        }
     }
     //public void UpdateValues(Departments room)
     //{
@@ -178,7 +188,10 @@ public class RoomManager : MonoBehaviour
              UpgradeUIpanels[i].transform.DOLocalMoveY(-1500, 1f);
         }
         Camera.main.DOOrthoSize(25, 0.25f);
-        GetComponent<Collider>().enabled = true; 
+        GetComponent<Collider>().enabled = true;
+        //tab.ButtonClick(0);
+        //tab1.ButtonClick(0);
+        //tab2.ButtonClick(0);
     }
 
     public void LoadData()

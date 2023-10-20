@@ -35,7 +35,7 @@ public class TaskButton1 : MonoBehaviour
     {
         if (!taskCompleted)
         {
-            cashier2.SetActive(true); 
+            //cashier2.SetActive(true); 
             yield return new WaitForSeconds(0.5f);
             CanvasManager.instance.taskNumber += 1;
             taskCompleted = true;

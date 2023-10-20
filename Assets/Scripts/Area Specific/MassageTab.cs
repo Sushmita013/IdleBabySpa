@@ -137,7 +137,7 @@ public class MassageTab : MonoBehaviour
                 income_Increase = 1.2f;
                 if (room.serviceLevel == 75)
                 { 
-                    StartCoroutine(taskList[2].TaskComplete());
+                    StartCoroutine(taskList[2].TaskComplete()); 
                     multiplier = 4;
                     incomePerLevel *= multiplier;
                     income_Increase = 4.5f;
@@ -160,25 +160,26 @@ public class MassageTab : MonoBehaviour
             if (room.serviceLevel > 75 && room.serviceLevel <= 100)
             { 
                 room.serviceLevel++;
-                    //taskList[2].progressText.text = room.serviceLevel.ToString();
-                    //taskList[2].progressionSlider.value = room.serviceLevel; 
+                    taskList[3].progressText.text = room.serviceLevel.ToString();
+                   taskList[3].progressionSlider.value = room.serviceLevel; 
                 multiplier = 1;
                 incomePerLevel *= multiplier;
                 income_Increase = 4.5f;
                 if (room.serviceLevel == 100)
                 { 
-                    //StartCoroutine(taskList[2].TaskComplete());
-                    multiplier = 4;
-                    incomePerLevel *= multiplier;
-                    income_Increase = 4.5f;
+                    StartCoroutine(taskList[3].TaskComplete());
+                    //multiplier = 4;
+                    //incomePerLevel *= multiplier;
+                    //income_Increase = 4.5f;
                     room.serviceLevel++;
-                    foreach (GameObject item in panels)
-                    {
-                        item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
-                    }
+                    //foreach (GameObject item in panels)
+                    //{
+                    //    item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
+                    //}
                     level[3].text = room.serviceLevel.ToString();
                     levelSlider[3].value = room.serviceLevel;
                     UpdateCost();
+                    upgradeButton.interactable = false;
                 }
                 else
                 { 

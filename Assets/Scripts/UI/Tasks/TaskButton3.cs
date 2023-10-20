@@ -67,8 +67,9 @@ public class TaskButton3 : MonoBehaviour
             Tutorial.instance.UpgradeInterior();
             Camera.main.GetComponent<PanZoom>().enabled = false;
             Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -72.5f), 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(20, 1f);  
+            Camera.main.DOOrthoSize(20, 1f);
             //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+            Tutorial.instance.InteriorClick();
         }
         else
         { 

@@ -28,7 +28,7 @@ public class TaskButton2 : MonoBehaviour
     public Slider progressionSlider;
     public TMP_Text progressText;
     public ParticleSystem reward;
-
+    public GameObject spotsText;
 
     void Start()
     {
@@ -56,15 +56,18 @@ public class TaskButton2 : MonoBehaviour
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
             gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
             gameObject.transform.DOLocalMoveY(-120, 0.5f);
-            explosionFx.Play();
             yield return new WaitForSeconds(0.5f);
+            explosionFx.Play();
             Tutorial.instance.BillboardBuild();
             incompleteTask.SetActive(false);
             completeTask.SetActive(true);
             objectToEnable.SetActive(true);
-            objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
-            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true);
-            //CanvasManager.instance.tasksGO[0].SetActive(true); 
+            objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f).OnComplete(() =>
+            {
+                spotsText.SetActive(true);
+            });
+            CanvasManager.instance.tasksGO[CanvasManager.instance.taskNumber-1].SetActive(true); 
+            yield return new WaitForSeconds(0.25f); 
             Destroy(addUI.gameObject);
             Destroy(explosionFx.gameObject);
             Destroy(effectUI.gameObject);
@@ -99,7 +102,7 @@ public class TaskButton2 : MonoBehaviour
         errorPopup.SetErrorMessage(errorMessage);
         errorPopup.SetDescription(descriptionText);
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete())); 
-        objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
+        objectToEnable.transform.DOScale(new Vector3(0.90f, 0.90f, 0.90f), 0.05f);
         }
     }
 
