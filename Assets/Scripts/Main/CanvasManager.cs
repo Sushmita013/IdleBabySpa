@@ -34,7 +34,7 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        Camera.main.transform.position = new Vector3(-125f, 60, -72.5f);
+        Camera.main.transform.position = new Vector3(-140f, 60, -47f);
         Camera.main.orthographicSize = 20;
         instance = this;
         taskNumber = 1;

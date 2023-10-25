@@ -1,0 +1,11 @@
+
+Most of used font properties is bold and semibold,
+
+most used color code is 2e2e2e and white
+
+some item may be repeatable so take from here and and there (from folders)
+
+Some data taken as example so you can write according to our game documents
+
+*some bases or buttons need to be stretch or squash from center
+*take references from reference images and try to create same to same

@@ -66,7 +66,7 @@ public class TaskButton : MonoBehaviour
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             CanvasManager.instance.taskNumber += 1;
             explosionFx.Play();
-            if (CanvasManager.instance.taskNumber == 2)
+            if (CanvasManager.instance.taskNumber == 3)
             { 
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
@@ -74,7 +74,7 @@ public class TaskButton : MonoBehaviour
                 nameUI.SetActive(true);
                 Tutorial.instance.MassageComplete();
             }
-            if (CanvasManager.instance.taskNumber == 3)
+            if (CanvasManager.instance.taskNumber == 2)
             {
                 Tutorial.instance.ReceptionDone();
             objectToEnable.SetActive(true);
@@ -199,7 +199,7 @@ public class TaskButton : MonoBehaviour
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
 
             }
-            if (CanvasManager.instance.taskNumber == 1)
+            if (CanvasManager.instance.taskNumber == 2)
         { 
                 Tutorial.instance.BuildClick();
             room.CamZoom();
@@ -207,7 +207,7 @@ public class TaskButton : MonoBehaviour
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
 
             }
-            if (CanvasManager.instance.taskNumber == 2)
+            if (CanvasManager.instance.taskNumber == 1)
         {
                 Tutorial.instance.ReceptionBuild();
                 Reception.instance.CamZoom(); 
