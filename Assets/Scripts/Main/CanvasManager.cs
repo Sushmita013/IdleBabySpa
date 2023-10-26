@@ -34,8 +34,8 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
-        Camera.main.transform.position = new Vector3(-140f, 60, -47f);
-        Camera.main.orthographicSize = 20;
+        //Camera.main.transform.position = new Vector3(-140f, 60, -47f);
+        //Camera.main.orthographicSize = 20;
         instance = this;
         taskNumber = 1;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 

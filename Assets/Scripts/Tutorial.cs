@@ -23,7 +23,7 @@ public class Tutorial : MonoBehaviour
         hands[0].SetActive(true);
         instance = this;
         //hand.transform.position= new Vector3(15,800,0);
-        Camera.main.GetComponent<PanZoom>().enabled = false;
+        //Camera.main.GetComponent<PanZoom>().enabled = false;
         Colliders(false);
         task2.interactable = false;
     }

@@ -13,7 +13,10 @@ public class CollectTip : MonoBehaviour
     public TMP_Text tipText;
     public GameObject tipValue;
     public GameObject imageDollar;
-     
+
+    public List<TaskButton5> taskList;
+
+
     void Start()
     { 
     }
@@ -37,11 +40,11 @@ public class CollectTip : MonoBehaviour
             //TipManager.instance.collectedTips=0;
             if (TipManager.instance.collectedTips <= 3)
             {
-                TaskManager.instance.taskList[0].progressionSlider.value = TipManager.instance.collectedTips;
-                TaskManager.instance.taskList[0].progressText.text = TipManager.instance.collectedTips.ToString();
+                taskList[0].progressionSlider.value = TipManager.instance.collectedTips;
+                taskList[0].progressText.text = TipManager.instance.collectedTips.ToString();
                 if (TipManager.instance.collectedTips == 3)
                 {
-                    StartCoroutine(TaskManager.instance.taskList[0].TaskComplete());
+                    StartCoroutine(taskList[0].TaskComplete());
                 }
             }
         }

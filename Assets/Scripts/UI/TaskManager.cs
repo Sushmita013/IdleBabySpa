@@ -12,12 +12,5 @@ public class TaskManager : MonoBehaviour
     void Start()
     {
         instance = this;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-    }
+    } 
 }
