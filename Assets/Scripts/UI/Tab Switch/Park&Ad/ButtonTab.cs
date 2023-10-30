@@ -9,10 +9,14 @@ using DG.Tweening;
 public class ButtonTab : MonoBehaviour
 {
     public ButtonStates currentState = ButtonStates.selected;
-    public Image buttonSprite;
+    private Image buttonSprite;
     public Sprite deselectedSprite;
     public Sprite selectedSprite;
 
+    private void Start()
+    {
+        buttonSprite = GetComponent<Image>();
+    }
     public void UpdateButtonState(ButtonStates buttonStates)
     {
         switch (buttonStates)

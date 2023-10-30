@@ -31,9 +31,9 @@ public class RoomManager : MonoBehaviour
     private float moveSpeed = 2.0f;
     public int zoomSize;
     private bool hasUI;
-    public GameObject closeButton; 
-    public List<GameObject> UpgradeUIpanels;  
-
+    public Button closeButton; 
+    public List<GameObject> UpgradeUIpanels;
+    public GameObject switchServicePanel;
     public string playerPrefTag;
 
     public bool isUnlocked;
@@ -53,14 +53,14 @@ public class RoomManager : MonoBehaviour
     {
         serviceLevel = 1;
         instance = this;
-        closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick);
+        closeButton.onClick.AddListener(CloseButtonClick);
         LoadData();
     }
 
     public void OnMouseDown()
     {
         StartCoroutine(CameraZoomIn());
-        Tutorial.instance.MassageClick(); 
+        //Tutorial.instance.MassageClick(); 
     }
     private void Update()
     {
@@ -82,19 +82,20 @@ public class RoomManager : MonoBehaviour
                 case Departments.WaterTaining:
                     break;
                 case Departments.Massage:
-                    UpgradeUIpanels[1].transform.DOMoveY(0, 1f);
+                    UpgradeUIpanels[1].transform.DOLocalMoveY(-135, 1f);
+                    switchServicePanel.transform.DOLocalMoveY(-270, 1f);
                     GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
-                    closeButton.SetActive(true);
+                    //closeButton.SetActive(true);
                     break;
                 case Departments.Haircut:
-                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
-                    GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
-                    hasUI = true;
-                    closeButton.SetActive(true);
-                    break;
+                    //UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    //GetComponent<Collider>().enabled = false;
+                    //yield return new WaitForSeconds(1);
+                    //hasUI = true;
+                    //closeButton.SetActive(true);
+                    //break;
                 case Departments.Pamper:
 
                     break;
@@ -108,19 +109,19 @@ public class RoomManager : MonoBehaviour
 
                     break;
                 case Departments.Parking:
-                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    UpgradeUIpanels[2].transform.DOLocalMoveY(-270, 1f);
                     GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
-                    closeButton.SetActive(true);
+                    //closeButton.SetActive(true);
 
                     break;
                 case Departments.Advertisement:
-                    UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
+                    UpgradeUIpanels[2].transform.DOLocalMoveY(-270, 1f);
                     GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
-                    closeButton.SetActive(true);
+                    //closeButton.SetActive(true);
 
                     break;
             }
@@ -176,9 +177,12 @@ public class RoomManager : MonoBehaviour
 
     public void CloseButtonClick()
     { 
-        closeButton.SetActive(false); 
+        //closeButton.SetActive(false); 
         hasUI = false;
-        ResetPanels();  
+        ResetPanels();
+        GetComponent<Collider>().enabled = true;
+        switchServicePanel.transform.DOLocalMoveY(-1500, 1f); 
+
     }
 
     public void ResetPanels()
