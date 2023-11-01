@@ -7,77 +7,92 @@ using DG.Tweening;
 
 public class MassageTab : MonoBehaviour
 {
-    public float costPerLevel;
-    public float incomePerLevel;
-    public float cost_percentageIncrease;
-    public float income_Increase;
+    // Public variables
+    public float costPerLevel;              // Cost for upgrading
+    public float incomePerLevel;            // Income gained per upgrade
+    public float cost_percentageIncrease;   // Percentage increase in cost
+    public float income_Increase;           // Income increase per upgrade
 
-    public TMP_Text cost_upgrade;
-    public TMP_Text income_value;
+    public TMP_Text cost_upgrade;           // Text displaying upgrade cost
+    public TMP_Text income_value;           // Text displaying income value
 
-    public RoomManager room;
+    public RoomManager room;                // Reference to RoomManager
 
-    public int multiplier;
+    public int multiplier;                  // Income multiplier
 
-    public List<Slider> levelSlider;
+    public List<Slider> levelSlider;        // Sliders for tracking service level progress
 
-    public List<TaskButton3> taskList;
+    public List<TaskButton3> taskList;      // List of tasks related to service level
 
-    public List<TMP_Text> level;
+    public List<TMP_Text> level;            // Text displaying service level
 
-    public Button upgradeButton;
+    public Button upgradeButton;            // Button to trigger the upgrade
 
-    public List<GameObject> panels;
-    //public List<GameObject> lamps;
-    //public List<GameObject> lampsLevels;
-    public List<GameObject> lampsPlantRooms;
-    public List<GameObject> lampsPlantLevel2;
-    public List<GameObject> lampsPlantLevel3;
-    //public List<GameObject> plants;
-    //public List<GameObject> plantsLevels;
-    public List<GameObject> wallFloor;
-    public List<GameObject> glassWall;
-    public List<GameObject> services;
+    public List<GameObject> panels;          // List of UI panels
+    public List<GameObject> lampsPlantRooms; // List of plant room lamps
+    public List<GameObject> lampsPlantLevel2; // List of lamps for level 2 plants
+    public List<GameObject> lampsPlantLevel3; // List of lamps for level 3 plants
+    public List<GameObject> massageTable; // List of plant room lamps
+    public List<GameObject> massageTableLevel2; // List of table for level 2 
+    public List<GameObject> massageTableLevel3; // List of table for level 3 
+    public List<GameObject> wallFloor;       // List of wall and floor objects
+    public List<GameObject> glassWall;       // List of glass wall objects
+    public List<GameObject> services;        // List of service objects
 
-    public ParticleSystem upgradeEffect;
-    public ParticleSystem upgradeEffect1;
-    public ParticleSystem upgradeEffect2;
-    public ParticleSystem upgradeEffect3;
-    public ParticleSystem upgradeEffect4;
+    public ParticleSystem upgradeEffect;    // Particle effect for upgrades
+    public ParticleSystem upgradeEffect1;   // Particle effect for upgrades (level 13)
+    public ParticleSystem upgradeEffect2;   // Particle effect for upgrades (level 25)
+    public ParticleSystem upgradeEffect3;   // Particle effect for upgrades (level 38)
+    public ParticleSystem upgradeEffect4;   // Particle effect for upgrades (level 63)
 
-    public bool isHolding;
-    public bool startTimer;
+    // Private variables
+    private bool isHolding;                 // Flag for holding upgrade button
+    private bool startTimer;                // Flag for starting upgrade timer
+    private float holdTimer;                // Timer for upgrade button hold duration
 
-    public float holdTimer;
+    public GameObject starEffect;
 
     void Start()
     {
+        // Add a listener for the upgrade button click event
         upgradeButton.onClick.AddListener(UpgradeClick);
+
+        // Stop all upgrade effect particle systems initially
         upgradeEffect.Stop();
         upgradeEffect1.Stop();
         upgradeEffect2.Stop();
         upgradeEffect3.Stop();
         upgradeEffect4.Stop();
     }
+
     private void Update()
     {
+        // If the timer is running, update the hold timer
         if (startTimer)
         {
             holdTimer += Time.deltaTime;
+
+            // If the hold timer exceeds 0.75 seconds, trigger the upgrade hold coroutine
             if (holdTimer >= 0.75f)
             {
                 isHolding = true;
                 StartCoroutine(UpgradeHold());
             }
         }
+
+        // Check if the upgrade button should be enabled or disabled based on available currency
         EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
     }
 
     public void UpgradeClick()
     {
+        // Check if there's enough currency to perform the upgrade
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
+            // Play the upgrade effect particle system
             upgradeEffect.Play();
+
+            // Handle upgrades based on service level
             if (room.serviceLevel <= 25)
             {
                 multiplier = 1;
@@ -86,10 +101,10 @@ public class MassageTab : MonoBehaviour
                 room.serviceLevel++;
                 taskList[0].progressText.text = room.serviceLevel.ToString();
                 taskList[0].progressionSlider.value = room.serviceLevel;
+
+                // Additional logic for specific service levels
                 if (room.serviceLevel == 2)
                 {
-                    //Tutorial.instance.ResetHands();
-                    //Tutorial.instance.MassageUpgradeDone();
                     Camera.main.GetComponent<PanZoom>().enabled = true;
                 }
                 if (room.serviceLevel == 13)
@@ -103,6 +118,8 @@ public class MassageTab : MonoBehaviour
                     incomePerLevel *= multiplier;
                     income_Increase = 0.4f;
                     StartCoroutine(taskList[0].TaskComplete());
+
+                    // Move UI panels for service level 25
                     foreach (GameObject item in panels)
                     {
                         item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
@@ -126,7 +143,7 @@ public class MassageTab : MonoBehaviour
                 multiplier = 1;
                 incomePerLevel *= multiplier;
                 income_Increase = 0.4f;
-                if(room.serviceLevel == 38)
+                if (room.serviceLevel == 38)
                 {
                     VisualUpgrade(38);
                 }
@@ -161,7 +178,7 @@ public class MassageTab : MonoBehaviour
                 multiplier = 1;
                 incomePerLevel *= multiplier;
                 income_Increase = 1.2f;
-                if(room.serviceLevel == 63)
+                if (room.serviceLevel == 63)
                 {
                     VisualUpgrade(63);
                 }
@@ -171,11 +188,6 @@ public class MassageTab : MonoBehaviour
                     multiplier = 4;
                     incomePerLevel *= multiplier;
                     income_Increase = 4.5f;
-                    //room.serviceLevel++;
-                    foreach (GameObject item in panels)
-                    {
-                        //item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
-                    }
                     level[2].text = room.serviceLevel.ToString();
                     levelSlider[2].value = room.serviceLevel;
                     UpdateCost();
@@ -187,55 +199,25 @@ public class MassageTab : MonoBehaviour
                     UpdateCost();
                 }
             }
-            //if (room.serviceLevel > 75 && room.serviceLevel <= 100)
-            //{ 
-            //    room.serviceLevel++;
-            //        taskList[3].progressText.text = room.serviceLevel.ToString();
-            //       taskList[3].progressionSlider.value = room.serviceLevel; 
-            //    multiplier = 1;
-            //    incomePerLevel *= multiplier;
-            //    income_Increase = 4.5f;
-            //    if (room.serviceLevel == 100)
-            //    { 
-            //        StartCoroutine(taskList[3].TaskComplete());
-            //        //multiplier = 4;
-            //        //incomePerLevel *= multiplier;
-            //        //income_Increase = 4.5f;
-            //        room.serviceLevel++;
-            //        //foreach (GameObject item in panels)
-            //        //{
-            //        //    item.transform.DOLocalMoveX(item.transform.localPosition.x - 800, 1f);
-            //        //}
-            //        level[3].text = room.serviceLevel.ToString();
-            //        levelSlider[3].value = room.serviceLevel;
-            //        UpdateCost();
-            //        upgradeButton.interactable = false;
-            //    }
-            //    else
-            //    { 
-            //        level[3].text = room.serviceLevel.ToString();
-            //        levelSlider[3].value = room.serviceLevel;
-            //        UpdateCost();
-            //    }
-            //} 
         }
     }
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && room.serviceLevel <=74)
+        // Enable or disable the upgrade button based on available currency and service level
+        if (bal >= costPerLevel && room.serviceLevel <= 74)
         {
             upgradeButton.interactable = true;
         }
         else
         {
             upgradeButton.interactable = false;
-
         }
     }
 
     public IEnumerator UpgradeHold()
     {
+        // Handle upgrade button hold behavior
         startTimer = false;
         while (isHolding)
         {
@@ -246,16 +228,21 @@ public class MassageTab : MonoBehaviour
 
     public void OnUpgradeDown()
     {
+        // Triggered when the upgrade button is pressed
         startTimer = true;
     }
+
     public void OnUpgradeUp()
     {
+        // Triggered when the upgrade button is released
         startTimer = false;
         isHolding = false;
         holdTimer = 0;
     }
+
     public void UpdateCost()
     {
+        // Update the cost and income values after an upgrade
         GameManager.instance.totalSoftCurrency -= costPerLevel;
         CanvasManager.instance.UpdateSoftCurrency();
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
@@ -269,21 +256,19 @@ public class MassageTab : MonoBehaviour
 
     public void UpdateHard()
     {
+        // Update the hard currency UI element
         CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
     }
 
     public void VisualUpgrade(int level)
     {
+        // Visual upgrades for specific service levels
         switch (level)
         {
             case 13:
                 upgradeEffect1.Play();
                 lampsPlantRooms[0].SetActive(true);
                 lampsPlantRooms[0].transform.DOScale(new Vector3(1, 1, 1), 1f);
-                //lamps[0].SetActive(true);
-                //lamps[0].transform.DOScale(new Vector3(2.5f, 2.5f, 2.5f), 1f);
-                //plants[0].SetActive(true);
-                //plants[0].transform.DOScale(new Vector3(4, 4, 4), 1f); 
                 break;
             case 25:
                 StartCoroutine(SizeExpansion());
@@ -302,6 +287,7 @@ public class MassageTab : MonoBehaviour
 
     public IEnumerator SizeExpansion()
     {
+        // Visual upgrade for service level 25
         upgradeEffect2.Play();
         wallFloor[1].SetActive(true);
         wallFloor[1].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
@@ -313,33 +299,36 @@ public class MassageTab : MonoBehaviour
         glassWall[1].SetActive(true);
         lampsPlantRooms[1].SetActive(true);
         lampsPlantRooms[1].transform.DOScale(new Vector3(1, 1, 1), 1f);
-        //lamps[1].SetActive(true);
-        //lamps[1].transform.DOScale(new Vector3(2.5f, 2.5f, 2.5f), 1f);
-        //plants[1].SetActive(true);
-        //plants[1].transform.DOScale(new Vector3(4, 4, 4), 1f);
-
+        massageTable[0].SetActive(false);
+        massageTableLevel2[0].SetActive(true);
+        massageTableLevel2[0].transform.DOScale(new Vector3(1, 1, 1), 1f);
     }
+
     public IEnumerator SizeExpansion2()
     {
+        // Visual upgrade for service level 50
+        starEffect.SetActive(true);
         upgradeEffect2.Play();
         wallFloor[2].SetActive(true);
         wallFloor[2].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(0); 
         services[2].SetActive(true);
         services[2].transform.DOScale(new Vector3(1, 1, 1), 1f);
         glassWall[1].SetActive(false);
-        wallFloor[1].SetActive(false); 
+        wallFloor[1].SetActive(false);
         lampsPlantLevel2[2].SetActive(true);
         lampsPlantLevel2[2].transform.DOScale(new Vector3(1, 1, 1), 1f);
-        //lamps[1].SetActive(true);
-        //lamps[1].transform.DOScale(new Vector3(2.5f, 2.5f, 2.5f), 1f);
-        //plants[1].SetActive(true);
-        //plants[1].transform.DOScale(new Vector3(4, 4, 4), 1f);
-
+        massageTableLevel2[0].SetActive(false);
+        massageTableLevel2[1].SetActive(false);
+        massageTableLevel3[0].SetActive(true); 
+        massageTableLevel3[0].transform.DOScale(new Vector3(1, 1, 1), 1f);
+        massageTableLevel3[1].SetActive(true); 
+        massageTableLevel3[1].transform.DOScale(new Vector3(1, 1, 1), 1f); 
     }
 
     public void LampPlantUpgrade()
     {
+        // Visual upgrade for service level 38
         upgradeEffect1.Play();
         upgradeEffect3.Play();
         lampsPlantRooms[0].SetActive(false);
@@ -349,16 +338,11 @@ public class MassageTab : MonoBehaviour
 
         lampsPlantLevel2[1].SetActive(true);
         lampsPlantLevel2[1].transform.DOScale(new Vector3(1, 1, 1), 1f);
-
-
-        //lamps[1].SetActive(true);
-        //lamps[1].transform.DOScale(new Vector3(2.5f, 2.5f, 2.5f), 1f);
-        //plants[1].SetActive(true);
-        //plants[1].transform.DOScale(new Vector3(4, 4, 4), 1f);
-
     }
+
     public void LampPlantUpgrade1()
     {
+        // Visual upgrade for service level 63
         upgradeEffect1.Play();
         upgradeEffect3.Play();
         upgradeEffect4.Play();
@@ -372,12 +356,5 @@ public class MassageTab : MonoBehaviour
         lampsPlantLevel3[1].transform.DOScale(new Vector3(1, 1, 1), 1f);
         lampsPlantLevel3[2].SetActive(true);
         lampsPlantLevel3[2].transform.DOScale(new Vector3(1, 1, 1), 1f);
-
-
-        //lamps[1].SetActive(true);
-        //lamps[1].transform.DOScale(new Vector3(2.5f, 2.5f, 2.5f), 1f);
-        //plants[1].SetActive(true);
-        //plants[1].transform.DOScale(new Vector3(4, 4, 4), 1f);
-
     }
 }
