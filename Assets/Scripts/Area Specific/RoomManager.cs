@@ -82,20 +82,21 @@ public class RoomManager : MonoBehaviour
                 case Departments.WaterTaining:
                     break;
                 case Departments.Massage:
-                    UpgradeUIpanels[1].transform.DOLocalMoveY(-135, 1f);
-                    switchServicePanel.transform.DOLocalMoveY(-270, 1f);
+                    UpgradeUIpanels[1].transform.DOLocalMoveY(-205, 1f);
+                    switchServicePanel.transform.DOLocalMoveY(-335, 1f);
                     GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     //closeButton.SetActive(true);
                     break;
                 case Departments.Haircut:
-                    //UpgradeUIpanels[2].transform.DOMoveY(0, 1f);
-                    //GetComponent<Collider>().enabled = false;
-                    //yield return new WaitForSeconds(1);
-                    //hasUI = true;
+                    UpgradeUIpanels[3].transform.DOLocalMoveY(-205, 1f);
+                    switchServicePanel.transform.DOLocalMoveY(-335, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
                     //closeButton.SetActive(true);
-                    //break;
+                    break;
                 case Departments.Pamper:
 
                     break;
