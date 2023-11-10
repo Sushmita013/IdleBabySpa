@@ -8,10 +8,13 @@ public class Masseuse : MonoBehaviour
 {
     public static Masseuse instance;
 
-    public Button walkingButton; 
-    public Button babyOnTableButton;
+    public Button idleBabyButton; 
+    public Button walkingBabyButton;
+    public Button standToSitButton;
+    public Button sittingIdleButton;
+    public Button sitToStandButton;
 
-    private Animator parent;
+    public Animator parent;
     public Animator baby;
     public Animator massage;
 
@@ -19,15 +22,18 @@ public class Masseuse : MonoBehaviour
     public GameObject diaperGO;
     public GameObject girlGO;
 
-    public Transform chairPoint;
-    public Transform chairPoint1;
+    //public Transform chairPoint;
+    //public Transform chairPoint1;
 
     void Start()
     {
-        parent = GetComponent<Animator>();
-        instance = this; 
-        walkingButton.onClick.AddListener(() => StartCoroutine(Action5())); 
-        babyOnTableButton.onClick.AddListener(() => StartCoroutine(Action4()));
+        //parent = GetComponent<Animator>();
+        instance = this;
+        idleBabyButton.onClick.AddListener(() => StartCoroutine(Action3()));
+        walkingBabyButton.onClick.AddListener(() => StartCoroutine(Action1()));
+        standToSitButton.onClick.AddListener(() => StartCoroutine(Stand()));
+        sittingIdleButton.onClick.AddListener(() => StartCoroutine(sittingIdle()));
+        sitToStandButton.onClick.AddListener(() => StartCoroutine(Sit()));
 
     }
 
@@ -55,7 +61,28 @@ public class Masseuse : MonoBehaviour
         yield return new WaitForSeconds(0);
         babyGO.SetActive(true); 
         PlayAnimationParent("standing idle with baby");
-        PlayAnimationBaby("idle with parent");
+        PlayAnimationBaby("standing idle");
+    }
+    public IEnumerator Stand()
+    { 
+        yield return new WaitForSeconds(0);
+        babyGO.SetActive(true); 
+        PlayAnimationParent("stand to sit with baby");
+        PlayAnimationBaby("Stand to sit with parent");
+    }
+    public IEnumerator sittingIdle()
+    { 
+        yield return new WaitForSeconds(0);
+        babyGO.SetActive(true); 
+        PlayAnimationParent("sitting idle with baby");
+        PlayAnimationBaby("sitting idle");
+    }
+    public IEnumerator Sit()
+    { 
+        yield return new WaitForSeconds(0);
+        babyGO.SetActive(true); 
+        PlayAnimationParent("Sit to stand with baby");
+        PlayAnimationBaby("sit to stand with parent");
     }
     public IEnumerator Action4()
     {
@@ -89,7 +116,7 @@ public class Masseuse : MonoBehaviour
         girlGO.transform.DORotate(new Vector3(0, 90, 0), 0.1f);
         yield return new WaitForSeconds(0.1f);
         PlayAnimationParent("walking");
-        girlGO.transform.DOMove(chairPoint.position, 1f);
+        //girlGO.transform.DOMove(chairPoint.position, 1f);
         yield return new WaitForSeconds(1);
         girlGO.transform.DORotate(new Vector3(0, 0, 0), 0.1f);
         yield return new WaitForSeconds(0.1f);
