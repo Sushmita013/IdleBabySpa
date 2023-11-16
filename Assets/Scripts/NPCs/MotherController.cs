@@ -57,7 +57,7 @@ public class MotherController : MonoBehaviour
         yield return new WaitForSeconds(1); 
         PlayAnimation(motherData.anim[1]);
         yield return new WaitForSeconds(4);
-        StartCoroutine(Masseuse.instance.Action());
+        //StartCoroutine(Masseuse.instance.Action());
         agent.SetDestination(motherData.movepoints[2].position);
         PlayAnimation(motherData.anim[2]);
         yield return new WaitForSeconds(1.75f);
@@ -91,7 +91,7 @@ public class MotherController : MonoBehaviour
             parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
             PlayAnimation(motherData.anim[7]);
             babyController.PlayAnimation("baby standing idle with father");
-            StartCoroutine(Masseuse.instance.Action1());
+            //StartCoroutine(Masseuse.instance.Action1());
             yield return new WaitForSeconds(9);
             PlayAnimation(motherData.anim[0]);
             babyController.PlayAnimation("Father holding baby idle");
@@ -139,7 +139,7 @@ public class MotherController : MonoBehaviour
         parent.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f).SetEase(Ease.Linear);
         PlayAnimation(motherData.anim[7]);
         babyController.PlayAnimation("baby standing idle with father");
-        StartCoroutine(Masseuse.instance.Action1());
+        //StartCoroutine(Masseuse.instance.Action1());
         yield return new WaitForSeconds(9);
         PlayAnimation(motherData.anim[0]);
         babyController.PlayAnimation("Father holding baby idle");

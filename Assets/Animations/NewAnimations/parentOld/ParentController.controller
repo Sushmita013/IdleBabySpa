@@ -81,33 +81,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-3905944810572853692
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: keep baby on table
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 2bc42769e9eb03b4a85aab1c9ba5a067,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &-3562214920248283095
 AnimatorState:
   serializedVersion: 6
@@ -135,6 +108,33 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &-3560765453689328127
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Keeping baby on table
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 1827226128182048838, guid: 4a3d81d6cf86d34478b8b91204151ef2,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-3144347658112557362
 AnimatorState:
   serializedVersion: 6
@@ -156,33 +156,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -1547160217371661803, guid: 3f148ac93711a4c44bf42764b382fce8,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &-865372461097938672
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Keeping baby on table
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 06930df3ecedd9c4f90ccaae84493069,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -254,26 +227,17 @@ AnimatorStateMachine:
     m_State: {fileID: -6410736721208992785}
     m_Position: {x: 30, y: 300, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -865372461097938672}
-    m_Position: {x: 30, y: 420, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -3905944810572853692}
-    m_Position: {x: 30, y: 480, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: 1437417061072892596}
-    m_Position: {x: 30, y: 540, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: -7799035449252605906}
-    m_Position: {x: 30, y: 600, z: 0}
+    m_Position: {x: 280, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5882784623492941078}
-    m_Position: {x: 30, y: 720, z: 0}
+    m_Position: {x: 280, y: 590, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7255734743334115493}
-    m_Position: {x: 30, y: 660, z: 0}
+    m_Position: {x: 280, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3562214920248283095}
-    m_Position: {x: 270, y: 660, z: 0}
+    m_Position: {x: 530, y: 530, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3144347658112557362}
     m_Position: {x: 30, y: 360, z: 0}
@@ -282,10 +246,16 @@ AnimatorStateMachine:
     m_Position: {x: 30, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2391340447844174776}
-    m_Position: {x: 270, y: 590, z: 0}
+    m_Position: {x: 530, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 156221504204573421}
-    m_Position: {x: 270, y: 720, z: 0}
+    m_Position: {x: 530, y: 590, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -3560765453689328127}
+    m_Position: {x: 30, y: 420, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 5720964980357840475}
+    m_Position: {x: 30, y: 490, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -350,33 +320,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &1437417061072892596
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Collecting baby from table
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: 82ac986a48ff2984b938245c42e22865,
-    type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!1102 &2391340447844174776
 AnimatorState:
   serializedVersion: 6
@@ -398,6 +341,33 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -6365035316516748404, guid: 3f148ac93711a4c44bf42764b382fce8,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &5720964980357840475
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: taking baby from table
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 1827226128182048838, guid: e126017fc94ae454f9a5a7e000720686,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

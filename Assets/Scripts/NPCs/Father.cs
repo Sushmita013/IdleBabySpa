@@ -74,7 +74,7 @@ public class Father : MonoBehaviour
         });
         yield return new WaitForSeconds(6);
         //GameManager.instance.totalBalance += 632; 
-        StartCoroutine(Masseuse.instance.Action());
+        //StartCoroutine(Masseuse.instance.Action());
         gameObject.transform.DORotate(new Vector3(0, 180, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("father walk");
@@ -199,7 +199,7 @@ public class Father : MonoBehaviour
             yield return new WaitForSeconds(1.1f);
             PlayAnimation("Father and baby idle");
             Baby.instance.PlayAnimation("baby standing idle with father");
-            StartCoroutine(Masseuse.instance.Action1());
+            //StartCoroutine(Masseuse.instance.Action1());
             yield return new WaitForSeconds(9);
             gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {
@@ -245,7 +245,7 @@ public class Father : MonoBehaviour
             yield return new WaitForSeconds(1.1f);
             PlayAnimation("Father and baby idle");
             Baby.instance.PlayAnimation("baby standing idle with father");
-            StartCoroutine(Masseuse.instance.Action1());
+            //StartCoroutine(Masseuse.instance.Action1());
             yield return new WaitForSeconds(9);
             gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear).OnComplete(() =>
             {

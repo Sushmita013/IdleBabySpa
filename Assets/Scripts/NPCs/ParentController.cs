@@ -107,7 +107,7 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[4]);
         StartCoroutine(babyController.Haircut());
         yield return new WaitForSeconds(2);
-        StartCoroutine(Masseuse.instance.Action3()); 
+        //StartCoroutine(Masseuse.instance.Action3()); 
         PlayAnimation(parentData.anim[2]); 
         yield return new WaitForSeconds(WorkerNPC.instance.duration);
         PlayAnimation(parentData.anim[5]);     

@@ -109,7 +109,11 @@ public class RoomManager : MonoBehaviour
 
                     break;
                 case Departments.PhotoRoom:
-
+                    UpgradeUIpanels[5].transform.DOLocalMoveY(-205, 1f);
+                    switchServicePanel.transform.DOLocalMoveY(-335, 1f);
+                    GetComponent<Collider>().enabled = false;
+                    yield return new WaitForSeconds(1);
+                    hasUI = true;
                     break;
                 case Departments.Cafeteria:
 
