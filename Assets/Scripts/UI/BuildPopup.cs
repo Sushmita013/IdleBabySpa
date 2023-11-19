@@ -50,7 +50,7 @@ public class BuildPopup : MonoBehaviour
 
     public void EnablePanel()
     { 
-        popupWindow.transform.DOLocalMoveY(-1096, 0.5f);
+        popupWindow.transform.DOLocalMoveY(-1556, 0.5f);
     }
 
     public void DisablePanel()

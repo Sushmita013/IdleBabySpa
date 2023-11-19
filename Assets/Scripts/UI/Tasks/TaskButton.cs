@@ -72,11 +72,11 @@ public class TaskButton : MonoBehaviour
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
                 yield return new WaitForSeconds(0.75f); 
                 nameUI.SetActive(true);
-                Tutorial.instance.MassageComplete();
+                //Tutorial.instance.MassageComplete();
             }
             if (CanvasManager.instance.taskNumber == 2)
             {
-                Tutorial.instance.ReceptionDone();
+                //Tutorial.instance.ReceptionDone();
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             }
@@ -86,10 +86,10 @@ public class TaskButton : MonoBehaviour
             objectToEnable.transform.DOScale(new Vector3(100, 100, 100), 0.75f);
                 //explosionFx.Play();
                 carManager.SetActive(true);
-                yield return new WaitForSeconds(0.75f); 
-                Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -70), 0.75f).SetEase(Ease.Linear);
-                Camera.main.DOOrthoSize(20, 0.75f);
-                Tutorial.instance.UpgradeMassage();
+                //yield return new WaitForSeconds(0.75f); 
+                //Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -70), 0.75f).SetEase(Ease.Linear);
+                //Camera.main.DOOrthoSize(20, 0.75f);
+                //Tutorial.instance.UpgradeMassage();
                 levelButton.SetActive(true);
                 //Tutorial.instance.DestroyHands();
             }
@@ -103,9 +103,9 @@ public class TaskButton : MonoBehaviour
                 nameUI.SetActive(true);
             } 
             taskComplete = true;  
-            gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
-            gameObject.transform.DOLocalMoveY(-120, 0.5f).OnComplete(() =>
+            //gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            //gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
+            gameObject.transform.DOLocalMoveY(-240, 0.5f).OnComplete(() =>
             { 
                 incompleteTask.SetActive(false);
                 completeTask.SetActive(true);
@@ -144,7 +144,7 @@ public class TaskButton : MonoBehaviour
             explosionFx.Play();
             taskComplete = true;
             gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f);
+            gameObject.transform.DOScale(new Vector3(0.5f, 0.75f, 0.75f), 0.5f);
             gameObject.transform.DOLocalMoveY(-120, 0.5f).OnComplete(() =>
             {
                 incompleteTask.SetActive(false);
@@ -167,10 +167,10 @@ public class TaskButton : MonoBehaviour
 
     public IEnumerator OnCollectReward()
     {
-        if (CanvasManager.instance.taskNumber == 2)
-        {
-            Tutorial.instance.CollectedReward();
-        }
+        //if (CanvasManager.instance.taskNumber == 2)
+        //{
+        //    Tutorial.instance.CollectedReward();
+        //}
         yield return new WaitForSeconds(0.05f);
             HideReward();
         reward.Play();
@@ -193,15 +193,16 @@ public class TaskButton : MonoBehaviour
         errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
         if (CanvasManager.instance.taskNumber == 4)
         {
-                Tutorial.instance.ParkingBuild(); 
-            Reception.instance.CamZoom(); 
+                //Tutorial.instance.ParkingBuild(); 
+                room.CamZoom(); 
+                //Reception.instance.CamZoom(); 
             objectToEnable.transform.DOScale(new Vector3(50, 50, 50), 0.05f);
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
 
             }
             if (CanvasManager.instance.taskNumber == 2)
         { 
-                Tutorial.instance.BuildClick();
+                //Tutorial.instance.BuildClick();
             room.CamZoom();
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
@@ -209,8 +210,8 @@ public class TaskButton : MonoBehaviour
             }
             if (CanvasManager.instance.taskNumber == 1)
         {
-                Tutorial.instance.ReceptionBuild();
-                Reception.instance.CamZoom(); 
+                //Tutorial.instance.ReceptionBuild();
+                //Reception.instance.CamZoom(); 
                 objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete()));
 
@@ -227,10 +228,10 @@ public class TaskButton : MonoBehaviour
 
     public void ShowReward(string message)
     {
-        if (CanvasManager.instance.taskNumber == 2)
-        {
-            Tutorial.instance.GetReward();
-        }
+        //if (CanvasManager.instance.taskNumber == 2)
+        //{
+        //    Tutorial.instance.GetReward();
+        //}
         room.ResetPanels();
         if (CanvasManager.instance.popupObject1 == null)
         { 

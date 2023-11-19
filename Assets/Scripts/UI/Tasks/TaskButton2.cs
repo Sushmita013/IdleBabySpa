@@ -53,12 +53,12 @@ public class TaskButton2 : MonoBehaviour
             button.onClick.AddListener(() => StartCoroutine(TaskComplete()));
             CanvasManager.instance.taskNumber += 1; 
             taskComplete = true;
-            gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
-            gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
-            gameObject.transform.DOLocalMoveY(-120, 0.5f);
+            //gameObject.GetComponent<Image>().sprite = CanvasManager.instance.completedTask;
+            //gameObject.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f); 
+            gameObject.transform.DOLocalMoveY(-240, 0.5f);
             yield return new WaitForSeconds(0.5f);
             explosionFx.Play();
-            Tutorial.instance.BillboardBuild();
+            //Tutorial.instance.BillboardBuild();
             incompleteTask.SetActive(false);
             completeTask.SetActive(true);
             objectToEnable.SetActive(true);
@@ -92,7 +92,7 @@ public class TaskButton2 : MonoBehaviour
     public void ShowPopup(string errorMessage)
     {
         RoomManager.instance.ResetPanels();
-        Tutorial.instance.ParkingBuild();
+        //Tutorial.instance.ParkingBuild();
         room.CamZoom();
         if (CanvasManager.instance.popupObject == null)
         { 
