@@ -31,7 +31,7 @@ public class Masseuse : MonoBehaviour
     {
         //parent = GetComponent<Animator>();
         instance = this;
-        keepBabyButton.onClick.AddListener(() => StartCoroutine(Action4()));
+        keepBabyButton.onClick.AddListener(() => StartCoroutine(Swimming()));
         massageButton.onClick.AddListener(() => StartCoroutine(Haircut()));
         //takingBabyButton.onClick.AddListener(() => StartCoroutine(Sit()));
 
@@ -118,6 +118,24 @@ public class Masseuse : MonoBehaviour
         PlayAnimationParent("standing idle with baby");
         PlayAnimationBaby("standing idle");
     }
+    public IEnumerator Swimming()
+    {
+        yield return new WaitForSeconds(3);
+        PlayAnimationParent("Keeping baby in watertank");
+        PlayAnimationBaby("keeping baby in watertank");
+        yield return new WaitForSeconds(4f);
+        babyGO.transform.DOScale(new Vector3(3f, 3f, 3f), 0.1f);
+        babyGO.transform.localPosition = new Vector3(34.5f, -0.45f, 25.2f);
+        babyGO.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f); 
+        PlayAnimationBaby("baby in watertank idle"); 
+        PlayAnimationParent("standing idle");
+        hairSplash.Play();
+        //yield return new WaitForSeconds(10);
+        //babyGO.transform.DOScale(new Vector3(2f, 2f, 2f), 0.1f); 
+        //PlayAnimationParent("taking baby from watertank");
+        //PlayAnimationBaby("baby going back with parent");
+
+    }
     public IEnumerator Action5()
     { 
         girlGO.transform.DOLocalRotate(new Vector3(0, -40, 0), 0.1f);
@@ -131,6 +149,8 @@ public class Masseuse : MonoBehaviour
         yield return new WaitForSeconds(2); 
 
     }
+
+
 
     public void PlayAnimationParent(string animation)
     {
