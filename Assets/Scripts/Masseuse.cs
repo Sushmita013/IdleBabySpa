@@ -26,13 +26,14 @@ public class Masseuse : MonoBehaviour
 
     public NavMeshAgent boy;
     public ParticleSystem hairSplash;
+    public GameObject waterTube;
 
     void Start()
     {
         //parent = GetComponent<Animator>();
         instance = this;
         keepBabyButton.onClick.AddListener(() => StartCoroutine(Swimming()));
-        massageButton.onClick.AddListener(() => StartCoroutine(Haircut()));
+        massageButton.onClick.AddListener(() => StartCoroutine(Photoshoot()));
         //takingBabyButton.onClick.AddListener(() => StartCoroutine(Sit()));
 
     } 
@@ -118,22 +119,92 @@ public class Masseuse : MonoBehaviour
         PlayAnimationParent("standing idle with baby");
         PlayAnimationBaby("standing idle");
     }
+    public IEnumerator Photoshoot()
+    {
+        yield return new WaitForSeconds(3);
+        PlayAnimationParent("keeping baby on photoProp");
+        PlayAnimationBaby("keeping baby on photoProp");
+        yield return new WaitForSeconds(1.5f);
+        babyGO.transform.DOScale(new Vector3(3f, 3f, 3f), 0.1f);
+        babyGO.transform.localPosition = new Vector3(29.3f, -0.35f, 22.5f);
+        hairSplash.Play();
+        PlayAnimationBaby("baby on photoProp idle");
+        PlayAnimationParent("walking");
+        PlayAnimationMassage("Photoshoot"); 
+        boy.SetDestination(chairPoint.position); 
+        yield return new WaitForSeconds(3f);
+        girlGO.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f);
+        PlayAnimationParent("Stand to sit");
+        //hairSplash.Play(); 
+        yield return new WaitForSeconds(1.5f); 
+        PlayAnimationParent("Sitting idle without baby");
+        //hairSplash.Play(); 
+        yield return new WaitForSeconds(10);
+        PlayAnimationParent("Sit to stand");
+        //hairSplash.Play(); 
+        yield return new WaitForSeconds(1.5f);
+        PlayAnimationParent("walking");
+        boy.SetDestination(chairPoint1.position);
+        yield return new WaitForSeconds(3);
+        hairSplash.Stop();
+        PlayAnimationMassage("standing idle"); 
+        girlGO.transform.DORotate(new Vector3(0, 0, 0), 0.1f); 
+        babyGO.transform.DOScale(new Vector3(2f, 2f, 2f), 0.1f);
+        babyGO.transform.localPosition = new Vector3(29.368f, 0.203f, 23.053f); 
+        PlayAnimationParent("taking baby from photoProp");
+        PlayAnimationBaby("taking baby on photoProp");
+        yield return new WaitForSeconds(1.5f);
+        PlayAnimationParent("standing idle with baby");
+        PlayAnimationBaby("standing idle");
+    }
     public IEnumerator Swimming()
     {
         yield return new WaitForSeconds(3);
         PlayAnimationParent("Keeping baby in watertank");
-        PlayAnimationBaby("keeping baby in watertank");
-        yield return new WaitForSeconds(4f);
-        babyGO.transform.DOScale(new Vector3(3f, 3f, 3f), 0.1f);
+        PlayAnimationBaby("baby going in watertank");
+        yield return new WaitForSeconds(3.5f);
+        babyGO.transform.DOScale(new Vector3(3f, 3f, 3f), 0.01f);
         babyGO.transform.localPosition = new Vector3(34.5f, -0.45f, 25.2f);
-        babyGO.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f); 
-        PlayAnimationBaby("baby in watertank idle"); 
-        PlayAnimationParent("standing idle");
+        babyGO.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.01f); 
+        PlayAnimationBaby("baby in watertank idle");  
         hairSplash.Play();
-        //yield return new WaitForSeconds(10);
-        //babyGO.transform.DOScale(new Vector3(2f, 2f, 2f), 0.1f); 
-        //PlayAnimationParent("taking baby from watertank");
-        //PlayAnimationBaby("baby going back with parent");
+        PlayAnimationParent("walking");
+        boy.SetDestination(chairPoint.position);
+        PlayAnimationMassage("worker stand to idle");
+        //yield return new WaitForSeconds(1f);
+        //PlayAnimationMassage("right to left"); 
+        yield return new WaitForSeconds(2f); 
+        waterTube.transform.DOLocalMoveX(6, 1.5f).OnComplete(() =>
+                {
+                    waterTube.transform.DOLocalMoveX(5.2f, 1.5f);
+                });
+        babyGO.transform.DOLocalMoveZ(26f, 1.5f).OnComplete(() =>
+                {
+                    babyGO.transform.DOLocalMoveZ(25.2f, 1.5f);
+                });  
+        girlGO.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.01f);
+        PlayAnimationParent("Stand to sit"); 
+        yield return new WaitForSeconds(1.25f);
+        girlGO.transform.DOLocalRotate(new Vector3(0, 90, 0), 0.01f);
+        PlayAnimationParent("Sitting idle without baby");  
+        yield return new WaitForSeconds(10);
+        PlayAnimationParent("Sit to stand"); 
+        yield return new WaitForSeconds(1.25f);
+        PlayAnimationParent("walking");
+        boy.SetDestination(chairPoint1.position);
+        yield return new WaitForSeconds(2);
+        hairSplash.Stop();
+        PlayAnimationMassage("standing idle");
+        girlGO.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.01f);
+        PlayAnimationParent("taking baby from watertank");
+        yield return new WaitForSeconds(0.75f); 
+        babyGO.transform.DOScale(new Vector3(2f, 2f, 2f), 0.01f);
+        babyGO.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.01f); 
+        babyGO.transform.localPosition = new Vector3(32.533f, 0.203f, 20.6f);
+        PlayAnimationBaby("baby going back with parent");
+        yield return new WaitForSeconds(4);
+        PlayAnimationParent("standing idle with baby");
+        PlayAnimationBaby("standing idle");
 
     }
     public IEnumerator Action5()
