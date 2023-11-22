@@ -20,19 +20,19 @@ public class QueueManager : MonoBehaviour
     [Space(20)]
     public Button addGuestBtn;
     public Button moveGuestToDestination;
-    private void Start()
-    {
-        SpawnGuests();
-        addGuestBtn.onClick.AddListener(() =>
-        {
-            AddGuestToQueue(spawnedGuest[0]);
-        });
-        moveGuestToDestination.onClick.AddListener(() =>
-        {
-            MoveGuestToDestination();
-        });
+    //private void Start()
+    //{
+    //    SpawnGuests();
+    //    addGuestBtn.onClick.AddListener(() =>
+    //    {
+    //        AddGuestToQueue(spawnedGuest[0]);
+    //    });
+    //    moveGuestToDestination.onClick.AddListener(() =>
+    //    {
+    //        MoveGuestToDestination();
+    //    });
 
-    }
+    //}
 
     public void SpawnGuests()
     {
@@ -92,13 +92,13 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-    public void MoveGuestToDestination()
+    public void MoveGuestToDestination(Transform destinationPoint)
     {
         GameObject guest = GetFirstInQueue();
         if (guest != null)
         {
             NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
-            navMeshAgent.SetDestination(destination.position);
+            navMeshAgent.SetDestination(destinationPoint.position);
 
             Animator animator = guest.GetComponent<Animator>();
             if (animator != null)

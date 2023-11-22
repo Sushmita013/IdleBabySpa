@@ -29,15 +29,13 @@ public class Reception : MonoBehaviour
     {
         instance = this;
         closeButton.SetActive(false); 
-        closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick);
-
+        closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick); 
     }
 
     public void OnMouseDown()
     {
         StartCoroutine(CameraZoomIn());
-    }
-
+    } 
     public IEnumerator CameraZoomIn()
     {
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)

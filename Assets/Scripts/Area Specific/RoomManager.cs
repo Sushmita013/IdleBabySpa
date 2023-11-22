@@ -44,6 +44,9 @@ public class RoomManager : MonoBehaviour
 
     public Worker worker;
 
+    public int occupiedSlots;
+
+    public QueueManager queueManager;
     //public List<WorkerNPC> worker;
     //public Tabs tab;
     //public Tabs1 tab1;
@@ -68,6 +71,19 @@ public class RoomManager : MonoBehaviour
         {
             tip.OnEnable();
         }  
+    }
+
+    public void CheckAvailability(GameObject parent)
+    {
+        if (occupiedSlots < 3)
+        {
+            //send parent to available slot
+
+        }
+        else
+        {
+            queueManager.AddGuestToQueue(parent);
+        }
     }
 
     public IEnumerator CameraZoomIn()

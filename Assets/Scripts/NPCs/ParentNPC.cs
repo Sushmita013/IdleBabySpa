@@ -8,7 +8,6 @@ public class ParentNPC : ScriptableObject
     public List<GameObject> parentNpc;
     public List<Transform> movepoints;
     public float moveSpeed = 10f;
-    public List<string> anim;
-    //public GameObject babyNPC;
+    public List<string> anim; 
 }
 
