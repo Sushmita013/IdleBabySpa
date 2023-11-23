@@ -46,7 +46,7 @@ public class CarManager : MonoBehaviour
             agent.SetDestination(carData.movePoints[1].position);
             yield return new WaitForSeconds(8f);
             StartCoroutine(MoveCar(carData,agent)); 
-            yield return new WaitForSeconds(GetDuration());
+            yield return new WaitForSeconds(3600);
             StartCoroutine(InstantiateRandomCars()); 
         } 
 

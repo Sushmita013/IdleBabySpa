@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3aa6a9c47e1d744b9ddff7e61a743d, type: 3}
   m_Name: ParentData
   m_EditorClassIdentifier: 
-  parentNpc: []
+  parentNpc:
+  - {fileID: 2958611956848602449, guid: 7700e06b1e0f99a43a1a58695837645b, type: 3}
   movepoints:
   - {fileID: 3231640672505188630, guid: aa2ce10642743b04296c1f58965edd7f, type: 3}
   - {fileID: 4326203599495632339, guid: bb6fd4a5ac5b7844c8accd9a266b811c, type: 3}
@@ -21,10 +22,13 @@ MonoBehaviour:
   - {fileID: 4213701664419689911, guid: 7e60f45367fb0c64d9da8d1eba4218c8, type: 3}
   moveSpeed: 10
   anim:
-  - Holding baby and walking
+  - walking with baby
+  - standing idle with baby
   - Keeping baby on table
-  - Standing idle without baby
-  - Picking baby up from table
-  - Keeping baby on chair
-  - Picking baby up from chair
-  - Holding baby and standing idle
+  - walking
+  - Stand to sit
+  - Sitting idle without baby
+  - Sit to stand
+  - taking baby from table
+  - keeping baby on chair
+  - taking baby from chair

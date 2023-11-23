@@ -9,12 +9,11 @@ public class WorkerNPC : MonoBehaviour
     public int workerIndex;
 
     public Departments roomName;
-
-    public static WorkerNPC instance;
+     
 
     public RoomManager room;
 
-    private Animator animator;
+    [SerializeField] Animator animator;
 
     public GameObject occupiedUI;
     public Image fillbar;
@@ -25,35 +24,50 @@ public class WorkerNPC : MonoBehaviour
 
     public float duration;
 
+    public Transform chairPoint; 
+    public int parentRotation;
+
+    public ParticleSystem effectObject;
+
 
     void Start()
     {
         //duration = 4;
-        GetDuration();
-        instance = this; 
-        effect.Stop(); 
-        animator = GetComponent<Animator>();
+        GetDuration(); 
+        effect.Stop();
+        //animator = GetComponent<Animator>();
+        //effectObject.Stop();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ParentNPC")
         {
             room.customersServed++;
-            other.GetComponent<ParentController>().totalBill += room.serviceCost; 
+            //other.GetComponent<ParentController>().totalBill += room.serviceCost; 
             StartCoroutine(Action());
         }
-    }
+    } 
     public IEnumerator Action()
     {
-        yield return new WaitForSeconds(2.5f); 
+        yield return new WaitForSeconds(4f); 
         occupiedUI.SetActive(true);
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
+        if (roomName != Departments.Massage)
+        { 
+        effectObject.Play();
+        }
         yield return new WaitForSeconds(GetDuration());
-        effect.Play(); 
+        if (roomName != Departments.Massage)
+        { 
+        effectObject.Stop();
+        }
+        effect.Play();
+        PlayAnimation("Idle");
+        GameManager.instance.totalSoftCurrency += room.serviceCost;
+        CanvasManager.instance.UpdateSoftCurrency();
         occupiedUI.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
-        PlayAnimation("Idle");
     }
     public void PlayAnimation(string animation)
     {

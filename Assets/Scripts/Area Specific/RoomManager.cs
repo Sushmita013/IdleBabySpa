@@ -46,7 +46,7 @@ public class RoomManager : MonoBehaviour
 
     public int occupiedSlots;
 
-    public QueueManager queueManager;
+    //public QueueManager queueManager;
     //public List<WorkerNPC> worker;
     //public Tabs tab;
     //public Tabs1 tab1;
@@ -73,18 +73,18 @@ public class RoomManager : MonoBehaviour
         }  
     }
 
-    public void CheckAvailability(GameObject parent)
-    {
-        if (occupiedSlots < 3)
-        {
-            //send parent to available slot
+    //public void CheckAvailability(GameObject parent)
+    //{
+    //    if (occupiedSlots < 3)
+    //    {
+    //        //send parent to available slot
 
-        }
-        else
-        {
-            queueManager.AddGuestToQueue(parent);
-        }
-    }
+    //    }
+    //    else
+    //    {
+    //        queueManager.AddGuestToQueue(parent);
+    //    }
+    //}
 
     public IEnumerator CameraZoomIn()
     {

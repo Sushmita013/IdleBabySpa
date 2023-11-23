@@ -8,10 +8,8 @@ using DG.Tweening;
 public class ParkingSlot : MonoBehaviour
 {
     public Transform spawnPoint;
-    public Transform controllerPoint; 
-
-    public FatherController father;
-    public MotherController mother;
+    public Transform spawnParent;
+    public Transform controllerPoint;  
 
     public ParentNPC parent;
 
@@ -21,6 +19,8 @@ public class ParkingSlot : MonoBehaviour
     public GameObject car;
 
     public int parkingIndex;
+
+    public int parentRotation;
 
 
     void Start()
@@ -83,14 +83,17 @@ public class ParkingSlot : MonoBehaviour
     { 
         yield return new WaitForSeconds(0.75f);
         GameObject parentPrefab = parent.parentNpc[Random.Range(0, parent.parentNpc.Count)];
-        GameObject parentGO = Instantiate(parentPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject parentGO = Instantiate(parentPrefab, spawnPoint.position, Quaternion.identity,spawnParent);
+        parentGO.transform.DORotate(new Vector3(0, parentRotation, 0), 0.01f);
         ParentController parentController = parentGO.GetComponent<ParentController>(); 
-        parentGO.SetActive(true);
-
+        parentGO.SetActive(true); 
         parentController.instantiatedParent = parentGO;
         parentController.baby = parentGO.transform.Find("Baby").gameObject;
+        parentController.parentObject = parentGO.transform.Find("Parent").gameObject;
         parentController.babyController = parentController.baby.GetComponent<Baby>();
-        parentController.animator = parentGO.GetComponent<Animator>();
+        //Transform parentTransform = parentGO.transform.Find("Parent"); // Assuming 'parent' is the second child
+        parentController.parentnavMesh = parentController.parentObject.GetComponent<NavMeshAgent>();
+        parentController.animator = parentController.parentObject.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
         parentController.spawnPoint = destroyPoint.transform;
         parentController.parking = this;   

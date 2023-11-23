@@ -7,8 +7,7 @@ using DG.Tweening;
 
 public class QueueManager : MonoBehaviour
 {
-    public List<Transform> waitingPositionList;
-    public Transform entrancePosition;
+    public List<Transform> waitingPositionList; 
     public List<GameObject> guestList;
     public List<GameObject> itemObject;
 
@@ -16,6 +15,10 @@ public class QueueManager : MonoBehaviour
     public List<GameObject> spawnedGuest;
 
     public Transform destination;
+
+    public float duration;
+
+    public WaitingQueue waitingQueue;
 
     [Space(20)]
     public Button addGuestBtn;
@@ -56,19 +59,18 @@ public class QueueManager : MonoBehaviour
             guestList.Add(guest);
             spawnedGuest.Remove(guest);
 
-            NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
-            navMeshAgent.Warp(entrancePosition.position); // Teleport to the entrance
-            //navMeshAgent.SetDestination(waitingPositionList[guestList.IndexOf(guest)].position);
+            NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>(); 
+            navMeshAgent.SetDestination(waitingPositionList[guestList.IndexOf(guest)].position);
 
-            Animator animator = guest.GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.Play("Holding baby and walking");
-            }
-            guest.transform.DOMove(waitingPositionList[guestList.IndexOf(guest)].position, 4f).OnComplete(() =>
-            {
-                animator.Play("Holding baby and standing idle");
-            });
+            //Animator animator = guest.GetComponent<Animator>();
+            //if (animator != null)
+            //{
+            //    animator.Play("Holding baby and walking");
+            //}
+            //guest.transform.DOMove(waitingPositionList[guestList.IndexOf(guest)].position, 4f).OnComplete(() =>
+            //{
+            //    animator.Play("Holding baby and standing idle");
+            //});
 
         }
         else
@@ -79,15 +81,16 @@ public class QueueManager : MonoBehaviour
 
     public GameObject GetFirstInQueue()
     {
-        if (guestList.Count == 0)
+        if (waitingQueue.customerInQueue.Count == 0)
         {
             return null;
         }
         else
         {
-            GameObject obj = guestList[0];
-            guestList.RemoveAt(0);
-            RelocateAllTheGuests();
+            GameObject obj = waitingQueue.customerInQueue[0].gameObject;
+            waitingQueue.RemoveFromQueue(waitingQueue.customerInQueue[0]);
+            //waitingQueue.ReOrderQueue();
+            //RelocateAllTheGuests();
             return obj;
         }
     }
@@ -97,16 +100,17 @@ public class QueueManager : MonoBehaviour
         GameObject guest = GetFirstInQueue();
         if (guest != null)
         {
-            NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
-            navMeshAgent.SetDestination(destinationPoint.position);
+            guest.GetComponent<ParentController>().MoveToTarget(destinationPoint);
+            //NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
+            //navMeshAgent.SetDestination(destinationPoint.position);
 
-            Animator animator = guest.GetComponent<Animator>();
-            if (animator != null)
-            {
-                animator.Play("Holding baby and walking"); 
-            }
+            //Animator animator = guest.GetComponent<Animator>();
+            //if (animator != null)
+            //{
+            //    animator.Play("Holding baby and walking"); 
+            //}
         }
-    }
+    } 
 
     public void RelocateAllTheGuests()
     {

@@ -11,7 +11,14 @@ public class Baby : MonoBehaviour
     public bool isEngaged;
 
     public float serviceDuration;
-    public Animator animator;
+    private Animator animator;
+
+    public bool hasClothes;
+    public GameObject babyClothes;
+    public GameObject bodyDiaper;
+    public GameObject longHair;
+    public GameObject shortHair;
+
 
 
     void Start()
