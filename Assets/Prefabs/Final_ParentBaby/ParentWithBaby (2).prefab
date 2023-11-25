@@ -2206,7 +2206,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1bc1dba3c1ebb824cb28ec790117d8e9, type: 2}
+  - {fileID: -2082513109752797861, guid: f1b0c47c161019b4b976d4d8723de7a6, type: 3}
   - {fileID: 2100000, guid: f93c991042f5e004fa5f82b2d7e0a679, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -2699,6 +2699,7 @@ MonoBehaviour:
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
   time: 0
   serviceComplete: 00000000
+  roomNo: 0
 --- !u!1 &2958611956872190404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2941,7 +2942,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1bc1dba3c1ebb824cb28ec790117d8e9, type: 2}
+  - {fileID: -9083655859233779354, guid: f1b0c47c161019b4b976d4d8723de7a6, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

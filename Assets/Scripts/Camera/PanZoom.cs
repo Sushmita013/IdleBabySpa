@@ -8,8 +8,8 @@ public class PanZoom : MonoBehaviour
     Vector3 touchStart;
     public float zoomOutMin;
     public float zoomOutMax;
-     
 
+    public float speed;
     // Add a flag to indicate if UI should handle the input
     private bool uiShouldHandleInput = false;
 
@@ -38,13 +38,13 @@ public class PanZoom : MonoBehaviour
         else if (Input.GetMouseButton(0) && !uiShouldHandleInput && !IsPointerOverUIObject())
         {
             Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 newPosition = Camera.main.transform.position + direction;
+            Vector3 newPosition = Camera.main.transform.position + direction*Time.deltaTime*speed;
 
-                Camera.main.transform.position = newPosition;
-                transform.position = new Vector3(
-                    Mathf.Clamp(transform.position.x, -140, -40),
+            newPosition = new Vector3(
+                    Mathf.Clamp(newPosition. x, -140, -40),
                     60,
-                    Mathf.Clamp(transform.position.z, -80, 15)); 
+                    Mathf.Clamp(newPosition. z, -80, 15)); 
+                Camera.main.transform.position = newPosition;
         }
         zoom(Input.GetAxis("Mouse ScrollWheel") * 20);
     }

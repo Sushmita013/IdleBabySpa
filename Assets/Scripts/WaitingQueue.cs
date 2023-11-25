@@ -35,10 +35,10 @@ public class WaitingQueue : MonoBehaviour
         for(int i = 0; i < customerInQueue.Count; i++)
         {
             var customer= customerInQueue[i];
-            customer.animator.Play("Walking");
+            customer.animator.Play("walking");
             customer.MoveToTarget(queue[i], () =>
             {
-                customer.animator.Play("Idle");
+                customer.animator.Play("standing idle");
             });
         }
     }

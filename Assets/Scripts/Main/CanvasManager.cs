@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System;
 
 public class CanvasManager : MonoBehaviour
 {
@@ -58,6 +59,55 @@ public class CanvasManager : MonoBehaviour
     public void OnLevelClick(bool enable)
     {
         levelPanel.SetActive(enable);
+    }
+
+    public void OnCollectReward()
+    {
+        //HideReward();
+         
+        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+        Destroy(gameObject);
+
+    }
+
+    public void ShowPopup(string errorMessage,string description,Action buildAction)
+    {
+        //room.ResetPanels();
+        if (CanvasManager.instance.popupObject == null)
+        {
+            CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup, CanvasManager.instance.prefabParent1);
+            BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
+            errorPopup.EnablePanel();
+            errorPopup.SetErrorMessage(errorMessage);
+            errorPopup.SetDescription(description);
+            errorPopup.SetButton("BUILD", buildAction); 
+        }
+    }
+
+    public void ShowReward(string message,float rewardValue)
+    { 
+        if (CanvasManager.instance.popupObject1 == null)
+        {
+            CanvasManager.instance.popupObject1 = Instantiate(CanvasManager.instance.rewardPopup, CanvasManager.instance.prefabParent1);
+            RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
+            errorPopup.EnablePanel();
+            errorPopup.SetRewardMessage(rewardValue.ToString());
+            errorPopup.SetRewardText(message);
+            errorPopup.SetButton("Collect Reward", ()=>HideReward(rewardValue));
+        }
+    }
+
+    public void HidePopup()
+    {
+        BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
+        errorPopup.DisablePanel(()=> Destroy(CanvasManager.instance.popupObject)); 
+    }
+    public void HideReward(float rewardValue)
+    {
+        GameManager.instance.totalSoftCurrency += rewardValue;
+        UpdateSoftCurrency();
+        RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
+        errorPopup.DisablePanel(()=> Destroy(CanvasManager.instance.popupObject1)); 
     }
 
 }

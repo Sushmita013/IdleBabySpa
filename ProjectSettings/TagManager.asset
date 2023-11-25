@@ -32,6 +32,10 @@ TagManager:
   - Reception
   - Service
   - Chair
+  - n
+  - x
+  - SwimUnit
+  - PhotoProp
   layers:
   - Default
   - TransparentFX

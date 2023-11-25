@@ -20,6 +20,7 @@ public class Reception : MonoBehaviour
     public int zoomSize;
 
     public bool hasUI;
+    public bool isUnlocked;
 
     public GameObject closeButton; 
 
@@ -44,6 +45,7 @@ public class Reception : MonoBehaviour
             Camera.main.DOOrthoSize(zoomSize, 0.75f);
             //yield return new WaitForSeconds(1f); 
             UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
+            UpgradeUIpanels[0].GetComponent<RectTransform>().DOAnchorPosY(225, 1);
             GetComponent<Collider>().enabled = false;
             yield return new WaitForSeconds(0.75f);
             hasUI = true;

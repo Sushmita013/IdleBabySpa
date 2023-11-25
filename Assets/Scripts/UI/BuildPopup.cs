@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System;
 
 public class BuildPopup : MonoBehaviour
 {
@@ -17,7 +18,8 @@ public class BuildPopup : MonoBehaviour
     public GameObject costInactive;
 
     private string button_Text;
-    private System.Action buttonAction;
+    private System.Action buttonAction; 
+    
 
     public void SetErrorMessage(string message)
     {
@@ -49,13 +51,16 @@ public class BuildPopup : MonoBehaviour
     }
 
     public void EnablePanel()
-    { 
-        popupWindow.transform.DOLocalMoveY(-1556, 0.5f);
+    {
+        popupWindow.GetComponent<RectTransform>().DOAnchorPosY(-0, 0.5f);
     }
 
-    public void DisablePanel()
+    public void DisablePanel(Action disableAction)
     {
-        popupWindow.transform.DOLocalMoveY(-1731, 0.5f); 
+        popupWindow.GetComponent<RectTransform>().DOAnchorPosY(-700, 0.5f).OnComplete(() =>
+        {
+            disableAction?.Invoke();
+        });  
     }
 
     public void SetCostActive()

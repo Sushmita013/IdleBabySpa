@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using System;
 
 public class RewardPanel : MonoBehaviour
 {
@@ -42,14 +43,15 @@ public class RewardPanel : MonoBehaviour
     public void EnablePanel()
     {  
         popupWindow.SetActive(true);
-        popupWindow.transform.DOScale(new Vector3(1f, 1f, 1f), 0.5f);
+        popupWindow.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
     }
-
-    public void DisablePanel()
+     
+    public void DisablePanel(Action disableAction)
     {
         popupWindow.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.5f).OnComplete(() =>
         {
-            popupWindow.SetActive(false); 
-        }); 
+            popupWindow.SetActive(false);
+            disableAction?.Invoke();
+        });
     }
 }

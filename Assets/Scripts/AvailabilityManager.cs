@@ -5,37 +5,37 @@ using UnityEngine;
 public class AvailabilityManager : MonoBehaviour
 {
     public static AvailabilityManager instance;
-    //public List<Service> serviceList; 
+    public List<Service> serviceList; 
     public List<Service> massageServiceList; 
     public List<Service> haircutServiceList; 
     public List<Service> swimServiceList; 
-    public List<Service> photoServiceList; 
-    public List<QueueSlot> queueList; 
+    public List<Service> photoServiceList;      
+    public List<QueueSlot> massageQueueList; 
     void Start()
     {
         instance = this;
     }
 
-    //public Service GetAvailableService()
-    //{
-    //    Service availableService = null;
+    public Service GetAvailableService()
+    {
+        Service availableService = null;
 
-    //    for (int i = 0; i < serviceList.Count; i++)
-    //    {
-    //        if (serviceList[i].isAvailable)
-    //        { 
-    //            availableService = serviceList[i];
-    //        break;
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Room is filled");
-    //            availableService = null; 
-    //        }
-    //    }
-    //    availableService.isAvailable = false;
-    //    return availableService; 
-    //}
+        for (int i = 0; i < serviceList.Count; i++)
+        {
+            if (serviceList[i].isAvailable)
+            {
+                availableService = serviceList[i];
+                break;
+            }
+            //else
+            //{
+            //    Debug.Log("Room is filled");
+            //    availableService = null;
+            //}
+        }
+        availableService.isAvailable = false;
+        return availableService;
+    }
     public Service GetAvailableMassageService()
     {
         Service availableService = null;
@@ -110,25 +110,25 @@ public class AvailabilityManager : MonoBehaviour
             //}
         }
         return availableService; 
-    } 
-
-    public QueueSlot GetAvailableQueueSlot()
-    {
-        QueueSlot availableSlot = null;
-        for (int i = 0; i < queueList.Count; i++)
-        {
-            if (queueList[i].isAvailable)
-            {
-                availableSlot = queueList[i];
-                availableSlot.isAvailable = false;
-                break;
-            }
-            //else
-            //{
-            //    Debug.Log("Queues are filled");
-            //    availableSlot = null; 
-            //}
-        }
-        return availableSlot;
     }
+
+    //public QueueSlot GetAvailableQueueSlot()
+    //{
+    //    QueueSlot availableSlot = null;
+    //    for (int i = 0; i < queueList.Count; i++)
+    //    {
+    //        if (queueList[i].isAvailable)
+    //        {
+    //            availableSlot = queueList[i];
+    //            availableSlot.isAvailable = false;
+    //            break;
+    //        }
+    //        else
+    //        {
+    //            Debug.Log("Queues are filled");
+    //            availableSlot = null;
+    //        }
+    //    }
+    //    return availableSlot;
+    //}
 }
