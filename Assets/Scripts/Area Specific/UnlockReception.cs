@@ -28,6 +28,7 @@ public class UnlockReception : MonoBehaviour
         if (!reception.isUnlocked)
         {
             CanvasManager.instance.ShowPopup(messageText, descriptionText, () => StartCoroutine(BuildFunction()));
+            objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
             reception.CamZoom();
         }
     }

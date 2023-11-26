@@ -15,6 +15,7 @@ public class CanvasManager : MonoBehaviour
     public Transform prefabParent1; 
 
     public GameObject buildPopup;
+    public GameObject buildPopup1;
     public GameObject rewardPopup;
     public GameObject rewardPopup1;
     public GameObject popupObject;
@@ -28,7 +29,7 @@ public class CanvasManager : MonoBehaviour
 
     public Button levelButton;
     public Button levelCloseButton;
-    public GameObject levelPanel;
+    //public GameObject levelPanel;
 
 
     //public int tipsCollected;
@@ -58,7 +59,7 @@ public class CanvasManager : MonoBehaviour
 
     public void OnLevelClick(bool enable)
     {
-        levelPanel.SetActive(enable);
+        //levelPanel.SetActive(enable);
     }
 
     public void OnCollectReward()
@@ -80,6 +81,20 @@ public class CanvasManager : MonoBehaviour
             errorPopup.EnablePanel();
             errorPopup.SetErrorMessage(errorMessage);
             errorPopup.SetDescription(description);
+            errorPopup.SetButton("BUILD", buildAction); 
+        }
+    }
+    public void ShowPopup1(string errorMessage,string description, float cost,Action buildAction)
+    {
+        //room.ResetPanels();
+        if (CanvasManager.instance.popupObject == null)
+        {
+            CanvasManager.instance.popupObject = Instantiate(CanvasManager.instance.buildPopup1, CanvasManager.instance.prefabParent1);
+            BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
+            errorPopup.EnablePanel();
+            errorPopup.SetErrorMessage(errorMessage);
+            errorPopup.SetDescription(description);
+            errorPopup.SetCost(cost); 
             errorPopup.SetButton("BUILD", buildAction); 
         }
     }

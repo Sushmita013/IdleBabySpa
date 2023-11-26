@@ -27,7 +27,15 @@ public class UnlockArea : MonoBehaviour
     {
         if (!roomManager.isUnlocked)
         {
+            if (unlockValue == 0)
+            { 
             CanvasManager.instance.ShowPopup(messageText, descriptionText,()=> StartCoroutine(BuildFunction()));
+            }
+            else
+            {
+                CanvasManager.instance.ShowPopup1(messageText, descriptionText,unlockValue, () => StartCoroutine(BuildFunction())); 
+            }
+            objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
             roomManager.CamZoom();
         } 
     }

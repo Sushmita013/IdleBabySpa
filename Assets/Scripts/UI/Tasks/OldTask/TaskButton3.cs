@@ -64,12 +64,12 @@ public class TaskButton3 : MonoBehaviour
         {
             GameManager.instance.totalHardCurrency += rewardValue;
             CanvasManager.instance.UpdateHardCurrency();
-            Tutorial.instance.UpgradeInterior();
+            //Tutorial.instance.UpgradeInterior();
             Camera.main.GetComponent<PanZoom>().enabled = false;
             Camera.main.transform.DOLocalMove(new Vector3(-125f, 60, -72.5f), 1f).SetEase(Ease.Linear);
             Camera.main.DOOrthoSize(20, 1f);
             //CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
-            Tutorial.instance.InteriorClick();
+            //Tutorial.instance.InteriorClick();
         }
         else
         { 

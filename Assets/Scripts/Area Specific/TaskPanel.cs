@@ -16,7 +16,7 @@ public class TaskPanel : MonoBehaviour
     public GameObject incompletePanel;
     public GameObject completePanel;
 
-
+    public Button taskButton;
 
     public string TaskName { get => taskName; set { taskName = value; taskNameTxt.text = taskName; } }
     public float Progress

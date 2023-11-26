@@ -42,7 +42,8 @@ public class TaskManager : MonoBehaviour
                 taskPanel.Progress = TaskProgress;
                 CurrentActiveTask.taskType.SetProgress(TaskProgress);
             }
-
+            taskPanel.taskButton.onClick.RemoveAllListeners();
+            taskPanel.taskButton.onClick.AddListener(CurrentActiveTask.taskType.GoToTarget);
             CurrentActiveTask.taskType.CheckIsTaskCompleted();
         }
     }

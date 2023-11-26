@@ -21,6 +21,7 @@ public class Receptionist : MonoBehaviour
     public string animName;
 
     public float duration;
+    public ParentController parent;
     //public GameObject billUI;
 
     //public TMP_Text billAmount;
@@ -37,6 +38,7 @@ public class Receptionist : MonoBehaviour
         if (other.tag == "ParentNPC")
         {  
             StartCoroutine(Action());
+            parent = other.GetComponent<ParentController>();
         }
     }
     public IEnumerator Action()
@@ -45,14 +47,10 @@ public class Receptionist : MonoBehaviour
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
         yield return new WaitForSeconds(GetDuration());
+        parent.MoveToNextDestination(parent.parent);
         effect.Play();
         occupiedUI.SetActive(false);
-        PlayAnimation("Idle");
-        //billUI.SetActive(true);
-        //billUI.transform.DOLocalMoveZ(-5.5f, 1f);
-        //yield return new WaitForSeconds(1);
-        //billUI.SetActive(false);
-        //billUI.transform.DOLocalMoveZ(-3.3f, 0.1f); 
+        PlayAnimation("Idle");  
         fillbar.DOFillAmount(0, 0.1f);
     }
     public void PlayAnimation(string animation)

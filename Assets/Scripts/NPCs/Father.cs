@@ -69,7 +69,7 @@ public class Father : MonoBehaviour
         gameObject.transform.DOMove(movepoints[3].position, 2f).SetEase(Ease.Linear).OnComplete(() =>
         {
             PlayAnimation("Keeping baby on table");
-            StartCoroutine(Baby.instance.Massage());
+            //StartCoroutine(Baby.instance.Massage());
             RemoveChild();
         });
         yield return new WaitForSeconds(6);
@@ -97,7 +97,7 @@ public class Father : MonoBehaviour
         gameObject.transform.DORotate(new Vector3(0, -90, 0), 0.1f).SetEase(Ease.Linear);
         yield return new WaitForSeconds(0.1f);
         PlayAnimation("Father picking baby from table");
-        StartCoroutine(Baby.instance.MassageComplete());
+        //StartCoroutine(Baby.instance.MassageComplete());
         yield return new WaitForSeconds(3);
         AddChild();
         gameObject.transform.DORotate(new Vector3(0, 90, 0), 0.25f).SetEase(Ease.Linear);
@@ -123,7 +123,7 @@ public class Father : MonoBehaviour
             gameObject.transform.DOMove(movepoints[15].position, 1f).SetEase(Ease.Linear).OnComplete(() =>
             {
                 PlayAnimation("father keeping baby on chair");
-                StartCoroutine(Baby.instance.Haircut());
+                //StartCoroutine(Baby.instance.Haircut());
                 RemoveChild();
             });
             yield return new WaitForSeconds(4f);

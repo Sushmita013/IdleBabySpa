@@ -221,7 +221,7 @@ public class TaskButton : MonoBehaviour
             room.CamZoom();  
             objectToEnable.transform.DOScale(new Vector3(.75f, .75f, .75f), 0.05f);
                 errorPopup.SetButton("BUILD", () => StartCoroutine(TaskComplete1()));
-                errorPopup.SetCostActive();
+                //errorPopup.SetCostActive();
             }
         }
     }

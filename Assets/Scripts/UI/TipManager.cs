@@ -22,6 +22,6 @@ public class TipManager : MonoBehaviour
     public void OnLevelButtonClick()
     {
         levelPanel.SetActive(true);
-        Tutorial.instance.LevelUpgrade(); 
+        //Tutorial.instance.LevelUpgrade(); 
     }
 }

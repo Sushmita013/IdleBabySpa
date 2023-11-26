@@ -11,6 +11,9 @@ public class AvailabilityManager : MonoBehaviour
     public List<Service> swimServiceList; 
     public List<Service> photoServiceList;      
     public List<QueueSlot> massageQueueList; 
+    public List<QueueSlot> haircutQueueList; 
+    public List<QueueSlot> swimQueueList; 
+    public List<QueueSlot> photoQueueList; 
     void Start()
     {
         instance = this;
@@ -18,21 +21,14 @@ public class AvailabilityManager : MonoBehaviour
 
     public Service GetAvailableService()
     {
-        Service availableService = null;
-
-        for (int i = 0; i < serviceList.Count; i++)
+        Service availableService = null; 
+        do
         {
-            if (serviceList[i].isAvailable)
-            {
-                availableService = serviceList[i];
-                break;
-            }
-            //else
-            //{
-            //    Debug.Log("Room is filled");
-            //    availableService = null;
-            //}
-        }
+        int randomVal = Random.Range(0, serviceList.Count);
+            availableService = serviceList[randomVal]; 
+
+        } while (!availableService.isAvailable);  
+         
         availableService.isAvailable = false;
         return availableService;
     }

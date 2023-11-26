@@ -101,7 +101,7 @@ public class TaskButton7 : MonoBehaviour
     {
         if (CanvasManager.instance.taskNumber == 12)
         { 
-            Tutorial.instance.LevelClick(); 
+            //Tutorial.instance.LevelClick(); 
         }
     }
 

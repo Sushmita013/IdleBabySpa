@@ -18,6 +18,9 @@ public class WaitingQueue : MonoBehaviour
             customer.MoveToReception(customer.parent);
             customer.MoveToTarget(queue[queueIndex], () =>
             {
+                Debug.Log("move to available slot");
+                customer.PlayAnimation(customer.parent.anim[1]); 
+                customer.babyController.PlayAnimation("standing idle"); 
                 CheckSlotForCustomer(customer);
             });
 
@@ -51,8 +54,8 @@ public class WaitingQueue : MonoBehaviour
     }
 
     public void CheckSlotForCustomer(ParentController customer)
-    {
-        StartCoroutine(customer.ReceptionEntry(customer.parent)); 
+    { 
+        //StartCoroutine(customer.ReceptionEntry(customer.parent)); 
     }
 
     public void CheckForFreeSlots()

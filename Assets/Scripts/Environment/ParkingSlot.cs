@@ -92,7 +92,7 @@ public class ParkingSlot : MonoBehaviour
         parentController.parentObject = parentGO.transform.Find("Parent").gameObject;
         parentController.babyController = parentController.baby.GetComponent<Baby>();
         //Transform parentTransform = parentGO.transform.Find("Parent"); // Assuming 'parent' is the second child
-        parentController.parentnavMesh = parentController.parentObject.GetComponent<NavMeshAgent>();
+        //parentController.parentnavMesh = parentController.parentObject.GetComponent<NavMeshAgent>();
         parentController.animator = parentController.parentObject.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
         parentController.spawnPoint = destroyPoint.transform;

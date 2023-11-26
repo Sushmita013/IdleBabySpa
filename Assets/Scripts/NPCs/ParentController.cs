@@ -8,8 +8,7 @@ using System;
 public class ParentController : MonoBehaviour
 {
     public ParentNPC parent;
-    internal NavMeshAgent navMeshAgent;
-    internal NavMeshAgent parentnavMesh;
+    internal NavMeshAgent navMeshAgent; 
     internal GameObject instantiatedParent;
     internal GameObject baby;
     internal GameObject parentObject;
@@ -37,12 +36,22 @@ public class ParentController : MonoBehaviour
 
     public Action onCompleteAction;
 
-    private Service service; 
+    private Service service;
+
+    //public Transform babyTransform;
+
+    public Vector3 babyPos,babyRotation;
+    public Vector3 parentPos,parentRot;
+    public Vector3 pairPos, pairRotation;
 
     void Start()
     {
         animator = parentObject.GetComponent<Animator>();
-        parentnavMesh = parentObject.GetComponent<NavMeshAgent>();
+        //parentnavMesh = parentObject.GetComponent<NavMeshAgent>();
+        babyPos = baby.transform.localPosition;
+        babyRotation = baby.transform.localEulerAngles;
+        parentRot = parentObject.transform.localEulerAngles;
+        parentPos = parentObject.transform.localPosition;
     }
 
     void Update()
@@ -98,41 +107,47 @@ public class ParentController : MonoBehaviour
         }
         if (other.tag=="MassageTable")
         {
-            transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f);
+            //transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f);
             navMeshAgent.ResetPath(); 
             duration = other.GetComponent<WorkerNPC>().duration;
             chairPoint = other.GetComponent<WorkerNPC>().chairPoint; 
             parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
             serviceCollider = other.GetComponent<BoxCollider>();
+            pairPos = transform.localPosition;
             //parentObject.transform.DORotate(new Vector3(0, 90, 0), 0.1f);
             StartCoroutine(GetMassage(parent));
         }
         if(other.tag=="HaircutChair")
         {
-            //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f);
+            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f);
             navMeshAgent.ResetPath(); 
             duration = other.GetComponent<WorkerNPC>().duration;
             chairPoint = other.GetComponent<WorkerNPC>().chairPoint;
             parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
-            serviceCollider = other.GetComponent<BoxCollider>(); 
+            serviceCollider = other.GetComponent<BoxCollider>();
+            pairPos = transform.localPosition;
             StartCoroutine(GetHaircut(parent)); 
         }
         if(other.tag=="SwimUnit")
         {
+            transform.DOLocalRotate(new Vector3(0, 180, 0), 0.1f); 
             navMeshAgent.ResetPath(); 
             duration = other.GetComponent<WorkerNPC>().duration;
             chairPoint = other.GetComponent<WorkerNPC>().chairPoint;
             parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
-            serviceCollider = other.GetComponent<BoxCollider>(); 
+            serviceCollider = other.GetComponent<BoxCollider>();
+            pairPos = transform.localPosition; 
             StartCoroutine(GetSwimming(parent)); 
         }
         if(other.tag=="PhotoProp")
         {
+            transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f); 
             navMeshAgent.ResetPath(); 
             duration = other.GetComponent<WorkerNPC>().duration;
             chairPoint = other.GetComponent<WorkerNPC>().chairPoint;
             parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
-            serviceCollider = other.GetComponent<BoxCollider>(); 
+            serviceCollider = other.GetComponent<BoxCollider>();
+            pairPos = transform.localPosition; 
             StartCoroutine(GetPhotoshoot(parent)); 
         }
         if (other.tag=="Cashier")
@@ -149,18 +164,50 @@ public class ParentController : MonoBehaviour
         }
     }
 
+    public void SnapToOriginalPos()
+    {
+        baby.transform.localPosition = babyPos;
+        parentObject.transform.localPosition = parentPos;
+        baby.transform.localEulerAngles = babyRotation;
+        parentObject.transform.localEulerAngles = parentRot;
+    } 
+    public void SnapToMassagePos()
+    {
+        transform.localEulerAngles = new Vector3(0, 90, 0);
+        transform.localPosition = pairPos;
+        SnapToOriginalPos();  
+    }
+    public void SnapToHaircutPos()
+    {
+        transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localPosition = pairPos; 
+        SnapToOriginalPos(); 
+    }
+    public void SnapToSwimPos()
+    {
+        transform.localEulerAngles = new Vector3(0, 180, 0);
+        transform.localPosition = pairPos; 
+        SnapToOriginalPos(); 
+    }
+    public void SnapToPhotoPos()
+    {
+        transform.localEulerAngles = new Vector3(0, 0, 0);
+        transform.localPosition = pairPos; 
+        SnapToOriginalPos(); 
+    }
+
     public void MoveToReception(ParentNPC parentData)
     {
         Debug.Log("MoveToReception");
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent"); 
     }
-    public IEnumerator ReceptionEntry(ParentNPC parentData)
+    public void ReceptionEntry(ParentNPC parentData)
     {
         Debug.Log("ReceptionEntry"); 
         PlayAnimation(parentData.anim[1]);
         babyController.PlayAnimation("standing idle"); 
-        yield return new WaitForSeconds(duration);
+        //yield return new WaitForSeconds(duration);
         MoveToNextDestination(parent); 
     }
     public void MoveToNextDestination(ParentNPC parentData)
@@ -168,7 +215,9 @@ public class ParentController : MonoBehaviour
         Debug.Log("MoveToNextDestination");  
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
-        queueManager.MoveGuestToDestination(FindDestination()); 
+        destination = GetRandomService();
+        queueManager.MoveGuestToDestination(destination);
+        
         //agent.SetDestination(FindDestination().position);  
     }
     public void MoveToNextService(ParentNPC parentData)
@@ -178,49 +227,35 @@ public class ParentController : MonoBehaviour
         babyController.PlayAnimation("walking with parent");
         MoveToTarget(FindDestination()); 
         //navMeshAgent.SetDestination(FindDestination().position);  
-    }
-
-    //public IEnumerator GetMassage(ParentNPC parentData, NavMeshAgent agent)
-    //{
-    //    //Debug.Log("GetMassage");  
-    //    PlayAnimation(parentData.anim[2]);
-    //    StartCoroutine(babyController.Massage()); 
-    //    yield return new WaitForSeconds(2);
-    //    //StartCoroutine(Masseuse.instance.Action());
-    //    PlayAnimation(parentData.anim[2]); 
-    //    yield return new WaitForSeconds(duration);
-    //    PlayAnimation(parentData.anim[3]);
-    //    StartCoroutine(babyController.MassageComplete()); 
-    //    if (GameManager.instance.haircutUnlocked)
-    //    {
-    //        StartCoroutine(MoveToHaircut(parent, navMeshAgent));
-    //    }
-    //    else
-    //    { 
-    //        StartCoroutine(MoveToCashier( parent, navMeshAgent));
-    //    }
-    //}
+    } 
     public IEnumerator GetMassage(ParentNPC parentData)
     { 
         Debug.Log("GetMassage");
+        yield return new WaitForSeconds(0.5f); 
+        SnapToMassagePos();
+        serviceCollider.enabled=false;
         PlayAnimation(parentData.anim[2]);
         babyController.PlayAnimation("keep baby on table"); 
         yield return new WaitForSeconds(3f);
-        serviceCollider.enabled=false;
         baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.5f);  
         //baby.transform.localPosition = new Vector3(1.3f, -0.705f, 0.090f);
-       baby.transform.DOLocalMove( new Vector3(1.3f, -0.705f, 0.090f),0.5f);
+        baby.transform.DOLocalMove( new Vector3(1.3f, -0.705f, -0.65f),0.5f);
+        yield return new WaitForSeconds(0.6f);
+        RemoveBaby();
+        babyController.RemoveBabyClothes();
         //diaperGO.SetActive(false);
         babyController.babyClothes.SetActive(false);
         babyController.bodyDiaper.SetActive(true);
         PlayAnimation(parentData.anim[3]);
         babyController.PlayAnimation("baby on table idle");
         //PlayAnimationMassage("Taking oil");
-        parentObject.GetComponent<NavMeshAgent>().enabled = true;
-        parentnavMesh.SetDestination(chairPoint.position);
+        //parentObject.GetComponent<NavMeshAgent>().enabled = true;
+        MoveToTarget(chairPoint);
+        //navMeshAgent.SetDestination(chairPoint.position);
+        RemoveBaby();
         yield return new WaitForSeconds(2f);
-        parentnavMesh.ResetPath(); 
-        parentObject.transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
+        navMeshAgent.ResetPath(); 
+        transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]); 
         yield return new WaitForSeconds(2.5f);
         PlayAnimation(parentData.anim[5]);
@@ -229,22 +264,27 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[6]); 
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);
-        parentnavMesh.SetDestination(destination.position); 
+        //navMeshAgent.SetDestination(destination.position);
+        MoveToTarget(destination); 
         yield return new WaitForSeconds(1.5f);
+        AddBaby();
+        SnapToMassagePos(); 
+        babyController.HadClothes();
         BabyScaleDown();
         //baby.transform.localPosition = new Vector3(0, 0.131f, 1.406f);
         babyController.bodyDiaper.SetActive(false);
         babyController.babyClothes.SetActive(true);
-        parentnavMesh.ResetPath(); 
+        navMeshAgent.ResetPath();
         //PlayAnimationMassage("standing idle");
-        parentnavMesh.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f); 
+        //navMeshAgent.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f); 
         PlayAnimation(parentData.anim[7]);
         babyController.PlayAnimation("take baby from table"); 
         serviceComplete[0] = true; 
         yield return new WaitForSeconds(4);
+        SnapToOriginalPos();
         //serviceCollider.enabled=true;
         service.isAvailable = true;
-        parentObject.GetComponent<NavMeshAgent>().enabled = false;
+        //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3);
         serviceCollider.enabled = true;
@@ -254,22 +294,26 @@ public class ParentController : MonoBehaviour
     public IEnumerator GetHaircut(ParentNPC parentData)
     {
         Debug.Log("GetHaircut");
-        yield return new WaitForSeconds(0.5f);
-        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f);
+        yield return new WaitForSeconds(0.5f); 
+        SnapToHaircutPos();
+        //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f);
         PlayAnimation(parentData.anim[8]);
         babyController.PlayAnimation("Keeping baby on chair"); 
         yield return new WaitForSeconds(3f);
         serviceCollider.enabled = false; 
         baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.5f);
-        baby.transform.DOLocalMove(new Vector3(-0.193f, -0.784f, 0.8f), 0.1f); 
+        baby.transform.DOLocalMove(new Vector3(-0.193f, -0.784f, -0.623f), 0.1f);
+        yield return new WaitForSeconds(0.6f); 
+        RemoveBaby();
         babyController.PlayAnimation("baby on chair idle");
-        PlayAnimation(parentData.anim[3]); 
+        PlayAnimation(parentData.anim[3]);
         //PlayAnimationMassage("Taking oil");
-        parentObject.GetComponent<NavMeshAgent>().enabled = true;
-        parentnavMesh.SetDestination(chairPoint.position); 
+        //parentObject.GetComponent<NavMeshAgent>().enabled = true;
+        MoveToTarget(chairPoint); 
+        //navMeshAgent.SetDestination(chairPoint.position);
         yield return new WaitForSeconds(4f);
-        parentnavMesh.ResetPath();
-        parentObject.transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
+        navMeshAgent.ResetPath();
+        transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]);
         yield return new WaitForSeconds(2.5f);
         PlayAnimation(parentData.anim[5]);
@@ -278,45 +322,54 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[6]);
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);
-        parentnavMesh.SetDestination(destination.position);
+        //navMeshAgent.SetDestination(destination.position);
+        MoveToTarget(destination); 
         yield return new WaitForSeconds(5f);
-        parentnavMesh.ResetPath();
+        AddBaby(); 
+        navMeshAgent.ResetPath();
         babyController.longHair.SetActive(false);
         babyController.shortHair.SetActive(true);
         BabyScaleDown();
-        parentObject.transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
-        parentObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
+        transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
+        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+        SnapToHaircutPos(); 
         PlayAnimation(parentData.anim[9]);
         babyController.PlayAnimation("baby going with parent from chair"); 
         serviceComplete[1] = true; 
         yield return new WaitForSeconds(4);
+        SnapToOriginalPos(); 
         //serviceCollider.enabled = true; 
         service.isAvailable = true;
-        parentObject.GetComponent<NavMeshAgent>().enabled = false;
+        //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3);
         serviceCollider.enabled = true;
     }
     public IEnumerator GetSwimming(ParentNPC parentData)
     {
-        Debug.Log("GetSwimming"); 
+        Debug.Log("GetSwimming");
+        yield return new WaitForSeconds(0.5f); 
+        SnapToSwimPos();
         PlayAnimation(parentData.anim[10]);
         babyController.PlayAnimation("baby going in watertank");  
         yield return new WaitForSeconds(3.5f);
         serviceCollider.enabled = false; 
         baby.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f);
         baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.1f);
-        baby.transform.DOLocalMove(new Vector3(2.017f, -0.413f, 5.619f), 0.1f);
-        yield return new WaitForSeconds(0.1f); 
+        baby.transform.DOLocalMove(new Vector3(1.593f, -0.413f, 4.674f), 0.1f);
+        yield return new WaitForSeconds(0.2f);
+        RemoveBaby();
         babyController.babyClothes.SetActive(false);
         babyController.bodyDiaper.SetActive(true);
         babyController.PlayAnimation("baby in watertank idle");
         PlayAnimation(parentData.anim[3]);  
-        parentObject.GetComponent<NavMeshAgent>().enabled = true;
-        parentnavMesh.SetDestination(chairPoint.position); 
+        //parentObject.GetComponent<NavMeshAgent>().enabled = true;
+        //navMeshAgent.SetDestination(chairPoint.position);
+        MoveToTarget(chairPoint); 
+        RemoveBaby();
         yield return new WaitForSeconds(2f);
-        parentnavMesh.ResetPath();
-        parentObject.transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
+        navMeshAgent.ResetPath();
+        transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]);
         yield return new WaitForSeconds(2.5f);
         PlayAnimation(parentData.anim[5]); 
@@ -324,43 +377,54 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[6]);
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);
-        parentnavMesh.SetDestination(destination.position);
+        //navMeshAgent.SetDestination(destination.position);
+        MoveToTarget(destination); 
         yield return new WaitForSeconds(2f);
-        parentnavMesh.ResetPath();
+        AddBaby();
+        SnapToSwimPos(); 
+        navMeshAgent.ResetPath();
         babyController.bodyDiaper.SetActive(false);
         babyController.babyClothes.SetActive(true);
         BabyScaleDown();
         baby.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
-        parentObject.transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
-        parentObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
+        transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
+        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
         PlayAnimation(parentData.anim[11]);
         babyController.PlayAnimation("baby going back with parent"); 
         serviceComplete[2] = true; 
         yield return new WaitForSeconds(4);
+        SnapToOriginalPos(); 
         service.isAvailable = true;
-        parentObject.GetComponent<NavMeshAgent>().enabled = false;
+        //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3); 
         serviceCollider.enabled = true; 
     }
     public IEnumerator GetPhotoshoot(ParentNPC parentData)
     {
-        Debug.Log("GetPhotoshoot"); 
+        Debug.Log("GetPhotoshoot");
+        yield return new WaitForSeconds(0.5f); 
+        SnapToPhotoPos();
         PlayAnimation(parentData.anim[12]);
         babyController.PlayAnimation("keeping baby on photoProp");  
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         serviceCollider.enabled = false;  
         baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.5f);
-        baby.transform.DOLocalMove(new Vector3(-0.162f, -0.386f, 0.704f), 0.5f); 
+        baby.transform.DOLocalMove(new Vector3(-0.573f, -0.218f, -0.543f), 0.5f);
+        yield return new WaitForSeconds(0.6f);
+        RemoveBaby();
         babyController.PlayAnimation("baby on photoProp idle");
         PlayAnimation(parentData.anim[3]);  
-        parentObject.GetComponent<NavMeshAgent>().enabled = true;
+        //parentObject.GetComponent<NavMeshAgent>().enabled = true;
         //navMeshAgent.ResetPath();
-        navMeshAgent.enabled = false;
-        parentnavMesh.SetDestination(chairPoint.position); 
+        //navMeshAgent.enabled = false;
+        //navMeshAgent.SetDestination(chairPoint.position);
+        MoveToTarget(chairPoint);
+
+        RemoveBaby();
         yield return new WaitForSeconds(3f);
-        parentnavMesh.ResetPath();
-        parentObject.transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
+        navMeshAgent.ResetPath();
+        transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]);
         yield return new WaitForSeconds(2.5f);
         PlayAnimation(parentData.anim[5]); 
@@ -368,18 +432,24 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[6]);
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);
-        parentnavMesh.SetDestination(destination.position);
+        //navMeshAgent.SetDestination(destination.position);
+        MoveToTarget(destination); 
         yield return new WaitForSeconds(3f);
-        parentnavMesh.ResetPath(); 
-        BabyScaleDown(); 
+        AddBaby();
+        SnapToPhotoPos(); 
+        navMeshAgent.ResetPath(); 
+        BabyScaleDown();
+        baby.transform.DOLocalMove(new Vector3(0, 0.131f, 0.519f), 0.5f); 
         //parentObject.transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
         //parentObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
         PlayAnimation(parentData.anim[13]);
         babyController.PlayAnimation("taking baby on photoProp"); 
         serviceComplete[3] = true;
-        navMeshAgent.enabled = true; 
-        parentObject.GetComponent<NavMeshAgent>().enabled = false;
+        //navMeshAgent.enabled = true; 
+        //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         yield return new WaitForSeconds(1.5f);
+        SnapToOriginalPos();
+
         service.isAvailable = true;
         ExitSpa(parent);
         yield return new WaitForSeconds(3); 
@@ -429,8 +499,17 @@ public class ParentController : MonoBehaviour
     {
         baby.transform.DOScale(new Vector3(2f, 2f, 2f), 0.5f);
         baby.transform.DOLocalMove(new Vector3(0, 0.131f, 1.406f), 0.5f);
-    }
+    } 
      
+    public void RemoveBaby()
+    {
+        baby.transform.SetParent(null);
+    }
+
+    public void AddBaby()
+    {
+        baby.transform.SetParent(this.transform);
+    }
 
     public Transform FindDestination()
     {
@@ -468,6 +547,22 @@ public class ParentController : MonoBehaviour
         return serviceDestination;
     }
 
+    public Transform GetRandomService()
+    {
+        Service destinationtemp = AvailabilityManager.instance.GetAvailableService();
+
+        if (destinationtemp != null)
+        {
+            destination = destinationtemp.destinationPoint;
+            service = destinationtemp.GetComponentInParent<Service>();
+        }
+        //else
+        //{
+        //    return null;
+        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+        //}
+        return destination;
+    }
     public Transform GetMassageService()
     {
         Service destinationtemp = AvailabilityManager.instance.GetAvailableMassageService();

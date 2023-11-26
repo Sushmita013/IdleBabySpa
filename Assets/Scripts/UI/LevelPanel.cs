@@ -39,6 +39,6 @@ public class LevelPanel : MonoBehaviour
         level0.SetActive(false);
         level1.SetActive(true);
         nextLevelButton.interactable = false; 
-        Tutorial.instance.ResetHands();
+        //Tutorial.instance.ResetHands();
     }
 }

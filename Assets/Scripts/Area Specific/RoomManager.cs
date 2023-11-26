@@ -30,7 +30,7 @@ public class RoomManager : MonoBehaviour
     public Transform camPos;
     private float moveSpeed = 2.0f;
     public int zoomSize;
-    private bool hasUI;
+    public bool hasUI;
     public Button closeButton; 
     public List<GameObject> UpgradeUIpanels;
     public GameObject switchServicePanel;
@@ -61,13 +61,13 @@ public class RoomManager : MonoBehaviour
         StartCoroutine(CameraZoomIn());
         //Tutorial.instance.MassageClick(); 
     }
-    private void Update()
-    {
-        if (customersServed == 5)
-        {
-            tip.OnEnable();
-        }  
-    }
+    //private void Update()
+    //{
+    //    if (customersServed == 5)
+    //    {
+    //        tip.OnEnable();
+    //    }  
+    //}
 
     //public void CheckAvailability(GameObject parent)
     //{

@@ -49,7 +49,7 @@ public class WorkerNPC : MonoBehaviour
     } 
     public IEnumerator Action()
     {
-        yield return new WaitForSeconds(4f); 
+        yield return new WaitForSeconds(4.5f); 
         occupiedUI.SetActive(true);
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);

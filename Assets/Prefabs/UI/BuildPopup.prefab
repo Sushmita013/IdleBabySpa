@@ -1034,8 +1034,6 @@ MonoBehaviour:
   cost: {fileID: 8734042243411750153}
   descriptionText: {fileID: 626522583686699014}
   button: {fileID: 8565163014610803758}
-  costActive: {fileID: 8400589419883107553}
-  costInactive: {fileID: 4044247467178095101}
 --- !u!1 &6871473792797484129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,7 +1052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &106353974450100129
 RectTransform:
   m_ObjectHideFlags: 0

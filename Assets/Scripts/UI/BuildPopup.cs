@@ -12,22 +12,18 @@ public class BuildPopup : MonoBehaviour
     public TMP_Text messageText;
     public TMP_Text cost;
     public TMP_Text descriptionText;
-    public Button button;
-
-    public GameObject costActive;
-    public GameObject costInactive;
+    public Button button; 
 
     private string button_Text;
     private System.Action buttonAction; 
-    
 
     public void SetErrorMessage(string message)
     {
         messageText.text = message;
     }
-    public void SetCost(string message)
+    public void SetCost(float message)
     {
-        cost.text = message;
+        cost.text = message.ToString();
     }
     public void SetDescription(string message)
     {
@@ -61,11 +57,6 @@ public class BuildPopup : MonoBehaviour
         {
             disableAction?.Invoke();
         });  
-    }
-
-    public void SetCostActive()
-    {
-        costActive.SetActive(true);
-        costInactive.SetActive(false);
-    }
+    } 
+     
 }
