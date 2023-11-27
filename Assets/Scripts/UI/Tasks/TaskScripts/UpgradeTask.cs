@@ -31,6 +31,6 @@ public class UpgradeTask : ITaskType
     }
     public override void GoToTarget()
     {
-        roomManager.CamZoom();
+        StartCoroutine(roomManager.CameraZoomIn()); 
     }
 }

@@ -5,23 +5,26 @@ using UnityEngine;
 public class AvailabilityManager : MonoBehaviour
 {
     public static AvailabilityManager instance;
-    public List<Service> serviceList; 
-    public List<Service> massageServiceList; 
-    public List<Service> haircutServiceList; 
-    public List<Service> swimServiceList; 
-    public List<Service> photoServiceList;      
-    public List<QueueSlot> massageQueueList; 
-    public List<QueueSlot> haircutQueueList; 
-    public List<QueueSlot> swimQueueList; 
-    public List<QueueSlot> photoQueueList; 
+    public List<WorkerNPC> serviceList; 
+    public List<WorkerNPC> massageServiceList; 
+    public List<WorkerNPC> haircutServiceList; 
+    public List<WorkerNPC> swimServiceList; 
+    public List<WorkerNPC> photoServiceList;    
+    public List<RoomManager> rooms;    
+
+    public WaitingQueue waitingQueue;
+    public WaitingQueue waitingQueue1;
+    public WaitingQueue waitingQueue2;
+    public WaitingQueue waitingQueue3;
+
     void Start()
     {
         instance = this;
     }
 
-    public Service GetAvailableService()
+    public WorkerNPC GetAvailableService()
     {
-        Service availableService = null; 
+        WorkerNPC availableService = null; 
         do
         {
         int randomVal = Random.Range(0, serviceList.Count);
@@ -32,9 +35,9 @@ public class AvailabilityManager : MonoBehaviour
         availableService.isAvailable = false;
         return availableService;
     }
-    public Service GetAvailableMassageService()
+    public WorkerNPC GetAvailableMassageService()
     {
-        Service availableService = null;
+        WorkerNPC availableService = null;
 
         for (int i = 0; i < massageServiceList.Count; i++)
         {
@@ -47,9 +50,9 @@ public class AvailabilityManager : MonoBehaviour
         }
         return availableService; 
     }
-    public Service GetAvailableHaircutService()
+    public WorkerNPC GetAvailableHaircutService()
     {
-        Service availableService = null;
+        WorkerNPC availableService = null;
 
         for (int i = 0; i < haircutServiceList.Count; i++)
         {
@@ -67,9 +70,9 @@ public class AvailabilityManager : MonoBehaviour
         }
         return availableService; 
     }
-    public Service GetAvailableSwimService()
+    public WorkerNPC GetAvailableSwimService()
     {
-        Service availableService = null;
+        WorkerNPC availableService = null;
 
         for (int i = 0; i < swimServiceList.Count; i++)
         {
@@ -87,9 +90,9 @@ public class AvailabilityManager : MonoBehaviour
         }
         return availableService; 
     }
-    public Service GetAvailablePhotoService()
+    public WorkerNPC GetAvailablePhotoService()
     {
-        Service availableService = null;
+        WorkerNPC availableService = null;
 
         for (int i = 0; i < photoServiceList.Count; i++)
         {

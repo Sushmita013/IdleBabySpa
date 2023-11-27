@@ -17,6 +17,8 @@ public class UnlockArea : MonoBehaviour
     public string descriptionText;
 
     public Button unlockButton;
+
+    public GameObject hireUI;
     void Start()
     {
         //unlockButton = GetComponent<Button>();
@@ -48,6 +50,7 @@ public class UnlockArea : MonoBehaviour
             GameManager.instance.totalSoftCurrency -= unlockValue;
             CanvasManager.instance.UpdateSoftCurrency();
             roomManager.isUnlocked = true;
+            hireUI.SetActive(true);
             if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.BuildTask)
             {
                 TaskManager.BuildAction?.Invoke();

@@ -100,6 +100,10 @@ public class Cashier : MonoBehaviour
             //Destroy(effects[0].gameObject);
             //Destroy(effects[1].gameObject); 
         }
+        if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeCashier)
+        {
+            TaskManager.UpgradeCashierAction?.Invoke();
+        }
     }
 
     public void EnableDisableUpgrade(float bal)

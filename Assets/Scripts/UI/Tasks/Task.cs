@@ -31,18 +31,18 @@ public class Task : MonoBehaviour
     //        {
     //            taskType = gameObject.GetOrAddComponent<UpgradeTask>();
     //        }
-    //        //else if (taskObject.taskType == TaskType.SpendTask)
-    //        //{
-    //        //    taskType = gameObject.GetOrAddComponent<SpendTask>();
-    //        //}
-    //        //else if (taskObject.taskType == TaskType.TotalUpgradeTask)
-    //        //{
-    //        //    taskType = gameObject.GetOrAddComponent<TotalUpgradeTask>();
-    //        //}
-    //        //else if (taskObject.taskType == TaskType.TriviaCorrectTask)
-    //        //{
-    //        //    taskType = gameObject.GetOrAddComponent<TriviaCorrectTask>();
-    //        //}
+    //        else if (taskObject.taskType == TaskType.CollectTips)
+    //        {
+    //            taskType = gameObject.GetOrAddComponent<CollectTips>();
+    //        }
+    //        else if (taskObject.taskType == TaskType.GiveService)
+    //        {
+    //            taskType = gameObject.GetOrAddComponent<GiveService>();
+    //        }
+    //        else if (taskObject.taskType == TaskType.UpgradeCashier)
+    //        {
+    //            taskType = gameObject.GetOrAddComponent<UpgradeCashier>();
+    //        }
     //        //else if (taskObject.taskType == TaskType.CompleteCarTask)
     //        //{
     //        //    taskType = gameObject.GetOrAddComponent<CompleteCarTask>();

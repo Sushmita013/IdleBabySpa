@@ -10,7 +10,11 @@ public class Tutorial : MonoBehaviour
 
     public GameObject upgradeHand;
 
-    public RoomManager room;
+    public RoomManager massageRoom;
+    public RoomManager parking;
+    public RoomManager advertisement;
+
+    public Reception reception;
 
     //public List<GameObject> colliders;
     //public static Tutorial instance;
@@ -23,21 +27,21 @@ public class Tutorial : MonoBehaviour
 
     private void Update()
     {
-        if (TaskManager.Instance.CurrentTaskNo == 0)
+        if (TaskManager.Instance.CurrentTaskNo == 0 && !reception.isUnlocked)
         {
             ActivateHand(0);
         }
-        if (TaskManager.Instance.CurrentTaskNo == 1)
+        if (TaskManager.Instance.CurrentTaskNo == 1 && !massageRoom.isUnlocked)
         {
             ActivateHand(1);
             upgradeHand.SetActive(false);
         }
-        if (TaskManager.Instance.CurrentTaskNo == 2)
+        if (TaskManager.Instance.CurrentTaskNo == 2 && !parking.isUnlocked)
         {
             ActivateHand(2);
             upgradeHand.SetActive(false);
         }
-        if (TaskManager.Instance.CurrentTaskNo == 3)
+        if (TaskManager.Instance.CurrentTaskNo == 3 && !advertisement.isUnlocked)
         {
             ActivateHand(3);
             upgradeHand.SetActive(false);
@@ -47,7 +51,7 @@ public class Tutorial : MonoBehaviour
             ActivateHand(1);
             upgradeHand.SetActive(true); 
         }
-        if (TaskManager.Instance.CurrentTaskNo == 4 && room.hasUI)
+        if (TaskManager.Instance.CurrentTaskNo == 4 && massageRoom.hasUI)
         {
             ResetHands();
             upgradeHand.SetActive(true); 

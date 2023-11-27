@@ -4,8 +4,9 @@
     BuildTask, 
     UpgradeTask,
     CollectTips,
+    GiveService,
+    UpgradeCashier,
     BuyInterior,
     IncreaseSpalevel,
-    GiveService,
     UpgradeParking
 }

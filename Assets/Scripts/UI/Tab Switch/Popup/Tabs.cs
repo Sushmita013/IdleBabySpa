@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class Tabs : MonoBehaviour
 {  
     public List<ButtonTabsChange> tabs; // Reference to the ButtonTabsChange scripts attached to buttons
-    public List<GameObject> panels; // Reference to the panels corresponding to the buttons
-    public List<Button> buttons;
+    [SerializeField] List<GameObject> panels; // Reference to the panels corresponding to the buttons
+    [SerializeField] List<Button> buttons;
     private void Start()
     {
         // Initially, select the first button and show its panel 

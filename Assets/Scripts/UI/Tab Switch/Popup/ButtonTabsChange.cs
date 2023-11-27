@@ -14,10 +14,10 @@ public enum ButtonStates
 
 public class ButtonTabsChange : MonoBehaviour
 {
-    public ButtonStates currentState = ButtonStates.selected;
+    [SerializeField] ButtonStates currentState = ButtonStates.selected;
     private Image buttonSprite; 
-    public Sprite deselectedSprite;
-    public Sprite selectedSprite;
+    [SerializeField] Sprite deselectedSprite;
+    [SerializeField] Sprite selectedSprite;
 
     private void Start()
     {

@@ -55,7 +55,10 @@ public class TaskPanel : MonoBehaviour
                         {
                             incompletePanel.SetActive(false);
                             GameObject completeObject = Instantiate(completePanel, transform);
-                            completeObject.GetComponent<Button>().onClick.AddListener(() => { CanvasManager.instance.ShowReward(taskName, TaskManager.Instance.CurrentActiveTask.rewardValue);Destroy(completeObject);});
+                            var complete = completeObject.GetComponent<TaskCompleted>();
+                            complete.taskName = TaskManager.Instance.CurrentActiveTask.taskName;
+                            complete.rewardValue = TaskManager.Instance.CurrentActiveTask.rewardValue;
+                            completeObject.GetComponent<Button>().onClick.AddListener(() => { complete.OnClick(); });
                         });
         yield return new WaitForSeconds(0.5f); 
         TaskManager.Instance.NextTaskCall();

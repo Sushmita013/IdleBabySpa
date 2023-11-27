@@ -8,9 +8,9 @@ public class Baby : MonoBehaviour
 {
     public static Baby instance;
 
-    public bool isEngaged;
+    //public bool isEngaged;
 
-    public float serviceDuration;
+    //public float serviceDuration;
     private Animator animator;
 
     public bool hasClothes;

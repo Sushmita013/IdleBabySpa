@@ -12,6 +12,7 @@ public class RewardPanel : MonoBehaviour
     public TMP_Text messageText;
     public TMP_Text rewardText;
     public Button button;
+    public float rewardValue;
 
     private string button_Text;
     private System.Action buttonAction; 

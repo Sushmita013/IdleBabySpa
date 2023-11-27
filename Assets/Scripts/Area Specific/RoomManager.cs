@@ -39,14 +39,19 @@ public class RoomManager : MonoBehaviour
     public bool isUnlocked;
 
     public int customersServed;
+    public int servicesGiven;
 
     public CollectTip tip;
 
-    public Worker worker;
+    public Specialist worker;
 
     public int occupiedSlots;
 
     public IService service;
+
+    //public List<Service> serviceList;
+
+    //public WaitingQueue waiting;
      
     void Start()
     {
@@ -61,13 +66,13 @@ public class RoomManager : MonoBehaviour
         StartCoroutine(CameraZoomIn());
         //Tutorial.instance.MassageClick(); 
     }
-    //private void Update()
-    //{
-    //    if (customersServed == 5)
-    //    {
-    //        tip.OnEnable();
-    //    }  
-    //}
+    private void Update()
+    {
+        if (customersServed == 5)
+        {
+            tip.OnEnable();
+        }
+    }
 
     //public void CheckAvailability(GameObject parent)
     //{
@@ -82,6 +87,32 @@ public class RoomManager : MonoBehaviour
     //    }
     //}
 
+    //public Service CheckForService()
+    //{
+    //    Service availableService = null;
+    //    for(int i=0; i < serviceList.Count; i++)
+    //    {
+    //        if (serviceList[i].isAvailable)
+    //        {
+    //            availableService = serviceList[i];
+    //        }
+    //    }
+    //    availableService.isAvailable = false;
+
+    //    return availableService;
+    //}
+
+    //public bool IsServiceAvailable()
+    //{
+    //    for(int i = 0; i < serviceList.Count; i++)
+    //    {
+    //        if (serviceList[i].isAvailable)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
     public IEnumerator CameraZoomIn()
     {
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
@@ -122,8 +153,7 @@ public class RoomManager : MonoBehaviour
                     break;
                 case Departments.PhotoRoom: 
                     UpgradeUIpanels[5].GetComponent<RectTransform>().DOAnchorPosY(360, 1);
-                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1); 
-                    switchServicePanel.transform.DOLocalMoveY(-335, 1f);
+                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);  
                     GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;

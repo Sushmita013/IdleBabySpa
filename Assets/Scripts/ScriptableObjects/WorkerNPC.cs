@@ -6,6 +6,11 @@ using DG.Tweening;
 
 public class WorkerNPC : MonoBehaviour
 {
+    public bool isUnlocked;
+    public bool isAvailable;
+
+    public Transform destinationPoint;
+
     public int workerIndex;
 
     public Departments roomName;
@@ -41,7 +46,11 @@ public class WorkerNPC : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "ParentNPC")
-        {
+        { 
+            if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.GiveService)
+            {
+                TaskManager.GiveServiceAction?.Invoke(1);
+            }
             room.customersServed++;
             //other.GetComponent<ParentController>().totalBill += room.serviceCost; 
             StartCoroutine(Action());

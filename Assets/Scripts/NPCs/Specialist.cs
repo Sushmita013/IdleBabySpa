@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-public class Worker : MonoBehaviour
+public class Specialist : MonoBehaviour
 {
     public RoomManager room;
     public bool isUnlocked; 
@@ -16,22 +16,15 @@ public class Worker : MonoBehaviour
     public float costPerLevel; 
 
     private int childrenDestroyed;
-    public float hireCost;
+    
     public float cost_percentageIncrease;
     public float speed_percentageIncrease; 
      
     public Button upgradeSpeedButton;
-    public Button hireButton;
 
     public TMP_Text speedText; 
     public TMP_Text upgradeCostText;
-
-    //public GameObject unlocked;
-    //public GameObject locked;
-    //public GameObject service;
-    //public GameObject service1;
-
-    //public List<ParticleSystem> effects;
+     
     public ParticleSystem effect;
     public bool isHolding;
     public bool startTimer;
@@ -47,7 +40,6 @@ public class Worker : MonoBehaviour
         //    item.Stop();
         //}
         effect.Stop();
-        hireButton.onClick.AddListener(() => StartCoroutine(HireWorker()));
         upgradeSpeedButton.onClick.AddListener(UpdateClick); 
     }
 
@@ -65,35 +57,7 @@ public class Worker : MonoBehaviour
         EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
     }
 
-    public IEnumerator HireWorker()
-    {
-        if (GameManager.instance.totalSoftCurrency >= hireCost && !isUnlocked)
-        {
-            isUnlocked = true;
-            //locked.SetActive(false);
-            //unlocked.SetActive(true);
-            GameManager.instance.totalSoftCurrency -= hireCost; 
-            UpdateValues();
-            if (Reception.instance.totalCashiers == 1)
-            {
-                StartCoroutine(Reception.instance.taskList[0].TaskComplete());
-            }
-            //service.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), 0.05f);
-            //service1.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.05f);
-
-            //effects[0].Play();
-            //effects[1].Play();
-            yield return new WaitForSeconds(0.10f);
-            //service.SetActive(true);
-            //service.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
-            //service1.SetActive(true);
-            //service1.transform.DOScale(new Vector3(0.85f, 0.85f, 0.85f), 0.75f);
-
-            yield return new WaitForSeconds(0.5f);
-            //Destroy(effects[0].gameObject);
-            //Destroy(effects[1].gameObject);
-        }
-    }
+    
 
     public void UpdateClick()
     {
@@ -149,14 +113,7 @@ public class Worker : MonoBehaviour
         startTimer = false;
         isHolding = false;
         holdTimer = 0;
-    }
-
-    public void UpdateValues()
-    {
-        CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
-        Reception.instance.totalHires_text.text = Reception.instance.totalCashiers.ToString();
-        PlayerPrefs.SetInt("Receptionist", Reception.instance.totalCashiers);
-    }
+    } 
 
      
 

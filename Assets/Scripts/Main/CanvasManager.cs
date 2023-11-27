@@ -20,10 +20,16 @@ public class CanvasManager : MonoBehaviour
     public GameObject rewardPopup1;
     public GameObject popupObject;
     public GameObject popupObject1;
-     
-    public List<GameObject> tasksGO; 
 
-    public int taskNumber; 
+    public int collectedTipCount;
+    //public int massagesGiven;
+    //public int haircutsGiven;
+    //public int swimsGiven;
+    //public int photoshootGiven;
+
+    public List<GameObject> tasksGO;
+
+    public int taskNumber;
 
     public Sprite completedTask;
 
@@ -39,7 +45,7 @@ public class CanvasManager : MonoBehaviour
         //Camera.main.transform.position = new Vector3(-140f, 60, -47f);
         //Camera.main.orthographicSize = 20;
         instance = this;
-        taskNumber = 1;
+        //taskNumber = 1;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
         totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
         totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();

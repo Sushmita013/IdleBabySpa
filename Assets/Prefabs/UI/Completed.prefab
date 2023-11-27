@@ -35,7 +35,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: 6.8905}
+  m_AnchoredPosition: {x: 0, y: 6.8905}
   m_SizeDelta: {x: 208.5254, y: 84.6807}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8741496206754213090
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 8741496207471094692}
   - component: {fileID: 8741496207471094691}
   - component: {fileID: 8741496207471094693}
+  - component: {fileID: 5069163565435496689}
   m_Layer: 5
   m_Name: Completed
   m_TagString: Untagged
@@ -335,3 +336,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5069163565435496689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741496207471094689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c43f5b8d445984090a87b77fd37358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardValue: 0
+  taskName: 

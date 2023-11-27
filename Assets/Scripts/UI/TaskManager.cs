@@ -14,16 +14,18 @@ public class TaskManager : MonoBehaviour
      
     public TextMeshProUGUI collectMoneyTxt;  
     [SerializeField] float taskProgress = 0;
-    [SerializeField] float totalearnings;
+    [SerializeField] float totalearnings; 
 
     //Tasks
     public static Action BuildReceptionAction; 
     public static Action BuildAction; 
     public static Action UpgradeAction; 
-    public static Action CollectTipsAction; 
+    public static Action <int> CollectTipsAction;
+    
+    public static Action <int> GiveServiceAction; 
+    public static Action UpgradeCashierAction; 
     public static Action BuyInteriorAction; 
     public static Action IncreaseSpaLevelAction; 
-    public static Action GiveServiceAction; 
     public static Action UpgradeParkingAction; 
 
 
@@ -95,9 +97,10 @@ public class TaskManager : MonoBehaviour
         BuildAction += BuildTask;
         UpgradeAction += UpgradeTask;
         CollectTipsAction += CollectTipTask;
+        GiveServiceAction += GiveServiceTask;
+        UpgradeCashierAction += UpgradeCashier;
         BuyInteriorAction += BuyInteriorTask;
         IncreaseSpaLevelAction += IncreaseLevelTask;
-        GiveServiceAction += GiveServiceTask;
         UpgradeParkingAction += UpgradeParkingTask;
     }
 
@@ -107,9 +110,10 @@ public class TaskManager : MonoBehaviour
         BuildAction -= BuildTask;
         UpgradeAction -= UpgradeTask; 
         CollectTipsAction -= CollectTipTask;
+        GiveServiceAction -= GiveServiceTask;
+        UpgradeCashierAction -= UpgradeCashier; 
         BuyInteriorAction -= BuyInteriorTask;
         IncreaseSpaLevelAction -= IncreaseLevelTask;
-        GiveServiceAction -= GiveServiceTask;
         UpgradeParkingAction -= UpgradeParkingTask;
     }
 
@@ -128,7 +132,20 @@ public class TaskManager : MonoBehaviour
         taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
         CurrentActiveTask.taskType.CheckIsTaskCompleted();
     }
-    void CollectTipTask()
+    void CollectTipTask(int value)
+    {
+        currentActiveTask.GetComponent<CollectTips>().currentLevel += value;
+        taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
+        CurrentActiveTask.taskType.CheckIsTaskCompleted();
+    }
+    void GiveServiceTask(int value)
+    {
+        currentActiveTask.GetComponent<GiveService>().currentLevel += value;
+
+        taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
+        CurrentActiveTask.taskType.CheckIsTaskCompleted();
+    }
+    void UpgradeCashier()
     {
         taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
         CurrentActiveTask.taskType.CheckIsTaskCompleted();
@@ -138,10 +155,6 @@ public class TaskManager : MonoBehaviour
         taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
         CurrentActiveTask.taskType.CheckIsTaskCompleted();
     }void IncreaseLevelTask()
-    {
-        taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
-        CurrentActiveTask.taskType.CheckIsTaskCompleted();
-    }void GiveServiceTask()
     {
         taskPanel.Progress = CurrentActiveTask.taskType.CheckCurrentProgress();
         CurrentActiveTask.taskType.CheckIsTaskCompleted();

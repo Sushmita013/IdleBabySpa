@@ -36,7 +36,9 @@ public class ParentController : MonoBehaviour
 
     public Action onCompleteAction;
 
-    private Service service;
+    private WorkerNPC service;
+
+    public List<RoomManager> roomManagers;
 
     //public Transform babyTransform;
 
@@ -52,6 +54,7 @@ public class ParentController : MonoBehaviour
         babyRotation = baby.transform.localEulerAngles;
         parentRot = parentObject.transform.localEulerAngles;
         parentPos = parentObject.transform.localPosition;
+        roomManagers.AddRange(AvailabilityManager.instance.rooms);
     }
 
     void Update()
@@ -125,7 +128,7 @@ public class ParentController : MonoBehaviour
             chairPoint = other.GetComponent<WorkerNPC>().chairPoint;
             parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
             serviceCollider = other.GetComponent<BoxCollider>();
-            pairPos = transform.localPosition;
+            pairPos = transform.position;
             StartCoroutine(GetHaircut(parent)); 
         }
         if(other.tag=="SwimUnit")
@@ -180,7 +183,7 @@ public class ParentController : MonoBehaviour
     public void SnapToHaircutPos()
     {
         transform.localEulerAngles = new Vector3(0, 0, 0);
-        transform.localPosition = pairPos; 
+        transform.position = pairPos; 
         SnapToOriginalPos(); 
     }
     public void SnapToSwimPos()
@@ -253,7 +256,7 @@ public class ParentController : MonoBehaviour
         MoveToTarget(chairPoint);
         //navMeshAgent.SetDestination(chairPoint.position);
         RemoveBaby();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         navMeshAgent.ResetPath(); 
         transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]); 
@@ -266,7 +269,7 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[3]);
         //navMeshAgent.SetDestination(destination.position);
         MoveToTarget(destination); 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.25f);
         AddBaby();
         SnapToMassagePos(); 
         babyController.HadClothes();
@@ -311,7 +314,7 @@ public class ParentController : MonoBehaviour
         //parentObject.GetComponent<NavMeshAgent>().enabled = true;
         MoveToTarget(chairPoint); 
         //navMeshAgent.SetDestination(chairPoint.position);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3.5f);
         navMeshAgent.ResetPath();
         transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]);
@@ -324,14 +327,14 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[3]);
         //navMeshAgent.SetDestination(destination.position);
         MoveToTarget(destination); 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4f);
         AddBaby(); 
         navMeshAgent.ResetPath();
         babyController.longHair.SetActive(false);
         babyController.shortHair.SetActive(true);
         BabyScaleDown();
-        transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
-        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+        //transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
+        //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         SnapToHaircutPos(); 
         PlayAnimation(parentData.anim[9]);
         babyController.PlayAnimation("baby going with parent from chair"); 
@@ -354,19 +357,19 @@ public class ParentController : MonoBehaviour
         babyController.PlayAnimation("baby going in watertank");  
         yield return new WaitForSeconds(3.5f);
         serviceCollider.enabled = false; 
-        baby.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f);
         baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.1f);
+        baby.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f);
         baby.transform.DOLocalMove(new Vector3(1.593f, -0.413f, 4.674f), 0.1f);
-        yield return new WaitForSeconds(0.2f);
-        RemoveBaby();
+        yield return new WaitForSeconds(0.6f);
+        DOTween.Kill(baby.transform);
+        RemoveBaby(); 
         babyController.babyClothes.SetActive(false);
         babyController.bodyDiaper.SetActive(true);
         babyController.PlayAnimation("baby in watertank idle");
         PlayAnimation(parentData.anim[3]);  
         //parentObject.GetComponent<NavMeshAgent>().enabled = true;
         //navMeshAgent.SetDestination(chairPoint.position);
-        MoveToTarget(chairPoint); 
-        RemoveBaby();
+        MoveToTarget(chairPoint);  
         yield return new WaitForSeconds(2f);
         navMeshAgent.ResetPath();
         transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
@@ -387,8 +390,8 @@ public class ParentController : MonoBehaviour
         babyController.babyClothes.SetActive(true);
         BabyScaleDown();
         baby.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
-        transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
-        transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
+        //transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
+        //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
         PlayAnimation(parentData.anim[11]);
         babyController.PlayAnimation("baby going back with parent"); 
         serviceComplete[2] = true; 
@@ -513,7 +516,22 @@ public class ParentController : MonoBehaviour
 
     public Transform FindDestination()
     {
+        //if (roomManagers.Count <= 0)
+        //{
+        //    ExitSpa(parent);
+        //    return null;
+        //}
+        //RoomManager room = null;
         Transform serviceDestination = null;
+
+        //do
+        //{
+        //    room = roomManagers[UnityEngine.Random.Range(0, roomManagers.Count)]; 
+
+        //} while (!room.IsServiceAvailable());
+
+        //serviceDestination = room.CheckForService().transform;
+        //roomManagers.Remove(room); 
         for (int i = 0; i <= serviceComplete.Count; i++)
         {
             if (!serviceComplete[i])
@@ -531,17 +549,17 @@ public class ParentController : MonoBehaviour
         switch (roomNo)
         {
             case 0:
-                serviceDestination=GetMassageService();
+                serviceDestination = GetMassageService();
                 break;
             case 1:
-                serviceDestination= GetHaircutService();
+                serviceDestination = GetHaircutService();
                 break;
             case 2:
-                serviceDestination= GetSwimService();
+                serviceDestination = GetSwimService();
                 break;
             case 3:
-                serviceDestination= GetPhotoshootService();
-                break; 
+                serviceDestination = GetPhotoshootService();
+                break;
         }
 
         return serviceDestination;
@@ -549,12 +567,12 @@ public class ParentController : MonoBehaviour
 
     public Transform GetRandomService()
     {
-        Service destinationtemp = AvailabilityManager.instance.GetAvailableService();
+        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableService();
 
         if (destinationtemp != null)
         {
             destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<Service>();
+            service = destinationtemp.GetComponentInParent<WorkerNPC>();
         }
         //else
         //{
@@ -565,12 +583,12 @@ public class ParentController : MonoBehaviour
     }
     public Transform GetMassageService()
     {
-        Service destinationtemp = AvailabilityManager.instance.GetAvailableMassageService();
+        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableMassageService();
 
         if (destinationtemp != null)
         {
             destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<Service>();
+            service = destinationtemp.GetComponentInParent<WorkerNPC>();
         }
         //else
         //{
@@ -581,12 +599,12 @@ public class ParentController : MonoBehaviour
     }
     public Transform GetHaircutService()
     {
-        Service destinationtemp = AvailabilityManager.instance.GetAvailableHaircutService();
+        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableHaircutService();
 
         if (destinationtemp != null)
         {
             destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<Service>(); 
+            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
         }
 
         //if (AvailabilityManager.instance.GetAvailableHaircutService() != null)
@@ -602,12 +620,12 @@ public class ParentController : MonoBehaviour
     }
     public Transform GetSwimService()
     {
-        Service destinationtemp = AvailabilityManager.instance.GetAvailableSwimService();
+        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableSwimService();
 
         if (destinationtemp != null)
         {
             destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<Service>(); 
+            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
         }
         //if (AvailabilityManager.instance.GetAvailableSwimService() != null)
         //{
@@ -622,12 +640,12 @@ public class ParentController : MonoBehaviour
     }
     public Transform GetPhotoshootService()
     {
-        Service destinationtemp = AvailabilityManager.instance.GetAvailablePhotoService();
+        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailablePhotoService();
 
         if (destinationtemp != null)
         {
             destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<Service>(); 
+            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
         }
         //if (AvailabilityManager.instance.GetAvailablePhotoService() != null)
         //{
