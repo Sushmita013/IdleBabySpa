@@ -40,6 +40,7 @@ public class ServiceTab : IService
     public List<GameObject> wallFloor;       // List of wall and floor objects
     public List<GameObject> services;        // List of service objects
     public List<GameObject> hireUI;        // List of service objects
+    public List<GameObject> hireButtons;        // List of service objects
 
     public ParticleSystem upgradeEffect;    // Particle effect for upgrades
     public ParticleSystem upgradeEffect1;   // Particle effect for upgrades (level 13)
@@ -274,6 +275,7 @@ public class ServiceTab : IService
         wallFloor[1].SetActive(true);
         wallFloor[1].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
         hireUI[0].SetActive(true);
+        hireButtons[0].SetActive(true); 
         //services[1].SetActive(true);
         //services[1].transform.DOScale(new Vector3(1, 1, 1), 1f); 
         Destroy(wallFloor[0].gameObject); 
@@ -296,7 +298,8 @@ public class ServiceTab : IService
         upgradeEffect2.Play();
         wallFloor[2].SetActive(true);
         wallFloor[2].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
-        hireUI[1].SetActive(true); 
+        hireUI[1].SetActive(true);
+        hireButtons[1].SetActive(true); 
         //services[2].SetActive(true);
         //services[2].transform.DOScale(new Vector3(1, 1, 1), 1f); 
         Destroy(wallFloor[1].gameObject); 

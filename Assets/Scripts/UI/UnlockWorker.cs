@@ -31,6 +31,7 @@ public class UnlockWorker : MonoBehaviour
             locked.SetActive(false);
             unlocked.SetActive(true);
             GameManager.instance.totalSoftCurrency -= hireCost;
+            CanvasManager.instance.UpdateSoftCurrency();
             objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
             yield return new WaitForSeconds(0.10f);
             Destroy(unlockUI.gameObject);

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 
-public class HaircutTab : MonoBehaviour
+public class HaircutTab : IService
 {
     // Public variables
     public float costPerLevel;              // Cost for upgrading
