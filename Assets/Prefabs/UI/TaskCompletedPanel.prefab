@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52.258163, y: -24.3025}
-  m_SizeDelta: {x: 332.7639, y: 57.89}
+  m_AnchoredPosition: {x: -80.46642, y: -24.302505}
+  m_SizeDelta: {x: 425.7318, y: 57.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2472156523636739474
 CanvasRenderer:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -598,6 +598,7 @@ MonoBehaviour:
   messageText: {fileID: 2472156523636739477}
   rewardText: {fileID: 2472156524406079610}
   button: {fileID: 2472156523980844086}
+  rewardValue: 0
 --- !u!1 &2472156523980844040
 GameObject:
   m_ObjectHideFlags: 0

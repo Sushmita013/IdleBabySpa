@@ -57,7 +57,7 @@ public class ButtonTabsChange1 : MonoBehaviour
 
     public void ResetButtons()
     {
-        Tabs panelManager = FindObjectOfType<Tabs>(); 
+        Tabs3 panelManager = FindObjectOfType<Tabs3>(); 
         foreach (var button in panelManager.tabs)
         { 
                 button.UpdateButtonState(ButtonStates.deselected); 

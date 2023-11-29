@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using MoreMountains.NiceVibrations;
+
 
 public class Specialist : MonoBehaviour
 {
-    public RoomManager room;
-    public bool isUnlocked; 
+    public RoomManager room; 
 
     public int workerSpeedLevel; 
 
@@ -25,20 +26,16 @@ public class Specialist : MonoBehaviour
     public TMP_Text speedText; 
     public TMP_Text upgradeCostText;
      
-    public ParticleSystem effect;
+    public ParticleSystem effect; 
+    
     public bool isHolding;
     public bool startTimer;
 
     public float holdTimer;
 
 
-
     void Start()
-    {
-        //foreach (ParticleSystem item in effects)
-        //{
-        //    item.Stop();
-        //}
+    { 
         effect.Stop();
         upgradeSpeedButton.onClick.AddListener(UpdateClick); 
     }
@@ -63,6 +60,7 @@ public class Specialist : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
             GameManager.instance.totalSoftCurrency -= costPerLevel;
             CanvasManager.instance.UpdateSoftCurrency();
             effect.Play();

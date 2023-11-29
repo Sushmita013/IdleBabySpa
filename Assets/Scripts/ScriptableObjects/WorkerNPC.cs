@@ -39,7 +39,7 @@ public class WorkerNPC : MonoBehaviour
     {
         //duration = 4;
         GetDuration(); 
-        effect.Stop();
+        effect.Stop(); 
         //animator = GetComponent<Animator>();
         //effectObject.Stop();
     }
@@ -88,4 +88,5 @@ public class WorkerNPC : MonoBehaviour
         duration = 60 / (room.worker.workerSpeed);
         return duration;
     }
+     
 }

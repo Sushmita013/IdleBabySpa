@@ -28,9 +28,7 @@ public class ParentController : MonoBehaviour
     private QueueManager queueManager;
     //public float totalBill;
 
-    private int parentRotation;
-
-    public List<bool> serviceComplete;
+    private int parentRotation; 
 
     public int roomNo;
 
@@ -45,6 +43,8 @@ public class ParentController : MonoBehaviour
     public Vector3 babyPos,babyRotation;
     public Vector3 parentPos,parentRot;
     public Vector3 pairPos, pairRotation;
+
+    public RoomManager currentRoom;
 
     void Start()
     {
@@ -204,23 +204,20 @@ public class ParentController : MonoBehaviour
         Debug.Log("MoveToReception");
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent"); 
-    }
-    public void ReceptionEntry(ParentNPC parentData)
-    {
-        Debug.Log("ReceptionEntry"); 
-        PlayAnimation(parentData.anim[1]);
-        babyController.PlayAnimation("standing idle"); 
-        //yield return new WaitForSeconds(duration);
-        MoveToNextDestination(parent); 
-    }
+    } 
     public void MoveToNextDestination(ParentNPC parentData)
     {
         Debug.Log("MoveToNextDestination");  
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
-        destination = GetRandomService();
-        queueManager.MoveGuestToDestination(destination);
-        
+        Transform parentDestination = FindDestination();
+        if (parentDestination != null)
+        {
+            destination = parentDestination; 
+            MoveToTarget(parentDestination);
+        }
+        queueManager.waitingQueue.RemoveFromQueue(this);
+
         //agent.SetDestination(FindDestination().position);  
     }
     public void MoveToNextService(ParentNPC parentData)
@@ -228,7 +225,12 @@ public class ParentController : MonoBehaviour
         Debug.Log("MoveToNextService");  
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
-        MoveToTarget(FindDestination()); 
+        Transform parentDestination = FindDestination(); 
+        if (parentDestination != null)
+        {
+            destination = parentDestination;
+        MoveToTarget(parentDestination); 
+        }
         //navMeshAgent.SetDestination(FindDestination().position);  
     } 
     public IEnumerator GetMassage(ParentNPC parentData)
@@ -281,12 +283,12 @@ public class ParentController : MonoBehaviour
         //PlayAnimationMassage("standing idle");
         //navMeshAgent.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f); 
         PlayAnimation(parentData.anim[7]);
-        babyController.PlayAnimation("take baby from table"); 
-        serviceComplete[0] = true; 
+        babyController.PlayAnimation("take baby from table");  
         yield return new WaitForSeconds(4);
         SnapToOriginalPos();
         //serviceCollider.enabled=true;
         service.isAvailable = true;
+        currentRoom.waiting.CheckForFreeSlots();
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3);
@@ -337,12 +339,12 @@ public class ParentController : MonoBehaviour
         //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         SnapToHaircutPos(); 
         PlayAnimation(parentData.anim[9]);
-        babyController.PlayAnimation("baby going with parent from chair"); 
-        serviceComplete[1] = true; 
+        babyController.PlayAnimation("baby going with parent from chair");  
         yield return new WaitForSeconds(4);
         SnapToOriginalPos(); 
         //serviceCollider.enabled = true; 
         service.isAvailable = true;
+        currentRoom.waiting.CheckForFreeSlots(); 
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3);
@@ -393,11 +395,11 @@ public class ParentController : MonoBehaviour
         //transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
         //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
         PlayAnimation(parentData.anim[11]);
-        babyController.PlayAnimation("baby going back with parent"); 
-        serviceComplete[2] = true; 
+        babyController.PlayAnimation("baby going back with parent");  
         yield return new WaitForSeconds(4);
         SnapToOriginalPos(); 
         service.isAvailable = true;
+        currentRoom.waiting.CheckForFreeSlots(); 
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         MoveToNextService(parent);
         yield return new WaitForSeconds(3); 
@@ -446,14 +448,14 @@ public class ParentController : MonoBehaviour
         //parentObject.transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
         //parentObject.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
         PlayAnimation(parentData.anim[13]);
-        babyController.PlayAnimation("taking baby on photoProp"); 
-        serviceComplete[3] = true;
+        babyController.PlayAnimation("taking baby on photoProp");  
         //navMeshAgent.enabled = true; 
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         yield return new WaitForSeconds(1.5f);
         SnapToOriginalPos();
 
         service.isAvailable = true;
+        currentRoom.waiting.CheckForFreeSlots(); 
         ExitSpa(parent);
         yield return new WaitForSeconds(3); 
         serviceCollider.enabled = true; 
@@ -515,147 +517,156 @@ public class ParentController : MonoBehaviour
     }
 
     public Transform FindDestination()
-    {
-        //if (roomManagers.Count <= 0)
-        //{
-        //    ExitSpa(parent);
-        //    return null;
-        //}
-        //RoomManager room = null;
-        Transform serviceDestination = null;
-
-        //do
-        //{
-        //    room = roomManagers[UnityEngine.Random.Range(0, roomManagers.Count)]; 
-
-        //} while (!room.IsServiceAvailable());
-
-        //serviceDestination = room.CheckForService().transform;
-        //roomManagers.Remove(room); 
-        for (int i = 0; i <= serviceComplete.Count; i++)
+    { 
+        bool noServiceAvailable=false;
+        if (roomManagers.Count <= 0)
         {
-            if (!serviceComplete[i])
+            ExitSpa(parent);
+            return null;
+        }
+        RoomManager room = null;
+        Transform serviceDestination = null;
+        List<RoomManager> tempList = new List<RoomManager>();
+        tempList.AddRange(roomManagers);
+        do
+        { 
+            room = tempList[UnityEngine.Random.Range(0, tempList.Count)];
+            tempList.Remove(room);
+            if (tempList.Count <= 0)
             {
-                roomNo = i;
+                noServiceAvailable = true;
                 break;
             }
-            //else
-            //{
-            //    Debug.Log("All services done. Proceed to exit");
-            //    serviceDestination = spawnPoint;
-            //}
-        }
+            
+        } while (!room.IsServiceAvailable());
 
-        switch (roomNo)
+        if (noServiceAvailable)
         {
-            case 0:
-                serviceDestination = GetMassageService();
-                break;
-            case 1:
-                serviceDestination = GetHaircutService();
-                break;
-            case 2:
-                serviceDestination = GetSwimService();
-                break;
-            case 3:
-                serviceDestination = GetPhotoshootService();
-                break;
+            currentRoom = AvailabilityManager.instance.FindSmallesWaitingQueue(roomManagers);
+            currentRoom.waiting.AddInQueue(this);
+            return null;
         }
+        else
+        { 
+            currentRoom = room;
+            service = room.CheckForService();
+            serviceDestination = service.destinationPoint; 
 
+        roomManagers.Remove(room);
         return serviceDestination;
+        } 
+
     }
 
-    public Transform GetRandomService()
+    public void CheckForSlots()
     {
-        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableService();
-
-        if (destinationtemp != null)
+        if (currentRoom == null)
         {
-            destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<WorkerNPC>();
+            return;
         }
-        //else
-        //{
-        //    return null;
-        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
-        //}
-        return destination;
-    }
-    public Transform GetMassageService()
-    {
-        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableMassageService();
-
-        if (destinationtemp != null)
+        Transform serviceDestination;
+        if (currentRoom.IsServiceAvailable()) 
         {
-            destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<WorkerNPC>();
+            service = currentRoom.CheckForService();
+            serviceDestination = service.destinationPoint;
+            roomManagers.Remove(currentRoom);
+            currentRoom.waiting.RemoveFromQueue(this);
+            destination = serviceDestination;
+            MoveToTarget(serviceDestination);
         }
-        //else
-        //{
-        //    return null;
-        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
-        //}
-        return destination;
     }
-    public Transform GetHaircutService()
-    {
-        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableHaircutService();
 
-        if (destinationtemp != null)
-        {
-            destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
-        }
+    //public Transform GetRandomService()
+    //{
+    //    WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableService();
 
-        //if (AvailabilityManager.instance.GetAvailableHaircutService() != null)
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailableHaircutService().destinationPoint;
-        //    //serviceComplete[1] = true;
-        //}
-        //else
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
-        //}
-        return destination;
-    }
-    public Transform GetSwimService()
-    {
-        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableSwimService();
+    //    if (destinationtemp != null)
+    //    {
+    //        destination = destinationtemp.destinationPoint;
+    //        service = destinationtemp.GetComponentInParent<WorkerNPC>();
+    //    }
+    //    //else
+    //    //{
+    //    //    return null;
+    //    //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+    //    //}
+    //    return destination;
+    //}
+    //public Transform GetMassageService()
+    //{
+    //    WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableMassageService();
 
-        if (destinationtemp != null)
-        {
-            destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
-        }
-        //if (AvailabilityManager.instance.GetAvailableSwimService() != null)
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailableSwimService().destinationPoint;
-        //    //serviceComplete[2] = true;
-        //}
-        //else
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
-        //}
-        return destination;
-    }
-    public Transform GetPhotoshootService()
-    {
-        WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailablePhotoService();
+    //    if (destinationtemp != null)
+    //    {
+    //        destination = destinationtemp.destinationPoint;
+    //        service = destinationtemp.GetComponentInParent<WorkerNPC>();
+    //    }
+    //    //else
+    //    //{
+    //    //    return null;
+    //    //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+    //    //}
+    //    return destination;
+    //}
+    //public Transform GetHaircutService()
+    //{
+    //    WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableHaircutService();
 
-        if (destinationtemp != null)
-        {
-            destination = destinationtemp.destinationPoint;
-            service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
-        }
-        //if (AvailabilityManager.instance.GetAvailablePhotoService() != null)
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailablePhotoService().destinationPoint;
-        //    //serviceComplete[3] = true;
-        //}
-        //else
-        //{
-        //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
-        //}
-        return destination;
-    }
+    //    if (destinationtemp != null)
+    //    {
+    //        destination = destinationtemp.destinationPoint;
+    //        service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
+    //    }
+
+    //    //if (AvailabilityManager.instance.GetAvailableHaircutService() != null)
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailableHaircutService().destinationPoint;
+    //    //    //serviceComplete[1] = true;
+    //    //}
+    //    //else
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+    //    //}
+    //    return destination;
+    //}
+    //public Transform GetSwimService()
+    //{
+    //    WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailableSwimService();
+
+    //    if (destinationtemp != null)
+    //    {
+    //        destination = destinationtemp.destinationPoint;
+    //        service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
+    //    }
+    //    //if (AvailabilityManager.instance.GetAvailableSwimService() != null)
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailableSwimService().destinationPoint;
+    //    //    //serviceComplete[2] = true;
+    //    //}
+    //    //else
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+    //    //}
+    //    return destination;
+    //}
+    //public Transform GetPhotoshootService()
+    //{
+    //    WorkerNPC destinationtemp = AvailabilityManager.instance.GetAvailablePhotoService();
+
+    //    if (destinationtemp != null)
+    //    {
+    //        destination = destinationtemp.destinationPoint;
+    //        service = destinationtemp.GetComponentInParent<WorkerNPC>(); 
+    //    }
+    //    //if (AvailabilityManager.instance.GetAvailablePhotoService() != null)
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailablePhotoService().destinationPoint;
+    //    //    //serviceComplete[3] = true;
+    //    //}
+    //    //else
+    //    //{
+    //    //    destination = AvailabilityManager.instance.GetAvailableQueueSlot().destinationPoint;
+    //    //}
+    //    return destination;
+    //}
 }

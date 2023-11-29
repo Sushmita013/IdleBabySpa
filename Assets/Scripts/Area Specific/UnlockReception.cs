@@ -11,6 +11,9 @@ public class UnlockReception : MonoBehaviour
     public ParticleSystem effectUI;
     public ParticleSystem explosionFx;
     public GameObject objectToEnable;
+    public GameObject borderWalls; 
+    public GameObject enableNextPanel;
+
     public Reception reception;
 
     public string messageText;
@@ -47,6 +50,8 @@ public class UnlockReception : MonoBehaviour
             }
             yield return new WaitForSeconds(0.5f);
             explosionFx.Play();
+            borderWalls.SetActive(false);
+            enableNextPanel.SetActive(true); 
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             yield return new WaitForSeconds(0.5f);

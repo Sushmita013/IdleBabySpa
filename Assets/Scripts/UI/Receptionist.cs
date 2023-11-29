@@ -47,7 +47,7 @@ public class Receptionist : MonoBehaviour
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
         yield return new WaitForSeconds(GetDuration());
-        parent.MoveToNextDestination(parent.parent);
+        parent.MoveToNextDestination(parent.parent); 
         effect.Play();
         occupiedUI.SetActive(false);
         PlayAnimation("Idle");  

@@ -7,6 +7,5 @@
     GiveService,
     UpgradeCashier,
     BuyInterior,
-    IncreaseSpalevel,
-    UpgradeParking
+    IncreaseSpalevel, 
 }

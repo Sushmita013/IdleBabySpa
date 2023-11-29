@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MoreMountains.NiceVibrations;
+
 
 public class Advertisement : MonoBehaviour
 {
@@ -20,9 +22,7 @@ public class Advertisement : MonoBehaviour
 
     public int multiplier;
 
-    public List<Slider> levelSlider;
-
-    public List<TaskButton3> taskList;
+    public List<Slider> levelSlider; 
 
     public List<TMP_Text> levelText;
 
@@ -71,6 +71,7 @@ public class Advertisement : MonoBehaviour
         { 
             if(room.serviceLevel < 7)
             {
+                MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
                 upgradeEffect.Play();
             room.serviceLevel++;
                 levelText[0].text = room.serviceLevel.ToString();

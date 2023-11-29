@@ -23,10 +23,9 @@ public class TaskManager : MonoBehaviour
     public static Action <int> CollectTipsAction;
     
     public static Action <int> GiveServiceAction; 
-    public static Action UpgradeCashierAction; 
-    public static Action BuyInteriorAction; 
-    public static Action IncreaseSpaLevelAction; 
-    public static Action UpgradeParkingAction; 
+    public static Action UpgradeCashierAction;  
+    //public static Action BuyInteriorAction; 
+    //public static Action IncreaseSpaLevelAction; 
 
 
     public Task CurrentActiveTask
@@ -98,10 +97,9 @@ public class TaskManager : MonoBehaviour
         UpgradeAction += UpgradeTask;
         CollectTipsAction += CollectTipTask;
         GiveServiceAction += GiveServiceTask;
-        UpgradeCashierAction += UpgradeCashier;
-        BuyInteriorAction += BuyInteriorTask;
-        IncreaseSpaLevelAction += IncreaseLevelTask;
-        UpgradeParkingAction += UpgradeParkingTask;
+        UpgradeCashierAction += UpgradeCashier; 
+        //BuyInteriorAction += BuyInteriorTask;
+        //IncreaseSpaLevelAction += IncreaseLevelTask;
     }
 
     private void OnDisable()
@@ -112,9 +110,8 @@ public class TaskManager : MonoBehaviour
         CollectTipsAction -= CollectTipTask;
         GiveServiceAction -= GiveServiceTask;
         UpgradeCashierAction -= UpgradeCashier; 
-        BuyInteriorAction -= BuyInteriorTask;
-        IncreaseSpaLevelAction -= IncreaseLevelTask;
-        UpgradeParkingAction -= UpgradeParkingTask;
+        //BuyInteriorAction -= BuyInteriorTask;
+        //IncreaseSpaLevelAction -= IncreaseLevelTask; 
     }
 
     void BuildReception()

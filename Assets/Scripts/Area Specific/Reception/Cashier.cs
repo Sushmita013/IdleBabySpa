@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using MoreMountains.NiceVibrations;
+
 
 public class Cashier : MonoBehaviour
 {
@@ -65,6 +67,7 @@ public class Cashier : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= hireCost && !isUnlocked)
         {
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
             isUnlocked = true;
             locked.SetActive(false);
             unlocked.SetActive(true);
@@ -130,7 +133,8 @@ public class Cashier : MonoBehaviour
     {
         if(GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
-        effects[0].Play(); 
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
+            effects[0].Play(); 
             GameManager.instance.totalSoftCurrency -= costPerLevel;
             CanvasManager.instance.UpdateSoftCurrency();
             cashierLevel++;

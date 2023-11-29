@@ -6,7 +6,6 @@ using TMPro;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
 
-
 public class ServiceTab : IService
 {
     // Public variables
@@ -15,58 +14,61 @@ public class ServiceTab : IService
     public float cost_percentageIncrease;   // Percentage increase in cost
     public float income_Increase;           // Income increase per upgrade
 
-    public TMP_Text cost_upgrade;           // Text displaying upgrade cost
-    public TMP_Text income_value;           // Text displaying income value
+    // Text elements displaying upgrade cost and income value
+    public TMP_Text cost_upgrade;
+    public TMP_Text income_value;
 
     public RoomManager room;                // Reference to RoomManager
 
     public int multiplier;                  // Income multiplier
 
-    public List<Slider> levelSlider;        // Sliders for tracking service level progress
+    // Sliders for tracking service level progress
+    public List<Slider> levelSlider;
 
-    /*public List<TaskButton3> taskList;*/      // List of tasks related to service level
-
-    public List<TMP_Text> level;            // Text displaying service level
+    // Text displaying service level
+    public List<TMP_Text> level;
 
     public Button upgradeButton;            // Button to trigger the upgrade
 
-    public List<GameObject> panels;          // List of UI panels
-    public List<GameObject> lampsPlantRooms; // List of plant room lamps
-    public List<GameObject> lampsPlantLevel2; // List of lamps for level 2 plants
-    public List<GameObject> lampsPlantLevel3; // List of lamps for level 3 plants
-    public List<GameObject> massageTable; // List of plant room lamps
-    public List<GameObject> massageTableLevel2; // List of table for level 2 
-    public List<GameObject> massageTableLevel3; // List of table for level 3 
-    public List<GameObject> wallFloor;       // List of wall and floor objects
-    public List<GameObject> services;        // List of service objects
-    public List<GameObject> hireUI;        // List of service objects
-    public List<GameObject> hireButtons;        // List of service objects
+    // Lists of UI panels and various visual elements
+    public List<GameObject> panels;
+    public List<GameObject> visualChange1;
+    public List<GameObject> visualChange2;
+    public List<GameObject> visualChange3;
+    public List<GameObject> equipmentLevel1;
+    public List<GameObject> equipmentLevel2;
+    public List<GameObject> equipmentLevel3;
+    public List<GameObject> wallFloor; 
+    public List<GameObject> hireUI;
+    public List<GameObject> hireButtons;
 
-    public ParticleSystem upgradeEffect;    // Particle effect for upgrades
-    public ParticleSystem upgradeEffect1;   // Particle effect for upgrades (level 13)
-    public ParticleSystem upgradeEffect2;   // Particle effect for upgrades (level 25)
-    public ParticleSystem upgradeEffect3;   // Particle effect for upgrades (level 38)
-    public ParticleSystem upgradeEffect4;   // Particle effect for upgrades (level 63)
+    // Particle effect for upgrades
+    public ParticleSystem upgradeEffect;
+    public ParticleSystem upgradeEffect1;
+    public ParticleSystem upgradeEffect2;
+    public ParticleSystem upgradeEffect3;
+    public ParticleSystem upgradeEffect4;
 
     // Private variables
     private bool isHolding;                 // Flag for holding upgrade button
     private bool startTimer;                // Flag for starting upgrade timer
     private float holdTimer;                // Timer for upgrade button hold duration
 
+    // Visual effects for service level upgrades
     public GameObject starEffect;
-    public GameObject starEffect1; 
+    public GameObject starEffect1;
 
     void Start()
     {
         // Add a listener for the upgrade button click event
-        upgradeButton.onClick.AddListener(UpgradeClick);
-
+        upgradeButton.onClick.AddListener(UpgradeClick); 
         // Stop all upgrade effect particle systems initially
         upgradeEffect.Stop();
         upgradeEffect1.Stop();
         upgradeEffect2.Stop();
         upgradeEffect3.Stop();
         upgradeEffect4.Stop();
+        LoadData();
     }
 
     private void Update()
@@ -95,15 +97,14 @@ public class ServiceTab : IService
         {
             // Play the upgrade effect particle system
             upgradeEffect.Play();
-            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact);
 
             if (room.serviceLevel <= 25)
             {
                 // Handle upgrades based on service level up to 25
                 multiplier = 1;
                 incomePerLevel *= multiplier;
-                income_Increase = 0.2f;
-                room.serviceLevel++;  
+                room.serviceLevel++;
 
                 if (room.serviceLevel == 13)
                 {
@@ -115,26 +116,26 @@ public class ServiceTab : IService
                     VisualUpgrade(25);
                     multiplier = 2;
                     incomePerLevel *= multiplier;
-                    income_Increase = 0.4f; 
+                    income_Increase *= multiplier;
 
                     // Move UI panels for service level 25
                     foreach (GameObject item in panels)
                     {
                         item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
-                    } 
+                    }
                 }
-                    level[0].text = room.serviceLevel.ToString();
-                    levelSlider[0].value = room.serviceLevel;
-                    UpdateCost(); 
+                level[0].text = room.serviceLevel.ToString();
+                levelSlider[0].value = room.serviceLevel;
+                UpdateCost();
             }
             else if (room.serviceLevel > 25 && room.serviceLevel <= 50)
             {
                 // Handle upgrades based on service level from 26 to 50
-                room.serviceLevel++; 
+                room.serviceLevel++;
 
                 multiplier = 1;
                 incomePerLevel *= multiplier;
-                income_Increase = 0.4f;
+
                 if (room.serviceLevel == 38)
                 {
                     VisualUpgrade(38);
@@ -144,46 +145,43 @@ public class ServiceTab : IService
                     VisualUpgrade(50);
                     multiplier = 3;
                     incomePerLevel *= multiplier;
-                    income_Increase = 1.2f; 
+                    income_Increase *= multiplier;
 
                     // Move UI panels for service level 50
                     foreach (GameObject item in panels)
                     {
                         item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
-                    } 
+                    }
                 }
-                    level[1].text = room.serviceLevel.ToString();
-                    levelSlider[1].value = room.serviceLevel;
-                    UpdateCost(); 
+                level[1].text = room.serviceLevel.ToString();
+                levelSlider[1].value = room.serviceLevel;
+                UpdateCost();
             }
             else if (room.serviceLevel > 50 && room.serviceLevel <= 75)
             {
                 // Handle upgrades based on service level from 51 to 75
-                room.serviceLevel++; 
+                room.serviceLevel++;
                 multiplier = 1;
                 incomePerLevel *= multiplier;
-                income_Increase = 1.2f;
                 if (room.serviceLevel == 63)
                 {
                     VisualUpgrade(63);
                 }
                 if (room.serviceLevel == 75)
                 {
-                    FinalUpgrade(); 
-                    multiplier = 4;
-                    incomePerLevel *= multiplier;
-                    income_Increase = 4.5f; 
+                    FinalUpgrade();
                 }
-                    level[2].text = room.serviceLevel.ToString();
-                    levelSlider[2].value = room.serviceLevel;
-                    UpdateCost(); 
+                level[2].text = room.serviceLevel.ToString();
+                levelSlider[2].value = room.serviceLevel;
+                UpdateCost();
             }
         }
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeTask)
         {
             TaskManager.UpgradeAction?.Invoke();
         }
-    } 
+    }
+
     public void EnableDisableUpgrade(float bal)
     {
         // Enable or disable the upgrade button based on available currency and service level
@@ -249,8 +247,8 @@ public class ServiceTab : IService
         {
             case 13:
                 upgradeEffect1.Play();
-                lampsPlantRooms[0].SetActive(true);
-                lampsPlantRooms[0].transform.DOScale(new Vector3(1, 1, 1), 1f);
+                visualChange1[0].SetActive(true);
+                visualChange1[0].transform.DOScale(new Vector3(1, 1, 1), 1f); 
                 break;
             case 25:
                 SizeExpansion();
@@ -270,25 +268,21 @@ public class ServiceTab : IService
     public void SizeExpansion()
     {
         // Visual upgrade for service level 25
-        starEffect.SetActive(true); 
+        starEffect.SetActive(true);
         upgradeEffect2.Play();
         wallFloor[1].SetActive(true);
         wallFloor[1].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
         hireUI[0].SetActive(true);
-        hireButtons[0].SetActive(true); 
-        //services[1].SetActive(true);
-        //services[1].transform.DOScale(new Vector3(1, 1, 1), 1f); 
-        Destroy(wallFloor[0].gameObject); 
-        lampsPlantRooms[1].SetActive(true);
-        lampsPlantRooms[1].transform.DOScale(new Vector3(1, 1, 1), 1f); 
-        Destroy(massageTable[0].gameObject);
-        foreach (GameObject item in massageTableLevel2)
+        hireButtons[0].SetActive(true);
+        Destroy(wallFloor[0].gameObject);
+        visualChange1[1].SetActive(true);
+        visualChange1[1].transform.DOScale(new Vector3(1, 1, 1), 1f);
+        Destroy(equipmentLevel1[0].gameObject);
+        foreach (GameObject item in equipmentLevel2)
         {
             item.SetActive(true);
             item.transform.DOScale(new Vector3(1, 1, 1), 1f);
         }
-        //massageTableLevel2[0].SetActive(true);
-        //massageTableLevel2[0].transform.DOScale(new Vector3(1, 1, 1), 1f);
     }
 
     public void SizeExpansion2()
@@ -299,38 +293,36 @@ public class ServiceTab : IService
         wallFloor[2].SetActive(true);
         wallFloor[2].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
         hireUI[1].SetActive(true);
-        hireButtons[1].SetActive(true); 
-        //services[2].SetActive(true);
-        //services[2].transform.DOScale(new Vector3(1, 1, 1), 1f); 
-        Destroy(wallFloor[1].gameObject); 
-        lampsPlantLevel2[2].SetActive(true);
-        lampsPlantLevel2[2].transform.DOScale(new Vector3(1, 1, 1), 1f); 
-        foreach (GameObject item in massageTableLevel2)
+        hireButtons[1].SetActive(true);
+        Destroy(wallFloor[1].gameObject);
+        visualChange2[2].SetActive(true);
+        visualChange2[2].transform.DOScale(new Vector3(1, 1, 1), 1f);
+        foreach (GameObject item in equipmentLevel2)
         {
             Destroy(item);
         }
-        foreach (GameObject item in massageTableLevel3)
+        foreach (GameObject item in equipmentLevel3)
         {
             item.SetActive(true);
             item.transform.DOScale(new Vector3(1, 1, 1), 1f);
-        } 
+        }
     }
 
     public void LampPlantUpgrade()
     {
         // Visual upgrade for service level 38
         upgradeEffect1.Play();
-        upgradeEffect3.Play(); 
+        upgradeEffect3.Play();
 
-        foreach (GameObject item in lampsPlantRooms)
+        foreach (GameObject item in visualChange1)
         {
             Destroy(item);
         }
-        foreach (GameObject item in lampsPlantLevel2)
+        foreach (GameObject item in visualChange2)
         {
             item.SetActive(true);
             item.transform.DOScale(new Vector3(1, 1, 1), 1f);
-        } 
+        }
     }
 
     public IEnumerator LampPlantUpgrade1()
@@ -338,25 +330,222 @@ public class ServiceTab : IService
         // Visual upgrade for service level 63
         upgradeEffect1.Play();
         upgradeEffect3.Play();
-        upgradeEffect4.Play(); 
-        foreach (GameObject item in lampsPlantLevel2)
+        upgradeEffect4.Play();
+        foreach (GameObject item in visualChange2)
         {
             Destroy(item);
         }
-        foreach (GameObject item in lampsPlantLevel3)
+        foreach (GameObject item in visualChange3)
         {
             item.SetActive(true);
             item.transform.DOScale(new Vector3(1, 1, 1), 1f);
         }
         yield return new WaitForSeconds(2);
         Destroy(upgradeEffect1.gameObject);
-        Destroy(upgradeEffect2.gameObject);
+        //Destroy(upgradeEffect2.gameObject);
         Destroy(upgradeEffect3.gameObject);
         Destroy(upgradeEffect4.gameObject);
-
     }
+
     public void FinalUpgrade()
     {
-        Destroy(upgradeEffect.gameObject); 
+        Destroy(upgradeEffect.gameObject);
+    }
+
+    public void ScaleDown()
+    {
+        foreach (GameObject item in visualChange1)
+        {
+            item.SetActive(false);
+            item.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
+        }
+        foreach (GameObject item in visualChange2)
+        {
+            item.SetActive(false);
+            item.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
+        }
+        foreach (GameObject item in visualChange3)
+        {
+            item.SetActive(false);
+            item.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
+        }
+        foreach (GameObject item in equipmentLevel2)
+        {
+            item.SetActive(false);
+            item.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
+        }
+        foreach (GameObject item in equipmentLevel3)
+        {
+            item.SetActive(false);
+            item.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
+        }
+    }
+
+    public void LoadData()
+    {
+        if (room.serviceLevel < 13)
+        {
+            ScaleDown();
+            level[0].text = room.serviceLevel.ToString();
+            levelSlider[0].value = room.serviceLevel;
+        }
+        else if(room.serviceLevel >=13 && room.serviceLevel < 25)
+        {  
+            visualChange1[0].SetActive(true);
+            level[0].text = room.serviceLevel.ToString();
+            levelSlider[0].value = room.serviceLevel; 
+        }
+        else if(room.serviceLevel >=25 && room.serviceLevel < 38)
+        {
+            wallFloor[0].SetActive(false);
+            wallFloor[1].SetActive(true);
+            hireUI[0].SetActive(true);
+            hireButtons[0].SetActive(true);
+            foreach (GameObject item in visualChange1)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in equipmentLevel1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in equipmentLevel2)
+            {
+                item.SetActive(true);
+            }
+            level[1].text = room.serviceLevel.ToString();
+            levelSlider[1].value = room.serviceLevel;
+            foreach (GameObject item in panels)
+            {
+                item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
+            }
+
+        }
+        else if(room.serviceLevel >=38 && room.serviceLevel < 50)
+        {
+            wallFloor[0].SetActive(false);
+            wallFloor[1].SetActive(true);
+            hireUI[0].SetActive(true);
+            hireButtons[0].SetActive(true); 
+            foreach (GameObject item in visualChange1)
+            {
+                item.SetActive(false); 
+            }
+            foreach (GameObject item in visualChange2)
+            {
+                item.SetActive(true); 
+            }
+            foreach (GameObject item in equipmentLevel1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in equipmentLevel2)
+            {
+                item.SetActive(true);
+            }
+            level[1].text = room.serviceLevel.ToString();
+            levelSlider[1].value = room.serviceLevel;
+            foreach (GameObject item in panels)
+            {
+                item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 0.1f);
+            }
+        }
+        else if (room.serviceLevel >= 50 && room.serviceLevel < 63)
+        {
+            wallFloor[0].SetActive(false);
+            wallFloor[1].SetActive(false);
+            wallFloor[2].SetActive(true); 
+            foreach (GameObject item in hireUI)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in hireButtons)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in visualChange1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in visualChange2)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in equipmentLevel1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in equipmentLevel2)
+            {
+                item.SetActive(false);
+            }foreach (GameObject item in equipmentLevel3)
+            {
+                item.SetActive(true);
+            }
+            level[2].text = room.serviceLevel.ToString();
+            levelSlider[2].value = room.serviceLevel;
+            foreach (GameObject item in panels)
+            {
+                item.transform.DOLocalMoveX(item.transform.localPosition.x - 2000, 0.1f);
+            }
+        }
+        else if (room.serviceLevel >= 63 && room.serviceLevel < 75)
+        {
+            wallFloor[0].SetActive(false);
+            wallFloor[1].SetActive(false);
+            wallFloor[2].SetActive(true);
+            foreach (GameObject item in hireUI)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in hireButtons)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in visualChange1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in visualChange2)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in visualChange3)
+            {
+                item.SetActive(true);
+            }
+            foreach (GameObject item in equipmentLevel1)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in equipmentLevel2)
+            {
+                item.SetActive(false);
+            }
+            foreach (GameObject item in equipmentLevel3)
+            {
+                item.SetActive(true);
+            }
+            level[2].text = room.serviceLevel.ToString();
+            levelSlider[2].value = room.serviceLevel;
+            foreach (GameObject item in panels)
+            {
+                item.transform.DOLocalMoveX(item.transform.localPosition.x - 2000, 0.1f);
+            }
+        }
+        else if (room.serviceLevel >= 75)
+        {
+            Destroy(upgradeEffect1.gameObject);
+            //Destroy(upgradeEffect2.gameObject);
+            Destroy(upgradeEffect3.gameObject);
+            Destroy(upgradeEffect4.gameObject);
+            Destroy(upgradeEffect.gameObject);
+            level[2].text = room.serviceLevel.ToString();
+            levelSlider[2].value = room.serviceLevel;
+            foreach (GameObject item in panels)
+            {
+                item.transform.DOLocalMoveX(item.transform.localPosition.x - 2000, 0.1f);
+            }
+        }
     }
 }

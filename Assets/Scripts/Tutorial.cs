@@ -16,6 +16,8 @@ public class Tutorial : MonoBehaviour
 
     public Reception reception;
 
+    public GameObject carManager;
+
     //public List<GameObject> colliders;
     //public static Tutorial instance;
 
@@ -48,6 +50,7 @@ public class Tutorial : MonoBehaviour
         }
         if (TaskManager.Instance.CurrentTaskNo == 4)
         {
+            carManager.SetActive(true);
             ActivateHand(1);
             upgradeHand.SetActive(true); 
         }

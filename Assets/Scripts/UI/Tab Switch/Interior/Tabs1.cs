@@ -11,8 +11,7 @@ public class Tabs1 : MonoBehaviour
     private void Start()
     {
         // Initially, select the first button and show its panel 
-
-        ButtonClick(0);
+         
         for (int i = 0; i < buttons.Count; i++)
         {
             int buttonIndex = i;

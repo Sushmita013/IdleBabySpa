@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using System;
+using MoreMountains.NiceVibrations;
+
 
 public class CanvasManager : MonoBehaviour
 {
@@ -125,6 +127,7 @@ public class CanvasManager : MonoBehaviour
     }
     public void HideReward(float rewardValue)
     {
+        MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
         GameManager.instance.totalSoftCurrency += rewardValue;
         UpdateSoftCurrency();
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();

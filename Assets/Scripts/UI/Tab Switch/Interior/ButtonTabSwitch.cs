@@ -22,14 +22,10 @@ public class ButtonTabSwitch : MonoBehaviour
     {
         switch (buttonStates)
         {
-            case ButtonStates.deselected:
-                //buttonSprite.color = deSelectedColor;
-                //gameObject.transform.DOScale(new Vector3(1, 1, 1), 0.5f);
+            case ButtonStates.deselected: 
                 buttonSprite.sprite = deselectedSprite;
                 break;
-            case ButtonStates.selected:
-                //buttonSprite.color = selectedColor; 
-                //gameObject.transform.DOScale(new Vector3(1.1f, 1.1f, 1.1f), 0.5f); 
+            case ButtonStates.selected: 
                 buttonSprite.sprite = selectedSprite;
                 break;
             default:
@@ -41,6 +37,7 @@ public class ButtonTabSwitch : MonoBehaviour
         currentState = newState;
 
         Tabs1 panelManager = FindObjectOfType<Tabs1>();
+        Debug.Log(panelManager.name);
         if (panelManager != null)
         {
             panelManager.HandleButtonStateChange(this);
@@ -58,7 +55,7 @@ public class ButtonTabSwitch : MonoBehaviour
 
     public void ResetButtons()
     {
-        Tabs panelManager = FindObjectOfType<Tabs>();
+        Tabs1 panelManager = FindObjectOfType<Tabs1>();
         foreach (var button in panelManager.tabs)
         {
             button.UpdateButtonState(ButtonStates.deselected);

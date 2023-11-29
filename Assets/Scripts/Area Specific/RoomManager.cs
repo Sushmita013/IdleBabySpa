@@ -27,8 +27,7 @@ public class RoomManager : MonoBehaviour
     public int serviceLevel;
     public int totalWorkers;
     public float serviceCost =2;
-    public Transform camPos;
-    private float moveSpeed = 2.0f;
+    public Transform camPos; 
     public int zoomSize;
     public bool hasUI;
     public Button closeButton; 
@@ -43,19 +42,17 @@ public class RoomManager : MonoBehaviour
 
     public CollectTip tip;
 
-    public Specialist worker;
-
-    public int occupiedSlots;
+    public Specialist worker; 
 
     public IService service;
 
-    //public List<Service> serviceList;
+    public List<WorkerNPC> workerList;
 
-    //public WaitingQueue waiting;
-     
+    public WaitingQueue waiting;
+
     void Start()
     {
-        serviceLevel = 1;
+        //serviceLevel = 1;
         instance = this;
         closeButton.onClick.AddListener(CloseButtonClick);
         //LoadData();
@@ -72,47 +69,34 @@ public class RoomManager : MonoBehaviour
         {
             tip.OnEnable();
         }
+    } 
+
+    public WorkerNPC CheckForService()
+    {
+        WorkerNPC availableService = null;
+        for (int i = 0; i < workerList.Count; i++)
+        {
+            if (workerList[i].isAvailable && workerList[i].isUnlocked)
+            {
+                availableService = workerList[i];
+            }
+        }
+        availableService.isAvailable = false;
+
+        return availableService;
     }
 
-    //public void CheckAvailability(GameObject parent)
-    //{
-    //    if (occupiedSlots < 3)
-    //    {
-    //        //send parent to available slot
-
-    //    }
-    //    else
-    //    {
-    //        queueManager.AddGuestToQueue(parent);
-    //    }
-    //}
-
-    //public Service CheckForService()
-    //{
-    //    Service availableService = null;
-    //    for(int i=0; i < serviceList.Count; i++)
-    //    {
-    //        if (serviceList[i].isAvailable)
-    //        {
-    //            availableService = serviceList[i];
-    //        }
-    //    }
-    //    availableService.isAvailable = false;
-
-    //    return availableService;
-    //}
-
-    //public bool IsServiceAvailable()
-    //{
-    //    for(int i = 0; i < serviceList.Count; i++)
-    //    {
-    //        if (serviceList[i].isAvailable)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
+    public bool IsServiceAvailable()
+    {
+        for (int i = 0; i < workerList.Count; i++)
+        {
+            if (workerList[i].isAvailable && workerList[i].isUnlocked)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public IEnumerator CameraZoomIn()
     {
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)

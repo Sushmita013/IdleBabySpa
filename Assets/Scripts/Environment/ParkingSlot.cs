@@ -7,6 +7,7 @@ using DG.Tweening;
 
 public class ParkingSlot : MonoBehaviour
 {
+    public Transform destinationPoint;
     public Transform spawnPoint;
     public Transform spawnParent;
     public Transform controllerPoint;  
@@ -31,8 +32,12 @@ public class ParkingSlot : MonoBehaviour
     {
         if (other.tag == "Car")
         {
+            Debug.Log("parking slot");
+            GetComponent<Collider>().enabled = false;
             car = other.gameObject;
             StartCoroutine(RotateCar(other.gameObject));
+            CarManager.instance.availableParkingSlots--;
+            CarManager.instance.UpdateSpots();
         }
     }
 
@@ -42,7 +47,6 @@ public class ParkingSlot : MonoBehaviour
         car.transform.DORotate(new Vector3(0, 90, 0), 0.25f);
         StartCoroutine(ParentSpawn());
         yield return new WaitForSeconds(2); 
-        GetComponent<Collider>().enabled = false;
         //yield return new WaitForSeconds(50f); 
         //destroyPoint.GetComponent<Collider>().enabled = true;  
         //GetComponent<Collider>().enabled = true; 

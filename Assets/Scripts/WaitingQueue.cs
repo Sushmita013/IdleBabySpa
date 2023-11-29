@@ -54,15 +54,15 @@ public class WaitingQueue : MonoBehaviour
     }
 
     public void CheckSlotForCustomer(ParentController customer)
-    { 
-        //StartCoroutine(customer.ReceptionEntry(customer.parent)); 
+    {
+        customer.CheckForSlots();
     }
 
     public void CheckForFreeSlots()
     {
         for (int i = 0; i < customerInQueue.Count; i++)
         {
-            customerInQueue[i].MoveToNextDestination(customerInQueue[i].parent);
+            customerInQueue[i].CheckForSlots(); ;
         }
     }
 }

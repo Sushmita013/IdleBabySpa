@@ -62,8 +62,7 @@ public class CollectTip : MonoBehaviour
         imageDollar.SetActive(true); 
         gameObject.SetActive(false);
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.CollectTips)
-        {
-            //CanvasManager.instance.collectedTipCount++;
+        { 
             TaskManager.CollectTipsAction?.Invoke(1);
         }
     }
