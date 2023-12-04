@@ -46,7 +46,9 @@ public class ParkingSlot : MonoBehaviour
         yield return new WaitForSeconds(1);
         car.transform.DORotate(new Vector3(0, 90, 0), 0.25f);
         StartCoroutine(ParentSpawn());
-        yield return new WaitForSeconds(2); 
+        yield return new WaitForSeconds(2);
+            car.GetComponent<NavMeshAgent>().enabled = false;
+
         //yield return new WaitForSeconds(50f); 
         //destroyPoint.GetComponent<Collider>().enabled = true;  
         //GetComponent<Collider>().enabled = true; 
@@ -55,16 +57,21 @@ public class ParkingSlot : MonoBehaviour
     public void ExitCar(GameObject car)
     {  
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
+        agent.enabled = true;
         agent.angularSpeed = 0;
         agent.SetDestination(exitPoints[0].position);
-        if (parkingIndex == 1)
-        {
-            for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
-            {
-                //CarManager.instance.parkingSlotAvailability[i] = true;
-                CarManager.instance.ExitCar(i);
-            }
-        }
+        CarManager.instance.ExitCar(parkingIndex);
+        destroyPoint.GetComponent<BoxCollider>().enabled = false;
+        //if (parkingIndex == 1)
+        //{
+        //    for (int i = 0; i < CarManager.instance.parkingSlotAvailability.Count; i++)
+        //    {
+        //        if (i < CarManager.instance.unlockedSlotsCount)
+        //        {
+        //            CarManager.instance.parkingSlotAvailability[i] = true;
+        //        }
+        //    }
+        //}
         StartCoroutine(CarExit(car));
     }
 
@@ -89,10 +96,10 @@ public class ParkingSlot : MonoBehaviour
         GameObject parentPrefab = parent.parentNpc[Random.Range(0, parent.parentNpc.Count)];
         GameObject parentGO = Instantiate(parentPrefab, spawnPoint.position, Quaternion.identity,spawnParent);
         parentGO.transform.DORotate(new Vector3(0, parentRotation, 0), 0.01f);
-        ParentController parentController = parentGO.GetComponent<ParentController>(); 
-        parentGO.SetActive(true); 
+        ParentController parentController = parentGO.GetComponent<ParentController>();  
+        parentGO.SetActive(true);  
         parentController.instantiatedParent = parentGO;
-        parentController.baby = parentGO.transform.Find("Baby").gameObject;
+        parentController.baby = parentGO.transform.Find("Baby").gameObject; 
         parentController.parentObject = parentGO.transform.Find("Parent").gameObject;
         parentController.babyController = parentController.baby.GetComponent<Baby>();
         //Transform parentTransform = parentGO.transform.Find("Parent"); // Assuming 'parent' is the second child
@@ -100,38 +107,8 @@ public class ParkingSlot : MonoBehaviour
         parentController.animator = parentController.parentObject.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
         parentController.spawnPoint = destroyPoint.transform;
-        parentController.parking = this;   
+        parentController.parking = this; 
         parentController.MoveToWalkway();
     }
-
-    //public IEnumerator SpawnParent()
-    //{
-    //    GameObject parentPrefab = parentController[Random.Range(0, parentController.Count)];
-    //    yield return new WaitForSeconds(0.75f);
-    //    GameObject parent = Instantiate(parentPrefab, controllerPoint.position, Quaternion.identity);
-
-    //    // Check if the spawned parent GameObject has a FatherController component
-    //    FatherController fatherComponent = parent.GetComponent<FatherController>();
-
-    //    // Check if the spawned parent GameObject has a MotherController component
-    //    MotherController motherComponent = parent.GetComponent<MotherController>();
-
-    //    if (fatherComponent != null)
-    //    {
-    //        StartCoroutine(fatherComponent.InstantiateParent(spawnPoint));
-    //        fatherComponent.spawnPoint = spawnPoint; 
-    //        // The spawned parent GameObject is a FatherController 
-    //    }
-    //    else if (motherComponent != null)
-    //    {
-    //        StartCoroutine(motherComponent.InstantiateParent(spawnPoint));
-    //        // The spawned parent GameObject is a MotherController 
-    //        motherComponent.spawnPoint = spawnPoint;
-    //    }
-    //    else
-    //    {
-    //        // The spawned parent GameObject does not have either component
-    //        Debug.Log("Spawned parent is not a FatherController or a MotherController");
-    //    }
-    //} 
+     
 }

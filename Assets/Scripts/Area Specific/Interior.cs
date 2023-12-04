@@ -21,18 +21,40 @@ public struct Theme
 
 public class Interior : MonoBehaviour
 {
-    public RoomManager room;  
+    public RoomManager room;
 
     public List<Theme> themes;
+    public int currentIndex;
     public int ThemeIndex;
-     
+
+    public List<bool> isUnlocked;
+
+    public List<Button> previewButtons;
+    public List<Button> buyButtons;
+
 
     void Start()
-    { 
-    }
-     
+    {
+        for (int i = 0; i < previewButtons.Count; i++)
+        {
+            int buttonIndex = i;
+            previewButtons[i].onClick.AddListener(() => SetColorFunc(buttonIndex));
+        }
+        
+        for (int i = 0; i < buyButtons.Count; i++)
+        {
+            int buttonIndex = i; 
+            buyButtons[i].onClick.AddListener(() => UnlockColorTheme(buttonIndex));
+        } 
+    } 
+
     public void SetColorFunc(int currectActiveTheme)
     {
+        Debug.Log(currectActiveTheme);
+        if (isUnlocked[currectActiveTheme])
+        {
+            currentIndex = currectActiveTheme;
+        }
         Theme theme = new Theme();
 
         for (int i = 0; i < themes.Count; i++)
@@ -53,7 +75,22 @@ public class Interior : MonoBehaviour
         }
     }
 
+    public void UnlockColorTheme(int themeNum)
+    {
+        if (GameManager.instance.totalSoftCurrency >= 1500)
+        {
+            buyButtons[themeNum].gameObject.SetActive(false);
+            currentIndex = themeNum;
+            isUnlocked[themeNum] = true;
+            GameManager.instance.totalSoftCurrency -= 1500;
+            CanvasManager.instance.UpdateSoftCurrency();
+            SetColorFunc(themeNum);
+        }
+    }
 
 
-     
+
+
+
+
 }

@@ -2675,13 +2675,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
   time: 0
-  serviceComplete: 00000000
   roomNo: 0
-  babyTransform: {fileID: 2958611957965848671}
+  roomManagers: []
   babyPos: {x: 0, y: 0, z: 0}
   babyRotation: {x: 0, y: 0, z: 0}
   parentPos: {x: 0, y: 0, z: 0}
   parentRot: {x: 0, y: 0, z: 0}
+  pairPos: {x: 0, y: 0, z: 0}
+  pairRotation: {x: 0, y: 0, z: 0}
+  currentRoom: {fileID: 0}
 --- !u!1 &2958611956872190404
 GameObject:
   m_ObjectHideFlags: 0
@@ -4687,7 +4689,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2958611957965848670}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.007003784, y: 0.20300007, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -4697,7 +4699,7 @@ Transform:
   - {fileID: 2958611956140866180}
   m_Father: {fileID: 2958611956848602451}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &2958611957965848656
 Animator:
   serializedVersion: 5
@@ -4731,8 +4733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb8893de908e024ca0ecd41ed8ec5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEngaged: 0
-  serviceDuration: 0
   hasClothes: 1
   babyClothes: {fileID: 2958611955979342370}
   bodyDiaper: {fileID: 2882214174060666353}

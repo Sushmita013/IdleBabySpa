@@ -26,7 +26,7 @@ public class RoomManager : MonoBehaviour
 
     public int serviceLevel;
     public int totalWorkers;
-    public float serviceCost =2;
+    public float serviceCost;
     public Transform camPos; 
     public int zoomSize;
     public bool hasUI;
@@ -50,6 +50,8 @@ public class RoomManager : MonoBehaviour
 
     public WaitingQueue waiting;
 
+    public Interior interior;
+
     void Start()
     {
         //serviceLevel = 1;
@@ -66,8 +68,8 @@ public class RoomManager : MonoBehaviour
     private void Update()
     {
         if (customersServed == 5)
-        {
-            tip.OnEnable();
+        { 
+            tip.gameObject.SetActive(true);
         }
     } 
 
@@ -79,9 +81,10 @@ public class RoomManager : MonoBehaviour
             if (workerList[i].isAvailable && workerList[i].isUnlocked)
             {
                 availableService = workerList[i];
+                availableService.isAvailable = false; 
+                break;
             }
         }
-        availableService.isAvailable = false;
 
         return availableService;
     }
@@ -168,41 +171,7 @@ public class RoomManager : MonoBehaviour
             CamZoom();
         }
     }
-    //public void UpdateValues(Departments room)
-    //{
-    //    CanvasManager.instance.totalBalance_text.text = GameManager.instance.totalBalance.ToString();
-    //    totalHires_text.text = totalHires.ToString();
-    //    switch (room)
-    //    {
-    //        case Departments.WaterTaining:
-    //            PlayerPrefs.SetInt("Trainer", totalHires);
-    //            break;
-    //        case Departments.Massage:
-    //            PlayerPrefs.SetInt("Masseuse", totalHires);
-
-    //            break;
-    //        case Departments.Haircut:
-    //            PlayerPrefs.SetInt("Dresser", totalHires);
-
-    //            break;
-    //        case Departments.Pamper:
-    //            PlayerPrefs.SetInt("Nurse", totalHires);
-
-    //            break;
-    //        case Departments.Playroom:
-    //            PlayerPrefs.SetInt("Nanny", totalHires);
-
-    //            break;
-    //        case Departments.PhotoRoom:
-    //            PlayerPrefs.SetInt("Photographer", totalHires);
-
-    //            break;
-    //        case Departments.Cafeteria:
-    //            PlayerPrefs.SetInt("Waiters", totalHires);
-
-    //            break;
-    //    }
-    //}
+     
     public void CamZoom()
     {
         if (Camera.main.transform.position != camPos.localPosition)
@@ -218,7 +187,10 @@ public class RoomManager : MonoBehaviour
         hasUI = false;
         ResetPanels();
         GetComponent<Collider>().enabled = true;
-
+        if(roomName==Departments.Massage)
+        { 
+        interior.SetColorFunc(interior.currentIndex);
+        }
     }
 
     public void ResetPanels()
@@ -229,10 +201,7 @@ public class RoomManager : MonoBehaviour
             switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(-1500, 1); 
         }
         Camera.main.DOOrthoSize(25, 0.25f);
-        GetComponent<Collider>().enabled = true;
-        //tab.ButtonClick(0);
-        //tab1.ButtonClick(0);
-        //tab2.ButtonClick(0);
+        GetComponent<Collider>().enabled = true; 
     }
 
     //public void LoadData()

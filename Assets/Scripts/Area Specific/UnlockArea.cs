@@ -53,8 +53,12 @@ public class UnlockArea : MonoBehaviour
     public IEnumerator BuildFunction()
     {
         if (GameManager.instance.totalSoftCurrency >= unlockValue)
-        {
-            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
+        { 
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact);
+            if(roomManager.roomName==Departments.Massage || roomManager.roomName == Departments.Haircut || roomManager.roomName == Departments.WaterTraining|| roomManager.roomName == Departments.PhotoRoom)
+            {
+                AvailabilityManager.instance.rooms.Add(roomManager);
+            }
             CanvasManager.instance.HidePopup();
             GameManager.instance.totalSoftCurrency -= unlockValue;
             CanvasManager.instance.UpdateSoftCurrency();

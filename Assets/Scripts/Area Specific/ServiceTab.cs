@@ -68,7 +68,7 @@ public class ServiceTab : IService
         upgradeEffect2.Stop();
         upgradeEffect3.Stop();
         upgradeEffect4.Stop();
-        LoadData();
+        //LoadData();
     }
 
     private void Update()

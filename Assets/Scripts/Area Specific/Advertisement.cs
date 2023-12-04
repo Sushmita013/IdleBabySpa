@@ -13,7 +13,7 @@ public class Advertisement : MonoBehaviour
     public float personPerMin; 
 
     public TMP_Text personInfo;
-    public TMP_Text level;
+    //public TMP_Text level;
     public TMP_Text upgrade_cost;
 
     public Departments roomName;
@@ -137,7 +137,7 @@ public class Advertisement : MonoBehaviour
             //room.serviceCost = costPerLevel;
             personInfo.text = costPerLevel.ToString();
             upgrade_cost.text = personPerMin.ToString();
-            level.text = room.serviceLevel.ToString();
+            //level[0].text = room.serviceLevel.ToString();
         }
     }
 

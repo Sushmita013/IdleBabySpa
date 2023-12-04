@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class WorkerNPC : MonoBehaviour
 {
@@ -32,16 +33,17 @@ public class WorkerNPC : MonoBehaviour
     public Transform chairPoint; 
     public int parentRotation;
 
+    public GameObject billAmount;
+
+    public TMP_Text amountText; 
+
     public ParticleSystem effectObject;
 
 
     void Start()
-    {
-        //duration = 4;
+    { 
         GetDuration(); 
-        effect.Stop(); 
-        //animator = GetComponent<Animator>();
-        //effectObject.Stop();
+        effect.Stop();  
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -51,8 +53,7 @@ public class WorkerNPC : MonoBehaviour
             {
                 TaskManager.GiveServiceAction?.Invoke(1);
             }
-            room.customersServed++;
-            //other.GetComponent<ParentController>().totalBill += room.serviceCost; 
+            room.customersServed++;  
             StartCoroutine(Action());
         }
     } 
@@ -72,11 +73,19 @@ public class WorkerNPC : MonoBehaviour
         effectObject.Stop();
         }
         effect.Play();
+        amountText.text = "+" + room.serviceCost.ToString();
+        billAmount.SetActive(true);
+        billAmount.transform.DOLocalMoveZ(-4, 1.5f); 
+        //billAmount.GetComponent<RectTransform>().DOAnchorPosZ( -6, 1f);
         PlayAnimation("Idle");
         GameManager.instance.totalSoftCurrency += room.serviceCost;
         CanvasManager.instance.UpdateSoftCurrency();
         occupiedUI.SetActive(false);
         fillbar.DOFillAmount(0, 0.1f);
+        yield return new WaitForSeconds(1.5f);
+        billAmount.SetActive(false); 
+        billAmount.transform.DOLocalMoveZ(0, 0.1f);
+        //billAmount.GetComponent<RectTransform>().DOAnchorPos(new Vector3(25, -34, -3), 1f); 
     }
     public void PlayAnimation(string animation)
     {

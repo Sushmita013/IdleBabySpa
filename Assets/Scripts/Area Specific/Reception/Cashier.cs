@@ -158,4 +158,9 @@ public class Cashier : MonoBehaviour
         speedText.text = cashierSpeed.ToString();
     }
 
+    public void LoadData()
+    {
+
+    }
+
 }

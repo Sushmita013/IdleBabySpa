@@ -13,9 +13,11 @@ public class BuildPopup : MonoBehaviour
     public TMP_Text cost;
     public TMP_Text descriptionText;
     public Button button; 
+    public Button closeButton; 
 
     private string button_Text;
     private System.Action buttonAction; 
+    private System.Action buttonAction1; 
 
     public void SetErrorMessage(string message)
     {
@@ -39,11 +41,16 @@ public class BuildPopup : MonoBehaviour
     private void Start()
     {
         button.onClick.AddListener(ButtonClicked);
+        closeButton.onClick.AddListener(ButtonClicked1);
     }
 
     private void ButtonClicked()
     {
         buttonAction?.Invoke();
+    }
+    private void ButtonClicked1()
+    {
+        buttonAction1?.Invoke();
     }
 
     public void EnablePanel()
@@ -58,5 +65,10 @@ public class BuildPopup : MonoBehaviour
             disableAction?.Invoke();
         });  
     } 
-     
+
+    public void CloseButtonClick(Action closeAction)
+    {
+        buttonAction1 = closeAction; 
+    }
+
 }

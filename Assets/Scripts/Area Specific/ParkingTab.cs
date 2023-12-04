@@ -97,7 +97,7 @@ public class ParkingTab : IService
     public void EnableDisableUpgrade(float bal)
     {
         // Enable or disable the upgrade button based on available currency and service level
-        if (bal >= costPerLevel && room.serviceLevel < 5)
+        if (bal >= costPerLevel && room.serviceLevel < 4)
         {
             upgradeButton.interactable = true;
         }
@@ -139,14 +139,15 @@ public class ParkingTab : IService
         CanvasManager.instance.UpdateSoftCurrency();
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
         spacesPerLevel += spacesIncrease;
+        CarManager.instance.unlockedSlotsCount = (int)spacesPerLevel; 
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
         spacesPerLevel = Mathf.Round(spacesPerLevel * 10) / 10; // Round to 1 decimal place
         room.serviceCost = spacesPerLevel;
         cost_upgrade.text = costPerLevel.ToString();
         spacesvalue.text = spacesPerLevel.ToString();
-        CarManager.instance.unlockedSlotsCount = ((int)spacesPerLevel);
-        CarManager.instance.UpdateSpots(); 
-        CarManager.instance.EnableParkingSlot();
+        CarManager.instance.availableParkingSlots += (int)spacesIncrease;
+        CarManager.instance.UpdateSpots();  
+        CarManager.instance.UnlockSlots( ); 
     }
 
     public void LoadData()

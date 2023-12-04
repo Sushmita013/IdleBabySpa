@@ -16,6 +16,8 @@ public class WaitingQueue : MonoBehaviour
                 customerInQueue.Add(customer);
 
             customer.MoveToReception(customer.parent);
+            customer.PlayAnimation(customer.parent.anim[0]);
+            customer.babyController.PlayAnimation("walking with baby");
             customer.MoveToTarget(queue[queueIndex], () =>
             {
                 Debug.Log("move to available slot");
@@ -38,10 +40,13 @@ public class WaitingQueue : MonoBehaviour
         for(int i = 0; i < customerInQueue.Count; i++)
         {
             var customer= customerInQueue[i];
-            customer.animator.Play("walking");
+            customer.PlayAnimation(customer.parent.anim[0]);
+            customer.babyController.PlayAnimation("walking with baby");
             customer.MoveToTarget(queue[i], () =>
             {
-                customer.animator.Play("standing idle");
+                customer.PlayAnimation(customer.parent.anim[1]);
+                customer.babyController.PlayAnimation("standing idle");
+                //CheckSlotForCustomer(customer); 
             });
         }
     }
@@ -55,6 +60,8 @@ public class WaitingQueue : MonoBehaviour
 
     public void CheckSlotForCustomer(ParentController customer)
     {
+        customer.PlayAnimation(customer.parent.anim[0]);
+        customer.babyController.PlayAnimation("walking with parent");
         customer.CheckForSlots();
     }
 
@@ -62,7 +69,7 @@ public class WaitingQueue : MonoBehaviour
     {
         for (int i = 0; i < customerInQueue.Count; i++)
         {
-            customerInQueue[i].CheckForSlots(); ;
+             CheckSlotForCustomer(customerInQueue[i]);
         }
     }
 }

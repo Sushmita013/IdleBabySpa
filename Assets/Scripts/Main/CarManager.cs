@@ -19,8 +19,7 @@ public class CarManager : MonoBehaviour
 
     public Advertisement billboard;
     public float carSpawnDuration;
-    public TMP_Text spotsText;
-
+    public TMP_Text spotsText; 
     public int unlockedSlotsCount;
 
     private void Start()
@@ -42,10 +41,12 @@ public class CarManager : MonoBehaviour
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         if (CheckForAvailableSlot())
         { 
-        var index=FindNextAvailableParkingSlot();
+         var index=FindNextAvailableParkingSlot();
+         Debug.Log(index);
         agent.SetDestination(parkingSlots[index].destinationPoint.position); 
         parkingSlotAvailability[index] = false; 
-        parkingSlots[index].GetComponent<BoxCollider>().enabled = true; 
+        StartCoroutine(EnableCollider(index)); 
+            //parkingSlots[index].GetComponent<BoxCollider>().enabled = true; 
         }
         else 
         {
@@ -69,6 +70,12 @@ public class CarManager : MonoBehaviour
         //    StartCoroutine(InstantiateRandomCars()); 
         //} 
 
+    }
+
+    public IEnumerator EnableCollider(int i)
+    {
+        yield return new WaitForSeconds(10); 
+        parkingSlots[i].GetComponent<BoxCollider>().enabled = true;  
     }
 
     public bool CheckForAvailableSlot()
@@ -132,12 +139,13 @@ public class CarManager : MonoBehaviour
     }
 
     public void UpdateSpots()
-    {
+    { 
         spotsText.text = availableParkingSlots.ToString();
     }
 
     public void EnableParkingSlot()
     {
+        Debug.Log("EnableParkingSlot");
         for (int i = 0; i < parkingSlots.Count; i++)
         {
             if (i < unlockedSlotsCount)
@@ -150,6 +158,24 @@ public class CarManager : MonoBehaviour
             }
         }
     }
+
+    public void UnlockSlots()
+    {
+        for (int i = unlockedSlotsCount-3; i < parkingSlotAvailability.Count; i++)
+        {
+            if (i < unlockedSlotsCount)
+            {
+                parkingSlotAvailability[i] = true;
+                Debug.Log("marked available");
+            }
+            else
+            {
+                parkingSlotAvailability[i] = false;
+            }
+        }
+    }
+
+
 
 }
 

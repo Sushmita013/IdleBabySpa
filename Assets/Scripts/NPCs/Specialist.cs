@@ -81,7 +81,7 @@ public class Specialist : MonoBehaviour
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && workerSpeedLevel<=10)
+        if (bal >= costPerLevel && workerSpeedLevel<=5)
         {
             upgradeSpeedButton.interactable = true;
         }
