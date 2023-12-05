@@ -29,7 +29,19 @@ public class AvailabilityManager : MonoBehaviour
             } 
         }
         return room;
-    } 
+    }
+
+    public bool IsRoomAvailable()
+    {
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            if ( !rooms[i].waiting.isFull())
+            {
+                return true;
+            } 
+        }
+        return false;
+    }
     //public WorkerNPC GetAvailableService()
     //{
     //    WorkerNPC availableService = null; 

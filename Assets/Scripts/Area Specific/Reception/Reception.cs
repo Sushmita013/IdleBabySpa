@@ -46,7 +46,7 @@ public class Reception : MonoBehaviour
             //yield return new WaitForSeconds(1f); 
             UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
             UpgradeUIpanels[0].GetComponent<RectTransform>().DOAnchorPosY(225, 1);
-            GetComponent<Collider>().enabled = false;
+            //GetComponent<Collider>().enabled = false;
             yield return new WaitForSeconds(0.75f);
             hasUI = true;
             closeButton.SetActive(true);
@@ -69,7 +69,7 @@ public class Reception : MonoBehaviour
     public void CloseButtonClick()
     {
         closeButton.SetActive(false);
-        GetComponent<Collider>().enabled = true; 
+        //GetComponent<Collider>().enabled = true; 
         hasUI = false;
         ResetPanels();  
     }
@@ -78,7 +78,7 @@ public class Reception : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-            UpgradeUIpanels[0].transform.DOLocalMoveY(-1500, 1f); 
+            UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 1);
         }
     } 
 }

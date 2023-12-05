@@ -12,7 +12,7 @@ public class QueueManager : MonoBehaviour
     //public List<GameObject> itemObject;
 
     //public Transform spawnPosition; 
-    public List<GameObject> spawnedGuest;
+    //public List<GameObject> spawnedGuest;
 
     public Transform destination;
 
@@ -47,10 +47,10 @@ public class QueueManager : MonoBehaviour
     //    }
     //}
 
-    public bool CanAddGuest()
-    {
-        return guestList.Count < waitingPositionList.Count;
-    }
+    //public bool CanAddGuest()
+    //{
+    //    return guestList.Count < waitingPositionList.Count;
+    //}
 
     //public void AddGuestToQueue(GameObject guest)
     //{
@@ -79,38 +79,38 @@ public class QueueManager : MonoBehaviour
     //    }
     //}
 
-    public GameObject GetFirstInQueue()
-    {
-        if (waitingQueue.customerInQueue.Count == 0)
-        {
-            return null;
-        }
-        else
-        {
-            GameObject obj = waitingQueue.customerInQueue[0].gameObject;
-            waitingQueue.RemoveFromQueue(waitingQueue.customerInQueue[0]);
-            //waitingQueue.ReOrderQueue();
-            //RelocateAllTheGuests();
-            return obj;
-        }
-    }
+    //public GameObject GetFirstInQueue()
+    //{
+    //    if (waitingQueue.customerInQueue.Count == 0)
+    //    {
+    //        return null;
+    //    }
+    //    else
+    //    {
+    //        GameObject obj = waitingQueue.customerInQueue[0].gameObject;
+    //        waitingQueue.RemoveFromQueue(waitingQueue.customerInQueue[0]);
+    //        //waitingQueue.ReOrderQueue();
+    //        //RelocateAllTheGuests();
+    //        return obj;
+    //    }
+    //}
 
-    public void MoveGuestToDestination(Transform destinationPoint)
-    {
-        GameObject guest = GetFirstInQueue();
-        if (guest != null)
-        {
-            guest.GetComponent<ParentController>().MoveToTarget(destinationPoint);
-            //NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
-            //navMeshAgent.SetDestination(destinationPoint.position);
+    //public void MoveGuestToDestination(Transform destinationPoint)
+    //{
+    //    GameObject guest = GetFirstInQueue();
+    //    if (guest != null)
+    //    {
+    //        guest.GetComponent<ParentController>().MoveToTarget(destinationPoint);
+    //        //NavMeshAgent navMeshAgent = guest.GetComponent<NavMeshAgent>();
+    //        //navMeshAgent.SetDestination(destinationPoint.position);
 
-            //Animator animator = guest.GetComponent<Animator>();
-            //if (animator != null)
-            //{
-            //    animator.Play("Holding baby and walking"); 
-            //}
-        }
-    } 
+    //        //Animator animator = guest.GetComponent<Animator>();
+    //        //if (animator != null)
+    //        //{
+    //        //    animator.Play("Holding baby and walking"); 
+    //        //}
+    //    }
+    //} 
 
     //public void RelocateAllTheGuests()
     //{

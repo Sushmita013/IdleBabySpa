@@ -1240,8 +1240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb8893de908e024ca0ecd41ed8ec5ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEngaged: 0
-  serviceDuration: 0
   hasClothes: 0
   babyClothes: {fileID: 9214415294437170845}
   bodyDiaper: {fileID: 3471624685178631342}
@@ -1691,7 +1689,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &2910075303395919723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1706,12 +1704,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 11400000, guid: 27653da54d5b51b45aeae90adec6146b, type: 2}
   time: 0
-  serviceComplete: 00000000
   roomNo: 0
+  roomManagers: []
   babyPos: {x: 0, y: 0, z: 0}
   babyRotation: {x: 0, y: 0, z: 0}
   parentPos: {x: 0, y: 0, z: 0}
   parentRot: {x: 0, y: 0, z: 0}
+  pairPos: {x: 0, y: 0, z: 0}
+  pairRotation: {x: 0, y: 0, z: 0}
+  currentRoom: {fileID: 0}
 --- !u!1 &2277102132706941942
 GameObject:
   m_ObjectHideFlags: 0

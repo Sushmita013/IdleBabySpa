@@ -24,8 +24,7 @@ public class Interior : MonoBehaviour
     public RoomManager room;
 
     public List<Theme> themes;
-    public int currentIndex;
-    public int ThemeIndex;
+    public int currentIndex; 
 
     public List<bool> isUnlocked;
 

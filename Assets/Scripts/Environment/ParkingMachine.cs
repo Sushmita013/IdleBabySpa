@@ -15,7 +15,7 @@ public class ParkingMachine : MonoBehaviour
     {
         if (other.tag == "Car")
         {
-            pole.transform.DORotate(new Vector3(0, -90, -90), 1f);
+            pole.transform.DOLocalRotate(new Vector3(0, 0, -90), 1f);
             //CarManager.instance.parkingSlots[CarManager.instance.index-1].GetComponent<BoxCollider>().enabled = true;
         }
     }
@@ -24,7 +24,7 @@ public class ParkingMachine : MonoBehaviour
     {
         if (other.tag == "Car")
         {
-            pole.transform.DORotate(new Vector3(0, -90, 0), 1f);
+            pole.transform.DOLocalRotate(new Vector3(0, 0, 0), 1f);
         }
     }
 }

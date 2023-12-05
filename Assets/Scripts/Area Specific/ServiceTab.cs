@@ -274,7 +274,7 @@ public class ServiceTab : IService
         wallFloor[1].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
         hireUI[0].SetActive(true);
         hireButtons[0].SetActive(true);
-        Destroy(wallFloor[0].gameObject);
+        wallFloor[0].gameObject.SetActive(false);
         visualChange1[1].SetActive(true);
         visualChange1[1].transform.DOScale(new Vector3(1, 1, 1), 1f);
         Destroy(equipmentLevel1[0].gameObject);
@@ -294,7 +294,8 @@ public class ServiceTab : IService
         wallFloor[2].transform.DOScale(new Vector3(1, 1, 1), 0.25f);
         hireUI[1].SetActive(true);
         hireButtons[1].SetActive(true);
-        Destroy(wallFloor[1].gameObject);
+        //Destroy(wallFloor[1].gameObject);
+        wallFloor[1].gameObject.SetActive(false); 
         visualChange2[2].SetActive(true);
         visualChange2[2].transform.DOScale(new Vector3(1, 1, 1), 1f);
         foreach (GameObject item in equipmentLevel2)
@@ -316,7 +317,7 @@ public class ServiceTab : IService
 
         foreach (GameObject item in visualChange1)
         {
-            Destroy(item);
+            item.SetActive(false);
         }
         foreach (GameObject item in visualChange2)
         {
@@ -333,7 +334,7 @@ public class ServiceTab : IService
         upgradeEffect4.Play();
         foreach (GameObject item in visualChange2)
         {
-            Destroy(item);
+            item.SetActive(false);
         }
         foreach (GameObject item in visualChange3)
         {

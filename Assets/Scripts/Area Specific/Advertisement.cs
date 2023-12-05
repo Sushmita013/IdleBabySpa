@@ -26,7 +26,7 @@ public class Advertisement : MonoBehaviour
 
     public List<TMP_Text> levelText;
 
-    public Button upgradeButton;
+    public Button upgradeButton; 
 
     public List<GameObject> panels;
 
@@ -94,7 +94,7 @@ public class Advertisement : MonoBehaviour
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && room.serviceLevel<7)
+        if (bal >= costPerLevel && room.serviceLevel<6)
         {
             upgradeButton.interactable = true;
         }

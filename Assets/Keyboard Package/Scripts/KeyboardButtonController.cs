@@ -28,7 +28,11 @@ public class KeyboardButtonController : MonoBehaviour
     }
 
     public void AddLetter() {
-        if(KeyboardManager.Instance != null) {
+        if(KeyboardManager.Instance != null ) {
+            if (KeyboardManager.Instance.textBox.text.Length > 11)
+            {
+                return;
+            }
             KeyboardManager.Instance.AddLetter(containerText.text);
         } else {
             Debug.Log(containerText.text + " is pressed");

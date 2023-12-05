@@ -48,6 +48,7 @@ public class ParentController : MonoBehaviour
 
     void Start()
     {
+
         animator = parentObject.GetComponent<Animator>();
         //parentnavMesh = parentObject.GetComponent<NavMeshAgent>();
         babyPos = baby.transform.localPosition;
@@ -98,8 +99,15 @@ public class ParentController : MonoBehaviour
         if(other.tag== "ParkingWalkway")
         { 
             queueManager = other.GetComponent<QueueManager>();
-            queueManager.spawnedGuest.Add(navMeshAgent.gameObject);
+            //queueManager.spawnedGuest.Add(navMeshAgent.gameObject);
+            if (!queueManager.waitingQueue.isFull())
+            { 
             queueManager.waitingQueue.AddInQueue(this);
+            }
+            else
+            {
+                ExitSpa(parent);
+            }
             //StartCoroutine(MoveToReception(parent, navMeshAgent));
         } 
         if (other.tag == "Reception")
@@ -210,13 +218,13 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
         RoomManager parentDestination = FindDestination();
-        parentDestination.waiting.AddInQueue(this);
-        //if (parentDestination != null)
-        //{
-        //    destination = parentDestination; 
-        //    MoveToTarget(parentDestination);
-        //}
+        if (parentDestination != null)
+        {
         queueManager.waitingQueue.RemoveFromQueue(this);
+        parentDestination.waiting.AddInQueue(this);
+            //destination = parentDestination;
+            //MoveToTarget(parentDestination);
+        } 
 
         //agent.SetDestination(FindDestination().position);  
     }
@@ -226,18 +234,23 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
         RoomManager parentDestination = FindDestination();
-        parentDestination.waiting.AddInQueue(this);
 
-        //if (parentDestination != null)
-        //{
-        //    destination = parentDestination;
-        //MoveToTarget(parentDestination); 
-        //}
+        if (parentDestination != null && !parentDestination.waiting.isFull())
+        {
+            navMeshAgent.avoidancePriority = 45;
+            parentDestination.waiting.AddInQueue(this);
+            //destination = parentDestination;
+            //MoveToTarget(parentDestination);
+        }
+        else
+        {
+            ExitSpa(parent);
+        }
         //navMeshAgent.SetDestination(FindDestination().position);  
     } 
     public IEnumerator GetMassage(ParentNPC parentData)
     { 
-        Debug.Log("GetMassage");
+        Debug.Log("GetMassage"); 
         yield return new WaitForSeconds(0.25f); 
         SnapToMassagePos();
         serviceCollider.enabled=false;
@@ -260,7 +273,7 @@ public class ParentController : MonoBehaviour
         MoveToTarget(chairPoint);
         //navMeshAgent.SetDestination(chairPoint.position);
         RemoveBaby();
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.25f);
         navMeshAgent.ResetPath(); 
         transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]); 
@@ -292,9 +305,10 @@ public class ParentController : MonoBehaviour
         //serviceCollider.enabled=true;
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         service.isAvailable = true;
-        currentRoom.waiting.CheckForFreeSlots();
+        var lastRoom = currentRoom;
         MoveToNextService(parent);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        lastRoom.waiting.CheckForFreeSlots();
         serviceCollider.enabled = true;
     }
 
@@ -349,9 +363,10 @@ public class ParentController : MonoBehaviour
         //serviceCollider.enabled = true; 
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         service.isAvailable = true;
-        currentRoom.waiting.CheckForFreeSlots(); 
+        var lastRoom = currentRoom; 
         MoveToNextService(parent);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        lastRoom.waiting.CheckForFreeSlots(); 
         serviceCollider.enabled = true;
     }
     public IEnumerator GetSwimming(ParentNPC parentData)
@@ -408,9 +423,11 @@ public class ParentController : MonoBehaviour
         SnapToOriginalPos(); 
         //parentObject.GetComponent<NavMeshAgent>().enabled = false;
         service.isAvailable = true;
-        currentRoom.waiting.CheckForFreeSlots(); 
+        var lastRoom = currentRoom;
+
         MoveToNextService(parent);
-        yield return new WaitForSeconds(5); 
+        yield return new WaitForSeconds(3);
+        lastRoom.waiting.CheckForFreeSlots(); 
         serviceCollider.enabled = true; 
     }
     public IEnumerator GetPhotoshoot(ParentNPC parentData)
@@ -464,15 +481,18 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SnapToOriginalPos(); 
         service.isAvailable = true;
-        currentRoom.waiting.CheckForFreeSlots();
+        var lastRoom = currentRoom;
+
         MoveToNextService(parent);
-        yield return new WaitForSeconds(5); 
+        yield return new WaitForSeconds(3);
+        lastRoom.waiting.CheckForFreeSlots();
         serviceCollider.enabled = true; 
     }
 
     public void ExitSpa(ParentNPC parentData)
     {
         Debug.Log("ExitSpa");
+        navMeshAgent.avoidancePriority = 99;
         PlayAnimation(parentData.anim[0]);
         babyController.PlayAnimation("walking with parent");
         parking.destroyPoint.GetComponent<BoxCollider>().enabled = true;
@@ -563,6 +583,7 @@ public class ParentController : MonoBehaviour
             destination = serviceDestination;
             PlayAnimation(parent.anim[0]);
             babyController.PlayAnimation("walking with parent");
+            navMeshAgent.avoidancePriority = 50; 
             MoveToTarget(serviceDestination);
         }
     }

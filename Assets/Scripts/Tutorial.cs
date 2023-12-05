@@ -35,21 +35,28 @@ public class Tutorial : MonoBehaviour
         }
         if (TaskManager.Instance.CurrentTaskNo == 1 && !massageRoom.isUnlocked)
         {
+            Camera.main.transform.DOMove(new Vector3(-130, 60, -80),2f);
+            Camera.main.orthographicSize = 25;
             ActivateHand(1);
             upgradeHand.SetActive(false);
         }
         if (TaskManager.Instance.CurrentTaskNo == 2 && !parking.isUnlocked)
         {
+            Camera.main.transform.DOMove(new Vector3(-140, 60, -15),2f);
+            Camera.main.orthographicSize = 25;
             ActivateHand(2);
             upgradeHand.SetActive(false);
         }
         if (TaskManager.Instance.CurrentTaskNo == 3 && !advertisement.isUnlocked)
         {
+            Camera.main.transform.DOMove(new Vector3(-140, 60, -48),2f);
+            Camera.main.orthographicSize = 20;
             ActivateHand(3);
             upgradeHand.SetActive(false);
         }
         if (TaskManager.Instance.CurrentTaskNo == 4)
         {
+            Camera.main.GetComponent<PanZoom>().enabled = true; 
             carManager.SetActive(true);
             ActivateHand(1);
             upgradeHand.SetActive(true); 

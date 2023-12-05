@@ -42,6 +42,7 @@ public class CanvasManager : MonoBehaviour
     void Start()
     {
         rewardEffect.SetActive(false);
+        //Camera.main.GetComponent<PanZoom>().enabled = false;
         Camera.main.transform.position = new Vector3(-140f, 60, -47f);
         Camera.main.orthographicSize = 20;
         instance = this; 

@@ -106,6 +106,7 @@ public class ParkingSlot : MonoBehaviour
         //parentController.parentnavMesh = parentController.parentObject.GetComponent<NavMeshAgent>();
         parentController.animator = parentController.parentObject.GetComponent<Animator>();
         parentController.navMeshAgent = parentGO.GetComponent<NavMeshAgent>();
+        //parentController.navMeshAgent.avoidancePriority = Random.Range(2, 50);
         parentController.spawnPoint = destroyPoint.transform;
         parentController.parking = this; 
         parentController.MoveToWalkway();

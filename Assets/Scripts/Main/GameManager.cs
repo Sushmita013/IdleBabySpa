@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        totalSoftCurrency = 999999;
+        totalSoftCurrency = 99999;
         totalHardCurrency = 0; 
         //reception_hires = PlayerPrefs.GetInt("Receptionist");
         //water_hires = PlayerPrefs.GetInt("Trainer");

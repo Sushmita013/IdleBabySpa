@@ -56,7 +56,6 @@ public class RoomManager : MonoBehaviour
     {
         //serviceLevel = 1;
         instance = this;
-        closeButton.onClick.AddListener(CloseButtonClick);
         //LoadData();
     }
 
@@ -65,9 +64,20 @@ public class RoomManager : MonoBehaviour
         StartCoroutine(CameraZoomIn());
         //Tutorial.instance.MassageClick(); 
     }
+
+    private void OnEnable()
+    { 
+        closeButton.onClick.RemoveAllListeners(); 
+        closeButton.onClick.AddListener(CloseButtonClick); 
+    }
+
+    private void OnDisable()
+    {
+        closeButton.onClick.RemoveAllListeners(); 
+    }
     private void Update()
     {
-        if (customersServed == 5)
+        if (customersServed == 2)
         { 
             tip.gameObject.SetActive(true);
         }
@@ -106,28 +116,29 @@ public class RoomManager : MonoBehaviour
         {
             Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
             Camera.main.DOOrthoSize(zoomSize, 1f);
+            ResetPanels();
             //yield return new WaitForSeconds(1f); 
             switch (roomName)
             {
-                case Departments.WaterTraining: 
-                    UpgradeUIpanels[4].GetComponent<RectTransform>().DOAnchorPosY(360, 1);
-                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
-                    GetComponent<Collider>().enabled = false;
+                case Departments.WaterTraining:  
+                    UpgradeUIpanels[4].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     break;
                 case Departments.Massage: 
-                    UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(360, 1);
-                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
-                    GetComponent<Collider>().enabled = false;
+                    UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     //closeButton.SetActive(true);
                     break;
                 case Departments.Haircut: 
-                    UpgradeUIpanels[3].GetComponent<RectTransform>().DOAnchorPosY(360, 1);
-                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
-                    GetComponent<Collider>().enabled = false;
+                    UpgradeUIpanels[3].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     //closeButton.SetActive(true);
@@ -139,9 +150,9 @@ public class RoomManager : MonoBehaviour
 
                     break;
                 case Departments.PhotoRoom: 
-                    UpgradeUIpanels[5].GetComponent<RectTransform>().DOAnchorPosY(360, 1);
-                    switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);  
-                    GetComponent<Collider>().enabled = false;
+                    UpgradeUIpanels[5].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);  
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     break;
@@ -150,7 +161,7 @@ public class RoomManager : MonoBehaviour
                     break;
                 case Departments.Parking: 
                     UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 1); 
-                    GetComponent<Collider>().enabled = false;
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     //closeButton.SetActive(true);
@@ -158,7 +169,7 @@ public class RoomManager : MonoBehaviour
                     break;
                 case Departments.Advertisement: 
                     UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 1); 
-                    GetComponent<Collider>().enabled = false;
+                    //GetComponent<Collider>().enabled = false;
                     yield return new WaitForSeconds(1);
                     hasUI = true;
                     //closeButton.SetActive(true);
@@ -182,12 +193,10 @@ public class RoomManager : MonoBehaviour
     } 
 
     public void CloseButtonClick()
-    { 
-        //closeButton.SetActive(false); 
+    {   
         hasUI = false;
-        ResetPanels();
-        GetComponent<Collider>().enabled = true;
-        if(roomName==Departments.Massage)
+        ResetPanels(); 
+        if(roomName==Departments.Massage || roomName == Departments.Haircut|| roomName == Departments.WaterTraining||roomName == Departments.PhotoRoom)
         { 
         interior.SetColorFunc(interior.currentIndex);
         }
@@ -201,7 +210,7 @@ public class RoomManager : MonoBehaviour
             switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(-1500, 1); 
         }
         Camera.main.DOOrthoSize(25, 0.25f);
-        GetComponent<Collider>().enabled = true; 
+        //GetComponent<Collider>().enabled = true; 
     }
 
     //public void LoadData()

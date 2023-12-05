@@ -97,7 +97,7 @@ public class Cashier : MonoBehaviour
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel)
+        if (bal >= costPerLevel && cashierLevel < 8)
         {
             upgradeButton.interactable = true;
         }

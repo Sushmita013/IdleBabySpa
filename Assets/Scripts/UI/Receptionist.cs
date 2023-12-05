@@ -22,6 +22,10 @@ public class Receptionist : MonoBehaviour
 
     public float duration;
     public ParentController parent;
+
+    public WaitingQueue waitingQueue;
+
+    public bool processingAccess;
     //public GameObject billUI;
 
     //public TMP_Text billAmount;
@@ -33,16 +37,18 @@ public class Receptionist : MonoBehaviour
         effect.Stop();
         animator = GetComponent<Animator>();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.tag == "ParentNPC")
         {  
-            StartCoroutine(Action());
+            //StartCoroutine(Action());
             parent = other.GetComponent<ParentController>();
+            GiveAccess();
         }
     }
     public IEnumerator Action()
-    {   
+    {
+        GetComponent<BoxCollider>().enabled = false;
         occupiedUI.SetActive(true);
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
@@ -52,10 +58,27 @@ public class Receptionist : MonoBehaviour
         occupiedUI.SetActive(false);
         PlayAnimation("Idle");  
         fillbar.DOFillAmount(0, 0.1f);
+        processingAccess = false;
+        yield return new WaitForSeconds(1f); 
+        GetComponent<BoxCollider>().enabled = true;
+
     }
     public void PlayAnimation(string animation)
     {
         animator.Play(animation);
+    }
+
+    void GiveAccess()
+    {
+        if (!AvailabilityManager.instance.IsRoomAvailable())
+            return;
+
+        if (!processingAccess) 
+        {
+            processingAccess = true;
+            StartCoroutine(Action());
+        }
+         
     }
 
     public float GetDuration()

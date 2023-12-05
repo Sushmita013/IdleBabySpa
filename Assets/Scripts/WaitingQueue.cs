@@ -6,13 +6,15 @@ public class WaitingQueue : MonoBehaviour
 {
     public List<Transform> queue=new List<Transform>();
     public List<ParentController> customerInQueue=new List<ParentController>();
-    public int queueIndex; 
+    public int queueIndex;
+    public bool isReception;
 
     public void AddInQueue(ParentController customer)
     {
         if(queueIndex<queue.Count)
-        { 
-            if(!customerInQueue.Contains(customer))
+        {
+            if (!customerInQueue.Contains(customer))
+            {
                 customerInQueue.Add(customer);
 
             customer.MoveToReception(customer.parent);
@@ -23,10 +25,14 @@ public class WaitingQueue : MonoBehaviour
                 Debug.Log("move to available slot");
                 customer.PlayAnimation(customer.parent.anim[1]); 
                 customer.babyController.PlayAnimation("standing idle"); 
+                if (!isReception && customerInQueue[0]==customer)
+                { 
                 CheckSlotForCustomer(customer);
+                }
             });
 
             queueIndex++;
+            }  
         }
     }
 
@@ -53,15 +59,16 @@ public class WaitingQueue : MonoBehaviour
 
     public void RemoveFromQueue(ParentController customer)
     {
+        if (customerInQueue.Contains(customer))
+        { 
         customerInQueue.Remove(customer);
         queueIndex--;
         ReOrderQueue();
+        }
     }
 
     public void CheckSlotForCustomer(ParentController customer)
-    {
-        customer.PlayAnimation(customer.parent.anim[0]);
-        customer.babyController.PlayAnimation("walking with parent");
+    { 
         customer.CheckForSlots();
     }
 
