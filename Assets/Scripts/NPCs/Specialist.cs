@@ -37,7 +37,8 @@ public class Specialist : MonoBehaviour
     void Start()
     { 
         effect.Stop();
-        upgradeSpeedButton.onClick.AddListener(UpdateClick); 
+        upgradeSpeedButton.onClick.AddListener(UpdateClick);
+        LoadData();
     }
 
     private void Update()
@@ -66,9 +67,9 @@ public class Specialist : MonoBehaviour
             effect.Play();
             workerSpeedLevel++;
             UpgradeSpeed();
-        }
-
+        } 
     }
+     
     public void UpgradeSpeed()
     {  
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
@@ -111,7 +112,15 @@ public class Specialist : MonoBehaviour
         startTimer = false;
         isHolding = false;
         holdTimer = 0;
-    } 
+    }
+    
+    public void LoadData()
+    {
+        for (int i = 0; i < workerSpeedLevel; i++)
+        {
+            UpgradeSpeed();
+        }
+    }
 
      
 

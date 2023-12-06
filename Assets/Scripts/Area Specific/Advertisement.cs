@@ -91,6 +91,15 @@ public class Advertisement : MonoBehaviour
             TaskManager.UpgradeAction?.Invoke();
         }
     }
+    public void UpgradeSave(int i)
+    { 
+            if(i < 7)
+            {  
+                levelText[0].text = i.ToString();
+                levelSlider[0].value = i;
+            CalculateCost(); 
+            } 
+    }
 
     public void EnableDisableUpgrade(float bal)
     {
@@ -140,9 +149,25 @@ public class Advertisement : MonoBehaviour
             //level[0].text = room.serviceLevel.ToString();
         }
     }
+    public void CalculateCost()
+    {
+        
+            costPerLevel *= 2;
+            personPerMin += 1; 
+            personInfo.text = costPerLevel.ToString();
+            upgrade_cost.text = personPerMin.ToString(); 
+    }
 
     public void UpdateHard()
     {
         CanvasManager.instance.totalBalanceHard_text.text = GameManager.instance.totalHardCurrency.ToString();
+    }
+
+    public void LoadData()
+    {
+        for (int i = 1; i <= room.serviceLevel; i++)
+        {
+            UpgradeSave(i);
+        }
     }
 }

@@ -31,7 +31,7 @@ public class ParkingTab : IService
     // Lists of UI panels and various visual elements
     public List<GameObject> panels;
 
-    public List<GameObject> levels; 
+    public List<GameObject> levels;
 
     // Particle effect for upgrades
     public ParticleSystem upgradeEffect;
@@ -42,14 +42,14 @@ public class ParkingTab : IService
     private bool isHolding;                 // Flag for holding upgrade button
     private bool startTimer;                // Flag for starting upgrade timer
     private float holdTimer;                // Timer for upgrade button hold duration
-     
+
 
     void Start()
     {
         // Add a listener for the upgrade button click event
         upgradeButton.onClick.AddListener(UpgradeClick);
         // Stop all upgrade effect particle systems initially
-        upgradeEffect.Stop(); 
+        upgradeEffect.Stop();
         LoadData();
     }
 
@@ -78,20 +78,29 @@ public class ParkingTab : IService
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
         {
             // Play the upgrade effect particle system
-            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact);
             upgradeEffect.Play();
-            levels[count].SetActive(true); 
-            count ++;
-            room.serviceLevel++; 
+            levels[count].SetActive(true);
+            count++;
+            room.serviceLevel++;
             level[0].text = room.serviceLevel.ToString();
             levelSlider[0].value = room.serviceLevel;
-            UpdateCost(); 
-             
+            UpdateCost();
+
         }
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeTask)
         {
             TaskManager.UpgradeAction?.Invoke();
         }
+    }
+    public void UpgradeSave(int i)
+    {
+        levels[count].SetActive(true);
+        count++; 
+        level[0].text = i.ToString();
+        levelSlider[0].value = i;
+        CalculateCost();
+
     }
 
     public void EnableDisableUpgrade(float bal)
@@ -139,19 +148,37 @@ public class ParkingTab : IService
         CanvasManager.instance.UpdateSoftCurrency();
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
         spacesPerLevel += spacesIncrease;
-        CarManager.instance.unlockedSlotsCount = (int)spacesPerLevel; 
+        CarManager.instance.unlockedSlotsCount = (int)spacesPerLevel;
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
         spacesPerLevel = Mathf.Round(spacesPerLevel * 10) / 10; // Round to 1 decimal place
         room.serviceCost = spacesPerLevel;
         cost_upgrade.text = costPerLevel.ToString();
         spacesvalue.text = spacesPerLevel.ToString();
         CarManager.instance.availableParkingSlots += (int)spacesIncrease;
-        CarManager.instance.UpdateSpots();  
-        CarManager.instance.UnlockSlots( ); 
+        CarManager.instance.UpdateSpots();
+        CarManager.instance.UnlockSlots();
+    }
+
+    public void CalculateCost()
+    {
+        costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
+        spacesPerLevel += spacesIncrease;
+        CarManager.instance.unlockedSlotsCount = (int)spacesPerLevel;
+        costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
+        spacesPerLevel = Mathf.Round(spacesPerLevel * 10) / 10; // Round to 1 decimal place
+        room.serviceCost = spacesPerLevel; 
+        cost_upgrade.text = costPerLevel.ToString();
+        spacesvalue.text = spacesPerLevel.ToString();
+        CarManager.instance.availableParkingSlots += (int)spacesIncrease;
+        CarManager.instance.UpdateSpots();
+        CarManager.instance.UnlockSlots();
     }
 
     public void LoadData()
     {
-         
+        for (int i = 1; i <= room.serviceLevel; i++)
+        {
+            UpgradeSave(i);
+        }
     }
 }

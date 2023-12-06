@@ -20,13 +20,12 @@ using DG.Tweening;
         Advertisement
     }
 public class RoomManager : MonoBehaviour
-{
-    public static RoomManager instance;
+{ 
     public Departments roomName;
 
     public int serviceLevel;
-    public int totalWorkers;
-    public float serviceCost;
+    //public int totalWorkers;
+    public float serviceCost; 
     public Transform camPos; 
     public int zoomSize;
     public bool hasUI;
@@ -48,21 +47,20 @@ public class RoomManager : MonoBehaviour
 
     public List<WorkerNPC> workerList;
 
+    public List<int> workerIndex;
+
     public WaitingQueue waiting;
 
     public Interior interior;
 
     void Start()
-    {
-        //serviceLevel = 1;
-        instance = this;
-        //LoadData();
+    {  
+        LoadData();
     }
 
     public void OnMouseDown()
     {
-        StartCoroutine(CameraZoomIn());
-        //Tutorial.instance.MassageClick(); 
+        StartCoroutine(CameraZoomIn()); 
     }
 
     private void OnEnable()
@@ -213,23 +211,12 @@ public class RoomManager : MonoBehaviour
         //GetComponent<Collider>().enabled = true; 
     }
 
-    //public void LoadData()
-    //{
-    //    if (PlayerPrefs.GetInt(playerPrefTag + "_unlocked")==0) 
-    //    {
-    //        isUnlocked = false;
-    //    }
-    //    else
-    //    {
-    //        isUnlocked = true;
-    //    }
-    //}
-
-    public void LoadSave()
+    public void LoadData()
     {
-        if (isUnlocked)
+        foreach (int item in workerIndex)
         {
-
+            workerList[item].isUnlocked = true;
         }
+
     }
 }

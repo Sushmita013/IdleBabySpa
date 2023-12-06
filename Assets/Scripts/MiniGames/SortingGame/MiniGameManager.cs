@@ -32,10 +32,10 @@ public class MiniGameManager : MonoBehaviour
     {
         effectPlayed++;
         yield return new WaitForSeconds(1f);
-        foreach (GameObject item in MatchMaker.instance.collectedObjects)
-        {
-            Destroy(item);
-        } 
+        //foreach (GameObject item in MatchMaker.instance.collectedObjects)
+        //{
+        //    Destroy(item);
+        //} 
         lid.SetActive(true);
         lid.transform.DOLocalMoveY(0.35f, 2f);
         yield return new WaitForSeconds(2f); 

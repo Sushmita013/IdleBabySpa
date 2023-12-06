@@ -7,7 +7,8 @@ using MoreMountains.NiceVibrations;
 
 
 public class UnlockWorker : MonoBehaviour
-{ 
+{
+    public RoomManager roomManager;
     public WorkerNPC workerNpc;
     public float hireCost;
     public Button hireButton;
@@ -31,7 +32,8 @@ public class UnlockWorker : MonoBehaviour
         {
             MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
             unlockEffect.Play(); 
-            workerNpc.isUnlocked = true; 
+            workerNpc.isUnlocked = true;
+            roomManager.workerIndex.Add(roomManager.workerList.FindIndex(x=>x==workerNpc));
             locked.SetActive(false);
             unlocked.SetActive(true);
             GameManager.instance.totalSoftCurrency -= hireCost;

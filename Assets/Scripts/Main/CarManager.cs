@@ -41,8 +41,7 @@ public class CarManager : MonoBehaviour
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
         if (CheckForAvailableSlot())
         { 
-         var index=FindNextAvailableParkingSlot();
-         Debug.Log(index);
+         var index=FindNextAvailableParkingSlot(); 
         agent.SetDestination(parkingSlots[index].destinationPoint.position); 
         parkingSlotAvailability[index] = false; 
         StartCoroutine(EnableCollider(index)); 
@@ -173,9 +172,7 @@ public class CarManager : MonoBehaviour
                 parkingSlotAvailability[i] = false;
             }
         }
-    }
-
-
+    } 
 
 }
 

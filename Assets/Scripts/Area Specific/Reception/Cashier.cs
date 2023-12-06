@@ -47,6 +47,7 @@ public class Cashier : MonoBehaviour
         }
         hireButton.onClick.AddListener(() => StartCoroutine(HireCashier()));
         upgradeButton.onClick.AddListener(UpgradeClick);
+        LoadData();
     }
 
     private void Update()
@@ -145,6 +146,7 @@ public class Cashier : MonoBehaviour
             TaskManager.UpgradeCashierAction?.Invoke();
         }
     }
+     
 
     public void UpdateValues()
     {
@@ -160,7 +162,10 @@ public class Cashier : MonoBehaviour
 
     public void LoadData()
     {
-
+        for(int i = 1; i <= cashierLevel; i++)
+        {
+            UpdateValues();
+        }
     }
 
 }

@@ -23,7 +23,7 @@ public class AdManager : MonoBehaviour
 
     public List<Slider> levelSlider;        // Sliders for tracking service level progress
 
-    public List<TaskButton3> taskList;      // List of tasks related to service level
+    //public List<TaskButton3> taskList;      // List of tasks related to service level
 
     public List<TMP_Text> level;            // Text displaying service level
 
@@ -50,8 +50,7 @@ public class AdManager : MonoBehaviour
                 // Handle upgrades based on service level up to 25 
                 income_Increase = 0.2f;
                 room.serviceLevel++;
-                taskList[0].progressText.text = room.serviceLevel.ToString();
-                taskList[0].progressionSlider.value = room.serviceLevel;
+                 
 
                 // Additional logic for specific service levels
                 if (room.serviceLevel == 2)
@@ -88,8 +87,7 @@ public class AdManager : MonoBehaviour
             {
                 // Handle upgrades based on service level from 26 to 50
                 room.serviceLevel++;
-                taskList[1].progressText.text = room.serviceLevel.ToString();
-                taskList[1].progressionSlider.value = room.serviceLevel;
+                 
                  
                 income_Increase = 0.4f;
                 if (room.serviceLevel == 38)
@@ -122,8 +120,7 @@ public class AdManager : MonoBehaviour
             {
                 // Handle upgrades based on service level from 51 to 75
                 room.serviceLevel++;
-                taskList[2].progressText.text = room.serviceLevel.ToString();
-                taskList[2].progressionSlider.value = room.serviceLevel; 
+                  
                 income_Increase = 1.2f;
                 if (room.serviceLevel == 63)
                 {

@@ -17,7 +17,7 @@ public class LevelPanel : MonoBehaviour
     public GameObject level0;
     public GameObject level1;
 
-    public TaskButton7 task;
+    //public TaskButton7 task;
 
     void Start()
     {
@@ -35,7 +35,7 @@ public class LevelPanel : MonoBehaviour
         targetLevel.text = "/12";
         targetLevel1.text = "2";
         targetLevel2.text = "2";
-        task.TaskComplete();
+        //task.TaskComplete();
         level0.SetActive(false);
         level1.SetActive(true);
         nextLevelButton.interactable = false; 

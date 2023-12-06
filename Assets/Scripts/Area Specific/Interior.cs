@@ -30,6 +30,7 @@ public class Interior : MonoBehaviour
 
     public List<Button> previewButtons;
     public List<Button> buyButtons;
+      public  List<int> unlockedIndexes = new List<int>();
 
 
     void Start()
@@ -44,7 +45,8 @@ public class Interior : MonoBehaviour
         {
             int buttonIndex = i; 
             buyButtons[i].onClick.AddListener(() => UnlockColorTheme(buttonIndex));
-        } 
+        }
+        LoadData();
     } 
 
     public void SetColorFunc(int currectActiveTheme)
@@ -86,8 +88,20 @@ public class Interior : MonoBehaviour
             SetColorFunc(themeNum);
         }
     }
+    public void UnlockColor(int themeNum)
+    { 
+            buyButtons[themeNum].gameObject.SetActive(false); 
+            isUnlocked[themeNum] = true;  
+    }
 
-
+    public void LoadData()
+    {
+        SetColorFunc(currentIndex);
+        foreach (int item in unlockedIndexes)
+        {
+            UnlockColor(item);
+        }
+    }
 
 
 

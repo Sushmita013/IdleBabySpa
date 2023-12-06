@@ -22,21 +22,21 @@ public class UnlockArea : MonoBehaviour
 
     public Button unlockButton;
 
-    public bool areaUnlocked;
+    //public bool areaUnlocked;
     void Start()
     {
         //unlockButton = GetComponent<Button>();
         unlockButton.onClick.AddListener(UnlockAreaTask);
-        if (areaUnlocked)
-        {
-            LoadData();
+        if (roomManager.isUnlocked)
+        { 
+            LoadData(); 
         }
     } 
 
     public void UnlockAreaTask()
     {
         if (!roomManager.isUnlocked)
-        {
+        { 
             if (unlockValue == 0)
             { 
             CanvasManager.instance.ShowPopup(messageText, descriptionText,()=> StartCoroutine(BuildFunction()));
@@ -58,11 +58,12 @@ public class UnlockArea : MonoBehaviour
             if(roomManager.roomName==Departments.Massage || roomManager.roomName == Departments.Haircut || roomManager.roomName == Departments.WaterTraining|| roomManager.roomName == Departments.PhotoRoom)
             {
                 AvailabilityManager.instance.rooms.Add(roomManager);
-            }
+            } 
             CanvasManager.instance.HidePopup();
             GameManager.instance.totalSoftCurrency -= unlockValue;
             CanvasManager.instance.UpdateSoftCurrency();
-            roomManager.isUnlocked = true; 
+            roomManager.isUnlocked = true;
+            SaveManager.instance.SaveDataCall();
             if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.BuildTask)
             {
                 TaskManager.BuildAction?.Invoke();

@@ -136,5 +136,10 @@ public class CanvasManager : MonoBehaviour
         rewardEffect.SetActive(false); 
     }
 
+    public void LoadData()
+    {
+        totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString();
+    }
+
 }
 
