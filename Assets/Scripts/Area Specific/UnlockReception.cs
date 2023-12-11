@@ -18,15 +18,18 @@ public class UnlockReception : MonoBehaviour
 
     public string messageText;
     public string descriptionText;
-
-    public Button unlockButton;
+      
     void Start()
     { 
         if (reception.isUnlocked)
         {
             LoadData();
         }
-        unlockButton.onClick.AddListener(UnlockAreaTask);
+        //unlockButton.onClick.AddListener(UnlockAreaTask);
+    }
+    private void OnMouseUpAsButton()
+    {
+        UnlockAreaTask();
     }
 
     public void UnlockAreaTask()
@@ -69,6 +72,8 @@ public class UnlockReception : MonoBehaviour
     {
         reception.isUnlocked = true;
         objectToEnable.SetActive(true);
+        enableNextPanel.SetActive(true);
+        borderWalls.SetActive(false); 
         Destroy(explosionFx.gameObject);
         Destroy(effectUI.gameObject);
         Destroy(addUI.gameObject);

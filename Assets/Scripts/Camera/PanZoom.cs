@@ -15,12 +15,16 @@ public class PanZoom : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject())
+        if (IsPointerOverUIObject())
+        {
+            return;
+        }
+        if (Input.GetMouseButtonDown(0)   )
         {
             touchStart = Camera.main.ScreenToWorldPoint(Input.mousePosition);
              
         }
-        if (Input.touchCount == 2 && !IsPointerOverUIObject())
+        if (Input.touchCount == 2)
         {
             Touch touchZero = Input.GetTouch(0);
             Touch touchOne = Input.GetTouch(1);
@@ -35,7 +39,7 @@ public class PanZoom : MonoBehaviour
 
             zoom(difference * 0.05f);
         }
-        else if (Input.GetMouseButton(0) && !uiShouldHandleInput && !IsPointerOverUIObject())
+        else if (Input.GetMouseButton(0) && !uiShouldHandleInput )
         {
             Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 newPosition = Camera.main.transform.position + direction*Time.deltaTime*speed;

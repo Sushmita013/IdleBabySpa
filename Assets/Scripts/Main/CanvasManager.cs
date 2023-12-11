@@ -36,16 +36,22 @@ public class CanvasManager : MonoBehaviour
 
     public GameObject rewardEffect;
     //public GameObject levelPanel;
-     
+
     //public int tipsCollected;
 
+    public GameObject completeTask;
+    public Transform completeTaskParent;
+
+    private void Awake()
+    { 
+        instance = this; 
+    }
     void Start()
     {
         LoadData();
         rewardEffect.SetActive(false);
         Camera.main.transform.position = new Vector3(-140f, 60, -47f);
         Camera.main.orthographicSize = 25;
-        instance = this; 
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
         totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString(); 
         //levelButton.onClick.AddListener(() => OnLevelClick(true));
@@ -106,7 +112,7 @@ public class CanvasManager : MonoBehaviour
         }
     }
 
-    public void ShowReward(string message,float rewardValue)
+    public void ShowReward(int index,string message,float rewardValue)
     { 
         if (CanvasManager.instance.popupObject1 == null)
         {
@@ -115,7 +121,7 @@ public class CanvasManager : MonoBehaviour
             errorPopup.EnablePanel();
             errorPopup.SetRewardMessage(rewardValue.ToString());
             errorPopup.SetRewardText(message);
-            errorPopup.SetButton("Collect Reward", ()=>StartCoroutine(HideReward(rewardValue)));
+            errorPopup.SetButton("Collect Reward", ()=>StartCoroutine(HideReward(index,rewardValue)));
         }
     }
 
@@ -124,16 +130,19 @@ public class CanvasManager : MonoBehaviour
         BuildPopup errorPopup = CanvasManager.instance.popupObject.GetComponent<BuildPopup>();
         errorPopup.DisablePanel(()=> Destroy(CanvasManager.instance.popupObject)); 
     }
-    public IEnumerator HideReward(float rewardValue)
+    public IEnumerator HideReward(int index,float rewardValue)
     {
-        rewardEffect.SetActive(true);
         MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
         GameManager.instance.totalSoftCurrency += rewardValue;
         UpdateSoftCurrency(); 
         RewardPanel errorPopup = CanvasManager.instance.popupObject1.GetComponent<RewardPanel>();
+        rewardEffect.transform.position = errorPopup.button.transform.position;
+        rewardEffect.SetActive(true);
         errorPopup.DisablePanel(()=> Destroy(CanvasManager.instance.popupObject1));
         yield return new WaitForSeconds(1f);
-        rewardEffect.SetActive(false); 
+        rewardEffect.SetActive(false);
+        SaveManager.instance.data.completedTask.Remove(index);
+
         SaveManager.instance.SaveDataCall();
     }
 

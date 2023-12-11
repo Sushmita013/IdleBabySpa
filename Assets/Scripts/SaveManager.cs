@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager instance;
     public SaveData data = new SaveData();
 
+    public TaskManager taskManager;
     public GameManager manager;
     public Reception reception;
     public RoomManager massageRoom;
@@ -27,7 +29,7 @@ public class SaveManager : MonoBehaviour
 
 
     public void SaveDataCall()
-    {
+    { 
         data.totalCurrency = manager.totalSoftCurrency;
 
         data.receptionistLevel = reception.receptionistList[0].receptionistLevel;
@@ -65,6 +67,8 @@ public class SaveManager : MonoBehaviour
         data.haircutInteriorIndex = haircut.interior.unlockedIndexes;
         data.swimInteriorIndex = swimRoom.interior.unlockedIndexes;
         data.photoInteriorIndex = photoshoot.interior.unlockedIndexes;
+
+
 
         string jsonData = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("SaveData", jsonData);
@@ -114,9 +118,19 @@ public class SaveManager : MonoBehaviour
         swimRoom.interior.unlockedIndexes = data.swimInteriorIndex;
         photoshoot.interior.unlockedIndexes = data.photoInteriorIndex; 
 
+        for(int i = 0; i < data.completedTask.Count; i++)
+        {
+            GameObject completeObject = Instantiate(CanvasManager.instance.completeTask,CanvasManager.instance.completeTaskParent);
+            var complete = completeObject.GetComponent<TaskCompleted>();
+            complete.taskIndex = data.completedTask[i];  
+            complete.taskName = taskManager.tasks[complete.taskIndex].taskName;
+            complete.rewardValue = taskManager.tasks[complete.taskIndex].rewardValue;
+            completeObject.GetComponent<Button>().onClick.AddListener(() => { complete.OnClick(); });
+        }
     }
 }
 
+[System.Serializable]
 public class SaveData
 {
     public float totalCurrency;
@@ -155,9 +169,9 @@ public class SaveData
     public List<int> massageInteriorIndex;
     public List<int> haircutInteriorIndex;
     public List<int> swimInteriorIndex;
-    public List<int> photoInteriorIndex; 
+    public List<int> photoInteriorIndex;
 
-
+    public List<int> completedTask;
 
 
 }

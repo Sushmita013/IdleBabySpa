@@ -36,8 +36,7 @@ public class CarManager : MonoBehaviour
     }
 
     public IEnumerator InstantiateRandomCars()
-    {
-        Debug.Log("Cars instantiated");
+    { 
         GameObject car = Instantiate(carPrefabs[Random.Range(0, carPrefabs.Count)], carParent.position,carParent.rotation);
 
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();

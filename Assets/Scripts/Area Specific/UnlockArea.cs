@@ -20,19 +20,23 @@ public class UnlockArea : MonoBehaviour
     public string messageText;
     public string descriptionText;
 
-    public Button unlockButton;
+    //public Button unlockButton;
 
     //public bool areaUnlocked;
     void Start()
     {
         //unlockButton = GetComponent<Button>();
-        unlockButton.onClick.AddListener(UnlockAreaTask);
+        //unlockButton.onClick.AddListener(UnlockAreaTask);
         if (roomManager.isUnlocked)
         { 
             LoadData(); 
         }
-    } 
+    }
 
+    private void OnMouseUpAsButton()
+    {
+        UnlockAreaTask();
+    }
     public void UnlockAreaTask()
     {
         if (!roomManager.isUnlocked)
@@ -84,6 +88,8 @@ public class UnlockArea : MonoBehaviour
     public void LoadData()
     {
         roomManager.isUnlocked = true;
+        borderWalls.SetActive(false);
+        enableNextPanel.SetActive(true); 
         objectToEnable.SetActive(true);
         Destroy(explosionFx.gameObject);
         Destroy(effectUI.gameObject);

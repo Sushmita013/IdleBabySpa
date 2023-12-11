@@ -24,7 +24,9 @@ public class Reception : MonoBehaviour
 
     public GameObject closeButton; 
 
-    public TMP_Text totalHires_text; 
+    public TMP_Text totalHires_text;
+
+    public float holdTimer;
 
     void Start()
     {
@@ -33,23 +35,25 @@ public class Reception : MonoBehaviour
         closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick); 
     }
 
+    private void OnMouseDown()
+    {
+        holdTimer = 0;
+    }
+
     public void OnMouseUpAsButton()
     {
-        if (IsPointerOverUIObject())
+        if (IsPointerOverUIObject() || holdTimer>0.1f)
         {
             return;
         }
         StartCoroutine(CameraZoomIn());
     } 
     public IEnumerator CameraZoomIn()
-    {
-        yield return new WaitForSeconds(0.25f);
-
+    {  
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         {
             Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 0.75f);
-            //yield return new WaitForSeconds(1f); 
+            Camera.main.DOOrthoSize(zoomSize, 0.75f); 
             UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
             UpgradeUIpanels[0].GetComponent<RectTransform>().DOAnchorPosY(225, 1);
             //GetComponent<Collider>().enabled = false;
@@ -75,7 +79,8 @@ public class Reception : MonoBehaviour
     public void CloseButtonClick()
     {
         closeButton.SetActive(false);
-        //GetComponent<Collider>().enabled = true; 
+        //GetComponent<Collider>().enabled = true;
+        Camera.main.DOOrthoSize(zoomSize, 0.5f); 
         hasUI = false;
         ResetPanels();  
     }

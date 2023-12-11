@@ -53,6 +53,8 @@ public class RoomManager : MonoBehaviour
 
     public Interior interior;
 
+    public float holdTimer;
+
     void Start()
     {  
         LoadData();
@@ -60,14 +62,19 @@ public class RoomManager : MonoBehaviour
         {
              StartCoroutine(CarManager.instance.InstantiateRandomCars()); 
         }
-    }
+    } 
 
+    private void OnMouseDown()
+    {
+        holdTimer = 0;
+    }
     public void OnMouseUpAsButton()
     {
-        if (IsPointerOverUIObject())
+        if (IsPointerOverUIObject() || holdTimer>0.1f)
         {
             return;
-        } 
+        }
+        Debug.Log("mouse button up");
         StartCoroutine(CameraZoomIn()); 
     }
 
@@ -83,6 +90,8 @@ public class RoomManager : MonoBehaviour
     }
     private void Update()
     {
+        holdTimer += Time.deltaTime;
+
         if (customersServed == 2)
         { 
             tip.gameObject.SetActive(true);
@@ -117,13 +126,12 @@ public class RoomManager : MonoBehaviour
         return false;
     }
     public IEnumerator CameraZoomIn()
-    {
-        yield return new WaitForSeconds(0.25f);
+    { 
 
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
-        {
+        { 
             Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 1f);
+            Camera.main.DOOrthoSize(zoomSize, 1f).SetEase(Ease.Linear);
             ResetPanels();
             //yield return new WaitForSeconds(1f); 
             switch (roomName)
@@ -193,11 +201,7 @@ public class RoomManager : MonoBehaviour
 
                     break;
             }
-        }
-        else
-        {
-            CamZoom();
-        }
+        } 
     }
      
     public void CamZoom()
@@ -210,7 +214,9 @@ public class RoomManager : MonoBehaviour
     } 
 
     public void CloseButtonClick()
-    {   
+    {  
+       Camera.main.DOOrthoSize(zoomSize+5, 0.5f);
+
         hasUI = false;
         ResetPanels(); 
         if(roomName==Departments.Massage || roomName == Departments.Haircut|| roomName == Departments.WaterTraining||roomName == Departments.PhotoRoom)
@@ -225,8 +231,7 @@ public class RoomManager : MonoBehaviour
         { 
             UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 1);
             switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(-1500, 1); 
-        }
-        Camera.main.DOOrthoSize(25, 0.25f);
+        } 
         //GetComponent<Collider>().enabled = true; 
     }
 
@@ -244,7 +249,22 @@ public class RoomManager : MonoBehaviour
 
     }
 
-    private bool IsPointerOverUIObject()
+    public void MassageZoomIn()
+    {
+
+        if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
+        { 
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 1f).SetEase(Ease.Linear);
+            ResetPanels(); 
+            UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+            UpgradeUIpanels[1].GetComponentInChildren<Tabs>().ButtonClick(0); 
+            hasUI = true;
+            //closeButton.SetActive(true);
+        }
+    }
+
+            private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
