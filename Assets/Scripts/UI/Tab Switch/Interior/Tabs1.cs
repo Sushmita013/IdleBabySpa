@@ -47,4 +47,5 @@ public class Tabs1 : MonoBehaviour
             item.SetActive(false);
         }
     }
+     
 }

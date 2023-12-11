@@ -24,13 +24,13 @@ public class Interior : MonoBehaviour
     public RoomManager room;
 
     public List<Theme> themes;
-    public int currentIndex; 
+    public int currentIndex;
 
     public List<bool> isUnlocked;
 
     public List<Button> previewButtons;
     public List<Button> buyButtons;
-      public  List<int> unlockedIndexes = new List<int>();
+    public List<int> unlockedIndexes = new List<int>();
 
 
     void Start()
@@ -40,18 +40,20 @@ public class Interior : MonoBehaviour
             int buttonIndex = i;
             previewButtons[i].onClick.AddListener(() => SetColorFunc(buttonIndex));
         }
-        
+
         for (int i = 0; i < buyButtons.Count; i++)
         {
-            int buttonIndex = i; 
+            int buttonIndex = i;
             buyButtons[i].onClick.AddListener(() => UnlockColorTheme(buttonIndex));
         }
         LoadData();
-    } 
+
+        EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
+    }
 
     public void SetColorFunc(int currectActiveTheme)
     {
-        Debug.Log(currectActiveTheme);
+        //Debug.Log(currectActiveTheme);
         if (isUnlocked[currectActiveTheme])
         {
             currentIndex = currectActiveTheme;
@@ -74,6 +76,26 @@ public class Interior : MonoBehaviour
             }
 
         }
+        SaveManager.instance.SaveDataCall();
+    }
+
+    public void EnableDisableUpgrade(float bal)
+    {
+        if (bal >= 1500)
+        {
+            for (int i = 0; i < buyButtons.Count; i++)
+            {
+                buyButtons[i].interactable = true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < buyButtons.Count; i++)
+            {
+                buyButtons[i].interactable = false;
+            }
+
+        }
     }
 
     public void UnlockColorTheme(int themeNum)
@@ -83,15 +105,17 @@ public class Interior : MonoBehaviour
             buyButtons[themeNum].gameObject.SetActive(false);
             currentIndex = themeNum;
             isUnlocked[themeNum] = true;
+            unlockedIndexes.Add(themeNum);
             GameManager.instance.totalSoftCurrency -= 1500;
             CanvasManager.instance.UpdateSoftCurrency();
             SetColorFunc(themeNum);
         }
+        SaveManager.instance.SaveDataCall();
     }
     public void UnlockColor(int themeNum)
-    { 
-            buyButtons[themeNum].gameObject.SetActive(false); 
-            isUnlocked[themeNum] = true;  
+    {
+        buyButtons[themeNum].gameObject.SetActive(false);
+        isUnlocked[themeNum] = true;
     }
 
     public void LoadData()
@@ -101,9 +125,7 @@ public class Interior : MonoBehaviour
         {
             UnlockColor(item);
         }
-    }
-
-
+    } 
 
 
 }

@@ -83,7 +83,7 @@ public class Receptionist : MonoBehaviour
 
     public float GetDuration()
     {
-        duration = 60/(room.cashierList[workerIndex - 1].cashierSpeed);
+        duration = 60/(room.receptionistList[workerIndex - 1].receptionistSpeed);
         return duration;
     }
 }

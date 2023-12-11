@@ -18,6 +18,12 @@ public class Tutorial : MonoBehaviour
 
     public GameObject carManager;
 
+    public List<Button> unlockButtons;
+
+    public Button massageButton;
+    public Button parkingButton;
+    public Button advertisementButton; 
+
     //public List<GameObject> colliders;
     //public static Tutorial instance;
 
@@ -31,7 +37,17 @@ public class Tutorial : MonoBehaviour
     {
         if (TaskManager.Instance.CurrentTaskNo == 0 && !reception.isUnlocked)
         {
+            foreach (Button item in unlockButtons)
+            {
+                item.interactable = false;
+            }
+            Camera.main.GetComponent<PanZoom>().enabled = false;
+            Camera.main.transform.position = new Vector3(-140f, 60, -47f);
+            Camera.main.orthographicSize = 25;
             ActivateHand(0);
+            massageButton.interactable = false;
+            parkingButton.interactable = false;
+            advertisementButton.interactable = false;
         }
         if (TaskManager.Instance.CurrentTaskNo == 1 && !massageRoom.isUnlocked)
         {
@@ -39,32 +55,44 @@ public class Tutorial : MonoBehaviour
             Camera.main.orthographicSize = 25;
             ActivateHand(1);
             upgradeHand.SetActive(false);
+            massageButton.interactable = true; 
         }
         if (TaskManager.Instance.CurrentTaskNo == 2 && !parking.isUnlocked)
         {
             Camera.main.transform.DOMove(new Vector3(-140, 60, -15),2f);
             Camera.main.orthographicSize = 25;
             ActivateHand(2);
-            upgradeHand.SetActive(false);
+            upgradeHand.SetActive(false); 
+            parkingButton.interactable = true; 
         }
         if (TaskManager.Instance.CurrentTaskNo == 3 && !advertisement.isUnlocked)
         {
             Camera.main.transform.DOMove(new Vector3(-140, 60, -48),2f);
             Camera.main.orthographicSize = 20;
             ActivateHand(3);
-            upgradeHand.SetActive(false);
+            upgradeHand.SetActive(false); 
+            advertisementButton.interactable = true;
         }
         if (TaskManager.Instance.CurrentTaskNo == 4)
         {
             Camera.main.GetComponent<PanZoom>().enabled = true; 
             carManager.SetActive(true);
             ActivateHand(1);
-            upgradeHand.SetActive(true); 
+            upgradeHand.SetActive(true);
+            foreach (Button item in unlockButtons)
+            {
+                item.interactable = true;
+            }
         }
         if (TaskManager.Instance.CurrentTaskNo == 4 && massageRoom.hasUI)
         {
             ResetHands();
             upgradeHand.SetActive(true); 
+        }
+        if (massageRoom.serviceLevel > 2)
+        {
+            ResetHands(); 
+            upgradeHand.SetActive(false); 
         }
         if (CanvasManager.instance.popupObject != null)
         {
@@ -98,7 +126,7 @@ public class Tutorial : MonoBehaviour
         {
             item.SetActive(false);
         }
-    }
+    } 
     //public Button task2; 
     //void Start()
     //{

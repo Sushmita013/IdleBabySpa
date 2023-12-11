@@ -85,7 +85,8 @@ public class WorkerNPC : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         billAmount.SetActive(false); 
         billAmount.transform.DOLocalMoveZ(0, 0.1f);
-        //billAmount.GetComponent<RectTransform>().DOAnchorPos(new Vector3(25, -34, -3), 1f); 
+        //billAmount.GetComponent<RectTransform>().DOAnchorPos(new Vector3(25, -34, -3), 1f);
+        SaveManager.instance.SaveDataCall(); 
     }
     public void PlayAnimation(string animation)
     {

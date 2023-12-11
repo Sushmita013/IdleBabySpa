@@ -49,5 +49,7 @@ public class CollectTip : MonoBehaviour
         { 
             TaskManager.CollectTipsAction?.Invoke(1);
         }
+        SaveManager.instance.SaveDataCall();
+
     }
 }

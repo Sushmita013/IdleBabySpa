@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7735139fe57b94d4b8bde96089de50e9, type: 3}
   m_Name: OpenHaircut
   m_EditorClassIdentifier: 
-  taskName: Open haircut department
+  taskName: Unlock haircut
   taskType: 1

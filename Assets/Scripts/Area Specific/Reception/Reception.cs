@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.EventSystems;
+
 
 public class Reception : MonoBehaviour
 {
@@ -11,10 +13,8 @@ public class Reception : MonoBehaviour
     public int totalCashiers;   
 
     public List<GameObject> UpgradeUIpanels;
-    public List<Cashier> cashierList;
+    public List<ReceptionTab> receptionistList; 
 
-    //public List<TaskButton1> taskList;
-    //public TaskButton buildTask;
     public Transform camPos;
     public float moveSpeed = 2.0f;
     public int zoomSize;
@@ -33,12 +33,18 @@ public class Reception : MonoBehaviour
         closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick); 
     }
 
-    public void OnMouseDown()
+    public void OnMouseUpAsButton()
     {
+        if (IsPointerOverUIObject())
+        {
+            return;
+        }
         StartCoroutine(CameraZoomIn());
     } 
     public IEnumerator CameraZoomIn()
     {
+        yield return new WaitForSeconds(0.25f);
+
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         {
             Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
@@ -80,5 +86,14 @@ public class Reception : MonoBehaviour
         {
             UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 1);
         }
-    } 
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 }

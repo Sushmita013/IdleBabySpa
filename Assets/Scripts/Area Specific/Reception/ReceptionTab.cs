@@ -7,16 +7,15 @@ using DG.Tweening;
 using MoreMountains.NiceVibrations;
 
 
-public class Cashier : MonoBehaviour
+public class ReceptionTab : MonoBehaviour
 {
     public bool isUnlocked;
 
-    public int cashierLevel;
+    public int receptionistLevel;
 
-    public float cashierSpeed;
+    public float receptionistSpeed;
     public float costPerLevel;
-
-    private int childrenDestroyed; 
+      
     public float hireCost;
     public float cost_percentageIncrease;
     public float speed_percentageIncrease; 
@@ -30,8 +29,7 @@ public class Cashier : MonoBehaviour
 
     public GameObject unlocked;
     public GameObject locked;
-    public GameObject service;
-    //public GameObject service1; 
+    public GameObject service; 
 
     public List<ParticleSystem> effects;
     public bool isHolding;
@@ -93,12 +91,14 @@ public class Cashier : MonoBehaviour
             //Destroy(effects[0].gameObject);
             //Destroy(effects[1].gameObject); 
         }
-       
+        SaveManager.instance.SaveDataCall();
+
+
     }
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && cashierLevel < 8)
+        if (bal >= costPerLevel && receptionistLevel < 15)
         {
             upgradeButton.interactable = true;
         }
@@ -138,9 +138,10 @@ public class Cashier : MonoBehaviour
             effects[0].Play(); 
             GameManager.instance.totalSoftCurrency -= costPerLevel;
             CanvasManager.instance.UpdateSoftCurrency();
-            cashierLevel++;
+            receptionistLevel++;
             UpdateValues();
         }
+        SaveManager.instance.SaveDataCall();
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeCashier)
         {
             TaskManager.UpgradeCashierAction?.Invoke();
@@ -151,18 +152,18 @@ public class Cashier : MonoBehaviour
     public void UpdateValues()
     {
         costPerLevel += costPerLevel * (cost_percentageIncrease / 100);
-        cashierSpeed += cashierSpeed * (speed_percentageIncrease / 100);
+        receptionistSpeed += receptionistSpeed * (speed_percentageIncrease / 100);
         costPerLevel = Mathf.Round(costPerLevel * 100) / 100; // Round to 2 decimal places
-        cashierSpeed = Mathf.Round(cashierSpeed * 100) / 100; // Round to 2 decimal place
+        receptionistSpeed = Mathf.Round(receptionistSpeed * 100) / 100; // Round to 2 decimal place
 
-        levelText.text = cashierLevel.ToString();
+        levelText.text = receptionistLevel.ToString();
         upgradeCostText.text = costPerLevel.ToString();
-        speedText.text = cashierSpeed.ToString();
+        speedText.text = receptionistSpeed.ToString();
     }
 
     public void LoadData()
     {
-        for(int i = 1; i <= cashierLevel; i++)
+        for(int i = 1; i <= receptionistLevel; i++)
         {
             UpdateValues();
         }

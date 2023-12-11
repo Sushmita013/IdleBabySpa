@@ -257,6 +257,8 @@ public class HaircutTab : IService
         room.serviceCost = incomePerLevel;
         cost_upgrade.text = costPerLevel.ToString();
         income_value.text = incomePerLevel.ToString();
+        SaveManager.instance.SaveDataCall();
+
     }
 
     public void UpdateHard()

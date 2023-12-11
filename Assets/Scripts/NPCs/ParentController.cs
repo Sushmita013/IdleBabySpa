@@ -333,7 +333,7 @@ public class ParentController : MonoBehaviour
         //parentObject.GetComponent<NavMeshAgent>().enabled = true;
         MoveToTarget(chairPoint); 
         //navMeshAgent.SetDestination(chairPoint.position);
-        yield return new WaitForSeconds(3.5f);
+        yield return new WaitForSeconds(3f);
         navMeshAgent.ResetPath();
         transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
         PlayAnimation(parentData.anim[4]);
@@ -346,7 +346,7 @@ public class ParentController : MonoBehaviour
         PlayAnimation(parentData.anim[3]);
         //navMeshAgent.SetDestination(destination.position);
         MoveToTarget(destination); 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         AddBaby(); 
         navMeshAgent.ResetPath();
         babyController.longHair.SetActive(false);
@@ -585,6 +585,11 @@ public class ParentController : MonoBehaviour
             babyController.PlayAnimation("walking with parent");
             navMeshAgent.avoidancePriority = 50; 
             MoveToTarget(serviceDestination);
+        }
+        else
+        {
+            PlayAnimation(parent.anim[1]);
+            babyController.PlayAnimation("standing idle");
         }
     }
 

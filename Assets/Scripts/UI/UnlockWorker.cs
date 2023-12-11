@@ -26,6 +26,11 @@ public class UnlockWorker : MonoBehaviour
         unlockEffect.Stop();
         LoadData();
     }
+
+    private void Update()
+    {
+        EnableDisableUpgrade(GameManager.instance.totalSoftCurrency);
+    }
     public IEnumerator HireWorker()
     {
         if (GameManager.instance.totalSoftCurrency >= hireCost && !workerNpc.isUnlocked)
@@ -34,10 +39,12 @@ public class UnlockWorker : MonoBehaviour
             unlockEffect.Play(); 
             workerNpc.isUnlocked = true;
             roomManager.workerIndex.Add(roomManager.workerList.FindIndex(x=>x==workerNpc));
+            roomManager.waiting.CheckForFreeSlots();
             locked.SetActive(false);
             unlocked.SetActive(true);
             GameManager.instance.totalSoftCurrency -= hireCost;
             CanvasManager.instance.UpdateSoftCurrency();
+            SaveManager.instance.SaveDataCall();
             objectToEnable.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), 0.01f); 
             yield return new WaitForSeconds(0.10f);
             Destroy(unlockUI.gameObject);
@@ -48,6 +55,19 @@ public class UnlockWorker : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
             Destroy(unlockEffect.gameObject); 
+        }
+    }
+
+    public void EnableDisableUpgrade(float bal)
+    {
+        if (bal >= hireCost)
+        {
+            hireButton.interactable = true;
+        }
+        else
+        {
+            hireButton.interactable = false;
+
         }
     }
 

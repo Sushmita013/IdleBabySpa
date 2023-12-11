@@ -14,10 +14,6 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         totalSoftCurrency = 99999;
-        totalHardCurrency = 0;  
-    }
-    void Start()
-    { 
-        instance = this;
     } 
+     
 }

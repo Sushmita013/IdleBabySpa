@@ -88,6 +88,7 @@ public class ParkingTab : IService
             UpdateCost();
 
         }
+        SaveManager.instance.SaveDataCall();
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeTask)
         {
             TaskManager.UpgradeAction?.Invoke();
@@ -157,6 +158,8 @@ public class ParkingTab : IService
         CarManager.instance.availableParkingSlots += (int)spacesIncrease;
         CarManager.instance.UpdateSpots();
         CarManager.instance.UnlockSlots();
+        SaveManager.instance.SaveDataCall();
+
     }
 
     public void CalculateCost()
@@ -176,7 +179,7 @@ public class ParkingTab : IService
 
     public void LoadData()
     {
-        for (int i = 1; i <= room.serviceLevel; i++)
+        for (int i = 2; i <= room.serviceLevel; i++)
         {
             UpgradeSave(i);
         }

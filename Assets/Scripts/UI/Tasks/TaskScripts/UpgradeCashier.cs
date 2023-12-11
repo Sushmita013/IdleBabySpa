@@ -10,7 +10,7 @@ public class UpgradeCashier : ITaskType
     public int targetLevel;
     public override float CheckCurrentProgress()
     {
-        currentLevel = reception.cashierList[0].cashierLevel;
+        currentLevel = reception.receptionistList[0].receptionistLevel;
         var progress = (float)currentLevel / (float)targetLevel;
         TaskManager.Instance.SetSliderValue($"{currentLevel}/{targetLevel}");
         return progress;
@@ -18,7 +18,7 @@ public class UpgradeCashier : ITaskType
 
     public override bool CheckIsTaskCompleted()
     {
-        currentLevel = reception.cashierList[0].cashierLevel; 
+        currentLevel = reception.receptionistList[0].receptionistLevel; 
 
         if (currentLevel >= targetLevel)
             return true;

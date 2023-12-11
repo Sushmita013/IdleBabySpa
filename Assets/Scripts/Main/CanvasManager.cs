@@ -41,10 +41,10 @@ public class CanvasManager : MonoBehaviour
 
     void Start()
     {
+        LoadData();
         rewardEffect.SetActive(false);
-        //Camera.main.GetComponent<PanZoom>().enabled = false;
         Camera.main.transform.position = new Vector3(-140f, 60, -47f);
-        Camera.main.orthographicSize = 20;
+        Camera.main.orthographicSize = 25;
         instance = this; 
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
         totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString(); 
@@ -134,6 +134,7 @@ public class CanvasManager : MonoBehaviour
         errorPopup.DisablePanel(()=> Destroy(CanvasManager.instance.popupObject1));
         yield return new WaitForSeconds(1f);
         rewardEffect.SetActive(false); 
+        SaveManager.instance.SaveDataCall();
     }
 
     public void LoadData()

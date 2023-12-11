@@ -34,8 +34,7 @@ public class TaskPanel : MonoBehaviour
                 {
                     progress = value;
                     if (progress >= 1)
-                    {
-                        Debug.Log("Task Completed");
+                    { 
                         StartCoroutine(OnTaskComplete());
                     }
                 });

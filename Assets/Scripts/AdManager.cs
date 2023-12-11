@@ -160,6 +160,7 @@ public class AdManager : MonoBehaviour
         room.serviceCost = incomePerLevel;
         cost_upgrade.text = costPerLevel.ToString();
         income_value.text = incomePerLevel.ToString();
+        SaveManager.instance.SaveDataCall(); 
     }
 
     //public void OnMouseDown()

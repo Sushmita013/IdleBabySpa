@@ -31,8 +31,7 @@ public class ParkingSlot : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Car")
-        {
-            Debug.Log("parking slot");
+        { 
             GetComponent<Collider>().enabled = false;
             car = other.gameObject;
             StartCoroutine(RotateCar(other.gameObject));

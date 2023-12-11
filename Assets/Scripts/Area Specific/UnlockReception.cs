@@ -6,6 +6,7 @@ using DG.Tweening;
 
 public class UnlockReception : MonoBehaviour
 {
+    public Reception reception;
     public float unlockValue;
     public GameObject addUI;
     public ParticleSystem effectUI;
@@ -14,15 +15,17 @@ public class UnlockReception : MonoBehaviour
     public GameObject borderWalls; 
     public GameObject enableNextPanel;
 
-    public Reception reception;
 
     public string messageText;
     public string descriptionText;
 
     public Button unlockButton;
     void Start()
-    {
-        //unlockButton = GetComponent<Button>();
+    { 
+        if (reception.isUnlocked)
+        {
+            LoadData();
+        }
         unlockButton.onClick.AddListener(UnlockAreaTask);
     }
 
@@ -44,6 +47,7 @@ public class UnlockReception : MonoBehaviour
             GameManager.instance.totalSoftCurrency -= unlockValue;
             CanvasManager.instance.UpdateSoftCurrency();
             reception.isUnlocked = true;
+            SaveManager.instance.SaveDataCall(); 
             if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.BuildReception)
             {
                 TaskManager.BuildReceptionAction?.Invoke();
@@ -59,5 +63,14 @@ public class UnlockReception : MonoBehaviour
             Destroy(effectUI.gameObject);
             Destroy(addUI.gameObject);
         }
+    }
+
+    public void LoadData()
+    {
+        reception.isUnlocked = true;
+        objectToEnable.SetActive(true);
+        Destroy(explosionFx.gameObject);
+        Destroy(effectUI.gameObject);
+        Destroy(addUI.gameObject);
     }
 }

@@ -67,7 +67,8 @@ public class Specialist : MonoBehaviour
             effect.Play();
             workerSpeedLevel++;
             UpgradeSpeed();
-        } 
+        }
+        SaveManager.instance.SaveDataCall();
     }
      
     public void UpgradeSpeed()
@@ -82,7 +83,7 @@ public class Specialist : MonoBehaviour
 
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && workerSpeedLevel<=5)
+        if (bal >= costPerLevel && workerSpeedLevel<=4)
         {
             upgradeSpeedButton.interactable = true;
         }
@@ -116,7 +117,7 @@ public class Specialist : MonoBehaviour
     
     public void LoadData()
     {
-        for (int i = 0; i < workerSpeedLevel; i++)
+        for (int i = 2; i < workerSpeedLevel; i++)
         {
             UpgradeSpeed();
         }

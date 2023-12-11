@@ -55,10 +55,10 @@ public class UnlockArea : MonoBehaviour
         if (GameManager.instance.totalSoftCurrency >= unlockValue)
         { 
             MMVibrationManager.Haptic(HapticTypes.MediumImpact);
-            if(roomManager.roomName==Departments.Massage || roomManager.roomName == Departments.Haircut || roomManager.roomName == Departments.WaterTraining|| roomManager.roomName == Departments.PhotoRoom)
-            {
-                AvailabilityManager.instance.rooms.Add(roomManager);
-            } 
+            //if(roomManager.roomName==Departments.Massage || roomManager.roomName == Departments.Haircut || roomManager.roomName == Departments.WaterTraining|| roomManager.roomName == Departments.PhotoRoom)
+            //{
+            //    AvailabilityManager.instance.rooms.Add(roomManager);
+            //} 
             CanvasManager.instance.HidePopup();
             GameManager.instance.totalSoftCurrency -= unlockValue;
             CanvasManager.instance.UpdateSoftCurrency();
@@ -79,7 +79,7 @@ public class UnlockArea : MonoBehaviour
             Destroy(effectUI.gameObject);
             Destroy(addUI.gameObject);
         }
-    }
+    } 
 
     public void LoadData()
     {

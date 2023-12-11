@@ -41,7 +41,7 @@ public class PanZoom : MonoBehaviour
             Vector3 newPosition = Camera.main.transform.position + direction*Time.deltaTime*speed;
 
             newPosition = new Vector3(
-                    Mathf.Clamp(newPosition. x, -140, -40),
+                    Mathf.Clamp(newPosition. x, -150, -40),
                     60,
                     Mathf.Clamp(newPosition. z, -80, 15)); 
                 Camera.main.transform.position = newPosition;

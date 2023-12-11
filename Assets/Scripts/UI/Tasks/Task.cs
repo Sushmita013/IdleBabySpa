@@ -43,10 +43,10 @@ public class Task : MonoBehaviour
     //        {
     //            taskType = gameObject.GetOrAddComponent<UpgradeCashier>();
     //        }
-    //        //else if (taskObject.taskType == TaskType.UpgradeParking)
-    //        //{
-    //        //    taskType = gameObject.GetOrAddComponent<CompleteCarTask>();
-    //        //}
+    //        else if (taskObject.taskType == TaskType.UpgradeParking)
+    //        {
+    //            taskType = gameObject.GetOrAddComponent<CompleteCarTask>();
+    //        }
 
     //        foreach (var comp in gameObject.GetComponents<ITaskType>())
     //        {

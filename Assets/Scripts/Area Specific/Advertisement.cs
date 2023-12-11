@@ -7,13 +7,12 @@ using DG.Tweening;
 using MoreMountains.NiceVibrations;
 
 
-public class Advertisement : MonoBehaviour
+public class Advertisement : IService
 {
     public float costPerLevel;
-    public float personPerMin; 
+    public float personPerMin;
 
     public TMP_Text personInfo;
-    //public TMP_Text level;
     public TMP_Text upgrade_cost;
 
     public Departments roomName;
@@ -22,11 +21,11 @@ public class Advertisement : MonoBehaviour
 
     public int multiplier;
 
-    public List<Slider> levelSlider; 
+    public List<Slider> levelSlider;
 
     public List<TMP_Text> levelText;
 
-    public Button upgradeButton; 
+    public Button upgradeButton;
 
     public List<GameObject> panels;
 
@@ -42,6 +41,7 @@ public class Advertisement : MonoBehaviour
     {
         upgradeEffect.Stop();
         upgradeButton.onClick.AddListener(UpgradeClick);
+        LoadData();
     }
 
     private void Update()
@@ -68,42 +68,38 @@ public class Advertisement : MonoBehaviour
     public void UpgradeClick()
     {
         if (GameManager.instance.totalSoftCurrency >= costPerLevel)
-        { 
-            if(room.serviceLevel < 7)
+        {
+            if (room.serviceLevel < 9)
             {
-                MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
+                MMVibrationManager.Haptic(HapticTypes.MediumImpact);
                 upgradeEffect.Play();
-            room.serviceLevel++;
+                room.serviceLevel++;
                 levelText[0].text = room.serviceLevel.ToString();
                 levelSlider[0].value = room.serviceLevel;
                 UpdateCost();
-                //if (room.serviceLevel <=3)
-                //{ 
-                //    if (room.serviceLevel == 3)
-                //    {
-                //        //StartCoroutine(taskList[0].TaskComplete()); 
-                //    }
-                //}
             }
         }
+        SaveManager.instance.SaveDataCall();
         if (TaskManager.Instance.CurrentActiveTask.taskObject.taskType == TaskType.UpgradeTask)
         {
             TaskManager.UpgradeAction?.Invoke();
         }
     }
     public void UpgradeSave(int i)
-    { 
-            if(i < 7)
-            {  
-                levelText[0].text = i.ToString();
-                levelSlider[0].value = i;
-            CalculateCost(); 
-            } 
+    {
+        levelText[0].text = i.ToString();
+        levelSlider[0].value = i;
+        CalculateCost();
     }
 
+    public void KeyboardName()
+    {
+        KeyboardManager.Instance.printBox.text = "";
+        //KeyboardManager.Instance.printbo.text = "";
+    }
     public void EnableDisableUpgrade(float bal)
     {
-        if (bal >= costPerLevel && room.serviceLevel<6)
+        if (bal >= costPerLevel && room.serviceLevel < 9)
         {
             upgradeButton.interactable = true;
         }
@@ -143,19 +139,21 @@ public class Advertisement : MonoBehaviour
             CanvasManager.instance.UpdateSoftCurrency();
             costPerLevel *= 2;
             personPerMin += 1;
-            //room.serviceCost = costPerLevel;
+            room.serviceCost = costPerLevel;
             personInfo.text = costPerLevel.ToString();
             upgrade_cost.text = personPerMin.ToString();
-            //level[0].text = room.serviceLevel.ToString();
+            SaveManager.instance.SaveDataCall(); 
         }
     }
     public void CalculateCost()
     {
-        
-            costPerLevel *= 2;
-            personPerMin += 1; 
-            personInfo.text = costPerLevel.ToString();
-            upgrade_cost.text = personPerMin.ToString(); 
+
+        costPerLevel *= 2;
+        personPerMin += 1;
+        room.serviceCost = costPerLevel;
+
+        personInfo.text = costPerLevel.ToString();
+        upgrade_cost.text = personPerMin.ToString();
     }
 
     public void UpdateHard()
@@ -165,9 +163,10 @@ public class Advertisement : MonoBehaviour
 
     public void LoadData()
     {
-        for (int i = 1; i <= room.serviceLevel; i++)
+        for (int i = 2; i <= room.serviceLevel; i++)
         {
             UpgradeSave(i);
         }
     }
+     
 }

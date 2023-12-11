@@ -5,7 +5,7 @@ public class KeyboardManager : MonoBehaviour
 {
     public static KeyboardManager Instance;
     public TextMeshProUGUI textBox;
-    [SerializeField] TextMeshProUGUI printBox;
+    public TextMeshProUGUI printBox;
 
     private void Start()
     {

@@ -22,20 +22,22 @@ public class CarManager : MonoBehaviour
     public TMP_Text spotsText; 
     public int unlockedSlotsCount;
 
-    private void Start()
+    private void Awake()
     {
-        //carSpawnDuration = 10;
-        GetDuration();
-        instance = this;
-        // Initialize parking slot availability list
-        EnableParkingSlot();
-        availableParkingSlots = unlockedSlotsCount;
-        UpdateSpots(); 
-        StartCoroutine(InstantiateRandomCars()); 
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        } 
+    }
+    private void Start()
+    {   
+        LoadData();
     }
 
-    private IEnumerator InstantiateRandomCars()
-    { 
+    public IEnumerator InstantiateRandomCars()
+    {
+        Debug.Log("Cars instantiated");
         GameObject car = Instantiate(carPrefabs[Random.Range(0, carPrefabs.Count)], carParent.position,carParent.rotation);
 
         NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
@@ -53,22 +55,7 @@ public class CarManager : MonoBehaviour
             Destroy(car, 15);
         }
         yield return new WaitForSeconds(GetDuration());
-        StartCoroutine(InstantiateRandomCars()); 
-        //foreach (Cars carData in carPrefabs)
-        //{
-        //    GameObject carPrefab = carData.carPrefabs[Random.Range(0, carData.carPrefabs.Count)]; 
-        //    GameObject car = Instantiate(carPrefab, carData.movePoints[0].position, Quaternion.identity);
-        //    GameObject childTransform = car.transform.Find("SpawnPoint").gameObject;
-        //    carData.spawnPoint = childTransform;
-        //    NavMeshAgent agent = car.GetComponent<NavMeshAgent>();
-        //    //instantiatedCars.Add(car);
-        //    agent.SetDestination(carData.movePoints[1].position);
-        //    yield return new WaitForSeconds(8f);
-        //    StartCoroutine(MoveCar(carData,agent)); 
-        //    yield return new WaitForSeconds(GetDuration());
-        //    StartCoroutine(InstantiateRandomCars()); 
-        //} 
-
+        StartCoroutine(InstantiateRandomCars());    
     }
 
     public IEnumerator EnableCollider(int i)
@@ -88,28 +75,7 @@ public class CarManager : MonoBehaviour
             }
         }
         return isAvailable;
-    }
-    //public IEnumerator MoveCar(Cars carData, NavMeshAgent agent)
-    //{
-    //    int parkingSlotIndex = FindNextAvailableParkingSlot();
-
-    //    if (parkingSlotIndex != -1)
-    //    {
-    //        availableParkingSlots -= 1;
-    //        UpdateSpots();
-    //        carData.destinationIndex = parkingSlotIndex;
-    //        agent.SetDestination(carData.movePoints[parkingSlotIndex + 2].position);
-    //        parkingSlots[parkingSlotIndex].GetComponent<Collider>().enabled = true;
-    //        parkingSlotAvailability[parkingSlotIndex] = false; // Mark the parking slot as occupied
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("No available parking slots!");
-    //        agent.SetDestination(carData.movePoints[8].position);
-    //        yield return new WaitForSeconds(15);
-    //        Destroy(agent.gameObject);
-    //    }
-    //}
+    } 
 
     private int FindNextAvailableParkingSlot()
     {
@@ -143,8 +109,7 @@ public class CarManager : MonoBehaviour
     }
 
     public void EnableParkingSlot()
-    {
-        Debug.Log("EnableParkingSlot");
+    { 
         for (int i = 0; i < parkingSlots.Count; i++)
         {
             if (i < unlockedSlotsCount)
@@ -173,6 +138,14 @@ public class CarManager : MonoBehaviour
             }
         }
     } 
+
+    public void LoadData()
+    { 
+        // Initialize parking slot availability list
+        EnableParkingSlot();
+        availableParkingSlots = unlockedSlotsCount;
+        UpdateSpots(); 
+    }
 
 }
 
