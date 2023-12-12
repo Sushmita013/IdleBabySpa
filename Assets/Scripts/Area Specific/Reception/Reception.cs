@@ -57,12 +57,13 @@ public class Reception : MonoBehaviour
     {  
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         {
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 0.75f); 
-            UpgradeUIpanels[0].transform.DOMoveY(0, 1f);
-            UpgradeUIpanels[0].GetComponent<RectTransform>().DOAnchorPosY(225, 1);
+            ResetPanels();
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.3f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.3f); 
+            //UpgradeUIpanels[0].transform.DOMoveY(0, 0.3f);
+            UpgradeUIpanels[0].GetComponent<RectTransform>().DOAnchorPosY(225, 0.3f);
             //GetComponent<Collider>().enabled = false;
-            yield return new WaitForSeconds(0.75f);
+            yield return new WaitForSeconds(0.3f);
             hasUI = true;
             closeButton.SetActive(true);
         }
@@ -76,8 +77,8 @@ public class Reception : MonoBehaviour
     {
         if (Camera.main.transform.position != camPos.localPosition)
         {
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 0.75f);
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.3f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.3f);
         }
     }  
 
@@ -85,7 +86,7 @@ public class Reception : MonoBehaviour
     {
         closeButton.SetActive(false);
         //GetComponent<Collider>().enabled = true;
-        Camera.main.DOOrthoSize(zoomSize+5, 0.5f); 
+        Camera.main.DOOrthoSize(zoomSize+5, 0.3f); 
         hasUI = false;
         ResetPanels();  
     }
@@ -94,7 +95,7 @@ public class Reception : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         {
-            UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 1);
+            UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 0.1f);
         }
     }
 

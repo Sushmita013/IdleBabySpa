@@ -73,8 +73,7 @@ public class RoomManager : MonoBehaviour
         if (IsPointerOverUIObject() || holdTimer>0.1f)
         {
             return;
-        }
-        Debug.Log("mouse button up");
+        } 
         StartCoroutine(CameraZoomIn()); 
     }
 
@@ -130,36 +129,36 @@ public class RoomManager : MonoBehaviour
 
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         { 
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 1f).SetEase(Ease.Linear);
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.3f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.3f).SetEase(Ease.Linear);
             ResetPanels();
             //yield return new WaitForSeconds(1f); 
             switch (roomName)
             {
                 case Departments.WaterTraining:  
-                    UpgradeUIpanels[4].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[4].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[4].GetComponentInChildren<Tabs2>().ButtonClick(0);
 
                     //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     break;
                 case Departments.Massage: 
-                    UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[1].GetComponentInChildren<Tabs>().ButtonClick(0);
                     //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     //closeButton.SetActive(true);
                     break;
                 case Departments.Haircut: 
-                    UpgradeUIpanels[3].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[3].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[3].GetComponentInChildren<Tabs1>().ButtonClick(0); 
                     //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     //closeButton.SetActive(true);
                     break;
@@ -170,32 +169,32 @@ public class RoomManager : MonoBehaviour
 
                     break;
                 case Departments.PhotoRoom: 
-                    UpgradeUIpanels[5].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[5].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[5].GetComponentInChildren<Tabs3>().ButtonClick(0);
 
                     //switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(230, 1);  
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     break;
                 case Departments.Cafeteria:
 
                     break;
                 case Departments.Parking: 
-                    UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[2].GetComponentInChildren<Tabs4>().ButtonClick(0); 
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     //closeButton.SetActive(true);
 
                     break;
                 case Departments.Advertisement: 
-                    UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+                    UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
                     UpgradeUIpanels[2].GetComponentInChildren<Tabs4>().ButtonClick(1);
 
                     //GetComponent<Collider>().enabled = false;
-                    yield return new WaitForSeconds(1);
+                    yield return new WaitForSeconds(0.3f);
                     hasUI = true;
                     //closeButton.SetActive(true);
 
@@ -208,14 +207,14 @@ public class RoomManager : MonoBehaviour
     {
         if (Camera.main.transform.position != camPos.localPosition)
         {
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.75f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 0.75f);
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.3f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.3f);
         }
     } 
 
     public void CloseButtonClick()
     {  
-       Camera.main.DOOrthoSize(zoomSize+5, 0.5f);
+       Camera.main.DOOrthoSize(zoomSize+5, 0.3f);
 
         hasUI = false;
         ResetPanels(); 
@@ -229,8 +228,8 @@ public class RoomManager : MonoBehaviour
     {
         for (int i = 0; i < UpgradeUIpanels.Count; i++)
         { 
-            UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 1);
-            switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(-1500, 1); 
+            UpgradeUIpanels[i].GetComponent<RectTransform>().DOAnchorPosY(-1500, 0.1f);
+            switchServicePanel.GetComponent<RectTransform>().DOAnchorPosY(-1500, 0.1f); 
         } 
         //GetComponent<Collider>().enabled = true; 
     }
@@ -254,10 +253,10 @@ public class RoomManager : MonoBehaviour
 
         if (CanvasManager.instance.popupObject == null && CanvasManager.instance.popupObject1 == null)
         { 
-            Camera.main.transform.DOLocalMove(camPos.localPosition, 1f).SetEase(Ease.Linear);
-            Camera.main.DOOrthoSize(zoomSize, 1f).SetEase(Ease.Linear);
+            Camera.main.transform.DOLocalMove(camPos.localPosition, 0.5f).SetEase(Ease.Linear);
+            Camera.main.DOOrthoSize(zoomSize, 0.5f).SetEase(Ease.Linear);
             ResetPanels(); 
-            UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 1);
+            UpgradeUIpanels[1].GetComponent<RectTransform>().DOAnchorPosY(230, 0.5f);
             UpgradeUIpanels[1].GetComponentInChildren<Tabs>().ButtonClick(0); 
             hasUI = true;
             //closeButton.SetActive(true);

@@ -13,6 +13,11 @@ public class PanZoom : MonoBehaviour
     // Add a flag to indicate if UI should handle the input
     private bool uiShouldHandleInput = false;
 
+    //public float magnitude=0;
+    public Vector3 direction;
+
+    //public float decayTime;
+
     void Update()
     {
         if (IsPointerOverUIObject())
@@ -41,7 +46,10 @@ public class PanZoom : MonoBehaviour
         }
         else if (Input.GetMouseButton(0) && !uiShouldHandleInput )
         {
-            Vector3 direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //magnitude = direction.magnitude;
+            //magnitude = Mathf.Clamp(magnitude,0, 20);
+            //direction = direction.normalized; 
             Vector3 newPosition = Camera.main.transform.position + direction*Time.deltaTime*speed;
 
             newPosition = new Vector3(
@@ -50,6 +58,21 @@ public class PanZoom : MonoBehaviour
                     Mathf.Clamp(newPosition. z, -80, 15)); 
                 Camera.main.transform.position = newPosition;
         }
+
+        //else
+        //{
+        //    if (magnitude > 0)
+        //    {
+        //        magnitude -= Time.deltaTime*decayTime; 
+        //        Vector3 newPosition = Camera.main.transform.position + direction * Time.deltaTime * speed;
+
+        //        newPosition = new Vector3(
+        //                Mathf.Clamp(newPosition.x, -150, -40),
+        //                60,
+        //                Mathf.Clamp(newPosition.z, -80, 15));
+        //        Camera.main.transform.position = newPosition;
+        //    }
+        //}
         zoom(Input.GetAxis("Mouse ScrollWheel") * 20);
     }
 

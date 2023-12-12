@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        totalSoftCurrency = 99999;
+        //totalSoftCurrency = 999999;
     } 
      
 }

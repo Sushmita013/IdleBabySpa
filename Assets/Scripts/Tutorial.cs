@@ -16,9 +16,7 @@ public class Tutorial : MonoBehaviour
 
     public Reception reception;
 
-    public GameObject carManager;
-
-    public List<BoxCollider> unlockButtons;
+    public GameObject carManager; 
 
     public BoxCollider massageButton;
     public BoxCollider parkingButton;
@@ -27,11 +25,7 @@ public class Tutorial : MonoBehaviour
     private void Update()
     {
         if (TaskManager.Instance.CurrentTaskNo == 0 && !reception.isUnlocked)
-        {
-            foreach (BoxCollider item in unlockButtons)
-            {
-                item.enabled = false;
-            }
+        { 
             Camera.main.GetComponent<PanZoom>().enabled = false;
             //Camera.main.transform.position = new Vector3(-140f, 60, -47f);
             //Camera.main.orthographicSize = 25;
@@ -80,11 +74,7 @@ public class Tutorial : MonoBehaviour
         if (massageRoom.serviceLevel > 2)
         {
             ResetHands(); 
-            upgradeHand.SetActive(false);
-            foreach (BoxCollider item in unlockButtons)
-            {
-                item.enabled = true;
-            }
+            upgradeHand.SetActive(false); 
         }
         if (CanvasManager.instance.popupObject != null)
         {

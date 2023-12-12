@@ -18,15 +18,12 @@ public class ParentController : MonoBehaviour
     internal ParkingSlot parking;
     internal Transform spawnPoint;
 
-    private float duration;
-    private float duration1;
+    private float duration; 
     private Transform chairPoint;
     private Transform destination;
-    private BoxCollider serviceCollider;
-    private SphereCollider chairCollider;
+    private BoxCollider serviceCollider; 
 
-    private QueueManager queueManager;
-    //public float totalBill;
+    private QueueManager queueManager; 
 
     private int parentRotation; 
 
@@ -37,8 +34,7 @@ public class ParentController : MonoBehaviour
     private WorkerNPC service;
 
     public List<RoomManager> roomManagers;
-
-    //public Transform babyTransform;
+     
 
     public Vector3 babyPos,babyRotation;
     public Vector3 parentPos,parentRot;
@@ -342,6 +338,8 @@ public class ParentController : MonoBehaviour
         //PlayAnimationMassage("Massage");
         yield return new WaitForSeconds(duration - 6f); 
         PlayAnimation(parentData.anim[6]);
+        babyController.longHair.SetActive(false);
+        babyController.shortHair.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);
         //navMeshAgent.SetDestination(destination.position);
@@ -349,8 +347,6 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         AddBaby(); 
         navMeshAgent.ResetPath();
-        babyController.longHair.SetActive(false);
-        babyController.shortHair.SetActive(true);
         BabyScaleDown();
         SnapToHaircutPos();
         baby.transform.DOLocalMove(new Vector3(0, 0.131f, 0.519f), 0.5f); 

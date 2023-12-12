@@ -76,6 +76,7 @@ public class UnlockArea : MonoBehaviour
             explosionFx.Play();
             borderWalls.SetActive(false);
             enableNextPanel.SetActive(true);
+            enableNextPanel.GetComponentInParent<BoxCollider>().enabled = true;
             objectToEnable.SetActive(true);
             objectToEnable.transform.DOScale(new Vector3(1, 1, 1), 0.75f);
             yield return new WaitForSeconds(0.5f);
@@ -89,7 +90,8 @@ public class UnlockArea : MonoBehaviour
     {
         roomManager.isUnlocked = true;
         borderWalls.SetActive(false);
-        enableNextPanel.SetActive(true); 
+        enableNextPanel.SetActive(true);
+        enableNextPanel.GetComponentInParent<BoxCollider>().enabled = true; 
         objectToEnable.SetActive(true);
         Destroy(explosionFx.gameObject);
         Destroy(effectUI.gameObject);
