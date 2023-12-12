@@ -70,11 +70,7 @@ public class Tutorial : MonoBehaviour
             Camera.main.GetComponent<PanZoom>().enabled = true; 
             carManager.SetActive(true);
             ActivateHand(4);
-            upgradeHand.SetActive(true);
-            foreach (BoxCollider item in unlockButtons)
-            {
-                item.enabled = true;
-            }
+            upgradeHand.SetActive(true); 
         }
         if (TaskManager.Instance.CurrentTaskNo == 4 && massageRoom.hasUI)
         {
@@ -84,7 +80,11 @@ public class Tutorial : MonoBehaviour
         if (massageRoom.serviceLevel > 2)
         {
             ResetHands(); 
-            upgradeHand.SetActive(false); 
+            upgradeHand.SetActive(false);
+            foreach (BoxCollider item in unlockButtons)
+            {
+                item.enabled = true;
+            }
         }
         if (CanvasManager.instance.popupObject != null)
         {

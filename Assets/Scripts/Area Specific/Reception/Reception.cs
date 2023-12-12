@@ -35,6 +35,11 @@ public class Reception : MonoBehaviour
         closeButton.GetComponent<Button>().onClick.AddListener(CloseButtonClick); 
     }
 
+    private void Update()
+    {
+        holdTimer += Time.deltaTime; 
+    }
+
     private void OnMouseDown()
     {
         holdTimer = 0;
@@ -80,7 +85,7 @@ public class Reception : MonoBehaviour
     {
         closeButton.SetActive(false);
         //GetComponent<Collider>().enabled = true;
-        Camera.main.DOOrthoSize(zoomSize, 0.5f); 
+        Camera.main.DOOrthoSize(zoomSize+5, 0.5f); 
         hasUI = false;
         ResetPanels();  
     }

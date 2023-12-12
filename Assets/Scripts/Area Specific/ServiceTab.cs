@@ -58,6 +58,9 @@ public class ServiceTab : IService
     public GameObject starEffect;
     public GameObject starEffect1;
 
+    public Vector3 colliderSize1;
+    public Vector3 colliderSize2;
+
     void Start()
     {
         // Add a listener for the upgrade button click event
@@ -118,7 +121,7 @@ public class ServiceTab : IService
                     multiplier = 2;
                     incomePerLevel *= multiplier;
                     income_Increase *= multiplier;
-
+                    room.GetComponent<BoxCollider>().size = colliderSize1;
                     // Move UI panels for service level 25
                     foreach (GameObject item in panels)
                     {
@@ -147,6 +150,7 @@ public class ServiceTab : IService
                     multiplier = 3;
                     incomePerLevel *= multiplier;
                     income_Increase *= multiplier;
+                    room.GetComponent<BoxCollider>().size = colliderSize2;
 
                     // Move UI panels for service level 50
                     foreach (GameObject item in panels)
