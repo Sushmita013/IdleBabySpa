@@ -21,6 +21,22 @@ TagManager:
   - SwimUnit
   - PhotoProp
   - ParkingTicket
+  - k
+  - a
+  - f
+  - j
+  - s
+  - h
+  - d
+  - l
+  - g
+  - c
+  - m
+  - z
+  - b
+  - v
+  - n
+  - x
   layers:
   - Default
   - TransparentFX
@@ -31,7 +47,7 @@ TagManager:
   - WalkingArea
   - Toy
   - Ground
-  - 
+  - Boundary
   - 
   - 
   - 

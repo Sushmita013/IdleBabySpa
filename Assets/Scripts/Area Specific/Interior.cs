@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using System;
+using MoreMountains.NiceVibrations;
+
 
 [Serializable]
 public struct ThemeObject
@@ -102,6 +104,7 @@ public class Interior : MonoBehaviour
     {
         if (GameManager.instance.totalSoftCurrency >= 1500)
         {
+            MMVibrationManager.Haptic(HapticTypes.MediumImpact); 
             buyButtons[themeNum].gameObject.SetActive(false);
             currentIndex = themeNum;
             isUnlocked[themeNum] = true;

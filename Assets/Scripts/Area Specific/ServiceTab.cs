@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
+using AssetKits.ParticleImage;
 
 public class ServiceTab : IService
 {
@@ -64,7 +65,9 @@ public class ServiceTab : IService
     public Vector3 colliderCentre1;
     public Vector3 colliderCentre2;
 
-
+    public ParticleImage particleImage;
+    public List<ParticleImage> sliderEffect;
+      
 
     void Start()
     {
@@ -106,6 +109,7 @@ public class ServiceTab : IService
         {
             // Play the upgrade effect particle system
             upgradeEffect.Play();
+            particleImage.Play();
             MMVibrationManager.Haptic(HapticTypes.MediumImpact);
 
             if (room.serviceLevel <= 25)
@@ -134,6 +138,7 @@ public class ServiceTab : IService
                         item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
                     }
                 }
+                sliderEffect[0].Play(); 
                 level[0].text = room.serviceLevel.ToString();
                 levelSlider[0].value = room.serviceLevel;
                 UpdateCost();
@@ -165,6 +170,7 @@ public class ServiceTab : IService
                         item.transform.DOLocalMoveX(item.transform.localPosition.x - 1000, 1f);
                     }
                 }
+                sliderEffect[1].Play(); 
                 level[1].text = room.serviceLevel.ToString();
                 levelSlider[1].value = room.serviceLevel;
                 UpdateCost();
@@ -183,6 +189,7 @@ public class ServiceTab : IService
                 {
                     FinalUpgrade();
                 }
+                sliderEffect[2].Play(); 
                 level[2].text = room.serviceLevel.ToString();
                 levelSlider[2].value = room.serviceLevel;
                 UpdateCost();

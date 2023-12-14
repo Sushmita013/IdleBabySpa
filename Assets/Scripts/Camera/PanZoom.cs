@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class PanZoom : MonoBehaviour
 {
@@ -44,33 +45,39 @@ public class PanZoom : MonoBehaviour
 
             zoom(difference * 0.05f);
         }
-        else if (Input.GetMouseButton(0) && !uiShouldHandleInput )
+        else if (Input.GetMouseButton(0) && !uiShouldHandleInput)
         {
             direction = touchStart - Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //magnitude = direction.magnitude;
-            //magnitude = Mathf.Clamp(magnitude,0, 20);
-            //direction = direction.normalized; 
+            //magnitude = Mathf.Clamp(magnitude, 0, 20);
+            //if (magnitude < 1)
+            //{
+            //    return;
+            //}
+            //direction = direction.normalized;
             Vector3 newPosition = Camera.main.transform.position + direction*Time.deltaTime*speed;
 
             newPosition = new Vector3(
                     Mathf.Clamp(newPosition. x, -150, -40),
                     60,
-                    Mathf.Clamp(newPosition. z, -80, 15)); 
-                Camera.main.transform.position = newPosition;
+                    Mathf.Clamp(newPosition. z, -80, 15));
+            DOTween.Kill(Camera.main.transform);
+            Camera.main.transform.DOMove(newPosition, 0.01f);
         }
 
         //else
         //{
-        //    if (magnitude > 0)
+        //    if (magnitude > 1)
         //    {
-        //        magnitude -= Time.deltaTime*decayTime; 
+        //        magnitude -= Time.deltaTime * decayTime;
         //        Vector3 newPosition = Camera.main.transform.position + direction * Time.deltaTime * speed;
 
         //        newPosition = new Vector3(
         //                Mathf.Clamp(newPosition.x, -150, -40),
         //                60,
         //                Mathf.Clamp(newPosition.z, -80, 15));
-        //        Camera.main.transform.position = newPosition;
+        //        DOTween.Kill(Camera.main.transform); 
+        //        Camera.main.transform.DOMove(newPosition, 0.01f);
         //    }
         //}
         zoom(Input.GetAxis("Mouse ScrollWheel") * 20);

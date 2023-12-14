@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
+using UnityEngine.EventSystems;
+
 
 
 public class UnlockArea : MonoBehaviour
@@ -20,6 +22,9 @@ public class UnlockArea : MonoBehaviour
     public string messageText;
     public string descriptionText;
 
+    public float holdTimer;
+
+
     //public Button unlockButton;
 
     //public bool areaUnlocked;
@@ -35,7 +40,21 @@ public class UnlockArea : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        if (IsPointerOverUIObject() || holdTimer > 0.1f)
+        {
+            return;
+        }
         UnlockAreaTask();
+    }
+
+    private void Update()
+    {
+        holdTimer += Time.deltaTime;
+    }
+
+    private void OnMouseDown()
+    {
+        holdTimer = 0;
     }
     public void UnlockAreaTask()
     {
@@ -96,5 +115,14 @@ public class UnlockArea : MonoBehaviour
         Destroy(explosionFx.gameObject);
         Destroy(effectUI.gameObject);
         Destroy(addUI.gameObject);
+    }
+
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }

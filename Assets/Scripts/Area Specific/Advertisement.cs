@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
+using AssetKits.ParticleImage;
+
 
 
 public class Advertisement : IService
@@ -30,6 +32,9 @@ public class Advertisement : IService
     public List<GameObject> panels;
 
     public ParticleSystem upgradeEffect;
+
+    public ParticleImage particleImage;
+    public ParticleImage sliderEffect;
 
     public bool isHolding;
     public bool startTimer;
@@ -73,6 +78,8 @@ public class Advertisement : IService
             {
                 MMVibrationManager.Haptic(HapticTypes.MediumImpact);
                 upgradeEffect.Play();
+                particleImage.Play();
+                sliderEffect.Play();
                 room.serviceLevel++;
                 levelText[0].text = room.serviceLevel.ToString();
                 levelSlider[0].value = room.serviceLevel;

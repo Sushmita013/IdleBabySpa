@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 using MoreMountains.NiceVibrations;
+using AssetKits.ParticleImage;
+
 
 public class ParkingTab : IService
 {
@@ -35,6 +37,8 @@ public class ParkingTab : IService
 
     // Particle effect for upgrades
     public ParticleSystem upgradeEffect;
+    public ParticleImage particleImage;
+    public ParticleImage sliderEffect;
 
     public int count;
 
@@ -80,6 +84,8 @@ public class ParkingTab : IService
             // Play the upgrade effect particle system
             MMVibrationManager.Haptic(HapticTypes.MediumImpact);
             upgradeEffect.Play();
+            particleImage.Play();
+            sliderEffect.Play();
             levels[count].SetActive(true);
             count++;
             room.serviceLevel++;

@@ -25,10 +25,10 @@ public class Tutorial : MonoBehaviour
     private void Update()
     {
         if (TaskManager.Instance.CurrentTaskNo == 0 && !reception.isUnlocked)
-        { 
+        {
             Camera.main.GetComponent<PanZoom>().enabled = false;
             //Camera.main.transform.position = new Vector3(-140f, 60, -47f);
-            //Camera.main.orthographicSize = 25;
+            Camera.main.orthographicSize = 25;
             ActivateHand(0);
 
             massageButton.enabled = false;
@@ -37,27 +37,15 @@ public class Tutorial : MonoBehaviour
         }
         if (TaskManager.Instance.CurrentTaskNo == 1 && !massageRoom.isUnlocked)
         {
-            Camera.main.transform.DOMove(new Vector3(-130, 60, -80),2f);
-            Camera.main.orthographicSize = 25;
-            ActivateHand(1);
-            upgradeHand.SetActive(false);
-            massageButton.enabled = true; 
+            StartCoroutine(MassageBuild());
         }
         if (TaskManager.Instance.CurrentTaskNo == 2 && !parking.isUnlocked)
         {
-            Camera.main.transform.DOMove(new Vector3(-140, 60, -15),2f);
-            Camera.main.orthographicSize = 25;
-            ActivateHand(2);
-            upgradeHand.SetActive(false); 
-            parkingButton.enabled = true; 
+            StartCoroutine(ParkingBuild()); 
         }
         if (TaskManager.Instance.CurrentTaskNo == 3 && !advertisement.isUnlocked)
-        {
-            Camera.main.transform.DOMove(new Vector3(-140, 60, -48),2f);
-            Camera.main.orthographicSize = 20;
-            ActivateHand(3);
-            upgradeHand.SetActive(false); 
-            advertisementButton.enabled = true;
+        { 
+            StartCoroutine(AdvertisementBuild()); 
         }
         if (TaskManager.Instance.CurrentTaskNo == 4)
         {
@@ -100,6 +88,34 @@ public class Tutorial : MonoBehaviour
                 hands[j].SetActive(false);
             }
         }
+    }
+
+    public IEnumerator MassageBuild()
+    {
+        ActivateHand(1);
+        yield return new WaitForSeconds(1f);
+        Camera.main.transform.DOMove(new Vector3(-130, 60, -80), 1.5f);
+        Camera.main.orthographicSize = 25;
+        upgradeHand.SetActive(false);
+        massageButton.enabled = true;
+    }
+    public IEnumerator ParkingBuild()
+    {
+        ActivateHand(2);
+        yield return new WaitForSeconds(1f);
+        Camera.main.transform.DOMove(new Vector3(-140, 60, -15), 1.5f);
+        Camera.main.orthographicSize = 25;
+        upgradeHand.SetActive(false);
+        parkingButton.enabled = true;
+    }
+    public IEnumerator AdvertisementBuild()
+    {
+        ActivateHand(3);
+        yield return new WaitForSeconds(1f);
+        Camera.main.transform.DOMove(new Vector3(-140, 60, -48), 1.5f);
+        Camera.main.orthographicSize = 20;
+        upgradeHand.SetActive(false);
+        advertisementButton.enabled = true;
     }
 
     void ResetHands()
