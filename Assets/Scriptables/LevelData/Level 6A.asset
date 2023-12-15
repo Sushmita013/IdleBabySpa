@@ -1,0 +1,524 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d503be47a202ed4ea68c1e6d159c0d1, type: 3}
+  m_Name: Level 6A
+  m_EditorClassIdentifier: 
+  objects:
+  - objectType: 0
+    position: {x: -1, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 5}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 6}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 7}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 8}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 9}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 10}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 11}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 5, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 4, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 3, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 2, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 1, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: 0, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -1, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -2, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -3, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -4, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 0
+    position: {x: -5, y: 0, z: 12}
+    colorIndex: 0
+  - objectType: 2
+    position: {x: 0, y: 0, z: -2}
+    colorIndex: 4
+  - objectType: 2
+    position: {x: 0, y: 0, z: 0}
+    colorIndex: 4
+  - objectType: 2
+    position: {x: 0, y: 0, z: 2}
+    colorIndex: 4
+  - objectType: 2
+    position: {x: 1, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 2
+    position: {x: -1, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 2
+    position: {x: -1, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 2
+    position: {x: -1, y: 0, z: 1}
+    colorIndex: 3
+  - objectType: 2
+    position: {x: -1, y: 0, z: 0}
+    colorIndex: 3
+  - objectType: 2
+    position: {x: 1, y: 0, z: 2}
+    colorIndex: 3
+  - objectType: 2
+    position: {x: 0, y: 0, z: 3}
+    colorIndex: 2
+  - objectType: 2
+    position: {x: 1, y: 0, z: 0}
+    colorIndex: 2
+  - objectType: 2
+    position: {x: 0, y: 0, z: 1}
+    colorIndex: 1
+  - objectType: 2
+    position: {x: 1, y: 0, z: 1}
+    colorIndex: 1
+  - objectType: 2
+    position: {x: 1, y: 0, z: -2}
+    colorIndex: 1
+  - objectType: 2
+    position: {x: -1, y: 0, z: -2}
+    colorIndex: 2
+  - objectType: 3
+    position: {x: -2, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -1, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 0, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 1, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: 4}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: 2, y: 0, z: -2}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: 3}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: 2}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: 1}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: 0}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: -1}
+    colorIndex: 0
+  - objectType: 3
+    position: {x: -2, y: 0, z: -2}
+    colorIndex: 0
+  tunnels: []
+  colorArray:
+  - {r: 0.14117648, g: 0.7176471, b: 0.6784314, a: 1}
+  - {r: 0.5137255, g: 0.027450982, b: 0.46274513, a: 1}
+  - {r: 0.26666668, g: 0.0627451, b: 0.8470589, a: 1}
+  - {r: 0.8396226, g: 0.3076909, b: 0.17162092, a: 1}
+  - {r: 0.7058824, g: 0.6901961, b: 0.25882354, a: 1}
+  actors:
+  - {fileID: 4426100683378002420, guid: 78d4b6ce82b22c44da882d0f33b03847, type: 3}
+  - {fileID: 2645457867259719896, guid: 2d4fe68235a7c9045808e1a8d9394bb2, type: 3}
+  - {fileID: 3254693168211462750, guid: 2f8deeea1717f7f46bbeb2a03792c697, type: 3}
+  - {fileID: 6648538660863466275, guid: 23d6bd6fabb209f46a708a40a0b8d424, type: 3}
+  - {fileID: 4820045461305287122, guid: 3686be5ff8ecfad48a840ce863301a35, type: 3}
+  cameraPos: {x: 0, y: 0, z: 0}

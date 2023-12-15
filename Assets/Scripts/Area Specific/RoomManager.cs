@@ -162,8 +162,11 @@ public class RoomManager : MonoBehaviour
                     hasUI = true;
                     //closeButton.SetActive(true);
                     break;
-                case Departments.Pamper:
-
+                case Departments.Pamper: 
+                    UpgradeUIpanels[6].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
+                    //UpgradeUIpanels[6].GetComponentInChildren<Tabs3>().ButtonClick(0);
+                    yield return new WaitForSeconds(0.3f);
+                    hasUI = true;
                     break;
                 case Departments.Playroom:
 
