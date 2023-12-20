@@ -196,8 +196,8 @@ public class GameplayManager : MonoBehaviour
             actor.transform.DOMove(nests[i].position, 0.4f)
                 .OnComplete(() => 
                 { 
-                    actor.animator.SetBool("SitDown", true); 
-                    actor.animator.SetBool("Walk", false); })
+                    actor.animator.SetBool("crawl to sit", true); 
+                    actor.animator.SetBool("crawling", false); })
                 .WaitForCompletion();
         }
 

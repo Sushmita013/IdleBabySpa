@@ -40,11 +40,11 @@ public class Actor : MonoBehaviour
             canInteract = value;
             if (canInteract)
             {
-                animator.SetBool("SitDown", false);
+                animator.SetBool("crawl to sit", false);
             }
             else
             {
-                animator.SetBool("SitDown", true);
+                animator.SetBool("crawl to sit", true);
             }
         }
     }
@@ -66,7 +66,7 @@ public class Actor : MonoBehaviour
         transform.parent = null;
        
         GetComponent<Collider>().enabled = false;
-        animator.SetBool("Walk", true);
+        animator.SetBool("crawling", true);
         interactEvent?.Invoke();
 
         if (transform.position.z <= -2)

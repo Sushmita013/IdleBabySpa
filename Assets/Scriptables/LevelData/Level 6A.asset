@@ -516,9 +516,9 @@ MonoBehaviour:
   - {r: 0.8396226, g: 0.3076909, b: 0.17162092, a: 1}
   - {r: 0.7058824, g: 0.6901961, b: 0.25882354, a: 1}
   actors:
-  - {fileID: 4426100683378002420, guid: 78d4b6ce82b22c44da882d0f33b03847, type: 3}
-  - {fileID: 2645457867259719896, guid: 2d4fe68235a7c9045808e1a8d9394bb2, type: 3}
-  - {fileID: 3254693168211462750, guid: 2f8deeea1717f7f46bbeb2a03792c697, type: 3}
-  - {fileID: 6648538660863466275, guid: 23d6bd6fabb209f46a708a40a0b8d424, type: 3}
-  - {fileID: 4820045461305287122, guid: 3686be5ff8ecfad48a840ce863301a35, type: 3}
+  - {fileID: 3681204781384866805, guid: 07ee6a4efc0addc4c8903bc5c529c2e6, type: 3}
+  - {fileID: 7784516562204691474, guid: 3bc9a2c0287744c4fadb6f677ee48841, type: 3}
+  - {fileID: 334374716954460109, guid: e220c936392300d448fcc0c0b8d22a5e, type: 3}
+  - {fileID: 5037797989986775676, guid: d41bc594631f5f34f8d53e582b6e3363, type: 3}
+  - {fileID: 7040626957560361158, guid: 8671fc699e28c334fbfacaeb69a1cb4f, type: 3}
   cameraPos: {x: 0, y: 0, z: 0}
