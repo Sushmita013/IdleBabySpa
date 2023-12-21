@@ -183,7 +183,9 @@ public class RoomManager : MonoBehaviour
                     hasUI = true;
                     break;
                 case Departments.Cafeteria:
-
+                    UpgradeUIpanels[8].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);
+                    yield return new WaitForSeconds(0.3f);
+                    hasUI = true;
                     break;
                 case Departments.Parking: 
                     UpgradeUIpanels[2].GetComponent<RectTransform>().DOAnchorPosY(230, 0.3f);

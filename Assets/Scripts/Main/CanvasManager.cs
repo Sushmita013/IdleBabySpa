@@ -50,8 +50,8 @@ public class CanvasManager : MonoBehaviour
     {
         LoadData();
         rewardEffect.SetActive(false);
-        Camera.main.transform.position = new Vector3(-140f, 60, -47f);
-        Camera.main.orthographicSize = 25;
+        //Camera.main.transform.position = new Vector3(-140f, 60, -47f);
+        //Camera.main.orthographicSize = 25;
         GameManager.instance.totalSoftCurrency = Mathf.Round(GameManager.instance.totalSoftCurrency * 10) / 10; // Round to 1 decimal place 
         totalBalance_text.text = GameManager.instance.totalSoftCurrency.ToString(); 
         //levelButton.onClick.AddListener(() => OnLevelClick(true));

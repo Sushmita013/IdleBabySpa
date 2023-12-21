@@ -58,3 +58,7 @@ MonoBehaviour:
   - taking baby from watertank
   - keeping baby on photoProp
   - taking baby from photoProp
+  - parent keeping baby in swing
+  - parent taking baby from swing
+  - parent keeping baby on toy
+  - parent taking baby from toy
