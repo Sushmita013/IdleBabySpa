@@ -144,7 +144,7 @@ public class ParentController : MonoBehaviour
             serviceCollider = other.GetComponent<BoxCollider>();
             pairPos = transform.localPosition; 
             StartCoroutine(GetSwimming(parent)); 
-        }
+        } 
         if(other.tag=="PhotoProp")
         {
             transform.DOLocalRotate(new Vector3(0, 90, 0), 0.1f); 
@@ -155,7 +155,18 @@ public class ParentController : MonoBehaviour
             serviceCollider = other.GetComponent<BoxCollider>();
             pairPos = transform.localPosition; 
             StartCoroutine(GetPhotoshoot(parent)); 
-        } 
+        }
+        if(other.tag=="Cradle")
+        {
+            transform.DOLocalRotate(new Vector3(0, 180, 0), 0.1f); 
+            navMeshAgent.ResetPath(); 
+            duration = other.GetComponent<WorkerNPC>().duration;
+            chairPoint = other.GetComponent<WorkerNPC>().chairPoint;
+            parentRotation = other.GetComponent<WorkerNPC>().parentRotation;
+            serviceCollider = other.GetComponent<BoxCollider>();
+            pairPos = transform.localPosition; 
+            StartCoroutine(GetPampered(parent)); 
+        }
         if(other.tag=="PlayToy")
         {
             transform.DOLocalRotate(new Vector3(0, 0, 0), 0.1f); 
@@ -438,6 +449,7 @@ public class ParentController : MonoBehaviour
         lastRoom.waiting.CheckForFreeSlots(); 
         serviceCollider.enabled = true; 
     }
+    
     public IEnumerator GetPhotoshoot(ParentNPC parentData)
     {
         Debug.Log("GetPhotoshoot");
@@ -495,6 +507,65 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(3);
         lastRoom.waiting.CheckForFreeSlots();
         serviceCollider.enabled = true; 
+    }
+
+    public IEnumerator GetPampered(ParentNPC parentData)
+    {
+        Debug.Log("GetPampered");
+        yield return new WaitForSeconds(0.25f);
+        SnapToSwimPos();
+        PlayAnimation(parentData.anim[14]);
+        babyController.PlayAnimation("baby going in swing");
+        yield return new WaitForSeconds(3.5f);
+        serviceCollider.enabled = false;
+        baby.transform.DOScale(new Vector3(3f, 3f, 3f), 0.3f);
+        //baby.transform.rotation = Quaternion.Euler(0,-130,0); 
+        //baby.transform.DOLocalRotate(new Vector3(0, -130, 0), 0.1f);
+        baby.transform.DOLocalMove(new Vector3(-0.319999993f, -0.698000014f, -0.118000001f), 0.3f);
+        
+        yield return new WaitForSeconds(0.5f);
+        DOTween.Kill(baby.transform);
+        RemoveBaby();
+        //baby.transform.rotation = Quaternion.Euler(0,90,0);
+        //baby.transform.position = new Vector3(-20.3500004f, -8.42000008f, -4.25f); 
+        babyController.PlayAnimation("sleeping idle in swing");
+        PlayAnimation(parentData.anim[3]);
+        //parentObject.GetComponent<NavMeshAgent>().enabled = true;
+        //navMeshAgent.SetDestination(chairPoint.position);
+        MoveToTarget(chairPoint);
+        yield return new WaitForSeconds(2f);
+        navMeshAgent.ResetPath();
+        transform.DOLocalRotate(new Vector3(0, parentRotation, 0), 0.1f);
+        PlayAnimation(parentData.anim[4]);
+        yield return new WaitForSeconds(2.5f);
+        PlayAnimation(parentData.anim[5]);
+        yield return new WaitForSeconds(duration - 5.5f);
+        PlayAnimation(parentData.anim[6]);
+        yield return new WaitForSeconds(1.5f);
+        PlayAnimation(parentData.anim[3]);
+        //navMeshAgent.SetDestination(destination.position);
+        MoveToTarget(destination);
+        yield return new WaitForSeconds(2f);
+        AddBaby();
+        navMeshAgent.ResetPath(); 
+        BabyScaleDown();
+        SnapToSwimPos();
+        baby.transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
+        baby.transform.DOLocalMove(new Vector3(0, 0.131f, 0.519f), 0.5f);
+        //transform.DOLocalMove(new Vector3(0.01852795f, 0.131f, 1.63435f), 0.5f); 
+        //transform.DOLocalRotate(new Vector3(0, 0, 0), 0.5f); 
+        PlayAnimation(parentData.anim[15]);
+        babyController.PlayAnimation("going back with parent");
+        yield return new WaitForSeconds(4);
+        SnapToOriginalPos();
+        //parentObject.GetComponent<NavMeshAgent>().enabled = false;
+        service.isAvailable = true;
+        var lastRoom = currentRoom;
+
+        MoveToNextService(parent);
+        yield return new WaitForSeconds(3);
+        lastRoom.waiting.CheckForFreeSlots();
+        serviceCollider.enabled = true;
     }
     public IEnumerator GetPlayroom(ParentNPC parentData)
     {

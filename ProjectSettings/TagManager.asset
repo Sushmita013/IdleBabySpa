@@ -37,6 +37,8 @@ TagManager:
   - n
   - x
   - PlayToy
+  - k
+  - Cradle
   layers:
   - Default
   - TransparentFX

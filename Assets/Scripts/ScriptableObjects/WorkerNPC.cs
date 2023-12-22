@@ -63,12 +63,12 @@ public class WorkerNPC : MonoBehaviour
         occupiedUI.SetActive(true);
         fillbar.DOFillAmount(1, GetDuration());
         PlayAnimation(animName);
-        if (roomName != Departments.Massage)
+        if (roomName != Departments.Massage || roomName != Departments.Cafeteria)
         { 
         effectObject.Play();
         }
         yield return new WaitForSeconds(GetDuration());
-        if (roomName != Departments.Massage)
+        if (roomName != Departments.Massage || roomName != Departments.Cafeteria)
         { 
         effectObject.Stop();
         }
