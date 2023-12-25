@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class GameplayManager : MonoBehaviour
 {
@@ -19,6 +22,8 @@ public class GameplayManager : MonoBehaviour
     public int actorsRequired;
     [SerializeField] int actorsDone;
 
+    public Button GoToSpa;
+
     private void Awake()
     {
         instance = this;
@@ -29,6 +34,9 @@ public class GameplayManager : MonoBehaviour
         actorsInNest = new Actor[7];
         Track = track;
         StartCoroutine(LevelGenerator.instance.MakeLevel(currentLoadedLevel));
+        string name = "MainScene";
+        GoToSpa.onClick.AddListener(() => SwitchScene(name));
+
     }
 
     public void ReloadLevel()
@@ -109,6 +117,8 @@ public class GameplayManager : MonoBehaviour
 
     IEnumerator LoadNextLevel()
     {
+        //yield return new WaitForSeconds(0.5f); 
+        //GoToSpa.gameObject.SetActive(true);
         print("Next Level");
         yield return new WaitForSeconds(3f);
         Track++;
@@ -196,8 +206,8 @@ public class GameplayManager : MonoBehaviour
             actor.transform.DOMove(nests[i].position, 0.4f)
                 .OnComplete(() => 
                 { 
-                    actor.animator.SetBool("crawl to sit", true); 
-                    actor.animator.SetBool("crawling", false); })
+                    actor.animator.SetBool("SitDown", true); 
+                    actor.animator.SetBool("Walk", false); })
                 .WaitForCompletion();
         }
 
@@ -206,5 +216,10 @@ public class GameplayManager : MonoBehaviour
             StopCoroutine(CheckWinRountine);
 
         CheckWinRountine= StartCoroutine(CheckForWin());
+    }
+
+    public void SwitchScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName); 
     }
 }

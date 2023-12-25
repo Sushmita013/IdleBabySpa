@@ -17,6 +17,9 @@ public class SaveManager : MonoBehaviour
     public RoomManager haircut;
     public RoomManager swimRoom;
     public RoomManager photoshoot;
+    public RoomManager pamperRoom;
+    public RoomManager playroom;
+    public RoomManager cafeteria;
 
     private void Awake()
     {
@@ -39,6 +42,9 @@ public class SaveManager : MonoBehaviour
         data.haircutServiceLevel = haircut.serviceLevel;
         data.swimServiceLevel = swimRoom.serviceLevel;
         data.photoServiceLevel = photoshoot.serviceLevel;
+        data.pamperServiceLevel = pamperRoom.serviceLevel;
+        data.playServiceLevel = playroom.serviceLevel;
+        data.cafeServiceLevel = cafeteria.serviceLevel;
 
         data.receptionUnlocked = reception.isUnlocked;
         data.massageUnlocked = massageRoom.isUnlocked;
@@ -47,26 +53,41 @@ public class SaveManager : MonoBehaviour
         data.haircutUnlocked = haircut.isUnlocked;
         data.swimUnlocked = swimRoom.isUnlocked;
         data.photoUnlocked = photoshoot.isUnlocked;
+        data.pamperUnlocked = pamperRoom.isUnlocked;
+        data.playUnlocked = playroom.isUnlocked;
+        data.cafeUnlocked = cafeteria.isUnlocked;
 
         data.massageRoomIndex = massageRoom.workerIndex;
         data.haircutIndex = haircut.workerIndex;
         data.swimRoomIndex = swimRoom.workerIndex;
         data.photoIndex = photoshoot.workerIndex;
+        data.pamperIndex = pamperRoom.workerIndex;
+        data.playIndex = playroom.workerIndex;
+        data.cafeIndex = cafeteria.workerIndex;
 
         data.massageSpeed = massageRoom.worker.workerSpeedLevel;
         data.haircutSpeed = haircut.worker.workerSpeedLevel;
         data.swimSpeed = swimRoom.worker.workerSpeedLevel;
         data.photoSpeed = photoshoot.worker.workerSpeedLevel;
+        data.pamperSpeed = pamperRoom.worker.workerSpeedLevel;
+        data.playSpeed = playroom.worker.workerSpeedLevel;
+        data.cafeSpeed = cafeteria.worker.workerSpeedLevel;
 
         data.massageInterior = massageRoom.interior.currentIndex;
         data.haircutInterior = haircut.interior.currentIndex;
         data.swimInterior = swimRoom.interior.currentIndex;
         data.photoInterior = photoshoot.interior.currentIndex;
+        data.pamperInterior = pamperRoom.interior.currentIndex;
+        data.playInterior = playroom.interior.currentIndex;
+        data.cafeInterior = cafeteria.interior.currentIndex;
 
         data.massageInteriorIndex = massageRoom.interior.unlockedIndexes;
         data.haircutInteriorIndex = haircut.interior.unlockedIndexes;
         data.swimInteriorIndex = swimRoom.interior.unlockedIndexes;
         data.photoInteriorIndex = photoshoot.interior.unlockedIndexes;
+        data.pamperInteriorIndex = pamperRoom.interior.unlockedIndexes;
+        data.playInteriorIndex = playroom.interior.unlockedIndexes;
+        data.cafeInteriorIndex = cafeteria.interior.unlockedIndexes;
 
 
 
@@ -89,6 +110,9 @@ public class SaveManager : MonoBehaviour
         haircut.serviceLevel = data.haircutServiceLevel;
         swimRoom.serviceLevel = data.swimServiceLevel;
         photoshoot.serviceLevel = data.photoServiceLevel;
+        pamperRoom.serviceLevel = data.pamperServiceLevel;
+        playroom.serviceLevel = data.playServiceLevel;
+        cafeteria.serviceLevel = data.cafeServiceLevel;
 
         reception.isUnlocked = data.receptionUnlocked;
         massageRoom.isUnlocked = data.massageUnlocked;
@@ -97,26 +121,41 @@ public class SaveManager : MonoBehaviour
         haircut.isUnlocked = data.haircutUnlocked;
         swimRoom.isUnlocked = data.swimUnlocked;
         photoshoot.isUnlocked = data.photoUnlocked;
+        pamperRoom.isUnlocked = data.pamperUnlocked;
+        playroom.isUnlocked = data.playUnlocked;
+        cafeteria.isUnlocked = data.cafeUnlocked;
 
         massageRoom.workerIndex = data.massageRoomIndex;
         haircut.workerIndex = data.haircutIndex;
         swimRoom.workerIndex = data.swimRoomIndex;
         photoshoot.workerIndex = data.photoIndex;
+        pamperRoom.workerIndex = data.pamperIndex;
+        playroom.workerIndex = data.playIndex;
+        cafeteria.workerIndex = data.cafeIndex;
 
         massageRoom.worker.workerSpeedLevel = data.massageSpeed;
         haircut.worker.workerSpeedLevel = data.haircutSpeed;
         swimRoom.worker.workerSpeedLevel = data.swimSpeed;
         photoshoot.worker.workerSpeedLevel = data.photoSpeed;
+        pamperRoom.worker.workerSpeedLevel = data.pamperSpeed;
+        playroom.worker.workerSpeedLevel = data.playSpeed;
+        cafeteria.worker.workerSpeedLevel = data.cafeSpeed;
 
         massageRoom.interior.currentIndex = data.massageInterior;
         haircut.interior.currentIndex = data.haircutInterior;
         swimRoom.interior.currentIndex = data.swimInterior;
         photoshoot.interior.currentIndex = data.photoInterior;
+        pamperRoom.interior.currentIndex = data.pamperInterior;
+        playroom.interior.currentIndex = data.playInterior;
+        cafeteria.interior.currentIndex = data.cafeInterior;
 
         massageRoom.interior.unlockedIndexes = data.massageInteriorIndex;
         haircut.interior.unlockedIndexes = data.haircutInteriorIndex;
         swimRoom.interior.unlockedIndexes = data.swimInteriorIndex;
         photoshoot.interior.unlockedIndexes = data.photoInteriorIndex; 
+        pamperRoom.interior.unlockedIndexes = data.pamperInteriorIndex; 
+        playroom.interior.unlockedIndexes = data.playInteriorIndex; 
+        cafeteria.interior.unlockedIndexes = data.cafeInteriorIndex; 
 
         for(int i = 0; i < data.completedTask.Count; i++)
         {
@@ -141,7 +180,10 @@ public class SaveData
     public int adServiceLevel;
     public int haircutServiceLevel;
     public int swimServiceLevel;
-    public int photoServiceLevel;
+    public int photoServiceLevel; 
+    public int pamperServiceLevel; 
+    public int playServiceLevel; 
+    public int cafeServiceLevel; 
 
     public bool receptionUnlocked;
     public bool massageUnlocked;
@@ -150,26 +192,41 @@ public class SaveData
     public bool haircutUnlocked;
     public bool swimUnlocked;
     public bool photoUnlocked;
+    public bool pamperUnlocked;
+    public bool playUnlocked;
+    public bool cafeUnlocked;
 
     public List<int> massageRoomIndex;
     public List<int> haircutIndex;
     public List<int> swimRoomIndex;
     public List<int> photoIndex;
+    public List<int> pamperIndex;
+    public List<int> playIndex;
+    public List<int> cafeIndex;
 
     public int massageSpeed;
     public int haircutSpeed;
     public int swimSpeed;
     public int photoSpeed;
+    public int pamperSpeed;
+    public int playSpeed;
+    public int cafeSpeed;
 
     public int massageInterior;
     public int haircutInterior;
     public int swimInterior;
     public int photoInterior;
+    public int pamperInterior;
+    public int playInterior;
+    public int cafeInterior;
 
     public List<int> massageInteriorIndex;
     public List<int> haircutInteriorIndex;
     public List<int> swimInteriorIndex;
     public List<int> photoInteriorIndex;
+    public List<int> pamperInteriorIndex;
+    public List<int> playInteriorIndex;
+    public List<int> cafeInteriorIndex;
 
     public List<int> completedTask;
 
