@@ -27,8 +27,29 @@ public class Tutorial : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(StartFTUE());
+        int tutorialValue = PlayerPrefs.GetInt("Tutorial"); 
+
+        if (tutorialValue == 0)
+        {
+            StartCoroutine(StartFTUE());
+            PlayerPrefs.SetInt("Tutorial", 1); 
+        }
+        if (tutorialValue == 2)
+        {
+            StartCoroutine(StartMassage());
+            PlayerPrefs.SetInt("Tutorial", 3);  
+        } 
     }
+
+    private void Update()
+    { 
+        if (massageRoom.isUnlocked || CanvasManager.instance.popupObject != null)
+        {
+            carManager.SetActive(true);
+            ResetHands();
+        }
+    }
+
     //private void Update()
     //{
     //    if (TaskManager.Instance.CurrentTaskNo == 0 && !reception.isUnlocked)
@@ -93,6 +114,16 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(0.75f); 
         dialogBox.StartDialogue(); 
     }
+    public IEnumerator StartMassage()
+    {
+        dialogBox.gameObject.GetComponent<RectTransform>().DOAnchorPosY(230, 0.75f);
+        yield return new WaitForSeconds(0.75f); 
+        dialogBox.OpenMassage(); 
+        StartCoroutine(MassageBuild());
+        yield return new WaitForSeconds(1.5f);
+    }
+
+    public 
     void ActivateHand(int i)
     { 
         for (int j = 0; j < hands.Count; j++)
@@ -111,9 +142,9 @@ public class Tutorial : MonoBehaviour
     public IEnumerator MassageBuild()
     {
         ActivateHand(1);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         Camera.main.transform.DOMove(new Vector3(-130, 60, -80), 1.5f);
-        Camera.main.orthographicSize = 25;
+        Camera.main.DOOrthoSize(25, 1.5f); 
         upgradeHand.SetActive(false);
         massageButton.enabled = true;
     }

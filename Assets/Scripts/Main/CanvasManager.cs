@@ -42,6 +42,8 @@ public class CanvasManager : MonoBehaviour
     public GameObject completeTask;
     public Transform completeTaskParent;
 
+    public TMP_Text babyCount;
+     
     private void Awake()
     { 
         instance = this; 
@@ -49,6 +51,7 @@ public class CanvasManager : MonoBehaviour
     void Start()
     {
         LoadData();
+        babyCount.text = PlayerPrefs.GetInt("BabyCount").ToString();
         rewardEffect.SetActive(false);
         Camera.main.transform.position = new Vector3(-145f, 60, -40f);
         Camera.main.orthographicSize = 35;

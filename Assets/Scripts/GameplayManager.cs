@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 public class GameplayManager : MonoBehaviour
@@ -24,6 +25,8 @@ public class GameplayManager : MonoBehaviour
 
     public Button GoToSpa;
 
+    public TMP_Text babyCount;
+
     private void Awake()
     {
         instance = this;
@@ -35,9 +38,8 @@ public class GameplayManager : MonoBehaviour
         Track = track;
         StartCoroutine(LevelGenerator.instance.MakeLevel(currentLoadedLevel));
         string name = "MainScene";
-        GoToSpa.onClick.AddListener(() => SwitchScene(name));
-
-    }
+        GoToSpa.onClick.AddListener(() => SwitchScene(name)); 
+    }  
 
     public void ReloadLevel()
     {
@@ -81,6 +83,7 @@ public class GameplayManager : MonoBehaviour
         set
         {
             actorsDone = value;
+            babyCount.text = (actorsDone/3).ToString();
             if (actorsDone >= actorsRequired)
             {
                 StartCoroutine(LoadNextLevel());
@@ -117,12 +120,23 @@ public class GameplayManager : MonoBehaviour
 
     IEnumerator LoadNextLevel()
     {
-        //yield return new WaitForSeconds(0.5f); 
-        //GoToSpa.gameObject.SetActive(true);
-        print("Next Level");
-        yield return new WaitForSeconds(3f);
-        Track++;
-        StartCoroutine(LevelGenerator.instance.MakeLevel(currentLoadedLevel));
+        if (PlayerPrefs.GetInt("Tutorial") == 1)
+        { 
+            PlayerPrefs.SetInt("BabyCount", 2);
+            for (int i = 0; i < 2; i++)
+            { 
+        GoToSpa.gameObject.transform.DOScale(new Vector3(1.25f, 1.25f, 1.25f),0.25f);
+        yield return new WaitForSeconds(0.25f);
+        GoToSpa.gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), 0.25f);
+            yield return new WaitForSeconds(0.25f);
+            }  
+            PlayerPrefs.SetInt("Tutorial", 2); 
+        }
+        //print("Next Level");
+        //yield return new WaitForSeconds(3f);
+        //Track++;
+        //StartCoroutine(LevelGenerator.instance.MakeLevel(currentLoadedLevel));
+
     }
 
     IEnumerator CheckForWin()
@@ -138,7 +152,7 @@ public class GameplayManager : MonoBehaviour
             {
                 if (counter == 3)
                 {
-                    Debug.Log(1);
+                    Debug.Log(1); 
                     RemoveActorsRoutine=StartCoroutine(RemoveActors(tempList));
                 }
                 break;
@@ -159,7 +173,7 @@ public class GameplayManager : MonoBehaviour
 
             if (counter >= 3)
             {
-                Debug.Log(2);
+                Debug.Log(2); 
                 RemoveActorsRoutine=StartCoroutine(RemoveActors(tempList));
                 tempList.Clear();
             }

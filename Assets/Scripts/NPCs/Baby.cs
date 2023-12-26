@@ -19,7 +19,7 @@ public class Baby : MonoBehaviour
     public GameObject longHair;
     public GameObject shortHair;
 
-
+    public List<GameObject> hairVar;
 
     void Start()
     {
@@ -44,6 +44,16 @@ public class Baby : MonoBehaviour
         {
             babyClothes.SetActive(false);
             babyClothes.SetActive(true);
+        }
+    }
+
+    public IEnumerator ChangeHair(float duration)
+    {
+        for(int i = 0; i < hairVar.Count; i++)
+        {
+            hairVar[i].SetActive(true);
+            longHair.SetActive(false);
+            yield return new WaitForSeconds(duration/3); 
         }
     }
 

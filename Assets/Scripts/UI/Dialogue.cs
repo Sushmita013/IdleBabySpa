@@ -16,6 +16,8 @@ public class Dialogue : MonoBehaviour
 
     public Button GetCustomersButton;
 
+    public TMP_Text buttonText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,17 +27,22 @@ public class Dialogue : MonoBehaviour
         GetCustomersButton.onClick.AddListener(() => SwitchScene(name));
          
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+     
+     
 
     public void StartDialogue()
     {
         index = 0;
         StartCoroutine(Typeline());
+    }
+
+    public void OpenMassage()
+    {
+        index = 1;
+        buttonText.text = "Open Massage";
+        GetCustomersButton.onClick.RemoveAllListeners();
+        GetCustomersButton.onClick.AddListener(ClosePopup); 
+        StartCoroutine(Typeline());  
     }
 
     IEnumerator Typeline()
@@ -50,6 +57,11 @@ public class Dialogue : MonoBehaviour
     public void SwitchScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+        GetComponent<RectTransform>().DOAnchorPosY(-1500, 0.1f); 
+    }
+
+    public void ClosePopup()
+    {
         GetComponent<RectTransform>().DOAnchorPosY(-1500, 0.1f); 
     }
 }
