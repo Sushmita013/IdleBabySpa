@@ -40,6 +40,7 @@ TagManager:
   - k
   - Cradle
   - Cafe
+  - SeatingPoint
   layers:
   - Default
   - TransparentFX

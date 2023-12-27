@@ -4823,6 +4823,10 @@ MonoBehaviour:
   bodyDiaper: {fileID: 2882214174060666353}
   longHair: {fileID: 2958611956139870392}
   shortHair: {fileID: 2958611956799512927}
+  hairVar:
+  - {fileID: 3883412292344794052}
+  - {fileID: 1612211581366958338}
+  - {fileID: 7997089938400471139}
 --- !u!1 &3277541725412928106
 GameObject:
   m_ObjectHideFlags: 0
@@ -5602,7 +5606,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5590963640559587274}
   m_Layer: 0
-  m_Name: HairVariations
+  m_Name: Variations
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

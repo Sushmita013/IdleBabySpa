@@ -689,6 +689,10 @@ MonoBehaviour:
   bodyDiaper: {fileID: 2959332643764527218}
   longHair: {fileID: 7177583185568444140}
   shortHair: {fileID: 2128704202562958189}
+  hairVar:
+  - {fileID: 2557605885358295207}
+  - {fileID: 3333806060963720334}
+  - {fileID: 7546854810676671163}
 --- !u!1 &1081051881109241512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1630,7 +1634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3157500584198323242
 Transform:
   m_ObjectHideFlags: 0
@@ -1732,7 +1736,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1808816398175350004
 Transform:
   m_ObjectHideFlags: 0
@@ -2196,7 +2200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &886283496345355368
 Transform:
   m_ObjectHideFlags: 0
@@ -5574,7 +5578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5948298866751943082
 Transform:
   m_ObjectHideFlags: 0

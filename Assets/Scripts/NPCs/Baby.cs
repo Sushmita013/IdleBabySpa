@@ -49,15 +49,31 @@ public class Baby : MonoBehaviour
 
     public IEnumerator ChangeHair(float duration)
     {
-        for(int i = 0; i < hairVar.Count; i++)
+        for (int i = 0; i < hairVar.Count; i++)
         {
-            hairVar[i].SetActive(true);
             longHair.SetActive(false);
-            yield return new WaitForSeconds(duration/3); 
+            // Activate the current hair object
+            hairVar[i].SetActive(true);
+
+            // Deactivate the previous hair object (if applicable)
+            if (i > 0)
+            {
+                hairVar[i - 1].SetActive(false);
+            }
+
+            // Wait for the specified duration
+            yield return new WaitForSeconds(duration / 3);
+        }
+
+        // Deactivate the last hair object after the loop
+        if (hairVar.Count > 0)
+        {
+            hairVar[hairVar.Count - 1].SetActive(false);
         }
     }
 
-     
+
+
 
     //public IEnumerator Service()
     //{
@@ -79,7 +95,7 @@ public class Baby : MonoBehaviour
     //    this.gameObject.transform.localRotation = Quaternion.Euler(0, 90, 0); 
     //    PlayAnimation("Take 001"); 
     //}  
-    
+
     //public IEnumerator Haircut()
     //{  
     //    //PlayAnimation("Keeping baby on chair");
@@ -90,7 +106,7 @@ public class Baby : MonoBehaviour
     //    gameObject.transform.localRotation = Quaternion.Euler(0, 20, 0);
 
     //} 
-    
+
     //public IEnumerator MassageComplete()
     //{
     //    PlayAnimation("Father holding baby idle");
@@ -102,7 +118,7 @@ public class Baby : MonoBehaviour
     //    gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 
     //} 
-    
+
     //public IEnumerator HaircutComplete()
     //{
     //    PlayAnimation("Father holding baby idle");
@@ -114,7 +130,7 @@ public class Baby : MonoBehaviour
     //    gameObject.transform.localRotation = Quaternion.Euler(0, -90, 0);
 
     //} 
-     
+
     public void PlayAnimation(string animation)
     { 
         this.animator.Play(animation); 

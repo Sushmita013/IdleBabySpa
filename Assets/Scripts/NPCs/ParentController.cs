@@ -196,6 +196,10 @@ public class ParentController : MonoBehaviour
             Destroy(gameObject, 0.1f);
             //gameObject.SetActive(false);
         }
+        if(other.tag == "SeatingPoint")
+        {
+            parentRotation = other.GetComponent<SeatingSlot>().parentRotation;
+        }
     }
 
     public void SnapToOriginalPos()
@@ -358,6 +362,7 @@ public class ParentController : MonoBehaviour
         yield return new WaitForSeconds(0.6f); 
         RemoveBaby();
         babyController.PlayAnimation("baby on chair idle");
+        StartCoroutine(babyController.ChangeHair(duration));
         PlayAnimation(parentData.anim[3]);
         //PlayAnimationMassage("Taking oil");
         //parentObject.GetComponent<NavMeshAgent>().enabled = true;
@@ -372,7 +377,7 @@ public class ParentController : MonoBehaviour
         //PlayAnimationMassage("Massage");
         yield return new WaitForSeconds(duration - 6f); 
         PlayAnimation(parentData.anim[6]);
-        babyController.longHair.SetActive(false);
+        //babyController.longHair.SetActive(false);
         babyController.shortHair.SetActive(true);
         yield return new WaitForSeconds(1.5f);
         PlayAnimation(parentData.anim[3]);

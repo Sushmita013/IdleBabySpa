@@ -5427,6 +5427,10 @@ MonoBehaviour:
   bodyDiaper: {fileID: 1748993422787063219}
   longHair: {fileID: 4618358137360175521}
   shortHair: {fileID: 823442300045941485}
+  hairVar:
+  - {fileID: 6193957469828246067}
+  - {fileID: 5688352910092307635}
+  - {fileID: 3676527347011488404}
 --- !u!1 &7576743875688288306
 GameObject:
   m_ObjectHideFlags: 0
