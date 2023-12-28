@@ -597,6 +597,6 @@ MonoBehaviour:
   - {r: 0.6, g: 0.32156864, b: 0.7647059, a: 1}
   - {r: 0.14117648, g: 0.7176471, b: 0.6784314, a: 1}
   actors:
-  - {fileID: 5037797989986775676, guid: d41bc594631f5f34f8d53e582b6e3363, type: 3}
-  - {fileID: 7040626957560361158, guid: 8671fc699e28c334fbfacaeb69a1cb4f, type: 3}
+  - {fileID: 8375284731401536012, guid: 35cb90b43b8596941a6bfbb435c8e116, type: 3}
+  - {fileID: 1025210191002624063, guid: a76619533a57dc54286ecdd9aab43459, type: 3}
   cameraPos: {x: 0, y: 0, z: 0}
